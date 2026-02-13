@@ -92,12 +92,11 @@ export const WhyUs = () => {
               key={i}
               variants={fadeUpVariants}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="relative p-8 rounded-3xl bg-gradient-to-b from-slate-900/80 to-slate-900/30 border border-slate-800/50 hover:border-violet-500/30 transition-all group text-center"
+              className="relative p-8 rounded-3xl bg-linear-to-b from-slate-900/80 to-slate-900/30 border border-slate-800/50 hover:border-violet-500/30 transition-[border-color,transform] duration-300 group text-center hover:-translate-y-1.5"
             >
               {diff.stat && (
                 <div className="mb-4">
-                  <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-300">
+                  <div className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
                     <AnimatedStat value={diff.stat} isInView={statsInView} />
                   </div>
                   <div className="text-xs text-slate-500 uppercase tracking-wider mt-1">

@@ -42,10 +42,10 @@ export const Projects = () => {
               key={project.id}
               variants={fadeUpVariants}
               transition={{ duration: 0.4 }}
-              className="group rounded-3xl bg-slate-900/50 border border-slate-800/50 overflow-hidden hover:border-violet-500/30 transition-all cursor-pointer hover:-translate-y-2"
+              className="group rounded-3xl bg-slate-900/50 border border-slate-800/50 overflow-hidden hover:border-violet-500/30 transition-[border-color,transform] duration-300 cursor-pointer hover:-translate-y-2"
             >
               <div
-                className={`h-48 bg-gradient-to-br ${project.image} relative overflow-hidden`}
+                className={`h-48 bg-linear-to-br ${project.image} relative overflow-hidden`}
               >
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

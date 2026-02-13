@@ -38,7 +38,7 @@ export const Pricing = () => {
             Planes Transparentes
           </h2>
           <p className="text-slate-400 max-w-md mx-auto">
-            Escalamos contigo, desde el MVP hasta el Enterprise.
+            Escalamos contigo, desde lo básico hasta lo más complejo.
           </p>
         </motion.div>
 
@@ -81,8 +81,7 @@ export const Pricing = () => {
               key={plan.id}
               variants={fadeUpVariants}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className={`relative p-6 md:p-8 rounded-3xl border flex flex-col transition-all ${
+              className={`relative p-6 md:p-8 rounded-3xl border flex flex-col transition-[border-color,transform] duration-300 hover:-translate-y-1.5 ${
                 plan.highlight
                   ? "bg-slate-900 border-violet-500 shadow-2xl shadow-violet-900/20 md:scale-105 z-10"
                   : "bg-slate-950 border-slate-800 hover:border-slate-700"
@@ -106,7 +105,7 @@ export const Pricing = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.25 }}
-                    className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-300"
+                    className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300"
                   >
                     {plan.prices[activeTab]}
                   </motion.div>

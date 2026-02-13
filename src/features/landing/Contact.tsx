@@ -63,8 +63,7 @@ export const Contact = () => {
                 href={method.href}
                 variants={fadeUpVariants}
                 transition={{ delay: i * 0.1 }}
-                whileHover={{ x: 6, transition: { duration: 0.2 } }}
-                className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:border-violet-500/30 transition-all group"
+                className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:border-violet-500/30 transition-[border-color,transform] duration-300 group hover:translate-x-1.5"
               >
                 <div className="w-12 h-12 bg-violet-900/30 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-violet-900/50 transition-colors">
                   <method.icon className="text-violet-400 w-5 h-5" />
@@ -80,14 +79,14 @@ export const Contact = () => {
 
             <motion.div
               variants={fadeUpVariants}
-              className="p-6 rounded-2xl bg-gradient-to-br from-violet-900/20 to-slate-900/50 border border-violet-500/20"
+              className="p-6 rounded-2xl bg-linear-to-br from-violet-900/20 to-slate-900/50 border border-violet-500/20"
             >
               <p className="text-sm text-slate-300 italic leading-relaxed">
                 "DETDevs transformó nuestra operación. El sistema de facturación
                 nos ahorró 15 horas semanales de trabajo manual."
               </p>
               <div className="mt-3 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500" />
+                <div className="w-8 h-8 rounded-full bg-linear-to-r from-violet-500 to-indigo-500" />
                 <div>
                   <div className="text-xs font-bold text-white">
                     Cliente Satisfecho
@@ -114,7 +113,7 @@ export const Contact = () => {
                 <input
                   type="text"
                   placeholder="Tu nombre"
-                  className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-all text-sm"
+                  className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
                 />
               </div>
               <div>
@@ -124,7 +123,7 @@ export const Contact = () => {
                 <input
                   type="email"
                   placeholder="correo@empresa.com"
-                  className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-all text-sm"
+                  className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
                 />
               </div>
             </div>
@@ -133,7 +132,7 @@ export const Contact = () => {
               <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">
                 Tipo de proyecto
               </label>
-              <select className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-all text-sm appearance-none cursor-pointer">
+              <select className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm appearance-none cursor-pointer">
                 <option value="" className="bg-slate-900">
                   Selecciona una opción
                 </option>
@@ -162,7 +161,7 @@ export const Contact = () => {
               <textarea
                 rows={5}
                 placeholder="Describe brevemente tu proyecto y qué problema quieres resolver..."
-                className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-all text-sm resize-none"
+                className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm resize-none"
               />
             </div>
 

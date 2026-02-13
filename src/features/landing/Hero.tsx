@@ -20,7 +20,7 @@ export const Hero = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div
           style={{ y: glowY, willChange: "transform" }}
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-violet-600/15 blur-[80px] rounded-full"
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-violet-600/15 blur-[60px] rounded-full"
         />
       </div>
 

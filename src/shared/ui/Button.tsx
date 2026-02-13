@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import type { ButtonProps } from "../../core/types";
 
 export const Button = ({
@@ -10,7 +9,7 @@ export const Button = ({
   type = "button",
 }: ButtonProps) => {
   const baseStyle =
-    "px-5 py-3 rounded-full font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base cursor-pointer";
+    "px-5 py-3 rounded-full font-medium transition-[background-color,transform,border-color] duration-200 flex items-center justify-center gap-2 text-sm md:text-base cursor-pointer active:scale-[0.98] hover:scale-[1.02]";
 
   const styles = {
     primary:
@@ -23,15 +22,13 @@ export const Button = ({
   };
 
   return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+    <button
       className={`${baseStyle} ${styles[variant]} ${className}`}
       onClick={onClick}
       disabled={disabled}
       type={type}
     >
       {children}
-    </motion.button>
+    </button>
   );
 };

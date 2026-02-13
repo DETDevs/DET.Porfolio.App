@@ -133,13 +133,13 @@ export const DIFFERENTIATORS: Differentiator[] = [
 export const PLANS: PricingPlan[] = [
     {
         id: 'starter',
-        title: "MVP / Startup",
+        title: "Tu Sitio Web",
         prices: {
             monthly: "$$$$",
             annual: "$$$$",
             project: "$$$$",
         },
-        desc: "Lanza tu idea rápido. Web corporativa o Landing de producto.",
+        desc: "Tu negocio en internet. Web profesional o landing de producto.",
         features: [
             "Diseño Mobile First",
             "Hosting Configurado",
@@ -172,21 +172,21 @@ export const PLANS: PricingPlan[] = [
     },
     {
         id: 'enterprise',
-        title: "Ingeniería Custom",
+        title: "Solución a Medida",
         prices: {
             monthly: "Cotizar",
             annual: "Cotizar",
             project: "Cotizar",
         },
-        desc: "Arquitecturas complejas para alto volumen de datos.",
+        desc: "Proyecto completo diseñado 100% para las necesidades de tu empresa.",
         features: [
-            "Arquitectura a medida",
-            "Apps Móviles Full",
-            "Auditoría de Seguridad",
-            "Infraestructura Dedicada",
-            "SLA Garantizado",
-            "Equipo asignado",
-            "Consultoría estratégica",
+            "Diseño y desarrollo a medida",
+            "Apps Móviles iOS y Android",
+            "Seguridad garantizada",
+            "Servidor dedicado",
+            "Soporte prioritario",
+            "Equipo asignado a tu proyecto",
+            "Asesoría personalizada",
         ],
         highlight: false,
     },
