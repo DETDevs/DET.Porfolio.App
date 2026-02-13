@@ -1,73 +1,102 @@
-# React + TypeScript + Vite
+# 🟣 DETDevs — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio web corporativo de **DETDevs Engineering**, construido con React, Tailwind CSS v4 y Framer Motion.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-FF0055?logo=framer&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Stack Tecnológico
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Categoría   | Tecnología               |
+| ----------- | ------------------------ |
+| Framework   | React 19                 |
+| Bundler     | Vite 7                   |
+| Lenguaje    | TypeScript 5.9           |
+| Estilos     | Tailwind CSS v4 (plugin) |
+| Animaciones | Framer Motion 12         |
+| Iconos      | Lucide React             |
+| Tipografía  | Inter (Google Fonts)     |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📁 Estructura del Proyecto
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── config/
+│   └── constants.ts          # Datos centralizados (servicios, proyectos, planes, contacto)
+├── core/
+│   └── types/index.ts        # Interfaces TypeScript compartidas
+├── features/
+│   ├── landing/
+│   │   ├── Hero.tsx           # Sección principal con parallax y CTAs
+│   │   ├── Services.tsx       # 8 servicios orientados a negocio
+│   │   ├── Projects.tsx       # Portafolio de 6 proyectos con gradientes
+│   │   ├── WhyUs.tsx          # Diferenciadores con contadores animados
+│   │   ├── Pricing.tsx        # Planes con tabs animadas (mensual/anual/proyecto)
+│   │   └── Contact.tsx        # Formulario de contacto + testimonial
+│   └── layout/
+│       ├── Navbar.tsx         # Navegación fija con smooth scroll
+│       └── Footer.tsx         # Pie de página
+├── shared/
+│   ├── hooks/
+│   │   └── useScrollReveal.ts # Hook + variantes de animación reutilizables
+│   └── ui/
+│       ├── Button.tsx         # Botón reutilizable con variantes
+│       └── Section.tsx        # Wrapper de sección con scroll-margin
+├── App.tsx                    # Root con lazy loading
+├── main.tsx                   # Entry point
+└── index.css                  # Estilos base + scrollbar custom
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚡ Optimizaciones de Rendimiento
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Lazy Loading** — Secciones debajo del fold se cargan bajo demanda (`React.lazy` + `Suspense`)
+- **Code Splitting** — Cada sección genera su propio chunk en el build
+- **CSS Hover** — Transiciones hover con CSS puro en vez de Framer Motion (menos re-renders)
+- **GPU Optimizado** — Blur reducido en efectos de fondo, `will-change: transform` donde aplica
+- **Smooth Scroll** — Navegación con anchor tags nativos + `scroll-behavior: smooth`
+
+---
+
+## 🛠️ Desarrollo
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Build de producción
+npm run build
+
+# Preview del build
+npm run preview
 ```
+
+---
+
+## 🎨 Secciones
+
+| Sección       | Descripción                                                           |
+| ------------- | --------------------------------------------------------------------- |
+| **Hero**      | Título con parallax, badge animado y CTAs                             |
+| **Servicios** | 8 cards de servicios orientados a negocio (facturación, inventarios…) |
+| **Proyectos** | Grid de 6 proyectos con gradientes, tags y hover effects              |
+| **WhyUs**     | 4 diferenciadores con estadísticas animadas (counter)                 |
+| **Pricing**   | 3 planes con tabs animadas para mensual/anual/proyecto completo       |
+| **Contacto**  | Formulario, info de contacto y testimonial                            |
+
+---
+
+## 📄 Licencia
+
+Uso privado — **DETDevs Engineering** © 2026
