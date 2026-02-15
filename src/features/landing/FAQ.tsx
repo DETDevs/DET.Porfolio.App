@@ -25,29 +25,14 @@ const FAQ_DATA = [
       "En 3 a 5 semanas tu proyecto está listo. Proyectos más grandes pueden tomar de 1 a 3 meses, dependiendo de la complejidad. En cualquier caso, siempre mantenemos comunicación directa para que estés al tanto de cada avance.",
   },
   {
-    question: "¿Qué tecnologías usan para desarrollar?",
-    answer:
-      "Trabajamos con React, TypeScript, Node.js, .Net, bases de datos SQL y NoSQL, y herramientas modernas de despliegue. Elegimos la tecnología que mejor se adapte a tu proyecto, no al revés.",
-  },
-  {
     question: "¿Ofrecen soporte después de la entrega?",
     answer:
       "Sí. No desaparecemos después de entregar. Todos nuestros planes incluyen soporte técnico y mantenimiento. Tu sistema evoluciona con tu negocio.",
   },
   {
-    question: "¿Puedo solicitar cambios durante el desarrollo?",
-    answer:
-      "Por supuesto. Trabajamos con metodologías ágiles donde vos sos parte del proceso. Iteramos juntos hasta que el producto sea exactamente lo que necesitás.",
-  },
-  {
     question: "¿Trabajan solo con empresas de Nicaragua?",
     answer:
       "No, trabajamos con clientes de toda Latinoamérica y el mundo. Somos de Nicaragua, pero nuestros sistemas no tienen fronteras.",
-  },
-  {
-    question: "¿Incluyen capacitación para usar el sistema?",
-    answer:
-      "Sí. Cada proyecto incluye capacitación personalizada para vos y tu equipo. Además, entregamos un manual de uso para que todos puedan operar el sistema sin depender de nosotros.",
   },
 ];
 

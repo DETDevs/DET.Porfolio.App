@@ -44,7 +44,7 @@ export const Pricing = () => {
 
         <motion.div
           variants={fadeUpVariants}
-          className="flex justify-center mb-12"
+          className="flex justify-center mb-4"
         >
           <div className="inline-flex bg-slate-900 rounded-full p-1 border border-slate-800">
             {TAB_LABELS.map((tab) => (
@@ -74,88 +74,138 @@ export const Pricing = () => {
           </div>
         </motion.div>
 
+        <motion.p
+          variants={fadeUpVariants}
+          className="text-center text-xs text-slate-500 mb-10"
+        >
+          Los precios corresponden a la{" "}
+          <span className="text-slate-400 font-medium">membresía mensual</span>,
+          que incluye hosting, soporte, mantenimiento y copias de seguridad.
+        </motion.p>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-          {PLANS.map((plan, i) => (
-            <motion.div
-              key={plan.id}
-              variants={fadeUpVariants}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative p-6 md:p-8 rounded-3xl border flex flex-col transition-[border-color,transform] duration-300 hover:-translate-y-1.5 ${
-                plan.highlight
-                  ? "bg-slate-900 border-violet-500 shadow-2xl shadow-violet-900/20 md:scale-105 z-10"
-                  : "bg-slate-950 border-slate-800 hover:border-slate-700"
-              }`}
-            >
-              {plan.highlight && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-violet-600 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
-                  Recomendado
-                </div>
-              )}
+          {PLANS.map((plan, i) => {
+            const isEnterprise = plan.id === "enterprise";
 
-              <h3 className="text-xl font-bold text-white mb-2">
-                {plan.title}
-              </h3>
-
-              <div className="mb-4 h-10 flex items-center">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeTab}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300"
-                  >
-                    {plan.prices[activeTab]}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              <p className="text-slate-400 text-sm mb-6 min-h-[40px]">
-                {plan.desc}
-              </p>
-
-              <div className="space-y-3 mb-8 flex-1">
-                {plan.features.map((feat, fi) => (
-                  <div
-                    key={fi}
-                    className="flex items-start gap-3 text-sm text-slate-300"
-                  >
-                    <Check className="w-4 h-4 text-violet-500 mt-0.5 shrink-0" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="no-underline"
+            return (
+              <motion.div
+                key={plan.id}
+                variants={fadeUpVariants}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className={`relative p-6 md:p-8 rounded-3xl border flex flex-col transition-[border-color,transform] duration-300 hover:-translate-y-1.5 ${
+                  plan.highlight
+                    ? "bg-slate-900 border-violet-500 shadow-2xl shadow-violet-900/20 md:scale-105 z-10"
+                    : "bg-slate-950 border-slate-800 hover:border-slate-700"
+                }`}
               >
-                <Button
-                  variant={plan.highlight ? "primary" : "outline"}
-                  className="w-full"
-                >
-                  Solicitar
-                </Button>
-              </a>
+                {plan.highlight && (
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-violet-600 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
+                    Recomendado
+                  </div>
+                )}
 
-              <p className="text-[10px] text-slate-500 text-center mt-3">
-                *Aplican restricciones
-              </p>
-            </motion.div>
-          ))}
+                <h3 className="text-xl font-bold text-white mb-4">
+                  {plan.title}
+                </h3>
+
+                {isEnterprise ? (
+                  <div className="mb-5">
+                    <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                      Cotizar
+                    </span>
+                  </div>
+                ) : (
+                  <div className="mb-5 space-y-2">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                        Implementación
+                      </span>
+                      <span className="text-sm font-bold text-white">
+                        {plan.implementationPrice}
+                      </span>
+                    </div>
+
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                        Membresía
+                      </span>
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={activeTab}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.2 }}
+                          className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300"
+                        >
+                          {plan.prices[activeTab]}
+                          <span className="text-sm text-slate-500 font-normal">
+                            /mes
+                          </span>
+                        </motion.span>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                )}
+
+                <p className="text-slate-400 text-sm mb-5">{plan.desc}</p>
+
+                <div className="space-y-2 mb-2">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400">
+                    {isEnterprise ? "Qué incluye" : "Desarrollo"}
+                  </p>
+                  {plan.devFeatures.map((feat: string, fi: number) => (
+                    <div
+                      key={fi}
+                      className="flex items-start gap-3 text-sm text-slate-300"
+                    >
+                      <Check className="w-4 h-4 text-violet-500 mt-0.5 shrink-0" />
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-2 mb-6">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 mt-3">
+                    {isEnterprise ? "Soporte" : "Membresía"}
+                  </p>
+                  {plan.membershipFeatures.map((feat: string, fi: number) => (
+                    <div
+                      key={fi}
+                      className="flex items-start gap-3 text-sm text-slate-300"
+                    >
+                      <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-auto">
+                  <a
+                    href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="no-underline"
+                  >
+                    <Button
+                      variant={plan.highlight ? "primary" : "outline"}
+                      className="w-full"
+                    >
+                      Solicitar
+                    </Button>
+                  </a>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.p
           variants={fadeUpVariants}
-          className="text-center text-xs text-slate-500 mt-8 max-w-xl mx-auto leading-relaxed"
+          className="text-center text-xs text-slate-500 mt-8 max-w-lg mx-auto leading-relaxed"
         >
-          Los precios corresponden a la{" "}
-          <span className="text-slate-400 font-medium">membresía mensual</span>,
-          que incluye hosting, soporte técnico, mantenimiento y copias de
-          seguridad.
+          Tu sistema es 100% tuyo. La membresía cubre mantenimiento y soporte
+          continuo.
         </motion.p>
       </motion.div>
     </Section>

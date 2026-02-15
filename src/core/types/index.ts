@@ -27,13 +27,15 @@ export interface Differentiator {
 export interface PricingPlan {
     id: string;
     title: string;
+    implementationPrice: string;
     prices: {
         monthly: string;
         semiannual: string;
         annual: string;
     };
     desc: string;
-    features: string[];
+    devFeatures: string[];
+    membershipFeatures: string[];
     highlight: boolean;
 }
 
