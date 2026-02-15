@@ -20,7 +20,7 @@ export const Footer = () => (
         DETDevs
       </div>
       <div className="text-xs text-slate-500 text-center md:text-right">
-        © {new Date().getFullYear()} DETDevs Engineering.
+        © {new Date().getFullYear()} DETDevs.
         <br />
         Nicaragua to the World.
       </div>
