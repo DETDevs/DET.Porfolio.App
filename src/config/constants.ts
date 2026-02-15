@@ -182,7 +182,7 @@ export const PLANS: PricingPlan[] = [
     },
 ];
 export const CONTACT_INFO = {
-    email: "contact@detdevs.com",
+    email: "contacto@detdevs.com",
     phone: "+505 8714-0989",
     location: "Managua, Nicaragua",
 };
