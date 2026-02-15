@@ -46,11 +46,17 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="flex justify-center mb-4"
         >
-          <div className="inline-flex bg-slate-900 rounded-full p-1 border border-slate-800">
+          <div
+            className="inline-flex bg-slate-900 rounded-full p-1 border border-slate-800"
+            role="tablist"
+            aria-label="Período de pago"
+          >
             {TAB_LABELS.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
+                role="tab"
+                aria-selected={activeTab === tab.key}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeTab === tab.key
                     ? "bg-violet-600 text-white shadow-lg shadow-violet-500/25"

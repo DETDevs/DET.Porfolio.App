@@ -56,25 +56,44 @@ export const Contact = () => {
             transition={{ duration: 0.6 }}
             className="lg:col-span-2 space-y-6"
           >
-            {contactMethods.map((method, i) => (
-              <motion.a
-                key={i}
-                href={method.href}
-                variants={fadeUpVariants}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:border-violet-500/30 transition-[border-color,transform] duration-300 group hover:translate-x-1.5"
-              >
-                <div className="w-12 h-12 bg-violet-900/30 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-violet-900/50 transition-colors">
-                  <method.icon className="text-violet-400 w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wider">
-                    {method.label}
+            {contactMethods.map((method, i) =>
+              method.href ? (
+                <motion.a
+                  key={i}
+                  href={method.href}
+                  variants={fadeUpVariants}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:border-violet-500/30 transition-[border-color,transform] duration-300 group hover:translate-x-1.5"
+                >
+                  <div className="w-12 h-12 bg-violet-900/30 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-violet-900/50 transition-colors">
+                    <method.icon className="text-violet-400 w-5 h-5" />
                   </div>
-                  <div className="text-white font-medium">{method.value}</div>
-                </div>
-              </motion.a>
-            ))}
+                  <div>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider">
+                      {method.label}
+                    </div>
+                    <div className="text-white font-medium">{method.value}</div>
+                  </div>
+                </motion.a>
+              ) : (
+                <motion.div
+                  key={i}
+                  variants={fadeUpVariants}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/50"
+                >
+                  <div className="w-12 h-12 bg-violet-900/30 rounded-xl flex items-center justify-center shrink-0">
+                    <method.icon className="text-violet-400 w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider">
+                      {method.label}
+                    </div>
+                    <div className="text-white font-medium">{method.value}</div>
+                  </div>
+                </motion.div>
+              ),
+            )}
 
             <motion.div
               variants={fadeUpVariants}
