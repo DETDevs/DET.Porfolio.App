@@ -109,27 +109,13 @@ export const Pricing = () => {
                 </h3>
 
                 {isEnterprise ? (
-                  <div className="mb-5 space-y-2">
-                    <div className="flex items-baseline gap-2">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                          Desarrollo
-                        </span>
-                      </div>
-                      <span className="text-sm font-bold text-white">
-                        bajo cotización
-                      </span>
-                    </div>
-                    <div className="flex items-baseline gap-2">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                          Mantenimiento
-                        </span>
-                      </div>
-                      <span className="text-lg font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
-                        según alcance
-                      </span>
-                    </div>
+                  <div className="mb-5">
+                    <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                      Cotizar
+                    </span>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      Desarrollo + mantenimiento según alcance.
+                    </p>
                   </div>
                 ) : (
                   <div className="mb-5 space-y-2">
@@ -218,7 +204,7 @@ export const Pricing = () => {
                       variant={plan.highlight ? "primary" : "outline"}
                       className="w-full"
                     >
-                      Solicitar
+                      {isEnterprise ? "Solicitar" : "Solicitar"}
                     </Button>
                   </a>
                 </div>
