@@ -9,7 +9,7 @@ export const SERVICES: ServiceItem[] = [
     {
         icon: FileText,
         title: "Sistema de Facturación",
-        desc: "Automatiza tu facturación electrónica con reportes en tiempo real y cumplimiento fiscal.",
+        desc: "Generá facturas automáticas, llevá control de lo que vendés, y tené tus números claros.",
     },
     {
         icon: Package,
@@ -19,7 +19,7 @@ export const SERVICES: ServiceItem[] = [
     {
         icon: Users,
         title: "Gestión de Clientes",
-        desc: "CRM completo para administrar relaciones, historial y comunicación con tus clientes.",
+        desc: "Llevá un registro ordenado de tus clientes, lo que han comprado, y nunca pierdas un contacto.",
     },
     {
         icon: ClipboardList,
@@ -28,8 +28,8 @@ export const SERVICES: ServiceItem[] = [
     },
     {
         icon: BarChart3,
-        title: "Dashboards & KPIs",
-        desc: "Indicadores clave de rendimiento y paneles visuales para tomar mejores decisiones.",
+        title: "Resumen de tu Negocio",
+        desc: "Mirá cómo va tu negocio de un vistazo: ventas del día, productos más vendidos, ganancias.",
     },
     {
         icon: FileBarChart,
@@ -75,18 +75,18 @@ export const PROJECTS: Project[] = [
     },
     {
         id: 4,
-        title: "AgroTrack — Dashboard Logístico",
-        category: "KPIs",
+        title: "AgroTrack Dashboard Logístico",
+        category: "Gestión",
         description: "Panel de control para cooperativa agrícola con métricas de producción, trazabilidad de lotes y reportes exportables.",
-        tags: ["KPIs", "Reportes", "Trazabilidad"],
+        tags: ["Dashboard", "Gestión", "Reportes"],
         image: "from-orange-600 to-red-900",
     },
     {
         id: 5,
-        title: "PideLo — App de Delivery",
-        category: "Móvil",
+        title: "PideLo App de Delivery",
+        category: "App",
         description: "Aplicación móvil de delivery con tracking en tiempo real, notificaciones push, pasarela de pagos y panel de restaurantes.",
-        tags: ["iOS", "Android", "Geolocalización"],
+        tags: ["App Móvil", "Delivery", "Pagos"],
         image: "from-pink-600 to-rose-900",
     },
 ];

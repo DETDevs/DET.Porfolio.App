@@ -147,6 +147,16 @@ export const Pricing = () => {
             </motion.div>
           ))}
         </div>
+
+        <motion.p
+          variants={fadeUpVariants}
+          className="text-center text-xs text-slate-500 mt-8 max-w-xl mx-auto leading-relaxed"
+        >
+          Los precios corresponden a la{" "}
+          <span className="text-slate-400 font-medium">membresía mensual</span>,
+          que incluye hosting, soporte técnico, mantenimiento y copias de
+          seguridad.
+        </motion.p>
       </motion.div>
     </Section>
   );

@@ -15,6 +15,11 @@ const FAQ_DATA = [
       "El costo varía según las funcionalidades que necesites. Ofrecemos planes desde sitios web básicos hasta sistemas completos a medida. Contactanos para una cotización personalizada sin compromiso.",
   },
   {
+    question: "¿Qué incluye la membresía mensual?",
+    answer:
+      "La membresía cubre hosting, soporte técnico, mantenimiento, copias de seguridad y actualizaciones del sistema. Es todo lo que necesitás para que tu software funcione sin preocupaciones. El desarrollo se cotiza aparte.",
+  },
+  {
     question: "¿En cuánto tiempo entregan un proyecto?",
     answer:
       "En 3 a 5 semanas tu proyecto está listo. Proyectos más grandes pueden tomar de 1 a 3 meses, dependiendo de la complejidad. En cualquier caso, siempre mantenemos comunicación directa para que estés al tanto de cada avance.",

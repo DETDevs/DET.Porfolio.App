@@ -57,8 +57,8 @@ export const Hero = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
         >
-          Facturación, inventarios, apps, webs y más. Diseñamos la tecnología
-          que tu negocio necesita para crecer.
+          Somos un equipo en Nicaragua que diseña software a la medida de tu
+          negocio. Facturación, inventarios, apps, webs y más.
         </motion.p>
 
         <motion.div
