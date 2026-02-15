@@ -78,9 +78,9 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="text-center text-xs text-slate-500 mb-10"
         >
-          Los precios corresponden a la{" "}
-          <span className="text-slate-400 font-medium">membresía mensual</span>,
-          que incluye hosting, soporte, mantenimiento y copias de seguridad.
+          Las opciones Mensual/Semestral/Anual aplican al{" "}
+          <span className="text-slate-400 font-medium">mantenimiento</span>. El
+          desarrollo se paga una sola vez.
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
@@ -109,32 +109,47 @@ export const Pricing = () => {
                 </h3>
 
                 {isEnterprise ? (
-                  <div className="mb-5">
-                    <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
-                      Cotizar
-                    </span>
+                  <div className="mb-5 space-y-2">
+                    <div className="flex items-baseline gap-2">
+                      <div className="flex flex-col">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                          Desarrollo
+                        </span>
+                      </div>
+                      <span className="text-sm font-bold text-white">
+                        bajo cotización
+                      </span>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <div className="flex flex-col">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                          Mantenimiento
+                        </span>
+                      </div>
+                      <span className="text-lg font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                        según alcance
+                      </span>
+                    </div>
                   </div>
                 ) : (
                   <div className="mb-5 space-y-2">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                        Desarrollo{" "}
-                        <span className="normal-case text-[10px] text-slate-600">
-                          (pago único)
+                      <div className="flex flex-col">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                          Desarrollo
                         </span>
-                      </span>
+                      </div>
                       <span className="text-sm font-bold text-white">
                         {plan.implementationPrice}
                       </span>
                     </div>
 
                     <div className="flex items-baseline gap-2">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                        Mantenimiento{" "}
-                        <span className="normal-case text-[10px] text-slate-600">
-                          (mensual)
+                      <div className="flex flex-col">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                          Mantenimiento
                         </span>
-                      </span>
+                      </div>
                       <AnimatePresence mode="wait">
                         <motion.span
                           key={activeTab}
@@ -158,7 +173,7 @@ export const Pricing = () => {
 
                 <div className="space-y-2 mb-2">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400">
-                    {isEnterprise ? "Qué incluye" : "Tu proyecto"}
+                    Desarrollo
                   </p>
                   {plan.devFeatures.map((feat: string, fi: number) => (
                     <div
@@ -186,6 +201,12 @@ export const Pricing = () => {
                   ))}
                 </div>
 
+                {!isEnterprise && (
+                  <p className="text-[10px] text-slate-600 mb-6">
+                    Mejoras nuevas se cotizan aparte.
+                  </p>
+                )}
+
                 <div className="mt-auto">
                   <a
                     href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
@@ -210,8 +231,8 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="text-center text-xs text-slate-500 mt-8 max-w-lg mx-auto leading-relaxed"
         >
-          Tu sistema es 100% tuyo. La membresía cubre mantenimiento y soporte
-          continuo.
+          Tu sistema es tuyo. Solo pagás una vez el desarrollo y luego el
+          mantenimiento (mensual/semestral/anual).
         </motion.p>
       </motion.div>
     </Section>
