@@ -20,6 +20,23 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const hero = document.querySelector("#hero");
+    if (hero) {
+      hero.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsOpen(false);
+  };
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out border-b py-3 ${
@@ -29,16 +46,21 @@ export const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
-        <span className="font-bold text-xl tracking-tighter text-white flex items-center gap-2">
+        <a
+          href="#"
+          onClick={scrollToTop}
+          className="font-bold text-xl tracking-tighter text-white flex items-center gap-2 no-underline cursor-pointer"
+        >
           <div className="w-3 h-3 rounded-full bg-violet-500 shadow-[0_0_10px_#8b5cf6]" />
           DETDevs
-        </span>
+        </a>
 
         <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="hover:text-violet-400 transition-colors no-underline text-slate-400"
             >
               {link.label}
@@ -47,7 +69,11 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden md:block">
-          <a href="#contacto" className="no-underline">
+          <a
+            href="#contacto"
+            onClick={(e) => handleNavClick(e, "#contacto")}
+            className="no-underline"
+          >
             <Button variant="outline" className="!py-2 !px-4 text-xs">
               Iniciar Proyecto
             </Button>
@@ -75,7 +101,7 @@ export const Navbar = () => {
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="text-slate-300 py-2.5 hover:bg-white/5 rounded-lg no-underline text-sm block"
                 >
                   {link.label}
@@ -83,7 +109,7 @@ export const Navbar = () => {
               ))}
               <a
                 href="#contacto"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleNavClick(e, "#contacto")}
                 className="no-underline"
               >
                 <Button variant="primary" className="w-full mt-2">
