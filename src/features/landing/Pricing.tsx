@@ -10,12 +10,12 @@ import {
   staggerContainer,
 } from "../../shared/hooks/useScrollReveal";
 
-type PricingTab = "monthly" | "annual" | "project";
+type PricingTab = "monthly" | "semiannual" | "annual";
 
-const TAB_LABELS: { key: PricingTab; label: string }[] = [
+const TAB_LABELS: { key: PricingTab; label: string; badge?: string }[] = [
   { key: "monthly", label: "Mensual" },
-  { key: "annual", label: "Anual" },
-  { key: "project", label: "Proyecto Completo" },
+  { key: "semiannual", label: "Semestral", badge: "-15%" },
+  { key: "annual", label: "Anual", badge: "-25%" },
 ];
 
 export const Pricing = () => {
@@ -51,23 +51,22 @@ export const Pricing = () => {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`relative px-5 py-2.5 text-sm font-medium rounded-full transition-colors cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeTab === tab.key
-                    ? "text-white"
-                    : "text-slate-400 hover:text-slate-200"
+                    ? "bg-violet-600 text-white shadow-lg shadow-violet-500/25"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
-                {activeTab === tab.key && (
-                  <motion.div
-                    layoutId="pricing-tab"
-                    className="absolute inset-0 bg-violet-600 rounded-full"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.label}</span>
-                {tab.key === "annual" && (
-                  <span className="relative z-10 ml-1.5 text-[10px] font-bold text-emerald-400">
-                    -20%
+                {tab.label}
+                {tab.badge && (
+                  <span
+                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                      activeTab === tab.key
+                        ? "bg-white/20 text-white"
+                        : "bg-violet-500/20 text-violet-400"
+                    }`}
+                  >
+                    {tab.badge}
                   </span>
                 )}
               </button>
@@ -128,12 +127,23 @@ export const Pricing = () => {
                 ))}
               </div>
 
-              <Button
-                variant={plan.highlight ? "primary" : "outline"}
-                className="w-full"
+              <a
+                href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="no-underline"
               >
-                Solicitar
-              </Button>
+                <Button
+                  variant={plan.highlight ? "primary" : "outline"}
+                  className="w-full"
+                >
+                  Solicitar
+                </Button>
+              </a>
+
+              <p className="text-[10px] text-slate-500 text-center mt-3">
+                *Aplican restricciones
+              </p>
             </motion.div>
           ))}
         </div>

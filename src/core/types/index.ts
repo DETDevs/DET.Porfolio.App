@@ -13,7 +13,7 @@ export interface Project {
     category: string;
     description: string;
     tags: string[];
-    image: string; // gradient placeholder
+    image: string;
 }
 
 export interface Differentiator {
@@ -29,8 +29,8 @@ export interface PricingPlan {
     title: string;
     prices: {
         monthly: string;
+        semiannual: string;
         annual: string;
-        project: string;
     };
     desc: string;
     features: string[];

@@ -19,6 +19,9 @@ const Pricing = lazy(() =>
 const Contact = lazy(() =>
   import("./features/landing/Contact").then((m) => ({ default: m.Contact })),
 );
+const FAQ = lazy(() =>
+  import("./features/landing/FAQ").then((m) => ({ default: m.FAQ })),
+);
 
 const App = () => {
   return (
@@ -32,6 +35,7 @@ const App = () => {
           <WhyUs />
           <Pricing />
           <Contact />
+          <FAQ />
         </Suspense>
       </main>
       <Footer />

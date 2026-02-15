@@ -80,21 +80,13 @@ export const Contact = () => {
               variants={fadeUpVariants}
               className="p-6 rounded-2xl bg-linear-to-br from-violet-900/20 to-slate-900/50 border border-violet-500/20"
             >
-              <p className="text-sm text-slate-300 italic leading-relaxed">
-                "DETDevs transformó nuestra operación. El sistema de facturación
-                nos ahorró 15 horas semanales de trabajo manual."
+              <p className="text-sm text-white font-semibold mb-1">
+                ¿Tenés una idea?
               </p>
-              <div className="mt-3 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-linear-to-r from-violet-500 to-indigo-500" />
-                <div>
-                  <div className="text-xs font-bold text-white">
-                    Cliente Satisfecho
-                  </div>
-                  <div className="text-xs text-slate-500">
-                    CEO, Empresa Tech
-                  </div>
-                </div>
-              </div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Nosotros la convertimos en software. Sin compromiso, sin rodeos.
+                Solo una conversación para entender qué necesitás.
+              </p>
             </motion.div>
           </motion.div>
 
