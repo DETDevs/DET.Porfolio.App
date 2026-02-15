@@ -20,21 +20,24 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSection = (href: string) => {
+    setIsOpen(false);
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 300);
+  };
+
   const scrollToTop = (e: React.MouseEvent) => {
     e.preventDefault();
-    const hero = document.querySelector("#hero");
-    if (hero) {
-      hero.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSection("#hero");
   };
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsOpen(false);
+    scrollToSection(href);
   };
 
   return (
