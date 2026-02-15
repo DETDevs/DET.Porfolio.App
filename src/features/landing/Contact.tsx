@@ -43,11 +43,10 @@ export const Contact = () => {
             Contacto
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Iniciemos tu proyecto
+            ¿Listo para dejar de complicarte?
           </h2>
           <p className="text-slate-400 max-w-lg mx-auto">
-            Cuéntanos tu idea y te responderemos en menos de 24 horas con un
-            plan de acción personalizado.
+            Contanos tu idea. En 24 horas tenés un plan, no un PDF bonito.
           </p>
         </motion.div>
 

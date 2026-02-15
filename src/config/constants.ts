@@ -103,14 +103,14 @@ export const DIFFERENTIATORS: Differentiator[] = [
     {
         icon: Zap,
         title: "Entrega Rápida",
-        desc: "MVPs funcionales en semanas, no meses. Iteramos contigo desde el día uno.",
+        desc: "Mientras otros cotizan, nosotros ya vamos por la mitad.",
         stat: "2-4",
         statLabel: "semanas para MVP",
     },
     {
         icon: Shield,
         title: "Código Blindado",
-        desc: "Arquitectura segura, pruebas automatizadas y documentación completa en cada entrega.",
+        desc: "Código que no se cae el viernes a las 5pm.",
         stat: "100%",
         statLabel: "test coverage",
     },
@@ -139,7 +139,7 @@ export const PLANS: PricingPlan[] = [
             annual: "$$$$",
             project: "$$$$",
         },
-        desc: "Tu negocio en internet. Web profesional o landing de producto.",
+        desc: "Todo lo que necesitás para vender online, sin Excel, sin dolor de cabeza.",
         features: [
             "Diseño moderno y adaptable",
             "Carga rápida y estable 24/7",
@@ -158,7 +158,7 @@ export const PLANS: PricingPlan[] = [
             annual: "$$$$",
             project: "$$$$",
         },
-        desc: "Automatiza tu operación diaria. Sistemas a tu medida.",
+        desc: "Dejá de hacer todo a mano. Tu operación merece un sistema de verdad.",
         features: [
             "Sistema de Facturacion",
             "Control de inventario en tiempo real",
@@ -177,7 +177,7 @@ export const PLANS: PricingPlan[] = [
             annual: "Cotizar",
             project: "Cotizar",
         },
-        desc: "Proyecto completo diseñado 100% para las necesidades de tu empresa.",
+        desc: "Tu problema es único. Tu solución también debería serlo.",
         features: [
             "Software 100% Personalizado (Web/App)",
             "Diseño según necesidades reales",
@@ -190,7 +190,7 @@ export const PLANS: PricingPlan[] = [
     },
 ];
 export const CONTACT_INFO = {
-    email: "hola@detdevs.com",
+    email: "contact@detdevs.com",
     phone: "+505 8714-0989",
     location: "Managua, Nicaragua",
 };

@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Navbar } from "./features/layout/Navbar";
 import { Footer } from "./features/layout/Footer";
 import { Hero } from "./features/landing/Hero";
+import { WhatsAppButton } from "./shared/ui/WhatsAppButton";
 
 const Services = lazy(() =>
   import("./features/landing/Services").then((m) => ({ default: m.Services })),
@@ -34,6 +35,7 @@ const App = () => {
         </Suspense>
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };
