@@ -118,7 +118,10 @@ export const Pricing = () => {
                   <div className="mb-5 space-y-2">
                     <div className="flex items-baseline gap-2">
                       <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                        Implementación
+                        Desarrollo{" "}
+                        <span className="normal-case text-[10px] text-slate-600">
+                          (pago único)
+                        </span>
                       </span>
                       <span className="text-sm font-bold text-white">
                         {plan.implementationPrice}
@@ -127,7 +130,10 @@ export const Pricing = () => {
 
                     <div className="flex items-baseline gap-2">
                       <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                        Membresía
+                        Mantenimiento{" "}
+                        <span className="normal-case text-[10px] text-slate-600">
+                          (mensual)
+                        </span>
                       </span>
                       <AnimatePresence mode="wait">
                         <motion.span
@@ -152,7 +158,7 @@ export const Pricing = () => {
 
                 <div className="space-y-2 mb-2">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400">
-                    {isEnterprise ? "Qué incluye" : "Desarrollo"}
+                    {isEnterprise ? "Qué incluye" : "Tu proyecto"}
                   </p>
                   {plan.devFeatures.map((feat: string, fi: number) => (
                     <div
@@ -167,7 +173,7 @@ export const Pricing = () => {
 
                 <div className="space-y-2 mb-6">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 mt-3">
-                    {isEnterprise ? "Soporte" : "Membresía"}
+                    {isEnterprise ? "Soporte" : "Mantenimiento"}
                   </p>
                   {plan.membershipFeatures.map((feat: string, fi: number) => (
                     <div

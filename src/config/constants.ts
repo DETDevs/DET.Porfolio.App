@@ -162,7 +162,7 @@ export const PLANS: PricingPlan[] = [
         ],
         membershipFeatures: [
             "Soporte cuando lo necesités",
-            "Actualizaciones y mejoras",
+            "Actualizaciones de seguridad",
             "Corrección de errores incluida",
         ],
         highlight: true,
