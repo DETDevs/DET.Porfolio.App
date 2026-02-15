@@ -86,6 +86,8 @@ export const Navbar = () => {
         <button
           className="md:hidden text-slate-200 bg-transparent border-none cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isOpen}
         >
           {isOpen ? <X /> : <Menu />}
         </button>

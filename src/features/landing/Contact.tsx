@@ -98,20 +98,28 @@ export const Contact = () => {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">
+                <label
+                  htmlFor="contact-name"
+                  className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+                >
                   Nombre
                 </label>
                 <input
+                  id="contact-name"
                   type="text"
                   placeholder="Tu nombre"
                   className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
                 />
               </div>
               <div>
-                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">
+                <label
+                  htmlFor="contact-email"
+                  className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+                >
                   Email
                 </label>
                 <input
+                  id="contact-email"
                   type="email"
                   placeholder="correo@empresa.com"
                   className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
@@ -120,10 +128,16 @@ export const Contact = () => {
             </div>
 
             <div>
-              <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">
+              <label
+                htmlFor="contact-project"
+                className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+              >
                 Tipo de proyecto
               </label>
-              <select className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm appearance-none cursor-pointer">
+              <select
+                id="contact-project"
+                className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm appearance-none cursor-pointer"
+              >
                 <option value="" className="bg-slate-900">
                   Selecciona una opción
                 </option>
@@ -146,10 +160,14 @@ export const Contact = () => {
             </div>
 
             <div>
-              <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">
+              <label
+                htmlFor="contact-message"
+                className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+              >
                 Cuéntanos tu idea
               </label>
               <textarea
+                id="contact-message"
                 rows={5}
                 placeholder="Describe brevemente tu proyecto y qué problema quieres resolver..."
                 className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm resize-none"
