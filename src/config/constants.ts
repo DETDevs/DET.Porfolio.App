@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
     },
     {
         id: 3,
-        title: "Dulces Momentos POS Integral",
+        title: "Bakery POS Integral",
         category: "Facturación",
         description: "Sistema punto de venta completo: facturación electrónica, inventario en tiempo real, control de caja (Cash In/Out) y gestión de pedidos.",
         tags: ["Facturación", "Inventario", "Pedidos", "Caja"],
