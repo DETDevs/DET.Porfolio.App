@@ -162,6 +162,7 @@ export const PLANS: PricingPlan[] = [
             "Implementación incluida",
             "Facturación + inventario + reportes",
             "Capacitación + manual de uso",
+            "Hasta 6 usuarios incluidos",
             "Entrega en 4-8 semanas",
         ],
         membershipFeatures: [
