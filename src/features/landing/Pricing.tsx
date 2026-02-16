@@ -84,9 +84,9 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="text-center text-xs text-slate-500 mb-10"
         >
-          Las opciones Mensual/Semestral/Anual aplican al{" "}
-          <span className="text-slate-400 font-medium">mantenimiento</span>. El
-          desarrollo se paga una sola vez.
+          Mensual / Semestral / Anual aplican a{" "}
+          <span className="text-slate-400 font-medium">Sistemas & Gestión</span>{" "}
+          (membresía).
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
@@ -123,41 +123,36 @@ export const Pricing = () => {
                       Desarrollo + mantenimiento según alcance.
                     </p>
                   </div>
+                ) : plan.implementationPrice ? (
+                  <div className="mb-5">
+                    <span className="text-xs font-medium uppercase tracking-wider text-slate-400 block mb-1">
+                      Desde
+                    </span>
+                    <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                      $350
+                    </span>
+                  </div>
                 ) : (
-                  <div className="mb-5 space-y-2">
-                    <div className="flex items-baseline gap-2">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                          Desarrollo
-                        </span>
-                      </div>
-                      <span className="text-sm font-bold text-white">
-                        {plan.implementationPrice}
-                      </span>
-                    </div>
-
-                    <div className="flex items-baseline gap-2">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                          Mantenimiento
-                        </span>
-                      </div>
-                      <AnimatePresence mode="wait">
-                        <motion.span
-                          key={activeTab}
-                          initial={{ opacity: 0, y: 6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -6 }}
-                          transition={{ duration: 0.2 }}
-                          className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300"
-                        >
+                  <div className="mb-5">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeTab}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
                           {plan.prices[activeTab]}
-                          <span className="text-sm text-slate-500 font-normal">
-                            /mes
-                          </span>
-                        </motion.span>
-                      </AnimatePresence>
-                    </div>
+                        </span>
+                        <span className="text-sm text-slate-500 font-normal">
+                          /mes
+                        </span>
+                      </motion.div>
+                    </AnimatePresence>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      por sucursal
+                    </p>
                   </div>
                 )}
 
@@ -165,7 +160,7 @@ export const Pricing = () => {
 
                 <div className="space-y-2 mb-2">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400">
-                    Desarrollo
+                    {plan.implementationPrice ? "Tu proyecto" : "Incluye"}
                   </p>
                   {plan.devFeatures.map((feat: string, fi: number) => (
                     <div
@@ -193,15 +188,15 @@ export const Pricing = () => {
                   ))}
                 </div>
 
-                {!isEnterprise && (
-                  <p className="text-[10px] text-slate-600 mb-6">
-                    Mejoras nuevas se cotizan aparte.
+                {plan.disclaimer && (
+                  <p className="text-[10px] text-slate-500 mb-6">
+                    {plan.disclaimer}
                   </p>
                 )}
 
                 <div className="mt-auto">
                   <a
-                    href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
+                    href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan \"${plan.title}\". ¿Podemos conversar?`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="no-underline"
@@ -210,7 +205,7 @@ export const Pricing = () => {
                       variant={plan.highlight ? "primary" : "outline"}
                       className="w-full"
                     >
-                      {isEnterprise ? "Solicitar" : "Solicitar"}
+                      {plan.cta || "Solicitar"}
                     </Button>
                   </a>
                 </div>
@@ -223,8 +218,7 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="text-center text-xs text-slate-500 mt-8 max-w-lg mx-auto leading-relaxed"
         >
-          Tu sistema es tuyo. Solo pagás una vez el desarrollo y luego el
-          mantenimiento (mensual/semestral/anual).
+          Tu sistema es tuyo. Sin sorpresas, sin letra chica.
         </motion.p>
       </motion.div>
     </Section>

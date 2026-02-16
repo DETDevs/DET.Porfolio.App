@@ -37,6 +37,8 @@ export interface PricingPlan {
     devFeatures: string[];
     membershipFeatures: string[];
     highlight: boolean;
+    disclaimer?: string;
+    cta?: string;
 }
 
 export interface ButtonProps {

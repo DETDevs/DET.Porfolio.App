@@ -126,36 +126,40 @@ export const PLANS: PricingPlan[] = [
     {
         id: 'starter',
         title: "Tu Sitio Web",
-        implementationPrice: "desde $299",
+        implementationPrice: "desde $350",
         prices: {
             monthly: "$30",
             semiannual: "$26",
             annual: "$23",
         },
-        desc: "Todo lo que necesitás para vender online, sin Excel, sin dolor de cabeza.",
+        desc: "Todo lo que necesitás para vender online, sin Excel ni dolores de cabeza.",
         devFeatures: [
             "Diseño moderno y adaptable",
             "Formulario de contacto + WhatsApp",
             "Entrega en 3-5 semanas",
+            "2 meses de mantenimiento incluidos",
         ],
         membershipFeatures: [
             "Tu sitio siempre online",
             "Soporte cuando lo necesités",
-            "Respaldos de tu información",
+            "Respaldos y seguridad",
         ],
         highlight: false,
+        disclaimer: "Después de los 2 meses incluidos: $30/mes",
+        cta: "Solicitar mi sitio",
     },
     {
         id: 'growth',
         title: "Sistemas & Gestión",
-        implementationPrice: "desde $500",
+        implementationPrice: "",
         prices: {
             monthly: "$99",
             semiannual: "$85",
             annual: "$75",
         },
-        desc: "Dejá de hacer todo a mano. Tu operación merece un sistema de verdad.",
+        desc: "Dejá de hacer todo a mano: tu operación merece un sistema profesional.",
         devFeatures: [
+            "Implementación incluida",
             "Facturación + inventario + reportes",
             "Capacitación + manual de uso",
             "Entrega en 4-8 semanas",
@@ -166,17 +170,19 @@ export const PLANS: PricingPlan[] = [
             "Corrección de errores incluida",
         ],
         highlight: true,
+        disclaimer: "Activación mínima: 6 meses. Luego, mensual.",
+        cta: "Comenzar implementación",
     },
     {
         id: 'enterprise',
         title: "Solución a Medida",
-        implementationPrice: "a cotizar",
+        implementationPrice: "",
         prices: {
             monthly: "Cotizar",
             semiannual: "Cotizar",
             annual: "Cotizar",
         },
-        desc: "Tu problema es único. Tu solución también debería serlo.",
+        desc: "Tu problema es único; tu solución también debería serlo.",
         devFeatures: [
             "Software 100% a tu medida",
             "Conectamos con tus otros sistemas",
@@ -188,6 +194,7 @@ export const PLANS: PricingPlan[] = [
             "Crece con tu negocio",
         ],
         highlight: false,
+        cta: "Solicitar cotización",
     },
 ];
 export const CONTACT_INFO = {
