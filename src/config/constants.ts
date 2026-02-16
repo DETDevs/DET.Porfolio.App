@@ -149,8 +149,33 @@ export const PLANS: PricingPlan[] = [
         cta: "Solicitar mi sitio",
     },
     {
+        id: 'essential',
+        title: "Esencial",
+        implementationPrice: "",
+        prices: {
+            monthly: "$59",
+            semiannual: "$49",
+            annual: "$45",
+        },
+        desc: "Lo justo para dejar el cuaderno y empezar a controlar tu negocio.",
+        devFeatures: [
+            "Implementación incluida",
+            "Facturación + inventario básico",
+            "Dashboard de tu negocio",
+            "Hasta 3 usuarios incluidos",
+        ],
+        membershipFeatures: [
+            "Soporte cuando lo necesités",
+            "Actualizaciones de seguridad",
+            "Respaldos incluidos",
+        ],
+        highlight: false,
+        disclaimer: "$49/mes × 6 meses. Luego $59/mes sin compromiso.",
+        cta: "Empezar ahora",
+    },
+    {
         id: 'growth',
-        title: "Sistemas & Gestión",
+        title: "Profesional",
         implementationPrice: "",
         prices: {
             monthly: "$99",
@@ -171,7 +196,7 @@ export const PLANS: PricingPlan[] = [
             "Corrección de errores incluida",
         ],
         highlight: true,
-        disclaimer: "Activación mínima: 6 meses. Luego, mensual.",
+        disclaimer: "$85/mes × 6 meses. Luego $99/mes sin compromiso.",
         cta: "Comenzar implementación",
     },
     {

@@ -14,12 +14,59 @@ type PricingTab = "monthly" | "semiannual" | "annual";
 
 const TAB_LABELS: { key: PricingTab; label: string; badge?: string }[] = [
   { key: "monthly", label: "Mensual" },
-  { key: "semiannual", label: "Semestral", badge: "-15%" },
+  { key: "semiannual", label: "Semestral", badge: "Recomendado" },
   { key: "annual", label: "Anual", badge: "-25%" },
 ];
 
+interface ComparisonRow {
+  feature: string;
+  essential: boolean | string;
+  professional: boolean | string;
+}
+
+const COMPARISON_FEATURES: ComparisonRow[] = [
+  { feature: "Crear facturas y recibos", essential: true, professional: true },
+  {
+    feature: "Saber cuánto producto te queda",
+    essential: true,
+    professional: "Con proveedores y costos",
+  },
+  {
+    feature: "Alertas cuando algo se está acabando",
+    essential: true,
+    professional: true,
+  },
+  {
+    feature: "Resumen de tu negocio",
+    essential: "Básico",
+    professional: "Completo con gráficas",
+  },
+  {
+    feature: "Tomar pedidos de clientes",
+    essential: false,
+    professional: true,
+  },
+  { feature: "Pedidos para llevar", essential: false, professional: true },
+  {
+    feature: "Abrir y cerrar caja del día",
+    essential: false,
+    professional: true,
+  },
+  {
+    feature: "Controlar gastos y entradas de efectivo",
+    essential: false,
+    professional: true,
+  },
+  { feature: "Saber qué se vende más", essential: false, professional: true },
+  { feature: "Pantalla de preparación", essential: false, professional: true },
+  { feature: "Capacitación y manual", essential: true, professional: true },
+  { feature: "Soporte técnico", essential: true, professional: "Prioritario" },
+  { feature: "Usuarios incluidos", essential: "3", professional: "6" },
+];
+
 export const Pricing = () => {
-  const [activeTab, setActiveTab] = useState<PricingTab>("monthly");
+  const [activeTab, setActiveTab] = useState<PricingTab>("semiannual");
+  const [showComparison, setShowComparison] = useState(false);
   const { ref, isInView } = useScrollReveal(0.1);
 
   return (
@@ -84,12 +131,13 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="text-center text-xs text-slate-500 mb-10"
         >
-          Mensual / Semestral / Anual aplican a{" "}
-          <span className="text-slate-400 font-medium">Sistemas & Gestión</span>{" "}
-          (membresía).
+          Semestral = activación mínima para{" "}
+          <span className="text-slate-400 font-medium">Esencial</span> y{" "}
+          <span className="text-slate-400 font-medium">Profesional</span>.
+          Luego, mensual sin compromiso.
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 items-stretch">
           {PLANS.map((plan, i) => {
             const isEnterprise = plan.id === "enterprise";
 
@@ -98,9 +146,9 @@ export const Pricing = () => {
                 key={plan.id}
                 variants={fadeUpVariants}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`relative p-6 md:p-8 rounded-3xl border flex flex-col transition-[border-color,transform] duration-300 hover:-translate-y-1.5 ${
+                className={`relative p-6 rounded-2xl border flex flex-col transition-[border-color,transform] duration-300 hover:-translate-y-1.5 ${
                   plan.highlight
-                    ? "bg-slate-900 border-violet-500 shadow-2xl shadow-violet-900/20 md:scale-105 z-10"
+                    ? "bg-slate-900 border-violet-500 shadow-2xl shadow-violet-900/20 z-10"
                     : "bg-slate-950 border-slate-800 hover:border-slate-700"
                 }`}
               >
@@ -110,13 +158,13 @@ export const Pricing = () => {
                   </div>
                 )}
 
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-lg font-bold text-white mb-3">
                   {plan.title}
                 </h3>
 
                 {isEnterprise ? (
                   <div className="mb-5">
-                    <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                    <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
                       Cotizar
                     </span>
                     <p className="text-[11px] text-slate-500 mt-1">
@@ -128,7 +176,7 @@ export const Pricing = () => {
                     <span className="text-xs font-medium uppercase tracking-wider text-slate-400 block mb-1">
                       Desde
                     </span>
-                    <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                    <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
                       $350
                     </span>
                   </div>
@@ -142,7 +190,7 @@ export const Pricing = () => {
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                        <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
                           {plan.prices[activeTab]}
                         </span>
                         <span className="text-sm text-slate-500 font-normal">
@@ -220,6 +268,86 @@ export const Pricing = () => {
         >
           Tu sistema es tuyo. Sin sorpresas, sin letra chica.
         </motion.p>
+
+        <motion.div variants={fadeUpVariants} className="mt-6">
+          <button
+            onClick={() => setShowComparison(!showComparison)}
+            className="mx-auto flex items-center gap-2 text-sm text-slate-400 hover:text-violet-400 transition-colors bg-transparent border border-slate-800 hover:border-violet-500/30 rounded-full px-6 py-2.5 cursor-pointer"
+          >
+            {showComparison ? "Ocultar comparación" : "¿Qué incluye cada plan?"}
+            <motion.span
+              animate={{ rotate: showComparison ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+              className="inline-block"
+            >
+              ▾
+            </motion.span>
+          </button>
+
+          <AnimatePresence>
+            {showComparison && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-8 border border-slate-800 rounded-2xl overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-slate-900/80">
+                        <th className="text-left text-slate-400 font-medium py-3 px-4 w-1/2">
+                          Funcionalidad
+                        </th>
+                        <th className="text-center text-slate-300 font-semibold py-3 px-3">
+                          Esencial
+                        </th>
+                        <th className="text-center text-violet-400 font-semibold py-3 px-3">
+                          Profesional
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60">
+                      {COMPARISON_FEATURES.map((row, i) => (
+                        <tr
+                          key={i}
+                          className="hover:bg-slate-900/30 transition-colors"
+                        >
+                          <td className="py-3 px-4 text-slate-300">
+                            {row.feature}
+                          </td>
+                          <td className="py-3 px-3 text-center">
+                            {row.essential === true ? (
+                              <Check className="w-4 h-4 text-emerald-400 mx-auto" />
+                            ) : row.essential === false ? (
+                              <span className="text-slate-600">—</span>
+                            ) : (
+                              <span className="text-slate-400 text-xs">
+                                {row.essential}
+                              </span>
+                            )}
+                          </td>
+                          <td className="py-3 px-3 text-center">
+                            {row.professional === true ? (
+                              <Check className="w-4 h-4 text-emerald-400 mx-auto" />
+                            ) : row.professional === false ? (
+                              <span className="text-slate-600">—</span>
+                            ) : (
+                              <span className="text-violet-300 text-xs">
+                                {row.professional}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </motion.div>
     </Section>
   );
