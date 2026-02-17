@@ -1,8 +1,14 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import ReactGA from "react-ga4";
 import { Navbar } from "./features/layout/Navbar";
 import { Footer } from "./features/layout/Footer";
 import { Hero } from "./features/landing/Hero";
 import { WhatsAppButton } from "./shared/ui/WhatsAppButton";
+
+const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+if (GA_ID) {
+  ReactGA.initialize(GA_ID);
+}
 
 const Services = lazy(() =>
   import("./features/landing/Services").then((m) => ({ default: m.Services })),
@@ -24,6 +30,15 @@ const FAQ = lazy(() =>
 );
 
 const App = () => {
+  useEffect(() => {
+    if (GA_ID) {
+      ReactGA.send({
+        hitType: "pageview",
+        page: window.location.pathname + window.location.search,
+      });
+    }
+  }, []);
+
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 selection:bg-violet-500/30 font-sans overflow-x-hidden">
       <Navbar />

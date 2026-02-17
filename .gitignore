@@ -25,3 +25,8 @@ dist-ssr
 
 # Internal docs (do not push)
 DETDevs_Guia_Precios_Interna.md
+
+# Environment variables
+.env
+.env.local
+.env.*
