@@ -63,7 +63,15 @@ export const WhatsAppButton = () => {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
+            onClick={() => {
+              import("react-ga4").then((ga) => {
+                ga.default.event({
+                  category: "Leads",
+                  action: "Clic WhatsApp",
+                  label: "Floating Button",
+                });
+              });
+            }}
             whileTap={{ scale: 0.95 }}
             className="relative group w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(139,92,246,0.4)] cursor-pointer"
             aria-label="Escríbenos por WhatsApp"

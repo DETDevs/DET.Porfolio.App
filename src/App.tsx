@@ -5,7 +5,6 @@ import { Footer } from "./features/layout/Footer";
 import { Hero } from "./features/landing/Hero";
 import { WhatsAppButton } from "./shared/ui/WhatsAppButton";
 
-//para deploy
 const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 if (GA_ID) {
   ReactGA.initialize(GA_ID);

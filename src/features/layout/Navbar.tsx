@@ -74,7 +74,16 @@ export const Navbar = () => {
         <div className="hidden md:block">
           <a
             href="#contacto"
-            onClick={(e) => handleNavClick(e, "#contacto")}
+            onClick={(e) => {
+              handleNavClick(e, "#contacto");
+              import("react-ga4").then((ga) => {
+                ga.default.event({
+                  category: "Navigation",
+                  action: "Clic Iniciar Proyecto",
+                  label: "Navbar Desktop",
+                });
+              });
+            }}
             className="no-underline"
           >
             <Button variant="outline" className="!py-2 !px-4 text-xs">
@@ -114,7 +123,16 @@ export const Navbar = () => {
               ))}
               <a
                 href="#contacto"
-                onClick={(e) => handleNavClick(e, "#contacto")}
+                onClick={(e) => {
+                  handleNavClick(e, "#contacto");
+                  import("react-ga4").then((ga) => {
+                    ga.default.event({
+                      category: "Navigation",
+                      action: "Clic Iniciar Proyecto",
+                      label: "Navbar Mobile",
+                    });
+                  });
+                }}
                 className="no-underline"
               >
                 <Button variant="primary" className="w-full mt-2">

@@ -248,6 +248,15 @@ export const Pricing = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="no-underline"
+                    onClick={() => {
+                      import("react-ga4").then((ga) => {
+                        ga.default.event({
+                          category: "Leads",
+                          action: "Clic WhatsApp",
+                          label: `Plan ${plan.title}`,
+                        });
+                      });
+                    }}
                   >
                     <Button
                       variant={plan.highlight ? "primary" : "outline"}

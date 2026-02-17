@@ -113,7 +113,16 @@ export const Contact = () => {
             variants={slideRightVariants}
             transition={{ duration: 0.6 }}
             className="lg:col-span-3 space-y-5"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault();
+              import("react-ga4").then((ga) => {
+                ga.default.event({
+                  category: "Leads",
+                  action: "Form Submit",
+                  label: "Contact Form",
+                });
+              });
+            }}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
