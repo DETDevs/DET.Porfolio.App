@@ -126,7 +126,7 @@ export const PLANS: PricingPlan[] = [
     {
         id: 'starter',
         title: "Tu Sitio Web",
-        implementationPrice: "desde $350",
+        implementationPrice: "desde $300",
         prices: {
             monthly: "$30",
             semiannual: "$26",

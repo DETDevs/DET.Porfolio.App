@@ -177,7 +177,7 @@ export const Pricing = () => {
                       Desde
                     </span>
                     <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
-                      $350
+                      $300
                     </span>
                   </div>
                 ) : (
