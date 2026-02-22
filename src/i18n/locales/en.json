@@ -1,0 +1,341 @@
+{
+  "nav": {
+    "services": "Services",
+    "projects": "Projects",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "cta": "Start a Project",
+    "home": "Home"
+  },
+  "hero": {
+    "badge": "Now accepting new projects",
+    "title_1": "Software that solves,",
+    "title_2": "not complicates.",
+    "subtitle": "We're a team based in Nicaragua that builds custom software tailored to your business — invoicing, inventory, apps, websites, and more.",
+    "cta_primary": "See Pricing",
+    "cta_secondary": "Our Services"
+  },
+  "services": {
+    "eyebrow": "What We Do",
+    "title": "Built around your business",
+    "subtitle": "We build end-to-end systems that streamline your operations and put you in full control of your company.",
+    "items": [
+      {
+        "title": "Billing System",
+        "desc": "Issue invoices automatically, stay on top of your sales, and always know where your numbers stand."
+      },
+      {
+        "title": "Inventory Management",
+        "desc": "Complete stock control with low-inventory alerts and real-time product tracking."
+      },
+      {
+        "title": "Customer Management",
+        "desc": "Keep a clean, organized record of your customers, their order history, and every contact detail."
+      },
+      {
+        "title": "Order Management",
+        "desc": "A full workflow from order placement to delivery, with status tracking at every step."
+      },
+      {
+        "title": "Business Dashboard",
+        "desc": "Your business at a glance — daily revenue, top-selling products, and profit trends in one view."
+      },
+      {
+        "title": "Advanced Reports",
+        "desc": "Custom reports on sales performance, operations, and business health — ready when you need them."
+      },
+      {
+        "title": "Websites",
+        "desc": "Corporate sites, landing pages, and online stores — built with modern design and mobile-first in mind."
+      },
+      {
+        "title": "Mobile Apps",
+        "desc": "Native iOS and Android apps that bring your business closer to your customers."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Portfolio",
+    "title": "Work that speaks for itself",
+    "subtitle": "Every project we ship is a solution crafted to tackle real challenges for real businesses.",
+    "items": [
+      {
+        "title": "Mopetco Landing Page",
+        "category": "Web",
+        "description": "Corporate website for an oil services firm — premium design, SEO-optimized, with a built-in contact form."
+      },
+      {
+        "title": "Mopetco Booking System",
+        "category": "Management",
+        "description": "A full appointments and reservations platform with an interactive calendar, automated notifications, and an admin panel."
+      },
+      {
+        "title": "Bakery POS System",
+        "category": "Billing",
+        "description": "A complete point-of-sale solution: electronic invoicing, live inventory tracking, cash drawer control, and order management."
+      },
+      {
+        "title": "AgroTrack Logistics Dashboard",
+        "category": "Management",
+        "description": "Operations dashboard for an agricultural cooperative — production metrics, batch traceability, and exportable reports."
+      },
+      {
+        "title": "PideLo Delivery App",
+        "category": "App",
+        "description": "A mobile delivery app with live order tracking, push notifications, payment processing, and a restaurant management panel."
+      }
+    ]
+  },
+  "whyus": {
+    "eyebrow": "Why DETDevs?",
+    "title": "The difference is in how we work",
+    "subtitle": "We don't just write code — we solve real business problems. Every decision we make is driven by the value it creates for you.",
+    "items": [
+      {
+        "title": "Fast Turnaround",
+        "desc": "While others are still quoting, we're already building.",
+        "statLabel": "weeks to delivery"
+      },
+      {
+        "title": "Bulletproof Code",
+        "desc": "Solid, tested code that holds up — even on a Friday at 5 PM.",
+        "statLabel": "test coverage"
+      },
+      {
+        "title": "Ongoing Support",
+        "desc": "We stick around after launch. Every plan includes technical support and long-term maintenance.",
+        "statLabel": "uptime"
+      },
+      {
+        "title": "Built to Scale",
+        "desc": "Designed to grow alongside you — from 10 users to 10,000, no rewrite needed.",
+        "statLabel": "scale potential"
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "Straightforward Plans",
+    "subtitle": "Whether you're just getting started or running a full operation, we have something that fits.",
+    "tabs": {
+      "monthly": "Monthly",
+      "semiannual": "6-Month",
+      "annual": "Annual",
+      "recommended": "Best Value"
+    },
+    "semiannual_note": "The 6-Month plan is the minimum commitment for <1>Essential</1> and <2>Professional</2>. After that, go month-to-month — no lock-in.",
+    "footer_note": "Your system, your rules. No hidden fees, no surprises.",
+    "show_comparison": "What's included in each plan?",
+    "hide_comparison": "Collapse comparison",
+    "per_month": "/mo",
+    "per_branch": "per location",
+    "from": "Starting at",
+    "quote": "Let's Talk",
+    "scope_note": "Development and maintenance are scoped based on your project.",
+    "label_project": "What's included",
+    "label_includes": "What's included",
+    "label_maintenance": "Ongoing membership",
+    "label_support": "Support",
+    "recommended_badge": "Most Popular",
+    "table": {
+      "feature": "Feature"
+    },
+    "plans": [
+      {
+        "title": "Your Website",
+        "desc": "Everything you need to have a professional online presence — without the complexity.",
+        "devFeatures": [
+          "Modern, mobile-friendly design",
+          "Contact form + WhatsApp integration",
+          "Ready in 1–3 weeks",
+          "2 months of maintenance included"
+        ],
+        "membershipFeatures": [
+          "Your site stays online, always",
+          "Support whenever you need it",
+          "Backups and security monitoring"
+        ],
+        "disclaimer": "After the first 2 months: $30/mo",
+        "cta": "Get my website"
+      },
+      {
+        "title": "Essential",
+        "desc": "Ditch the spreadsheets and start running your business like a pro.",
+        "devFeatures": [
+          "Setup and onboarding included",
+          "Invoicing + basic inventory",
+          "Business dashboard",
+          "Up to 3 user accounts"
+        ],
+        "membershipFeatures": [
+          "Support whenever you need it",
+          "Security updates",
+          "Automated backups"
+        ],
+        "disclaimer": "$49/mo for the first 6 months, then $59/mo — cancel anytime.",
+        "cta": "Get started"
+      },
+      {
+        "title": "Professional",
+        "desc": "A fully operational system built for teams that mean business.",
+        "devFeatures": [
+          "Setup and onboarding included",
+          "Invoicing + inventory + reports",
+          "Staff training + user manual",
+          "Up to 6 user accounts",
+          "Ready in 4–8 weeks"
+        ],
+        "membershipFeatures": [
+          "Priority support",
+          "Security updates",
+          "Bug fixes included"
+        ],
+        "disclaimer": "$85/mo for the first 6 months, then $99/mo — cancel anytime.",
+        "cta": "Get started"
+      },
+      {
+        "title": "Custom Build",
+        "desc": "Your challenge is one of a kind. Your solution should be too.",
+        "devFeatures": [
+          "Fully custom software",
+          "Integrates with your existing systems",
+          "Scoped entirely around your needs"
+        ],
+        "membershipFeatures": [
+          "Dedicated support",
+          "High-availability infrastructure",
+          "Scales with your business"
+        ],
+        "cta": "Request a quote"
+      }
+    ],
+    "comparison": [
+      {
+        "feature": "Create invoices and receipts",
+        "essential": true,
+        "professional": true
+      },
+      {
+        "feature": "Stock level tracking",
+        "essential": true,
+        "professional": "With suppliers & costs"
+      },
+      {
+        "feature": "Low-stock alerts",
+        "essential": true,
+        "professional": true
+      },
+      {
+        "feature": "Business overview",
+        "essential": "Basic",
+        "professional": "Full with charts"
+      },
+      {
+        "feature": "Customer order management",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Takeout / to-go orders",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Daily cash register open/close",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Expense and cash flow tracking",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Best-seller analytics",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Kitchen / prep screen",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Onboarding and documentation",
+        "essential": true,
+        "professional": true
+      },
+      {
+        "feature": "Technical support",
+        "essential": true,
+        "professional": "Priority"
+      },
+      {
+        "feature": "User accounts included",
+        "essential": "3",
+        "professional": "6"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Get in Touch",
+    "title": "Ready to simplify things?",
+    "subtitle": "Share your idea with us. Within 24 hours, you'll have a clear plan — not a vague proposal.",
+    "idea_heading": "Have an idea?",
+    "idea_body": "We turn ideas into software. No commitment, no pressure — just a straightforward conversation about what you need.",
+    "label_name": "Name",
+    "placeholder_name": "Your name",
+    "label_email": "Email",
+    "placeholder_email": "you@company.com",
+    "label_project": "Project type",
+    "select_default": "Select a project type",
+    "option_billing": "Billing System",
+    "option_inventory": "Inventory Management",
+    "option_web": "Website",
+    "option_app": "Mobile App",
+    "option_custom": "Something Custom",
+    "label_message": "Tell us about your project",
+    "placeholder_message": "Give us a quick overview of your project and the problem you're looking to solve...",
+    "send": "Send message",
+    "phone_label": "Phone",
+    "location_label": "Location"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Common questions",
+    "subtitle": "Don't see your question here? Reach out on WhatsApp — we usually reply within minutes.",
+    "items": [
+      {
+        "question": "How much does it cost to build a billing system?",
+        "answer": "It depends on the scope and features you need. We have plans ranging from simple websites to fully custom platforms. Reach out for a no-commitment quote tailored to your project."
+      },
+      {
+        "question": "What does the monthly membership cover?",
+        "answer": "Your membership includes hosting, technical support, maintenance, automated backups, and system updates — everything you need to keep things running smoothly. Development is scoped and priced separately."
+      },
+      {
+        "question": "How long does a project take to complete?",
+        "answer": "Most projects are live within 3 to 5 weeks. Larger, more complex builds can take anywhere from 1 to 3 months. Either way, you'll have full visibility into our progress from day one."
+      },
+      {
+        "question": "Do you offer support after the project is delivered?",
+        "answer": "Absolutely. We don't hand off and disappear. Every plan includes ongoing technical support and maintenance — because your system should keep improving as your business grows."
+      },
+      {
+        "question": "Do you only work with businesses in Nicaragua?",
+        "answer": "Not at all. We work with clients across Latin America and beyond. We're based in Nicaragua, but geography has never been a limitation for us."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Built with purpose, from Nicaragua 🇳🇮",
+    "sub_tagline": "Every great project starts with a conversation.\nYours can start today.",
+    "rights": "Nicaragua to the World."
+  },
+  "whatsapp": {
+    "tooltip_heading": "Got a project in mind?",
+    "tooltip_body": "Drop us a message on WhatsApp!",
+    "close": "Dismiss",
+    "aria": "Chat with us on WhatsApp"
+  }
+}

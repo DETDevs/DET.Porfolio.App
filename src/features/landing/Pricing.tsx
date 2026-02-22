@@ -1,73 +1,76 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
-import { PLANS } from "../../config/constants";
-import { Button } from "../../shared/ui/Button";
-import { Section } from "../../shared/ui/Section";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/shared/ui/Button";
+import { Section } from "@/shared/ui/Section";
 import {
   useScrollReveal,
   fadeUpVariants,
   staggerContainer,
-} from "../../shared/hooks/useScrollReveal";
+} from "@/shared/hooks/useScrollReveal";
 
 type PricingTab = "monthly" | "semiannual" | "annual";
 
-const TAB_LABELS: { key: PricingTab; label: string; badge?: string }[] = [
-  { key: "monthly", label: "Mensual" },
-  { key: "semiannual", label: "Semestral", badge: "Recomendado" },
-  { key: "annual", label: "Anual", badge: "-25%" },
-];
-
-interface ComparisonRow {
-  feature: string;
-  essential: boolean | string;
-  professional: boolean | string;
-}
-
-const COMPARISON_FEATURES: ComparisonRow[] = [
-  { feature: "Crear facturas y recibos", essential: true, professional: true },
-  {
-    feature: "Saber cuánto producto te queda",
-    essential: true,
-    professional: "Con proveedores y costos",
+const PLAN_IDS = ["starter", "essential", "growth", "enterprise"];
+const PLAN_PRICES = {
+  starter: {
+    monthly: "$30",
+    semiannual: "$26",
+    annual: "$23",
+    implementation: "$300",
   },
-  {
-    feature: "Alertas cuando algo se está acabando",
-    essential: true,
-    professional: true,
+  essential: {
+    monthly: "$59",
+    semiannual: "$49",
+    annual: "$45",
+    implementation: "",
   },
-  {
-    feature: "Resumen de tu negocio",
-    essential: "Básico",
-    professional: "Completo con gráficas",
+  growth: {
+    monthly: "$99",
+    semiannual: "$85",
+    annual: "$75",
+    implementation: "",
   },
-  {
-    feature: "Tomar pedidos de clientes",
-    essential: false,
-    professional: true,
+  enterprise: {
+    monthly: "—",
+    semiannual: "—",
+    annual: "—",
+    implementation: "",
   },
-  { feature: "Pedidos para llevar", essential: false, professional: true },
-  {
-    feature: "Abrir y cerrar caja del día",
-    essential: false,
-    professional: true,
-  },
-  {
-    feature: "Controlar gastos y entradas de efectivo",
-    essential: false,
-    professional: true,
-  },
-  { feature: "Saber qué se vende más", essential: false, professional: true },
-  { feature: "Pantalla de preparación", essential: false, professional: true },
-  { feature: "Capacitación y manual", essential: true, professional: true },
-  { feature: "Soporte técnico", essential: true, professional: "Prioritario" },
-  { feature: "Usuarios incluidos", essential: "3", professional: "6" },
-];
+};
+const HIGHLIGHT_PLAN = "growth";
 
 export const Pricing = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<PricingTab>("semiannual");
   const [showComparison, setShowComparison] = useState(false);
   const { ref, isInView } = useScrollReveal(0.1);
+
+  const plans = t("pricing.plans", { returnObjects: true }) as {
+    title: string;
+    desc: string;
+    devFeatures: string[];
+    membershipFeatures: string[];
+    disclaimer?: string;
+    cta: string;
+  }[];
+
+  const comparison = t("pricing.comparison", { returnObjects: true }) as {
+    feature: string;
+    essential: boolean | string;
+    professional: boolean | string;
+  }[];
+
+  const TAB_LABELS: { key: PricingTab; label: string; badge?: string }[] = [
+    { key: "monthly", label: t("pricing.tabs.monthly") },
+    {
+      key: "semiannual",
+      label: t("pricing.tabs.semiannual"),
+      badge: t("pricing.tabs.recommended"),
+    },
+    { key: "annual", label: t("pricing.tabs.annual"), badge: "-25%" },
+  ];
 
   return (
     <Section id="planes">
@@ -79,13 +82,13 @@ export const Pricing = () => {
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-10">
           <span className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
-            Inversión
+            {t("pricing.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Planes Transparentes
+            {t("pricing.title")}
           </h2>
           <p className="text-slate-400 max-w-md mx-auto">
-            Escalamos contigo, desde lo básico hasta lo más complejo.
+            {t("pricing.subtitle")}
           </p>
         </motion.div>
 
@@ -96,7 +99,7 @@ export const Pricing = () => {
           <div
             className="inline-flex bg-slate-900 rounded-full p-1 border border-slate-800"
             role="tablist"
-            aria-label="Período de pago"
+            aria-label="Payment period"
           >
             {TAB_LABELS.map((tab) => (
               <button
@@ -131,30 +134,37 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="text-center text-xs text-slate-500 mb-10"
         >
-          Semestral = activación mínima para{" "}
-          <span className="text-slate-400 font-medium">Esencial</span> y{" "}
-          <span className="text-slate-400 font-medium">Profesional</span>.
-          Luego, mensual sin compromiso.
+          {t("pricing.semiannual_note", {
+            1: plans[1]?.title ?? "Esencial",
+            2: plans[2]?.title ?? "Profesional",
+          })
+            .replace("<1>", "")
+            .replace("</1>", "")
+            .replace("<2>", "")
+            .replace("</2>", "")}
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 items-stretch">
-          {PLANS.map((plan, i) => {
-            const isEnterprise = plan.id === "enterprise";
+          {plans.map((plan, i) => {
+            const planId = PLAN_IDS[i];
+            const isEnterprise = planId === "enterprise";
+            const isHighlight = planId === HIGHLIGHT_PLAN;
+            const prices = PLAN_PRICES[planId as keyof typeof PLAN_PRICES];
 
             return (
               <motion.div
-                key={plan.id}
+                key={planId}
                 variants={fadeUpVariants}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className={`relative p-6 rounded-2xl border flex flex-col transition-[border-color,transform] duration-300 hover:-translate-y-1.5 ${
-                  plan.highlight
+                  isHighlight
                     ? "bg-slate-900 border-violet-500 shadow-2xl shadow-violet-900/20 z-10"
                     : "bg-slate-950 border-slate-800 hover:border-slate-700"
                 }`}
               >
-                {plan.highlight && (
+                {isHighlight && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-violet-600 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
-                    Recomendado
+                    {t("pricing.recommended_badge")}
                   </div>
                 )}
 
@@ -165,16 +175,16 @@ export const Pricing = () => {
                 {isEnterprise ? (
                   <div className="mb-5">
                     <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
-                      Cotizar
+                      {t("pricing.quote")}
                     </span>
                     <p className="text-[11px] text-slate-500 mt-1">
-                      Desarrollo + mantenimiento según alcance.
+                      {t("pricing.scope_note")}
                     </p>
                   </div>
-                ) : plan.implementationPrice ? (
+                ) : prices.implementation ? (
                   <div className="mb-5">
                     <span className="text-xs font-medium uppercase tracking-wider text-slate-400 block mb-1">
-                      Desde
+                      {t("pricing.from")}
                     </span>
                     <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
                       $300
@@ -191,15 +201,15 @@ export const Pricing = () => {
                         transition={{ duration: 0.2 }}
                       >
                         <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
-                          {plan.prices[activeTab]}
+                          {prices[activeTab]}
                         </span>
                         <span className="text-sm text-slate-500 font-normal">
-                          /mes
+                          {t("pricing.per_month")}
                         </span>
                       </motion.div>
                     </AnimatePresence>
                     <p className="text-[11px] text-slate-500 mt-1">
-                      por sucursal
+                      {t("pricing.per_branch")}
                     </p>
                   </div>
                 )}
@@ -208,9 +218,11 @@ export const Pricing = () => {
 
                 <div className="space-y-2 mb-2">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-violet-400">
-                    {plan.implementationPrice ? "Tu proyecto" : "Incluye"}
+                    {prices.implementation
+                      ? t("pricing.label_project")
+                      : t("pricing.label_includes")}
                   </p>
-                  {plan.devFeatures.map((feat: string, fi: number) => (
+                  {plan.devFeatures.map((feat, fi) => (
                     <div
                       key={fi}
                       className="flex items-start gap-3 text-sm text-slate-300"
@@ -223,9 +235,11 @@ export const Pricing = () => {
 
                 <div className="space-y-2 mb-6">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 mt-3">
-                    {isEnterprise ? "Soporte" : "Mantenimiento"}
+                    {isEnterprise
+                      ? t("pricing.label_support")
+                      : t("pricing.label_maintenance")}
                   </p>
-                  {plan.membershipFeatures.map((feat: string, fi: number) => (
+                  {plan.membershipFeatures.map((feat, fi) => (
                     <div
                       key={fi}
                       className="flex items-start gap-3 text-sm text-slate-300"
@@ -244,7 +258,7 @@ export const Pricing = () => {
 
                 <div className="mt-auto">
                   <a
-                    href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan \"${plan.title}\". ¿Podemos conversar?`)}`}
+                    href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="no-underline"
@@ -259,10 +273,10 @@ export const Pricing = () => {
                     }}
                   >
                     <Button
-                      variant={plan.highlight ? "primary" : "outline"}
+                      variant={isHighlight ? "primary" : "outline"}
                       className="w-full"
                     >
-                      {plan.cta || "Solicitar"}
+                      {plan.cta}
                     </Button>
                   </a>
                 </div>
@@ -275,7 +289,7 @@ export const Pricing = () => {
           variants={fadeUpVariants}
           className="text-center text-xs text-slate-500 mt-8 max-w-lg mx-auto leading-relaxed"
         >
-          Tu sistema es tuyo. Sin sorpresas, sin letra chica.
+          {t("pricing.footer_note")}
         </motion.p>
 
         <motion.div variants={fadeUpVariants} className="mt-6">
@@ -283,7 +297,9 @@ export const Pricing = () => {
             onClick={() => setShowComparison(!showComparison)}
             className="mx-auto flex items-center gap-2 text-sm text-slate-400 hover:text-violet-400 transition-colors bg-transparent border border-slate-800 hover:border-violet-500/30 rounded-full px-6 py-2.5 cursor-pointer"
           >
-            {showComparison ? "Ocultar comparación" : "¿Qué incluye cada plan?"}
+            {showComparison
+              ? t("pricing.hide_comparison")
+              : t("pricing.show_comparison")}
             <motion.span
               animate={{ rotate: showComparison ? 180 : 0 }}
               transition={{ duration: 0.2 }}
@@ -307,18 +323,18 @@ export const Pricing = () => {
                     <thead>
                       <tr className="bg-slate-900/80">
                         <th className="text-left text-slate-400 font-medium py-3 px-4 w-1/2">
-                          Funcionalidad
+                          {t("pricing.table.feature")}
                         </th>
                         <th className="text-center text-slate-300 font-semibold py-3 px-3">
-                          Esencial
+                          {plans[1]?.title}
                         </th>
                         <th className="text-center text-violet-400 font-semibold py-3 px-3">
-                          Profesional
+                          {plans[2]?.title}
                         </th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800/60">
-                      {COMPARISON_FEATURES.map((row, i) => (
+                      {comparison.map((row, i) => (
                         <tr
                           key={i}
                           className="hover:bg-slate-900/30 transition-colors"

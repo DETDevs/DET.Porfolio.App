@@ -1,12 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-import { CONTACT_INFO } from "../../config/constants";
+import { useTranslation } from "react-i18next";
+import { CONTACT_INFO } from "@/config/constants";
 
 const WHATSAPP_NUMBER = CONTACT_INFO.phone.replace(/[\s\-+]/g, "");
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 export const WhatsAppButton = () => {
+  const { t } = useTranslation();
   const [showTooltip, setShowTooltip] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
@@ -44,16 +46,16 @@ export const WhatsAppButton = () => {
                 <button
                   onClick={() => setDismissed(true)}
                   className="absolute -top-2 -right-2 w-5 h-5 bg-slate-700 hover:bg-slate-600 rounded-full flex items-center justify-center transition-colors"
-                  aria-label="Cerrar tooltip"
+                  aria-label={t("whatsapp.close")}
                 >
                   <X size={10} className="text-slate-300" />
                 </button>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   👋
                   <span className="text-violet-300 font-semibold">
-                    ¿Tienes un proyecto en mente?
-                  </span>
-                  ¡Escríbenos por WhatsApp!
+                    {t("whatsapp.tooltip_heading")}
+                  </span>{" "}
+                  {t("whatsapp.tooltip_body")}
                 </p>
               </motion.div>
             )}
@@ -74,7 +76,7 @@ export const WhatsAppButton = () => {
             }}
             whileTap={{ scale: 0.95 }}
             className="relative group w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(139,92,246,0.4)] cursor-pointer"
-            aria-label="Escríbenos por WhatsApp"
+            aria-label={t("whatsapp.aria")}
           >
             <div className="absolute inset-0 rounded-full bg-linear-to-br from-violet-500 to-indigo-600 group-hover:from-violet-400 group-hover:to-indigo-500 transition-all duration-300" />
 

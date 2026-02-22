@@ -1,46 +1,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { Section } from "../../shared/ui/Section";
+import { useTranslation } from "react-i18next";
+import { Section } from "@/shared/ui/Section";
 import {
   useScrollReveal,
   fadeUpVariants,
   staggerContainer,
-} from "../../shared/hooks/useScrollReveal";
-
-const FAQ_DATA = [
-  {
-    question: "¿Cuánto cuesta desarrollar un sistema de facturación?",
-    answer:
-      "El costo varía según las funcionalidades que necesites. Ofrecemos planes desde sitios web básicos hasta sistemas completos a medida. Contactanos para una cotización personalizada sin compromiso.",
-  },
-  {
-    question: "¿Qué incluye la membresía mensual?",
-    answer:
-      "La membresía cubre hosting, soporte técnico, mantenimiento, copias de seguridad y actualizaciones del sistema. Es todo lo que necesitás para que tu software funcione sin preocupaciones. El desarrollo se cotiza aparte.",
-  },
-  {
-    question: "¿En cuánto tiempo entregan un proyecto?",
-    answer:
-      "En 3 a 5 semanas tu proyecto está listo. Proyectos más grandes pueden tomar de 1 a 3 meses, dependiendo de la complejidad. En cualquier caso, siempre mantenemos comunicación directa para que estés al tanto de cada avance.",
-  },
-  {
-    question: "¿Ofrecen soporte después de la entrega?",
-    answer:
-      "Sí. No desaparecemos después de entregar. Todos nuestros planes incluyen soporte técnico y mantenimiento. Tu sistema evoluciona con tu negocio.",
-  },
-  {
-    question: "¿Trabajan solo con empresas de Nicaragua?",
-    answer:
-      "No, trabajamos con clientes de toda Latinoamérica y el mundo. Somos de Nicaragua, pero nuestros sistemas no tienen fronteras.",
-  },
-];
+} from "@/shared/hooks/useScrollReveal";
 
 const FaqItem = ({
   item,
   index,
 }: {
-  item: (typeof FAQ_DATA)[0];
+  item: { question: string; answer: string };
   index: number;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -87,7 +60,12 @@ const FaqItem = ({
 };
 
 export const FAQ = () => {
+  const { t } = useTranslation();
   const { ref, isInView } = useScrollReveal(0.1);
+  const items = t("faq.items", { returnObjects: true }) as {
+    question: string;
+    answer: string;
+  }[];
 
   return (
     <Section id="faq">
@@ -99,19 +77,16 @@ export const FAQ = () => {
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-14">
           <span className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
-            Preguntas Frecuentes
+            {t("faq.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Lo que todos preguntan
+            {t("faq.title")}
           </h2>
-          <p className="text-slate-400 max-w-lg mx-auto">
-            Si tu pregunta no está aquí, escribinos por WhatsApp y te
-            respondemos al toque.
-          </p>
+          <p className="text-slate-400 max-w-lg mx-auto">{t("faq.subtitle")}</p>
         </motion.div>
 
         <div className="max-w-3xl mx-auto space-y-3">
-          {FAQ_DATA.map((item, i) => (
+          {items.map((item, i) => (
             <FaqItem key={i} item={item} index={i} />
           ))}
         </div>
@@ -119,5 +94,3 @@ export const FAQ = () => {
     </Section>
   );
 };
-
-export { FAQ_DATA };

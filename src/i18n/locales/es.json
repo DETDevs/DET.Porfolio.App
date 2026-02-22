@@ -1,0 +1,337 @@
+{
+  "nav": {
+    "services": "Servicios",
+    "projects": "Proyectos",
+    "pricing": "Planes",
+    "contact": "Contacto",
+    "cta": "Iniciar Proyecto",
+    "home": "Inicio"
+  },
+  "hero": {
+    "badge": "Disponible para nuevos proyectos",
+    "title_1": "Sistemas que resuelven,",
+    "title_2": "no que complican.",
+    "subtitle": "Somos un equipo en Nicaragua que diseña software a la medida de tu negocio. Facturación, inventarios, apps, webs y más.",
+    "cta_primary": "Ver Planes",
+    "cta_secondary": "Nuestros Servicios"
+  },
+  "services": {
+    "eyebrow": "Soluciones",
+    "title": "Lo que hacemos por tu negocio",
+    "subtitle": "Desarrollamos sistemas completos que automatizan tu operación y te dan control total de tu empresa.",
+    "items": [
+      {
+        "title": "Sistema de Facturación",
+        "desc": "Generá facturas automáticas, llevá control de lo que vendés, y tené tus números claros."
+      },
+      {
+        "title": "Gestión de Inventarios",
+        "desc": "Control total de stock, alertas de reabastecimiento y seguimiento de productos."
+      },
+      {
+        "title": "Gestión de Clientes",
+        "desc": "Llevá un registro ordenado de tus clientes, lo que han comprado, y nunca pierdas un contacto."
+      },
+      {
+        "title": "Gestión de Pedidos",
+        "desc": "Flujo completo desde la orden hasta la entrega, con seguimiento en cada etapa."
+      },
+      {
+        "title": "Resumen de tu Negocio",
+        "desc": "Mirá cómo va tu negocio de un vistazo: ventas del día, productos más vendidos, ganancias."
+      },
+      {
+        "title": "Reportes Avanzados",
+        "desc": "Genera reportes personalizados de ventas, operaciones y rendimiento empresarial."
+      },
+      {
+        "title": "Páginas Web",
+        "desc": "Sitios web corporativos, landings y tiendas online con diseño moderno y responsive."
+      },
+      {
+        "title": "Apps Móviles",
+        "desc": "Aplicaciones nativas para iOS y Android que conectan tu negocio con tus clientes."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Portafolio",
+    "title": "Proyectos que hablan por nosotros",
+    "subtitle": "Cada proyecto es una solución diseñada para resolver problemas reales de nuestros clientes.",
+    "items": [
+      {
+        "title": "Landing Page Mopetco",
+        "category": "Web",
+        "description": "Sitio web corporativo para empresa de servicios petroleros con diseño premium, SEO optimizado y formulario de contacto integrado."
+      },
+      {
+        "title": "Sistema de Booking Mopetco",
+        "category": "Gestión",
+        "description": "Plataforma de reservas y gestión de citas con calendario interactivo, notificaciones automáticas y panel administrativo."
+      },
+      {
+        "title": "Bakery POS Integral",
+        "category": "Facturación",
+        "description": "Sistema punto de venta completo: facturación electrónica, inventario en tiempo real, control de caja (Cash In/Out) y gestión de pedidos."
+      },
+      {
+        "title": "AgroTrack Dashboard Logístico",
+        "category": "Gestión",
+        "description": "Panel de control para cooperativa agrícola con métricas de producción, trazabilidad de lotes y reportes exportables."
+      },
+      {
+        "title": "PideLo App de Delivery",
+        "category": "App",
+        "description": "Aplicación móvil de delivery con tracking en tiempo real, notificaciones push, pasarela de pagos y panel de restaurantes."
+      }
+    ]
+  },
+  "whyus": {
+    "eyebrow": "¿Por qué DETDevs?",
+    "title": "La diferencia está en cómo trabajamos",
+    "subtitle": "No solo escribimos código, resolvemos problemas de negocio. Cada línea de código está pensada para generar valor real.",
+    "items": [
+      {
+        "title": "Entrega Rápida",
+        "desc": "Mientras otros cotizan, nosotros ya vamos por la mitad.",
+        "statLabel": "semanas para entrega"
+      },
+      {
+        "title": "Código Blindado",
+        "desc": "Código que no se cae el viernes a las 5pm.",
+        "statLabel": "test coverage"
+      },
+      {
+        "title": "Soporte Continuo",
+        "desc": "No desaparecemos después de entregar. Soporte técnico y mantenimiento incluido.",
+        "statLabel": "disponibilidad"
+      },
+      {
+        "title": "Escalabilidad",
+        "desc": "Sistemas diseñados para crecer contigo. Desde 10 hasta 10,000 usuarios sin reescribir.",
+        "statLabel": "potencial de escala"
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Inversión",
+    "title": "Planes Transparentes",
+    "subtitle": "Escalamos contigo, desde lo básico hasta lo más complejo.",
+    "tabs": {
+      "monthly": "Mensual",
+      "semiannual": "Semestral",
+      "annual": "Anual",
+      "recommended": "Recomendado"
+    },
+    "semiannual_note": "Semestral = activación mínima para <1>Esencial</1> y <2>Profesional</2>. Luego, mensual sin compromiso.",
+    "footer_note": "Tu sistema es tuyo. Sin sorpresas, sin letra chica.",
+    "show_comparison": "¿Qué incluye cada plan?",
+    "hide_comparison": "Ocultar comparación",
+    "per_month": "/mes",
+    "per_branch": "por sucursal",
+    "from": "Desde",
+    "quote": "Cotizar",
+    "scope_note": "Desarrollo + mantenimiento según alcance.",
+    "label_project": "Tu proyecto",
+    "label_includes": "Incluye",
+    "label_maintenance": "Mantenimiento",
+    "label_support": "Soporte",
+    "recommended_badge": "Recomendado",
+    "table": {
+      "feature": "Funcionalidad"
+    },
+    "plans": [
+      {
+        "title": "Tu Sitio Web",
+        "desc": "Todo lo que necesitás para vender online, sin Excel ni dolores de cabeza.",
+        "devFeatures": [
+          "Diseño moderno y adaptable",
+          "Formulario de contacto + WhatsApp",
+          "Entrega en 1-3 semanas",
+          "2 meses de mantenimiento incluidos"
+        ],
+        "membershipFeatures": [
+          "Tu sitio siempre online",
+          "Soporte cuando lo necesités",
+          "Respaldos y seguridad"
+        ],
+        "disclaimer": "Después de los 2 meses incluidos: $30/mes",
+        "cta": "Solicitar mi sitio"
+      },
+      {
+        "title": "Esencial",
+        "desc": "Lo justo para dejar el cuaderno y empezar a controlar tu negocio.",
+        "devFeatures": [
+          "Implementación incluida",
+          "Facturación + inventario básico",
+          "Dashboard de tu negocio",
+          "Hasta 3 usuarios incluidos"
+        ],
+        "membershipFeatures": [
+          "Soporte cuando lo necesités",
+          "Actualizaciones de seguridad",
+          "Respaldos incluidos"
+        ],
+        "disclaimer": "$49/mes × 6 meses. Luego $59/mes sin compromiso.",
+        "cta": "Empezar ahora"
+      },
+      {
+        "title": "Profesional",
+        "desc": "Dejá de hacer todo a mano: tu operación merece un sistema profesional.",
+        "devFeatures": [
+          "Implementación incluida",
+          "Facturación + inventario + reportes",
+          "Capacitación + manual de uso",
+          "Hasta 6 usuarios incluidos",
+          "Entrega en 4-8 semanas"
+        ],
+        "membershipFeatures": [
+          "Soporte cuando lo necesités",
+          "Actualizaciones de seguridad",
+          "Corrección de errores incluida"
+        ],
+        "disclaimer": "$85/mes × 6 meses. Luego $99/mes sin compromiso.",
+        "cta": "Comenzar implementación"
+      },
+      {
+        "title": "Solución a Medida",
+        "desc": "Tu problema es único; tu solución también debería serlo.",
+        "devFeatures": [
+          "Software 100% a tu medida",
+          "Conectamos con tus otros sistemas",
+          "Diseñado según tus necesidades"
+        ],
+        "membershipFeatures": [
+          "Atención prioritaria",
+          "Sistema siempre disponible",
+          "Crece con tu negocio"
+        ],
+        "cta": "Solicitar cotización"
+      }
+    ],
+    "comparison": [
+      {
+        "feature": "Crear facturas y recibos",
+        "essential": true,
+        "professional": true
+      },
+      {
+        "feature": "Saber cuánto producto te queda",
+        "essential": true,
+        "professional": "Con proveedores y costos"
+      },
+      {
+        "feature": "Alertas cuando algo se está acabando",
+        "essential": true,
+        "professional": true
+      },
+      {
+        "feature": "Resumen de tu negocio",
+        "essential": "Básico",
+        "professional": "Completo con gráficas"
+      },
+      {
+        "feature": "Tomar pedidos de clientes",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Pedidos para llevar",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Abrir y cerrar caja del día",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Controlar gastos y entradas de efectivo",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Saber qué se vende más",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Pantalla de preparación",
+        "essential": false,
+        "professional": true
+      },
+      {
+        "feature": "Capacitación y manual",
+        "essential": true,
+        "professional": true
+      },
+      {
+        "feature": "Soporte técnico",
+        "essential": true,
+        "professional": "Prioritario"
+      },
+      { "feature": "Usuarios incluidos", "essential": "3", "professional": "6" }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contacto",
+    "title": "¿Listo para dejar de complicarte?",
+    "subtitle": "Contanos tu idea. En 24 horas tenés un plan, no un PDF bonito.",
+    "idea_heading": "¿Tenés una idea?",
+    "idea_body": "Nosotros la convertimos en software. Sin compromiso, sin rodeos. Solo una conversación para entender qué necesitás.",
+    "label_name": "Nombre",
+    "placeholder_name": "Tu nombre",
+    "label_email": "Email",
+    "placeholder_email": "correo@empresa.com",
+    "label_project": "Tipo de proyecto",
+    "select_default": "Selecciona una opción",
+    "option_billing": "Sistema de Facturación",
+    "option_inventory": "Gestión de Inventarios",
+    "option_web": "Página Web",
+    "option_app": "App Móvil",
+    "option_custom": "Proyecto Custom",
+    "label_message": "Cuéntanos tu idea",
+    "placeholder_message": "Describe brevemente tu proyecto y qué problema quieres resolver...",
+    "send": "Enviar mensaje",
+    "phone_label": "Teléfono",
+    "location_label": "Ubicación"
+  },
+  "faq": {
+    "eyebrow": "Preguntas Frecuentes",
+    "title": "Lo que todos preguntan",
+    "subtitle": "Si tu pregunta no está aquí, escribinos por WhatsApp y te respondemos al toque.",
+    "items": [
+      {
+        "question": "¿Cuánto cuesta desarrollar un sistema de facturación?",
+        "answer": "El costo varía según las funcionalidades que necesites. Ofrecemos planes desde sitios web básicos hasta sistemas completos a medida. Contactanos para una cotización personalizada sin compromiso."
+      },
+      {
+        "question": "¿Qué incluye la membresía mensual?",
+        "answer": "La membresía cubre hosting, soporte técnico, mantenimiento, copias de seguridad y actualizaciones del sistema. Es todo lo que necesitás para que tu software funcione sin preocupaciones. El desarrollo se cotiza aparte."
+      },
+      {
+        "question": "¿En cuánto tiempo entregan un proyecto?",
+        "answer": "En 3 a 5 semanas tu proyecto está listo. Proyectos más grandes pueden tomar de 1 a 3 meses, dependiendo de la complejidad. En cualquier caso, siempre mantenemos comunicación directa para que estés al tanto de cada avance."
+      },
+      {
+        "question": "¿Ofrecen soporte después de la entrega?",
+        "answer": "Sí. No desaparecemos después de entregar. Todos nuestros planes incluyen soporte técnico y mantenimiento. Tu sistema evoluciona con tu negocio."
+      },
+      {
+        "question": "¿Trabajan solo con empresas de Nicaragua?",
+        "answer": "No, trabajamos con clientes de toda Latinoamérica y el mundo. Somos de Nicaragua, pero nuestros sistemas no tienen fronteras."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Hecho con pasión desde Nicaragua 🇳🇮",
+    "sub_tagline": "Porque los grandes proyectos empiezan con una conversación.\nEl tuyo puede empezar hoy.",
+    "rights": "Nicaragua to the World."
+  },
+  "whatsapp": {
+    "tooltip_heading": "¿Tenés un proyecto en mente?",
+    "tooltip_body": "¡Escribinos por WhatsApp!",
+    "close": "Cerrar",
+    "aria": "Escribinos por WhatsApp"
+  }
+}

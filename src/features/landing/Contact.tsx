@@ -1,34 +1,41 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { Section } from "../../shared/ui/Section";
-import { Button } from "../../shared/ui/Button";
-import { CONTACT_INFO } from "../../config/constants";
+import { useTranslation } from "react-i18next";
+import { Section } from "@/shared/ui/Section";
+import { Button } from "@/shared/ui/Button";
+import { CONTACT_INFO } from "@/config/constants";
 import {
   useScrollReveal,
   fadeUpVariants,
   staggerContainer,
   slideLeftVariants,
   slideRightVariants,
-} from "../../shared/hooks/useScrollReveal";
-
-const contactMethods = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: CONTACT_INFO.email,
-    href: `mailto:${CONTACT_INFO.email}`,
-  },
-  {
-    icon: Phone,
-    label: "Teléfono",
-    value: CONTACT_INFO.phone,
-    href: `tel:${CONTACT_INFO.phone}`,
-  },
-  { icon: MapPin, label: "Ubicación", value: CONTACT_INFO.location, href: "#" },
-];
+} from "@/shared/hooks/useScrollReveal";
 
 export const Contact = () => {
+  const { t } = useTranslation();
   const { ref, isInView } = useScrollReveal(0.1);
+
+  const contactMethods = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: CONTACT_INFO.email,
+      href: `mailto:${CONTACT_INFO.email}`,
+    },
+    {
+      icon: Phone,
+      label: t("contact.phone_label"),
+      value: CONTACT_INFO.phone,
+      href: `tel:${CONTACT_INFO.phone}`,
+    },
+    {
+      icon: MapPin,
+      label: t("contact.location_label"),
+      value: CONTACT_INFO.location,
+      href: "#",
+    },
+  ];
 
   return (
     <Section id="contacto">
@@ -40,13 +47,13 @@ export const Contact = () => {
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-14">
           <span className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
-            Contacto
+            {t("contact.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            ¿Listo para dejar de complicarte?
+            {t("contact.title")}
           </h2>
           <p className="text-slate-400 max-w-lg mx-auto">
-            Contanos tu idea. En 24 horas tenés un plan, no un PDF bonito.
+            {t("contact.subtitle")}
           </p>
         </motion.div>
 
@@ -57,7 +64,7 @@ export const Contact = () => {
             className="lg:col-span-2 space-y-6"
           >
             {contactMethods.map((method, i) =>
-              method.href ? (
+              method.href !== "#" ? (
                 <motion.a
                   key={i}
                   href={method.href}
@@ -100,11 +107,10 @@ export const Contact = () => {
               className="p-6 rounded-2xl bg-linear-to-br from-violet-900/20 to-slate-900/50 border border-violet-500/20"
             >
               <p className="text-sm text-white font-semibold mb-1">
-                ¿Tenés una idea?
+                {t("contact.idea_heading")}
               </p>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Nosotros la convertimos en software. Sin compromiso, sin rodeos.
-                Solo una conversación para entender qué necesitás.
+                {t("contact.idea_body")}
               </p>
             </motion.div>
           </motion.div>
@@ -130,12 +136,12 @@ export const Contact = () => {
                   htmlFor="contact-name"
                   className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
                 >
-                  Nombre
+                  {t("contact.label_name")}
                 </label>
                 <input
                   id="contact-name"
                   type="text"
-                  placeholder="Tu nombre"
+                  placeholder={t("contact.placeholder_name")}
                   className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
                 />
               </div>
@@ -144,12 +150,12 @@ export const Contact = () => {
                   htmlFor="contact-email"
                   className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
                 >
-                  Email
+                  {t("contact.label_email")}
                 </label>
                 <input
                   id="contact-email"
                   type="email"
-                  placeholder="correo@empresa.com"
+                  placeholder={t("contact.placeholder_email")}
                   className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
                 />
               </div>
@@ -160,29 +166,29 @@ export const Contact = () => {
                 htmlFor="contact-project"
                 className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
               >
-                Tipo de proyecto
+                {t("contact.label_project")}
               </label>
               <select
                 id="contact-project"
                 className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm appearance-none cursor-pointer"
               >
                 <option value="" className="bg-slate-900">
-                  Selecciona una opción
+                  {t("contact.select_default")}
                 </option>
                 <option value="facturacion" className="bg-slate-900">
-                  Sistema de Facturación
+                  {t("contact.option_billing")}
                 </option>
                 <option value="inventario" className="bg-slate-900">
-                  Gestión de Inventarios
+                  {t("contact.option_inventory")}
                 </option>
                 <option value="web" className="bg-slate-900">
-                  Página Web
+                  {t("contact.option_web")}
                 </option>
                 <option value="app" className="bg-slate-900">
-                  App Móvil
+                  {t("contact.option_app")}
                 </option>
                 <option value="custom" className="bg-slate-900">
-                  Proyecto Custom
+                  {t("contact.option_custom")}
                 </option>
               </select>
             </div>
@@ -192,18 +198,18 @@ export const Contact = () => {
                 htmlFor="contact-message"
                 className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
               >
-                Cuéntanos tu idea
+                {t("contact.label_message")}
               </label>
               <textarea
                 id="contact-message"
                 rows={5}
-                placeholder="Describe brevemente tu proyecto y qué problema quieres resolver..."
+                placeholder={t("contact.placeholder_message")}
                 className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm resize-none"
               />
             </div>
 
             <Button type="submit" className="w-full sm:w-auto">
-              Enviar mensaje <Send size={16} />
+              {t("contact.send")} <Send size={16} />
             </Button>
           </motion.form>
         </div>

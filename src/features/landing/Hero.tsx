@@ -1,9 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useRef } from "react";
-import { Button } from "../../shared/ui/Button";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/shared/ui/Button";
 
 export const Hero = () => {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -36,7 +38,7 @@ export const Hero = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500" />
           </span>
-          Disponible para nuevos proyectos
+          {t("hero.badge")}
         </motion.div>
 
         <motion.h1
@@ -45,9 +47,9 @@ export const Hero = () => {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight"
         >
-          Sistemas que resuelven, <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-300">
-            no que complican.
+          {t("hero.title_1")} <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-violet-400 via-purple-400 to-indigo-300">
+            {t("hero.title_2")}
           </span>
         </motion.h1>
 
@@ -57,8 +59,7 @@ export const Hero = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
         >
-          Somos un equipo en Nicaragua que diseña software a la medida de tu
-          negocio. Facturación, inventarios, apps, webs y más.
+          {t("hero.subtitle")}
         </motion.p>
 
         <motion.div
@@ -69,12 +70,12 @@ export const Hero = () => {
         >
           <a href="#planes" className="w-full sm:w-auto no-underline">
             <Button className="w-full">
-              Ver Planes <ArrowRight size={18} />
+              {t("hero.cta_primary")} <ArrowRight size={18} />
             </Button>
           </a>
           <a href="#servicios" className="w-full sm:w-auto no-underline">
             <Button variant="secondary" className="w-full">
-              Nuestros Servicios
+              {t("hero.cta_secondary")}
             </Button>
           </a>
         </motion.div>

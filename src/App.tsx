@@ -1,9 +1,9 @@
 import { lazy, Suspense, useEffect } from "react";
 import ReactGA from "react-ga4";
-import { Navbar } from "./features/layout/Navbar";
-import { Footer } from "./features/layout/Footer";
-import { Hero } from "./features/landing/Hero";
-import { WhatsAppButton } from "./shared/ui/WhatsAppButton";
+import { Navbar } from "@/features/layout/Navbar";
+import { Footer } from "@/features/layout/Footer";
+import { Hero } from "@/features/landing/Hero";
+import { WhatsAppButton } from "@/shared/ui/WhatsAppButton";
 
 const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 if (GA_ID) {
@@ -11,22 +11,22 @@ if (GA_ID) {
 }
 
 const Services = lazy(() =>
-  import("./features/landing/Services").then((m) => ({ default: m.Services })),
+  import("@/features/landing/Services").then((m) => ({ default: m.Services })),
 );
 const Projects = lazy(() =>
-  import("./features/landing/Projects").then((m) => ({ default: m.Projects })),
+  import("@/features/landing/Projects").then((m) => ({ default: m.Projects })),
 );
 const WhyUs = lazy(() =>
-  import("./features/landing/WhyUs").then((m) => ({ default: m.WhyUs })),
+  import("@/features/landing/WhyUs").then((m) => ({ default: m.WhyUs })),
 );
 const Pricing = lazy(() =>
-  import("./features/landing/Pricing").then((m) => ({ default: m.Pricing })),
+  import("@/features/landing/Pricing").then((m) => ({ default: m.Pricing })),
 );
 const Contact = lazy(() =>
-  import("./features/landing/Contact").then((m) => ({ default: m.Contact })),
+  import("@/features/landing/Contact").then((m) => ({ default: m.Contact })),
 );
 const FAQ = lazy(() =>
-  import("./features/landing/FAQ").then((m) => ({ default: m.FAQ })),
+  import("@/features/landing/FAQ").then((m) => ({ default: m.FAQ })),
 );
 
 const App = () => {
