@@ -1,5 +1,13 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Section } from "@/shared/ui/Section";
 import { Button } from "@/shared/ui/Button";
@@ -15,6 +23,11 @@ import {
 export const Contact = () => {
   const { t } = useTranslation();
   const { ref, isInView } = useScrollReveal(0.1);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   const contactMethods = [
     {
@@ -36,6 +49,59 @@ export const Contact = () => {
       href: "#",
     },
   ];
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    const formData = new FormData(event.currentTarget);
+    const userName = formData.get("name") || "Cliente";
+    const userProject = formData.get("project") || "Contacto";
+    const userEmail = formData.get("email");
+
+    formData.append("access_key", "269be25d-cf1c-4d7e-82cc-955f58e0b530");
+    formData.append(
+      "subject",
+      ` Nuevo proyecto: ${userName} quiere hablar sobre "${userProject}"`,
+    );
+    formData.append("from_name", "DETDevs Portfolio");
+    if (userEmail) {
+      formData.append("replyto", userEmail as string);
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus("success");
+        const formElement = event.target as HTMLFormElement;
+        formElement.reset();
+
+        import("react-ga4").then((ga) => {
+          ga.default.event({
+            category: "Leads",
+            action: "Form Submit",
+            label: "Contact Form",
+          });
+        });
+      } else {
+        console.error("Form submission error:", data);
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Form submission exception:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus("idle"), 5000);
+    }
+  };
 
   return (
     <Section id="contacto">
@@ -119,17 +185,16 @@ export const Contact = () => {
             variants={slideRightVariants}
             transition={{ duration: 0.6 }}
             className="lg:col-span-3 space-y-5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              import("react-ga4").then((ga) => {
-                ga.default.event({
-                  category: "Leads",
-                  action: "Form Submit",
-                  label: "Contact Form",
-                });
-              });
-            }}
+            onSubmit={onSubmit}
           >
+            {/* Campo oculto para habilitar hCaptcha automáticamente en Web3Forms */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              className="hidden"
+              style={{ display: "none" }}
+            />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label
@@ -140,7 +205,9 @@ export const Contact = () => {
                 </label>
                 <input
                   id="contact-name"
+                  name="name"
                   type="text"
+                  required
                   placeholder={t("contact.placeholder_name")}
                   className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
                 />
@@ -154,7 +221,9 @@ export const Contact = () => {
                 </label>
                 <input
                   id="contact-email"
+                  name="email"
                   type="email"
+                  required
                   placeholder={t("contact.placeholder_email")}
                   className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
                 />
@@ -170,6 +239,8 @@ export const Contact = () => {
               </label>
               <select
                 id="contact-project"
+                name="project"
+                required
                 className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm appearance-none cursor-pointer"
               >
                 <option value="" className="bg-slate-900">
@@ -202,15 +273,38 @@ export const Contact = () => {
               </label>
               <textarea
                 id="contact-message"
+                name="message"
+                required
                 rows={5}
                 placeholder={t("contact.placeholder_message")}
                 className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm resize-none"
               />
             </div>
 
-            <Button type="submit" className="w-full sm:w-auto">
-              {t("contact.send")} <Send size={16} />
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <Button
+                type="submit"
+                className="w-full sm:w-auto"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Enviando..." : t("contact.send")}
+                {!isSubmitting && <Send size={16} />}
+              </Button>
+
+              {submitStatus === "success" && (
+                <div className="flex items-center gap-2 text-emerald-400 text-sm bg-emerald-400/10 px-4 py-2 rounded-lg">
+                  <CheckCircle2 size={16} />
+                  <span>¡Mensaje enviado con éxito!</span>
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="flex items-center gap-2 text-rose-400 text-sm bg-rose-400/10 px-4 py-2 rounded-lg">
+                  <AlertCircle size={16} />
+                  <span>Hubo un error al enviar el mensaje.</span>
+                </div>
+              )}
+            </div>
           </motion.form>
         </div>
       </motion.div>
