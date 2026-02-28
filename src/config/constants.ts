@@ -48,6 +48,28 @@ export const SERVICES: ServiceItem[] = [
     },
 ];
 
+import mopetcoHero from '../assets/LandingMopetco/Hero.png';
+import mopetcoGallery from '../assets/LandingMopetco/Gallery.png';
+import mopetcoServiceDetail from '../assets/LandingMopetco/ServiceDetail.png';
+import mopetcoServices from '../assets/LandingMopetco/Services.png';
+import mopetcoContact from '../assets/LandingMopetco/contact.png';
+
+import bookingServices from '../assets/BookingMopetco/Services.png';
+import bookingStep1 from '../assets/BookingMopetco/Step1Booking.png';
+import bookingStep2 from '../assets/BookingMopetco/Step2Booking.png';
+import bookingStep3 from '../assets/BookingMopetco/Step3Booking.png';
+import bookingStep4 from '../assets/BookingMopetco/Step4Booking.png';
+
+import boHome from '../assets/BackOfficeBookingMopetco/Home.png';
+import boReservaList from '../assets/BackOfficeBookingMopetco/ReservaList.png';
+import boCalendar from '../assets/BackOfficeBookingMopetco/calendar.png';
+import boMakeReserva from '../assets/BackOfficeBookingMopetco/makeReserva.png';
+import boGroomers from '../assets/BackOfficeBookingMopetco/groomers.png';
+import boClientes from '../assets/BackOfficeBookingMopetco/clientes.png';
+import boAgendaDeHoy from '../assets/BackOfficeBookingMopetco/AgendaDeHoy.png';
+import boSettings from '../assets/BackOfficeBookingMopetco/Settings.png';
+import boProfile from '../assets/BackOfficeBookingMopetco/profile.png';
+
 export const PROJECTS: Project[] = [
     {
         id: 1,
@@ -56,6 +78,7 @@ export const PROJECTS: Project[] = [
         description: "Sitio web corporativo para empresa de servicios petroleros con diseño premium, SEO optimizado y formulario de contacto integrado.",
         tags: ["Web", "SEO", "Diseño"],
         image: "from-blue-600 to-cyan-900",
+        gallery: [mopetcoHero, mopetcoGallery, mopetcoServiceDetail, mopetcoServices, mopetcoContact],
     },
     {
         id: 2,
@@ -64,6 +87,7 @@ export const PROJECTS: Project[] = [
         description: "Plataforma de reservas y gestión de citas con calendario interactivo, notificaciones automáticas y panel administrativo.",
         tags: ["Reservas", "Calendario", "Admin Panel"],
         image: "from-emerald-600 to-teal-900",
+        gallery: [bookingServices, bookingStep1, bookingStep2, bookingStep3, bookingStep4],
     },
     {
         id: 3,
@@ -88,6 +112,15 @@ export const PROJECTS: Project[] = [
         description: "Aplicación móvil de delivery con tracking en tiempo real, notificaciones push, pasarela de pagos y panel de restaurantes.",
         tags: ["App Móvil", "Delivery", "Pagos"],
         image: "from-pink-600 to-rose-900",
+    },
+    {
+        id: 6,
+        title: "BackOffice Booking Mopetco",
+        category: "Gestión",
+        description: "Panel administrativo centralizado para gestionar citas, clientes y servicios del sistema de booking en tiempo real.",
+        tags: ["BackOffice", "Dashboard", "Gestión de Citas"],
+        image: "from-blue-600 to-indigo-900",
+        gallery: [boHome, boReservaList, boCalendar, boMakeReserva, boGroomers, boClientes, boAgendaDeHoy, boSettings, boProfile],
     },
 ];
 

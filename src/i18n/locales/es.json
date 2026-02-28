@@ -83,6 +83,11 @@
         "title": "PideLo App de Delivery",
         "category": "App",
         "description": "Aplicación móvil de delivery con tracking en tiempo real, notificaciones push, pasarela de pagos y panel de restaurantes."
+      },
+      {
+        "title": "BackOffice Booking Mopetco",
+        "category": "Admin Panel",
+        "description": "Panel administrativo centralizado para gestionar citas, clientes y servicios del sistema de booking en tiempo real."
       }
     ]
   },

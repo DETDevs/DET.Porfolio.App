@@ -187,7 +187,6 @@ export const Contact = () => {
             className="lg:col-span-3 space-y-5"
             onSubmit={onSubmit}
           >
-            {/* Campo oculto para habilitar hCaptcha automáticamente en Web3Forms */}
             <input
               type="checkbox"
               name="botcheck"
