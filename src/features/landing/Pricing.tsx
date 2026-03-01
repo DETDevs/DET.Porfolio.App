@@ -21,15 +21,15 @@ const PLAN_PRICES = {
     implementation: "$300",
   },
   essential: {
-    monthly: "$59",
-    semiannual: "$49",
-    annual: "$45",
+    monthly: "$49",
+    semiannual: "$42",
+    annual: "$37",
     implementation: "",
   },
   growth: {
-    monthly: "$99",
-    semiannual: "$85",
-    annual: "$75",
+    monthly: "$75",
+    semiannual: "$64",
+    annual: "$56",
     implementation: "",
   },
   enterprise: {

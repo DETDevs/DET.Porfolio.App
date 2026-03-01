@@ -25,6 +25,7 @@ dist-ssr
 
 # Internal docs (do not push)
 DETDevs_Guia_Precios_Interna.md
+detdevs-combos.md
 
 # Environment variables
 .env

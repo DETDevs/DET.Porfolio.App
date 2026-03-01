@@ -186,9 +186,9 @@ export const PLANS: PricingPlan[] = [
         title: "Esencial",
         implementationPrice: "",
         prices: {
-            monthly: "$59",
-            semiannual: "$49",
-            annual: "$45",
+            monthly: "$49",
+            semiannual: "$42",
+            annual: "$37",
         },
         desc: "Lo justo para dejar el cuaderno y empezar a controlar tu negocio.",
         devFeatures: [
@@ -203,7 +203,7 @@ export const PLANS: PricingPlan[] = [
             "Respaldos incluidos",
         ],
         highlight: false,
-        disclaimer: "$49/mes × 6 meses. Luego $59/mes sin compromiso.",
+        disclaimer: "$42/mes × 6 meses. Luego $49/mes sin compromiso.",
         cta: "Empezar ahora",
     },
     {
@@ -211,9 +211,9 @@ export const PLANS: PricingPlan[] = [
         title: "Profesional",
         implementationPrice: "",
         prices: {
-            monthly: "$99",
-            semiannual: "$85",
-            annual: "$75",
+            monthly: "$75",
+            semiannual: "$64",
+            annual: "$56",
         },
         desc: "Dejá de hacer todo a mano: tu operación merece un sistema profesional.",
         devFeatures: [
@@ -229,7 +229,7 @@ export const PLANS: PricingPlan[] = [
             "Corrección de errores incluida",
         ],
         highlight: true,
-        disclaimer: "$85/mes × 6 meses. Luego $99/mes sin compromiso.",
+        disclaimer: "$64/mes × 6 meses. Luego $75/mes sin compromiso.",
         cta: "Comenzar implementación",
     },
     {
