@@ -258,15 +258,13 @@ export const Pricing = () => {
 
                 <div className="mt-auto">
                   <a
-                    href={`https://wa.me/50587140989?text=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`mailto:contacto@detdevs.com?subject=${encodeURIComponent(`Interesado en el plan "${plan.title}"`)}&body=${encodeURIComponent(`Hola, me interesa el plan "${plan.title}". ¿Podemos conversar?`)}`}
                     className="no-underline"
                     onClick={() => {
                       import("react-ga4").then((ga) => {
                         ga.default.event({
                           category: "Leads",
-                          action: "Clic WhatsApp",
+                          action: "Clic Email",
                           label: `Plan ${plan.title}`,
                         });
                       });
