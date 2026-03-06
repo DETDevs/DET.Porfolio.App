@@ -167,8 +167,8 @@
         "title": "Esencial",
         "desc": "Lo justo para dejar el cuaderno y empezar a controlar tu negocio.",
         "devFeatures": [
-          "Implementación incluida",
-          "Facturación + inventario básico",
+          "Implementación",
+          "Facturación + inventario",
           "Dashboard de tu negocio",
           "Hasta 3 usuarios incluidos"
         ],
@@ -184,7 +184,7 @@
         "title": "Profesional",
         "desc": "Dejá de hacer todo a mano: tu operación merece un sistema profesional.",
         "devFeatures": [
-          "Implementación incluida",
+          "Implementación",
           "Facturación + inventario + reportes",
           "Capacitación + manual de uso",
           "Hasta 6 usuarios incluidos",
@@ -216,7 +216,7 @@
     ],
     "comparison": [
       {
-        "feature": "Crear facturas y recibos",
+        "feature": "Creación y gestion de facturas",
         "essential": true,
         "professional": true
       },
@@ -226,22 +226,12 @@
         "professional": "Con proveedores y costos"
       },
       {
-        "feature": "Alertas cuando algo se está acabando",
-        "essential": true,
-        "professional": true
-      },
-      {
-        "feature": "Resumen de tu negocio",
-        "essential": "Básico",
-        "professional": "Completo con gráficas"
-      },
-      {
-        "feature": "Tomar pedidos de clientes",
+        "feature": "Tomar ordenes de clientes",
         "essential": false,
         "professional": true
       },
       {
-        "feature": "Pedidos para llevar",
+        "feature": "Pedidos con entrega programada",
         "essential": false,
         "professional": true
       },
@@ -256,12 +246,12 @@
         "professional": true
       },
       {
-        "feature": "Saber qué se vende más",
+        "feature": "Reporteria",
         "essential": false,
         "professional": true
       },
       {
-        "feature": "Pantalla de preparación",
+        "feature": "Seguimineto de tus pedidos",
         "essential": false,
         "professional": true
       },

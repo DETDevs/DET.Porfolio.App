@@ -192,7 +192,7 @@ export const PLANS: PricingPlan[] = [
         },
         desc: "Lo justo para dejar el cuaderno y empezar a controlar tu negocio.",
         devFeatures: [
-            "Implementación incluida",
+            "Implementación",
             "Facturación + inventario básico",
             "Dashboard de tu negocio",
             "Hasta 3 usuarios incluidos",
@@ -217,7 +217,7 @@ export const PLANS: PricingPlan[] = [
         },
         desc: "Dejá de hacer todo a mano: tu operación merece un sistema profesional.",
         devFeatures: [
-            "Implementación incluida",
+            "Implementación",
             "Facturación + inventario + reportes",
             "Capacitación + manual de uso",
             "Hasta 6 usuarios incluidos",
