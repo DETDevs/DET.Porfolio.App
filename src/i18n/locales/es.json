@@ -70,7 +70,7 @@
         "description": "Plataforma de reservas y gestión de citas con calendario interactivo, notificaciones automáticas y panel administrativo."
       },
       {
-        "title": "Bakery POS Integral",
+        "title": "Dulces Momentos",
         "category": "Facturación",
         "description": "Sistema punto de venta completo: facturación electrónica, inventario en tiempo real, control de caja (Cash In/Out) y gestión de pedidos."
       },
@@ -134,6 +134,8 @@
     "hide_comparison": "Ocultar comparación",
     "per_month": "/mes",
     "per_branch": "por sucursal",
+    "total_6months": "total (6 meses)",
+    "total_12months": "total (12 meses)",
     "from": "Desde",
     "quote": "Cotizar",
     "scope_note": "Desarrollo + mantenimiento según alcance.",

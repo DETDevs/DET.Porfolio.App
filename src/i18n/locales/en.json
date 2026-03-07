@@ -134,6 +134,8 @@
     "hide_comparison": "Collapse comparison",
     "per_month": "/mo",
     "per_branch": "per location",
+    "total_6months": "total (6 months)",
+    "total_12months": "total (12 months)",
     "from": "Starting at",
     "quote": "Let's Talk",
     "scope_note": "Development and maintenance are scoped based on your project.",

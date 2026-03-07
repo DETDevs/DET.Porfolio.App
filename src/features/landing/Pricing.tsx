@@ -200,17 +200,42 @@ export const Pricing = () => {
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
-                          {prices[activeTab]}
-                        </span>
-                        <span className="text-sm text-slate-500 font-normal">
-                          {t("pricing.per_month")}
-                        </span>
+                        {activeTab === "semiannual" ||
+                        activeTab === "annual" ? (
+                          <>
+                            <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                              $
+                              {(
+                                parseInt(prices[activeTab].replace("$", "")) *
+                                (activeTab === "semiannual" ? 6 : 12)
+                              ).toLocaleString()}
+                            </span>
+                            <span className="text-sm text-slate-500 font-normal ml-1">
+                              {activeTab === "semiannual"
+                                ? t("pricing.total_6months")
+                                : t("pricing.total_12months")}
+                            </span>
+                            <p className="text-[11px] text-slate-500 mt-0.5">
+                              {prices[activeTab]}
+                              {t("pricing.per_month")} ·{" "}
+                              {t("pricing.per_branch")}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                              {prices[activeTab]}
+                            </span>
+                            <span className="text-sm text-slate-500 font-normal">
+                              {t("pricing.per_month")}
+                            </span>
+                            <p className="text-[11px] text-slate-500 mt-1">
+                              {t("pricing.per_branch")}
+                            </p>
+                          </>
+                        )}
                       </motion.div>
                     </AnimatePresence>
-                    <p className="text-[11px] text-slate-500 mt-1">
-                      {t("pricing.per_branch")}
-                    </p>
                   </div>
                 )}
 

@@ -70,6 +70,13 @@ import boAgendaDeHoy from '../assets/BackOfficeBookingMopetco/AgendaDeHoy.png';
 import boSettings from '../assets/BackOfficeBookingMopetco/Settings.png';
 import boProfile from '../assets/BackOfficeBookingMopetco/profile.png';
 
+import dmDash from '../assets/DulcesMomentosPOS/Dash.png';
+import dmNuevaOrden from '../assets/DulcesMomentosPOS/NuevaOrden.png';
+import dmOrdenes from '../assets/DulcesMomentosPOS/OrdenesTomadas.png';
+import dmPedidos from '../assets/DulcesMomentosPOS/Pedidos.png';
+import dmProductos from '../assets/DulcesMomentosPOS/Productos.png';
+import dmReportes from '../assets/DulcesMomentosPOS/Reportes.png';
+
 export const PROJECTS: Project[] = [
     {
         id: 1,
@@ -91,11 +98,12 @@ export const PROJECTS: Project[] = [
     },
     {
         id: 3,
-        title: "Bakery POS Integral",
+        title: "Dulces Momentos",
         category: "Facturación",
         description: "Sistema punto de venta completo: facturación electrónica, inventario en tiempo real, control de caja (Cash In/Out) y gestión de pedidos.",
         tags: ["Facturación", "Inventario", "Pedidos", "Caja"],
         image: "from-violet-600 to-purple-900",
+        gallery: [dmDash, dmNuevaOrden, dmOrdenes, dmPedidos, dmProductos, dmReportes],
     },
     {
         id: 4,
