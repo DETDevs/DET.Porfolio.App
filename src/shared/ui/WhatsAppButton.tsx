@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const WHATSAPP_URL = "https://wa.me/50588068133";
+const WHATSAPP_URL = "https://wa.me/50587140989";
 
 export const WhatsAppButton = () => {
   const { t } = useTranslation();
