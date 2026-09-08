@@ -2,6 +2,8 @@
   "nav": {
     "services": "Services",
     "projects": "Projects",
+    "tracking": "Tracking",
+    "whyus": "Why Us",
     "pricing": "Pricing",
     "contact": "Contact",
     "cta": "Start a Project",
@@ -51,6 +53,10 @@
       {
         "title": "Mobile Apps",
         "desc": "Native iOS and Android apps that bring your business closer to your customers."
+      },
+      {
+        "title": "Backend & Architecture",
+        "desc": "Robust APIs, real-time engines, and systems that scale with your business, from microservices to full multi-tenant platforms."
       }
     ]
   },
@@ -58,38 +64,96 @@
     "eyebrow": "Portfolio",
     "title": "Work that speaks for itself",
     "subtitle": "Every project we ship is a solution crafted to tackle real challenges for real businesses.",
+    "viewCase": "View Details",
+    "viewGallery": "Gallery",
     "items": [
       {
-        "title": "Mopetco Landing Page",
-        "category": "Web",
-        "description": "Corporate website for an oil services firm — premium design, SEO-optimized, with a built-in contact form."
+        "title": "TrackDeli — Web Platform",
+        "category": "Web & Real-Time",
+        "description": "Multi-tenant SaaS platform for delivery logistics: live dispatching, interactive maps via WebSockets, and a public tracking portal for end customers."
       },
       {
-        "title": "Mopetco Booking System",
-        "category": "Management",
-        "description": "A full appointments and reservations platform with an interactive calendar, automated notifications, and an admin panel."
+        "title": "TrackDeli — Rider App",
+        "category": "Mobile App",
+        "description": "Flutter mobile application for delivery couriers featuring continuous GPS telemetry, automated order reception, quote negotiation, and fluid navigation."
+      },
+      {
+        "title": "TrackDeli POS",
+        "category": "Point of Sale",
+        "description": "Electron desktop point-of-sale for complete cash register, inventory, and billing operations, with native ESC/POS thermal printer and cash drawer integration."
       },
       {
         "title": "Bakery POS System",
-        "category": "Billing",
-        "description": "A complete point-of-sale solution: electronic invoicing, live inventory tracking, cash drawer control, and order management."
+        "category": "Billing & POS",
+        "description": "A complete point-of-sale solution: electronic invoicing, live inventory tracking with stock alerts, cash drawer control, and profitability reports."
       },
       {
-        "title": "AgroTrack Logistics Dashboard",
-        "category": "Management",
-        "description": "Operations dashboard for an agricultural cooperative — production metrics, batch traceability, and exportable reports."
+        "title": "Mopetco Booking System",
+        "category": "Management & Booking",
+        "description": "A full appointments and reservations platform with an interactive calendar, automated reminders, and a robust administration panel."
       },
       {
-        "title": "PideLo Delivery App",
-        "category": "App",
-        "description": "A mobile delivery app with live order tracking, push notifications, payment processing, and a restaurant management panel."
+        "title": "Mopetco Landing Page",
+        "category": "Website",
+        "description": "Corporate high-conversion website for an oil services firm — premium aesthetics, SEO optimization, and direct WhatsApp channel."
       },
       {
-        "title": "Mopetco Booking BackOffice",
-        "category": "Admin Panel",
-        "description": "Centralized administrative panel to manage appointments, clients, and services for the booking system in real time."
+        "title": "Legal Track USA",
+        "category": "Mobile App",
+        "description": "Cross-platform mobile application for real-time tracking of U.S. immigration cases, short video reels module, and instant push notifications."
       }
     ]
+  },
+  "tracking_scrolly": {
+    "eyebrow": "Real-Time Tracking",
+    "title": "Live Order Lifecycle",
+    "subtitle": "Discover the technology powering TrackDeli: how we orchestrate customers, dispatchers, and couriers with meter-by-meter live telemetry.",
+    "scroll_hint": "Scroll to follow the delivery route ↓",
+    "stages": [
+      {
+        "id": "pending",
+        "label": "Pending",
+        "step": "01",
+        "title": "Order Intake & Validation",
+        "desc": "Customer places order via web or WhatsApp. The system checks stock availability and calculates distance in milliseconds."
+      },
+      {
+        "id": "dispatched",
+        "label": "Dispatched",
+        "step": "02",
+        "title": "Smart Courier Dispatch",
+        "desc": "Our dispatch engine evaluates available courier positions and assigns the trip to the nearest optimal driver."
+      },
+      {
+        "id": "accepted",
+        "label": "Accepted",
+        "step": "03",
+        "title": "Confirmation & Pickup",
+        "desc": "The courier confirms the job in the mobile app, arrives at the store, and verifies package pickup."
+      },
+      {
+        "id": "in_route",
+        "label": "In Route",
+        "step": "04",
+        "title": "Live GPS Telemetry",
+        "desc": "Continuous coordinate streaming over WebSockets. The customer watches the courier glide smoothly on the map."
+      },
+      {
+        "id": "delivered",
+        "label": "Delivered",
+        "step": "05",
+        "title": "Completed Delivery",
+        "desc": "Digital delivery verification at the destination. The order completes, commissions settle, and customer rates the service."
+      }
+    ],
+    "hud": {
+      "live_tracking": "GPS Telemetry Active",
+      "rider_name": "Courier Carlos M. · Yamaha Bike",
+      "eta": "Est. Time: 12 min",
+      "speed": "38 km/h",
+      "accuracy": "GPS Accuracy: 2m",
+      "status_badge": "REAL-TIME"
+    }
   },
   "whyus": {
     "eyebrow": "Why DETDevs?",
@@ -98,251 +162,164 @@
     "items": [
       {
         "title": "Fast Turnaround",
-        "desc": "While others are still quoting, we're already building.",
-        "statLabel": "weeks to delivery"
+        "desc": "While others are still drafting quotes, we're already halfway done.",
+        "statLabel": "weeks to deliver"
       },
       {
-        "title": "Bulletproof Code",
-        "desc": "Solid, tested code that holds up — even on a Friday at 5 PM.",
+        "title": "Rock-Solid Code",
+        "desc": "Software built not to crash on a Friday afternoon.",
         "statLabel": "test coverage"
       },
       {
         "title": "Ongoing Support",
-        "desc": "We stick around after launch. Every plan includes technical support and long-term maintenance.",
-        "statLabel": "uptime"
+        "desc": "We don't vanish after launch. Technical support and maintenance are always included.",
+        "statLabel": "availability"
       },
       {
         "title": "Built to Scale",
-        "desc": "Designed to grow alongside you — from 10 users to 10,000, no rewrite needed.",
+        "desc": "Systems engineered to grow with you. From 10 to 10,000 users without a rewrite.",
         "statLabel": "scale potential"
       }
     ]
   },
   "pricing": {
-    "eyebrow": "Pricing",
-    "title": "Straightforward Plans",
-    "subtitle": "Whether you're just getting started or running a full operation, we have something that fits.",
+    "eyebrow": "Investment",
+    "title": "Transparent Pricing",
+    "subtitle": "Clear solutions adapted to your business growth stage, with zero hidden costs.",
     "tabs": {
-      "monthly": "Monthly",
-      "semiannual": "6-Month",
-      "annual": "Annual",
-      "recommended": "Best Value"
+      "web": "Websites",
+      "pos": "Billing / POS",
+      "logistics": "Logistics & Delivery"
     },
-    "semiannual_note": "The 6-Month plan is the minimum commitment for <1>Essential</1> and <2>Professional</2>. After that, go month-to-month — no lock-in.",
-    "footer_note": "Your system, your rules. No hidden fees, no surprises.",
-    "show_comparison": "What's included in each plan?",
-    "hide_comparison": "Collapse comparison",
-    "per_month": "/mo",
-    "per_branch": "per location",
-    "total_6months": "total (6 months)",
-    "total_12months": "total (12 months)",
-    "from": "Starting at",
-    "quote": "Let's Talk",
-    "scope_note": "Development and maintenance are scoped based on your project.",
-    "label_project": "What's included",
-    "label_includes": "What's included",
-    "label_maintenance": "Ongoing membership",
-    "label_support": "Support",
-    "recommended_badge": "Most Popular",
-    "table": {
-      "feature": "Feature"
+    "web": {
+      "title": "Professional Business Website",
+      "badge": "Digital Presence",
+      "desc": "Everything you need to showcase your business online and convert visitors into loyal customers.",
+      "starting_from": "From",
+      "price": "$300",
+      "maintenance_note": "+ $30/mo after 2 months of included maintenance and support",
+      "devFeatures": [
+        "Tailor-made, responsive design optimized for mobile, tablet, and desktop",
+        "Structured contact form with direct WhatsApp click-to-chat integration",
+        "Top-tier performance and SEO optimization for Google rankings",
+        "Guaranteed rapid delivery in 1-3 weeks",
+        "2 months of technical maintenance and support included"
+      ],
+      "membershipFeatures": [
+        "24/7 uptime monitoring so your site never goes down",
+        "Automated cloud backups and SSL security certificates",
+        "Direct support for future tweaks and questions"
+      ],
+      "cta": "Request My Website"
     },
-    "plans": [
-      {
-        "title": "Your Website",
-        "desc": "Everything you need to have a professional online presence — without the complexity.",
-        "devFeatures": [
-          "Modern, mobile-friendly design",
-          "Contact form + WhatsApp integration",
-          "Ready in 1–3 weeks",
-          "2 months of maintenance included"
-        ],
-        "membershipFeatures": [
-          "Your site stays online, always",
-          "Support whenever you need it",
-          "Backups and security monitoring"
-        ],
-        "disclaimer": "After the first 2 months: $30/mo",
-        "cta": "Get my website"
-      },
-      {
-        "title": "Essential",
-        "desc": "Ditch the spreadsheets and start running your business like a pro.",
-        "devFeatures": [
-          "Setup and onboarding included",
-          "Invoicing + basic inventory",
-          "Business dashboard",
-          "Up to 3 user accounts"
-        ],
-        "membershipFeatures": [
-          "Support whenever you need it",
-          "Security updates",
-          "Automated backups"
-        ],
-        "disclaimer": "$42/mo for the first 6 months, then $49/mo — cancel anytime.",
-        "cta": "Get started"
-      },
-      {
-        "title": "Professional",
-        "desc": "A fully operational system built for teams that mean business.",
-        "devFeatures": [
-          "Setup and onboarding included",
-          "Invoicing + inventory + reports",
-          "Staff training + user manual",
-          "Up to 6 user accounts",
-          "Ready in 4–8 weeks"
-        ],
-        "membershipFeatures": [
-          "Priority support",
-          "Security updates",
-          "Bug fixes included"
-        ],
-        "disclaimer": "$64/mo for the first 6 months, then $75/mo — cancel anytime.",
-        "cta": "Get started"
-      },
-      {
-        "title": "Custom Build",
-        "desc": "Your challenge is one of a kind. Your solution should be too.",
-        "devFeatures": [
-          "Fully custom software",
-          "Integrates with your existing systems",
-          "Scoped entirely around your needs"
-        ],
-        "membershipFeatures": [
-          "Dedicated support",
-          "High-availability infrastructure",
-          "Scales with your business"
-        ],
-        "cta": "Request a quote"
-      }
-    ],
-    "comparison": [
-      {
-        "feature": "Create invoices and receipts",
-        "essential": true,
-        "professional": true
-      },
-      {
-        "feature": "Stock level tracking",
-        "essential": true,
-        "professional": "With suppliers & costs"
-      },
-      {
-        "feature": "Low-stock alerts",
-        "essential": true,
-        "professional": true
-      },
-      {
-        "feature": "Business overview",
-        "essential": "Basic",
-        "professional": "Full with charts"
-      },
-      {
-        "feature": "Customer order management",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Takeout / to-go orders",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Daily cash register open/close",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Expense and cash flow tracking",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Best-seller analytics",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Kitchen / prep screen",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Onboarding and documentation",
-        "essential": true,
-        "professional": true
-      },
-      {
-        "feature": "Technical support",
-        "essential": true,
-        "professional": "Priority"
-      },
-      {
-        "feature": "User accounts included",
-        "essential": "3",
-        "professional": "6"
-      }
-    ]
+    "pos": {
+      "title": "All-Inclusive Plan — Invoicing & POS",
+      "badge": "Single Plan · All-Inclusive",
+      "desc": "No watered-down tiers or artificial limits. The full power of a point-of-sale system for one single monthly rate.",
+      "per_month": "/mo",
+      "per_branch": "per branch · unlimited transactions",
+      "devFeatures": [
+        "Fast electronic invoicing and receipt generation",
+        "Live inventory tracking with stock depletion alerts",
+        "Comprehensive cash drawer management (shifts, reconciliation, cash in/out)",
+        "Advanced revenue, best-sellers, and margin analytics",
+        "Multi-user roles for cashiers, supervisors, and managers",
+        "Native ESC/POS hardware support for thermal receipt printers and automatic cash drawers"
+      ],
+      "membershipFeatures": [
+        "Priority technical support and setup onboarding",
+        "Continuous software updates at no extra cost",
+        "Automated cloud backup and high redundancy"
+      ],
+      "social_proof_title": "Proven in real production",
+      "social_proof_desc": "Live screenshots of the TrackDeli POS operating in active businesses:",
+      "cta": "Get Started with POS"
+    },
+    "logistics": {
+      "title": "Smart Logistics & Delivery",
+      "badge": "Commission per Order",
+      "desc": "Per-delivery commission model — no fixed monthly subscription, pay only when your business ships.",
+      "commission_highlight": "No fixed monthly fee · Zero operational risk",
+      "commission_subtext": "We negotiate a fair fee per dispatched order tailored to your business volume. If you don't ship, you pay nothing.",
+      "devFeatures": [
+        "Proximity-based auto dispatch or assisted manual assignment",
+        "Real-time GPS tracking link for customers (no app download required)",
+        "Native Flutter courier app with telemetry and route navigation",
+        "Multi-tenant web dashboard to oversee orders, riders, and dispatch times",
+        "Transparent commission calculation and automated payout logs",
+        "WhatsApp ordering channel integration"
+      ],
+      "membershipFeatures": [
+        "Personalized kickoff guidance and dispatch workflow training",
+        "24/7 monitoring of WebSocket telemetry and server infrastructure",
+        "Direct courier team support"
+      ],
+      "cta": "Schedule a Call",
+      "scrolly_hint": "See how a delivery moves in real time in our interactive demo below ↓"
+    }
   },
   "contact": {
     "eyebrow": "Get in Touch",
-    "title": "Ready to simplify things?",
-    "subtitle": "Share your idea with us. Within 24 hours, you'll have a clear plan — not a vague proposal.",
-    "idea_heading": "Have an idea?",
-    "idea_body": "We turn ideas into software. No commitment, no pressure — just a straightforward conversation about what you need.",
-    "label_name": "Name",
-    "placeholder_name": "Your name",
-    "label_email": "Email",
-    "placeholder_email": "you@company.com",
-    "label_project": "Project type",
-    "select_default": "Select a project type",
-    "option_billing": "Billing System",
-    "option_inventory": "Inventory Management",
-    "option_web": "Website",
-    "option_app": "Mobile App",
-    "option_custom": "Something Custom",
-    "label_message": "Tell us about your project",
-    "placeholder_message": "Give us a quick overview of your project and the problem you're looking to solve...",
-    "send": "Send message",
+    "title": "Ready to build something great?",
+    "subtitle": "Tell us about your project. We'll get back to you within 24 hours with a clear roadmap and a straightforward quote.",
+    "direct_title": "Direct contact",
+    "direct_subtitle": "Prefer to chat right away? We're just a message away.",
+    "form_title": "Send us a message",
+    "label_name": "Full name",
+    "placeholder_name": "e.g. John Doe",
+    "label_email": "Email address",
+    "placeholder_email": "john@yourcompany.com",
+    "label_service": "What service are you looking for?",
+    "select_service": "Select a service",
+    "option_web": "Website / Landing Page",
+    "option_billing": "Billing / POS System",
+    "option_logistics": "Logistics & Delivery",
+    "option_mobile": "Mobile App",
+    "option_custom": "Custom Software",
+    "label_message": "Tell us about your idea",
+    "placeholder_message": "Briefly describe what you want to build and the problem you're solving...",
+    "send": "Send Message",
     "phone_label": "Phone",
-    "location_label": "Location"
+    "location_label": "Location",
+    "idea_heading": "Have a custom idea in mind?",
+    "idea_body": "We love tackling new challenges. Tell us what you need and we will design a tailor-made solution for your business."
   },
   "faq": {
     "eyebrow": "FAQ",
-    "title": "Common questions",
+    "title": "Questions we get asked a lot",
     "subtitle": "Don't see your question here? Reach out on WhatsApp — we usually reply within minutes.",
     "items": [
       {
-        "question": "How much does it cost to build a billing system?",
-        "answer": "It depends on the scope and features you need. We have plans ranging from simple websites to fully custom platforms. Reach out for a no-commitment quote tailored to your project."
+        "question": "How much does a custom billing system cost?",
+        "answer": "It depends on the scope and features your business needs. We offer plans ranging from basic business websites to full custom platforms. Contact us for a no-commitment personalized quote."
       },
       {
-        "question": "What does the monthly membership cover?",
-        "answer": "Your membership includes hosting, technical support, maintenance, automated backups, and system updates — everything you need to keep things running smoothly. Development is scoped and priced separately."
+        "question": "What's included in the monthly fee?",
+        "answer": "It covers cloud hosting, dedicated technical support, server maintenance, continuous backups, and system upgrades. Everything required to keep your software running smoothly without surprises."
       },
       {
         "question": "How long does a project take to complete?",
         "answer": "Most projects are live within 3 to 5 weeks. Larger, more complex builds can take anywhere from 1 to 3 months. Either way, you'll have full visibility into our progress from day one."
       },
       {
-        "question": "Do you offer support after the project is delivered?",
-        "answer": "Absolutely. We don't hand off and disappear. Every plan includes ongoing technical support and maintenance — because your system should keep improving as your business grows."
+        "question": "Do you provide support after launch?",
+        "answer": "Yes, absolutely. We don't disappear after shipping. All our plans include ongoing technical support and maintenance. Your software grows right alongside your business."
       },
       {
         "question": "Do you only work with businesses in Nicaragua?",
-        "answer": "Not at all. We work with clients across Latin America and beyond. We're based in Nicaragua, but geography has never been a limitation for us."
+        "answer": "Not at all. We work with clients across Latin America and internationally. We're proud to be from Nicaragua, but our software has no borders."
       }
     ]
   },
   "footer": {
-    "tagline": "Built with purpose, from Nicaragua 🇳🇮",
+    "tagline": "Crafted with passion in Nicaragua 🇳🇮",
     "sub_tagline": "Every great project starts with a conversation.\nYours can start today.",
     "rights": "Nicaragua to the World."
   },
   "whatsapp": {
-    "tooltip_heading": "Got a project in mind?",
+    "tooltip_heading": "Have a project in mind?",
     "tooltip_body": "Drop us a message on WhatsApp!",
-    "close": "Dismiss",
+    "close": "Close",
     "aria": "Chat with us on WhatsApp"
   }
 }

@@ -2,6 +2,8 @@
   "nav": {
     "services": "Servicios",
     "projects": "Proyectos",
+    "tracking": "Tracking",
+    "whyus": "Nosotros",
     "pricing": "Planes",
     "contact": "Contacto",
     "cta": "Iniciar Proyecto",
@@ -51,6 +53,10 @@
       {
         "title": "Apps Móviles",
         "desc": "Aplicaciones nativas para iOS y Android que conectan tu negocio con tus clientes."
+      },
+      {
+        "title": "Backend & Arquitectura",
+        "desc": "APIs robustas, tiempo real y sistemas que escalan con tu negocio, desde microservicios hasta plataformas multi-tenant completas."
       }
     ]
   },
@@ -58,38 +64,96 @@
     "eyebrow": "Portafolio",
     "title": "Proyectos que hablan por nosotros",
     "subtitle": "Cada proyecto es una solución diseñada para resolver problemas reales de nuestros clientes.",
+    "viewCase": "Ver Detalles",
+    "viewGallery": "Galería",
     "items": [
       {
-        "title": "Landing Page Mopetco",
-        "category": "Web",
-        "description": "Sitio web corporativo para empresa de servicios petroleros con diseño premium, SEO optimizado y formulario de contacto integrado."
+        "title": "TrackDeli — Web Platform",
+        "category": "Web & Real-Time",
+        "description": "Plataforma SaaS multi-tenant para logística y delivery: despacho inteligente en tiempo real, mapas interactivos con WebSockets y portal público de seguimiento de pedidos."
+      },
+      {
+        "title": "TrackDeli — Rider App",
+        "category": "App Móvil",
+        "description": "Aplicación móvil en Flutter para repartidores con telemetría GPS continua, recepción automática de órdenes, negociación de tarifas y navegación fluida sincronizada."
+      },
+      {
+        "title": "TrackDeli POS",
+        "category": "Punto de Venta",
+        "description": "Sistema de escritorio con Electron para gestión integral de caja, inventarios y facturación, con soporte nativo para impresoras térmicas ESC/POS y cajón de dinero."
+      },
+      {
+        "title": "Dulces Momentos POS",
+        "category": "Facturación & POS",
+        "description": "Sistema punto de venta completo: facturación rápida, inventario con alertas de stock, control de apertura/cierre de caja (Cash In/Out) y reportes de rentabilidad."
       },
       {
         "title": "Sistema de Booking Mopetco",
-        "category": "Gestión",
-        "description": "Plataforma de reservas y gestión de citas con calendario interactivo, notificaciones automáticas y panel administrativo."
+        "category": "Gestión & Reservas",
+        "description": "Plataforma web de citas y gestión de reservas en tiempo real con calendario interactivo, recordatorios automatizados y panel de administración."
       },
       {
-        "title": "Dulces Momentos",
-        "category": "Facturación",
-        "description": "Sistema punto de venta completo: facturación electrónica, inventario en tiempo real, control de caja (Cash In/Out) y gestión de pedidos."
+        "title": "Landing Page Mopetco",
+        "category": "Sitio Web",
+        "description": "Sitio web corporativo de alta conversión para empresa de servicios petroleros con diseño premium, SEO técnico avanzado y canal directo a WhatsApp."
       },
       {
-        "title": "AgroTrack Dashboard Logístico",
-        "category": "Gestión",
-        "description": "Panel de control para cooperativa agrícola con métricas de producción, trazabilidad de lotes y reportes exportables."
-      },
-      {
-        "title": "PideLo App de Delivery",
-        "category": "App",
-        "description": "Aplicación móvil de delivery con tracking en tiempo real, notificaciones push, pasarela de pagos y panel de restaurantes."
-      },
-      {
-        "title": "BackOffice Booking Mopetco",
-        "category": "Admin Panel",
-        "description": "Panel administrativo centralizado para gestionar citas, clientes y servicios del sistema de booking en tiempo real."
+        "title": "Legal Track USA",
+        "category": "App Móvil",
+        "description": "Aplicación móvil multiplataforma para seguimiento en tiempo real de casos de inmigración en EE.UU., feed de video corto optimizado y notificaciones push inmediatas."
       }
     ]
+  },
+  "tracking_scrolly": {
+    "eyebrow": "Tracking en Tiempo Real",
+    "title": "Ciclo de Vida de un Pedido en Vivo",
+    "subtitle": "Conocé la tecnología detrás de TrackDeli: cómo coordinamos clientes, despachadores y repartidores con telemetría en vivo a cada metro.",
+    "scroll_hint": "Scrollea para avanzar en la ruta ↓",
+    "stages": [
+      {
+        "id": "pending",
+        "label": "Pendiente",
+        "step": "01",
+        "title": "Ingreso y Validación",
+        "desc": "El cliente realiza el pedido vía web o WhatsApp. El sistema valida el inventario y calcula la distancia de entrega al instante."
+      },
+      {
+        "id": "dispatched",
+        "label": "Despachado",
+        "step": "02",
+        "title": "Asignación Inteligente",
+        "desc": "El motor de despacho evalúa la ubicación de los repartidores disponibles y asigna la orden automáticamente al más cercano."
+      },
+      {
+        "id": "accepted",
+        "label": "Aceptado",
+        "step": "03",
+        "title": "Confirmación y Retiro",
+        "desc": "El repartidor acepta el viaje en su app móvil, se dirige a la sucursal y confirma la recogida del paquete mediante escaneo."
+      },
+      {
+        "id": "in_route",
+        "label": "En camino",
+        "step": "04",
+        "title": "Telemetría GPS en Vivo",
+        "desc": "Transmisión fluida de coordenadas por WebSockets. El cliente ve el avance del repartidor en el mapa sin saltos ni demoras."
+      },
+      {
+        "id": "delivered",
+        "label": "Entregado",
+        "step": "05",
+        "title": "Entrega Completada",
+        "desc": "Confirmación digital en destino. La orden se cierra, la comisión se liquida y el cliente califica la experiencia en tiempo real."
+      }
+    ],
+    "hud": {
+      "live_tracking": "Transmisión GPS Activa",
+      "rider_name": "Rider Carlos M. · Moto Yamaha",
+      "eta": "Tiempo est.: 12 min",
+      "speed": "38 km/h",
+      "accuracy": "Precisión GPS: 2m",
+      "status_badge": "EN TIEMPO REAL"
+    }
   },
   "whyus": {
     "eyebrow": "¿Por qué DETDevs?",
@@ -121,177 +185,104 @@
   "pricing": {
     "eyebrow": "Inversión",
     "title": "Planes Transparentes",
-    "subtitle": "Escalamos contigo, desde lo básico hasta lo más complejo.",
+    "subtitle": "Soluciones claras y adaptadas a la etapa de tu negocio, sin costos sorpresa.",
     "tabs": {
-      "monthly": "Mensual",
-      "semiannual": "Semestral",
-      "annual": "Anual",
-      "recommended": "Recomendado"
+      "web": "Páginas Web",
+      "pos": "Facturación / POS",
+      "logistics": "Logística y Delivery"
     },
-    "semiannual_note": "Semestral = activación mínima para <1>Esencial</1> y <2>Profesional</2>. Luego, mensual sin compromiso.",
-    "footer_note": "Tu sistema es tuyo. Sin sorpresas, sin letra chica.",
-    "show_comparison": "¿Qué incluye cada plan?",
-    "hide_comparison": "Ocultar comparación",
-    "per_month": "/mes",
-    "per_branch": "por sucursal",
-    "total_6months": "total (6 meses)",
-    "total_12months": "total (12 meses)",
-    "from": "Desde",
-    "quote": "Cotizar",
-    "scope_note": "Desarrollo + mantenimiento según alcance.",
-    "label_project": "Tu proyecto",
-    "label_includes": "Incluye",
-    "label_maintenance": "Mantenimiento",
-    "label_support": "Soporte",
-    "recommended_badge": "Recomendado",
-    "table": {
-      "feature": "Funcionalidad"
+    "web": {
+      "title": "Tu Sitio Web Profesional",
+      "badge": "Presencia Digital",
+      "desc": "Todo lo que necesitás para vender online y recibir clientes con una imagen seria y moderna.",
+      "starting_from": "Desde",
+      "price": "$300",
+      "maintenance_note": "+ $30/mes tras los 2 meses de mantenimiento y soporte incluidos",
+      "devFeatures": [
+        "Diseño moderno, limpio y 100% adaptable a celulares, tablets y PC",
+        "Formulario de contacto estructurado con enlace directo a WhatsApp",
+        "Optimización de velocidad y SEO para posicionamiento en Google",
+        "Entrega rápida y garantizada en 1-3 semanas",
+        "2 meses de soporte técnico y mantenimiento preventivo incluidos"
+      ],
+      "membershipFeatures": [
+        "Monitoreo continuo para que tu sitio siempre esté online",
+        "Respaldos periódicos de seguridad en la nube",
+        "Soporte directo para ajustes y consultas técnicas"
+      ],
+      "cta": "Solicitar mi sitio web"
     },
-    "plans": [
-      {
-        "title": "Tu Sitio Web",
-        "desc": "Todo lo que necesitás para vender online, sin Excel ni dolores de cabeza.",
-        "devFeatures": [
-          "Diseño moderno y adaptable",
-          "Formulario de contacto + WhatsApp",
-          "Entrega en 1-3 semanas",
-          "2 meses de mantenimiento incluidos"
-        ],
-        "membershipFeatures": [
-          "Tu sitio siempre online",
-          "Soporte cuando lo necesités",
-          "Respaldos y seguridad"
-        ],
-        "disclaimer": "Después de los 2 meses incluidos: $30/mes",
-        "cta": "Solicitar mi sitio"
-      },
-      {
-        "title": "Esencial",
-        "desc": "Lo justo para dejar el cuaderno y empezar a controlar tu negocio.",
-        "devFeatures": [
-          "Implementación",
-          "Facturación + inventario",
-          "Dashboard de tu negocio",
-          "Hasta 3 usuarios incluidos"
-        ],
-        "membershipFeatures": [
-          "Soporte cuando lo necesités",
-          "Actualizaciones de seguridad",
-          "Respaldos incluidos"
-        ],
-        "disclaimer": "$42/mes × 6 meses. Luego $49/mes sin compromiso.",
-        "cta": "Empezar ahora"
-      },
-      {
-        "title": "Profesional",
-        "desc": "Dejá de hacer todo a mano: tu operación merece un sistema profesional.",
-        "devFeatures": [
-          "Implementación",
-          "Facturación + inventario + reportes",
-          "Capacitación + manual de uso",
-          "Hasta 6 usuarios incluidos",
-          "Entrega en 4-8 semanas"
-        ],
-        "membershipFeatures": [
-          "Soporte cuando lo necesités",
-          "Actualizaciones de seguridad",
-          "Corrección de errores incluida"
-        ],
-        "disclaimer": "$64/mes × 6 meses. Luego $75/mes sin compromiso.",
-        "cta": "Comenzar implementación"
-      },
-      {
-        "title": "Solución a Medida",
-        "desc": "Tu problema es único; tu solución también debería serlo.",
-        "devFeatures": [
-          "Software 100% a tu medida",
-          "Conectamos con tus otros sistemas",
-          "Diseñado según tus necesidades"
-        ],
-        "membershipFeatures": [
-          "Atención prioritaria",
-          "Sistema siempre disponible",
-          "Crece con tu negocio"
-        ],
-        "cta": "Solicitar cotización"
-      }
-    ],
-    "comparison": [
-      {
-        "feature": "Creación y gestion de facturas",
-        "essential": true,
-        "professional": true
-      },
-      {
-        "feature": "Saber cuánto producto te queda",
-        "essential": true,
-        "professional": "Con proveedores y costos"
-      },
-      {
-        "feature": "Tomar ordenes de clientes",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Pedidos con entrega programada",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Abrir y cerrar caja del día",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Controlar gastos y entradas de efectivo",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Reporteria",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Seguimineto de tus pedidos",
-        "essential": false,
-        "professional": true
-      },
-      {
-        "feature": "Capacitación y manual",
-        "essential": true,
-        "professional": true
-      },
-      {
-        "feature": "Soporte técnico",
-        "essential": true,
-        "professional": "Prioritario"
-      },
-      { "feature": "Usuarios incluidos", "essential": "3", "professional": "6" }
-    ]
+    "pos": {
+      "title": "Plan Todo Incluido — Facturación & POS",
+      "badge": "Un Solo Plan · Todo Incluido",
+      "desc": "Sin planes recortados ni escalones artificiales. Toda la potencia del sistema para tu punto de venta en una única cuota mensual.",
+      "per_month": "/mes",
+      "per_branch": "por sucursal · sin límites de operaciones",
+      "devFeatures": [
+        "Facturación electrónica rápida y emisión de comprobantes",
+        "Inventario en tiempo real con alertas de stock bajo y reabastecimiento",
+        "Control total de caja: apertura/cierre de turno, arqueo y movimientos (Cash In / Out)",
+        "Reportes avanzados de ventas, productos más vendidos y márgenes",
+        "Gestión multi-usuario con roles de cajero, supervisor y administrador",
+        "Integración de hardware ESC/POS: impresoras térmicas de tickets y cajón de dinero automático"
+      ],
+      "membershipFeatures": [
+        "Soporte técnico prioritario y asistencia en configuración",
+        "Actualizaciones de software continuas sin cobros adicionales",
+        "Respaldos automáticos en la nube y alta disponibilidad"
+      ],
+      "social_proof_title": "Probado en producción real",
+      "social_proof_desc": "Capturas directas del sistema TrackDeli POS operando en negocios reales:",
+      "cta": "Comenzar con POS"
+    },
+    "logistics": {
+      "title": "Logística y Delivery Inteligente",
+      "badge": "Comisión por Entrega",
+      "desc": "Modelo de comisión por entrega — sin costo fijo mensual, solo pagás cuando tu negocio despacha.",
+      "commission_highlight": "Sin costo fijo mensual · Cero riesgo operativo",
+      "commission_subtext": "Negociamos una tarifa por pedido despachado adaptada al volumen de tu operación. Si no despachás, no pagás.",
+      "devFeatures": [
+        "Despacho automático algorítmico al repartidor más cercano o asignación manual asistida",
+        "Tracking GPS en tiempo real para el cliente final (sin necesidad de descargar apps)",
+        "App móvil nativa para repartidores (Flutter) con telemetría en vivo y ruta optimizada",
+        "Panel web administrativo multi-tenant para monitorear órdenes, tiempos y flota",
+        "Liquidación automática y transparente de comisiones por cada entrega completada",
+        "Integración con WhatsApp y canales de recepción de órdenes"
+      ],
+      "membershipFeatures": [
+        "Acompañamiento personalizado en el lanzamiento de tu operación",
+        "Monitoreo 24/7 de la infraestructura de WebSockets y servidores",
+        "Capacitación completa para tu equipo de despacho y repartidores"
+      ],
+      "cta": "Agendar una llamada",
+      "scrolly_hint": "Mirá cómo viaja un pedido en tiempo real en nuestro demo ↓"
+    }
   },
   "contact": {
-    "eyebrow": "Contacto",
-    "title": "¿Listo para dejar de complicarte?",
-    "subtitle": "Contanos tu idea. En 24 horas tenés un plan, no un PDF bonito.",
-    "idea_heading": "¿Tenés una idea?",
-    "idea_body": "Nosotros la convertimos en software. Sin compromiso, sin rodeos. Solo una conversación para entender qué necesitás.",
-    "label_name": "Nombre",
-    "placeholder_name": "Tu nombre",
-    "label_email": "Email",
-    "placeholder_email": "correo@empresa.com",
-    "label_project": "Tipo de proyecto",
-    "select_default": "Selecciona una opción",
-    "option_billing": "Sistema de Facturación",
-    "option_inventory": "Gestión de Inventarios",
-    "option_web": "Página Web",
-    "option_app": "App Móvil",
-    "option_custom": "Proyecto Custom",
+    "eyebrow": "Hablemos",
+    "title": "¿Listo para empezar?",
+    "subtitle": "Contanos sobre tu proyecto. Te respondemos en menos de 24 horas con una propuesta clara.",
+    "direct_title": "Contacto directo",
+    "direct_subtitle": "¿Preferís hablar directamente? Estamos a un mensaje de distancia.",
+    "form_title": "Envíanos un mensaje",
+    "label_name": "Nombre completo",
+    "placeholder_name": "Ej. Juan Pérez",
+    "label_email": "Correo electrónico",
+    "placeholder_email": "juan@tuempresa.com",
+    "label_service": "¿Qué servicio te interesa?",
+    "select_service": "Selecciona un servicio",
+    "option_web": "Página Web / Landing Page",
+    "option_billing": "Sistema de Facturación / POS",
+    "option_logistics": "Logística y Delivery",
+    "option_mobile": "Aplicación Móvil",
+    "option_custom": "Desarrollo a Medida",
     "label_message": "Cuéntanos tu idea",
     "placeholder_message": "Describe brevemente tu proyecto y qué problema quieres resolver...",
     "send": "Enviar mensaje",
     "phone_label": "Teléfono",
-    "location_label": "Ubicación"
+    "location_label": "Ubicación",
+    "idea_heading": "¿Tenés una idea en mente?",
+    "idea_body": "Nos encanta escuchar proyectos nuevos. Si tenés una idea o requerimiento especial, contanos y lo diseñamos a tu medida."
   },
   "faq": {
     "eyebrow": "Preguntas Frecuentes",
@@ -303,8 +294,8 @@
         "answer": "El costo varía según las funcionalidades que necesites. Ofrecemos planes desde sitios web básicos hasta sistemas completos a medida. Contactanos para una cotización personalizada sin compromiso."
       },
       {
-        "question": "¿Qué incluye la membresía mensual?",
-        "answer": "La membresía cubre hosting, soporte técnico, mantenimiento, copias de seguridad y actualizaciones del sistema. Es todo lo que necesitás para que tu software funcione sin preocupaciones. El desarrollo se cotiza aparte."
+        "question": "¿Qué incluye la cuota mensual?",
+        "answer": "Cubre hosting, soporte técnico prioritario, mantenimiento, copias de seguridad continuas y actualizaciones del sistema. Es todo lo que necesitás para que tu software funcione sin preocupaciones."
       },
       {
         "question": "¿En cuánto tiempo entregan un proyecto?",

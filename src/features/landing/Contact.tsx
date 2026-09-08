@@ -112,13 +112,13 @@ export const Contact = () => {
         variants={staggerContainer}
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
+          <span className="text-[#a3e635] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
             {t("contact.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             {t("contact.title")}
           </h2>
-          <p className="text-slate-400 max-w-lg mx-auto">
+          <p className="text-zinc-400 max-w-lg mx-auto">
             {t("contact.subtitle")}
           </p>
         </motion.div>
@@ -127,7 +127,7 @@ export const Contact = () => {
           <motion.div
             variants={slideLeftVariants}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-4"
           >
             {contactMethods.map((method, i) =>
               method.href !== "#" ? (
@@ -136,16 +136,16 @@ export const Contact = () => {
                   href={method.href}
                   variants={fadeUpVariants}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/50 hover:border-violet-500/30 transition-[border-color,transform] duration-300 group hover:translate-x-1.5"
+                  className="flex items-center gap-4 p-4 rounded-[2px] bg-[#121212] border border-zinc-800 hover:border-zinc-700 transition-colors duration-200 group"
                 >
-                  <div className="w-12 h-12 bg-violet-900/30 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-violet-900/50 transition-colors">
-                    <method.icon className="text-violet-400 w-5 h-5" />
+                  <div className="w-10 h-10 bg-zinc-800 rounded-[2px] flex items-center justify-center shrink-0">
+                    <method.icon className="text-[#a3e635] w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider">
+                    <div className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
                       {method.label}
                     </div>
-                    <div className="text-white font-medium">{method.value}</div>
+                    <div className="text-white text-sm font-medium">{method.value}</div>
                   </div>
                 </motion.a>
               ) : (
@@ -153,16 +153,16 @@ export const Contact = () => {
                   key={i}
                   variants={fadeUpVariants}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/50"
+                  className="flex items-center gap-4 p-4 rounded-[2px] bg-[#121212] border border-zinc-800"
                 >
-                  <div className="w-12 h-12 bg-violet-900/30 rounded-xl flex items-center justify-center shrink-0">
-                    <method.icon className="text-violet-400 w-5 h-5" />
+                  <div className="w-10 h-10 bg-zinc-800 rounded-[2px] flex items-center justify-center shrink-0">
+                    <method.icon className="text-[#a3e635] w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider">
+                    <div className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
                       {method.label}
                     </div>
-                    <div className="text-white font-medium">{method.value}</div>
+                    <div className="text-white text-sm font-medium">{method.value}</div>
                   </div>
                 </motion.div>
               ),
@@ -170,12 +170,12 @@ export const Contact = () => {
 
             <motion.div
               variants={fadeUpVariants}
-              className="p-6 rounded-2xl bg-linear-to-br from-violet-900/20 to-slate-900/50 border border-violet-500/20"
+              className="p-5 rounded-[2px] bg-[#121212] border border-zinc-800"
             >
               <p className="text-sm text-white font-semibold mb-1">
                 {t("contact.idea_heading")}
               </p>
-              <p className="text-sm text-slate-400 leading-relaxed">
+              <p className="text-sm text-zinc-400 leading-relaxed font-sans">
                 {t("contact.idea_body")}
               </p>
             </motion.div>
@@ -184,7 +184,7 @@ export const Contact = () => {
           <motion.form
             variants={slideRightVariants}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-3 space-y-5"
+            className="lg:col-span-3 space-y-4"
             onSubmit={onSubmit}
           >
             <input
@@ -194,11 +194,11 @@ export const Contact = () => {
               style={{ display: "none" }}
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label
                   htmlFor="contact-name"
-                  className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
                 >
                   {t("contact.label_name")}
                 </label>
@@ -208,13 +208,13 @@ export const Contact = () => {
                   type="text"
                   required
                   placeholder={t("contact.placeholder_name")}
-                  className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
+                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
                 />
               </div>
               <div>
                 <label
                   htmlFor="contact-email"
-                  className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
                 >
                   {t("contact.label_email")}
                 </label>
@@ -224,7 +224,7 @@ export const Contact = () => {
                   type="email"
                   required
                   placeholder={t("contact.placeholder_email")}
-                  className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm"
+                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
                 />
               </div>
             </div>
@@ -232,32 +232,32 @@ export const Contact = () => {
             <div>
               <label
                 htmlFor="contact-project"
-                className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+                className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
               >
-                {t("contact.label_project")}
+                {t("contact.label_service")}
               </label>
               <select
                 id="contact-project"
                 name="project"
                 required
-                className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm appearance-none cursor-pointer"
+                className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white focus:outline-none focus:border-[#a3e635] transition-colors text-sm cursor-pointer"
               >
-                <option value="" className="bg-slate-900">
-                  {t("contact.select_default")}
+                <option value="" className="bg-[#121212] text-white">
+                  {t("contact.select_service")}
                 </option>
-                <option value="facturacion" className="bg-slate-900">
+                <option value="facturacion" className="bg-[#121212] text-white">
                   {t("contact.option_billing")}
                 </option>
-                <option value="inventario" className="bg-slate-900">
-                  {t("contact.option_inventory")}
+                <option value="logistica" className="bg-[#121212] text-white">
+                  {t("contact.option_logistics")}
                 </option>
-                <option value="web" className="bg-slate-900">
+                <option value="web" className="bg-[#121212] text-white">
                   {t("contact.option_web")}
                 </option>
-                <option value="app" className="bg-slate-900">
-                  {t("contact.option_app")}
+                <option value="app" className="bg-[#121212] text-white">
+                  {t("contact.option_mobile")}
                 </option>
-                <option value="custom" className="bg-slate-900">
+                <option value="custom" className="bg-[#121212] text-white">
                   {t("contact.option_custom")}
                 </option>
               </select>
@@ -266,7 +266,7 @@ export const Contact = () => {
             <div>
               <label
                 htmlFor="contact-message"
-                className="text-xs text-slate-400 uppercase tracking-wider mb-2 block"
+                className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
               >
                 {t("contact.label_message")}
               </label>
@@ -274,9 +274,9 @@ export const Contact = () => {
                 id="contact-message"
                 name="message"
                 required
-                rows={5}
+                rows={4}
                 placeholder={t("contact.placeholder_message")}
-                className="w-full px-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-xl text-white placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors text-sm resize-none"
+                className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#a3e635] transition-colors text-sm resize-none"
               />
             </div>
 
@@ -287,19 +287,19 @@ export const Contact = () => {
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Enviando..." : t("contact.send")}
-                {!isSubmitting && <Send size={16} />}
+                {!isSubmitting && <Send size={14} />}
               </Button>
 
               {submitStatus === "success" && (
-                <div className="flex items-center gap-2 text-emerald-400 text-sm bg-emerald-400/10 px-4 py-2 rounded-lg">
-                  <CheckCircle2 size={16} />
+                <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-2 rounded-[2px]">
+                  <CheckCircle2 size={14} />
                   <span>¡Mensaje enviado con éxito!</span>
                 </div>
               )}
 
               {submitStatus === "error" && (
-                <div className="flex items-center gap-2 text-rose-400 text-sm bg-rose-400/10 px-4 py-2 rounded-lg">
-                  <AlertCircle size={16} />
+                <div className="flex items-center gap-2 text-rose-400 text-xs font-mono bg-rose-500/10 border border-rose-500/20 px-3.5 py-2 rounded-[2px]">
+                  <AlertCircle size={14} />
                   <span>Hubo un error al enviar el mensaje.</span>
                 </div>
               )}

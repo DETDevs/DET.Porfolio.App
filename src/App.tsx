@@ -4,6 +4,8 @@ import { Navbar } from "@/features/layout/Navbar";
 import { Footer } from "@/features/layout/Footer";
 import { Hero } from "@/features/landing/Hero";
 import { WhatsAppButton } from "@/shared/ui/WhatsAppButton";
+import { ScrollProgress } from "@/shared/ui/ScrollProgress";
+import { SectionNav } from "@/shared/ui/SectionNav";
 
 const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 if (GA_ID) {
@@ -19,6 +21,11 @@ const Projects = lazy(() =>
 const WhyUs = lazy(() =>
   import("@/features/landing/WhyUs").then((m) => ({ default: m.WhyUs })),
 );
+const OrderTrackingScrolly = lazy(() =>
+  import("@/features/landing/OrderTrackingScrolly").then((m) => ({
+    default: m.OrderTrackingScrolly,
+  })),
+);
 const Pricing = lazy(() =>
   import("@/features/landing/Pricing").then((m) => ({ default: m.Pricing })),
 );
@@ -29,6 +36,11 @@ const FAQ = lazy(() =>
   import("@/features/landing/FAQ").then((m) => ({ default: m.FAQ })),
 );
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const App = () => {
   useEffect(() => {
     if (GA_ID) {
@@ -37,10 +49,19 @@ const App = () => {
         page: window.location.pathname + window.location.search,
       });
     }
+
+    // Refresh ScrollTrigger once dynamic suspense sections mount to ensure pin calculations are exact
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 400);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 selection:bg-violet-500/30 font-sans overflow-x-hidden">
+    <div className="bg-[#050505] min-h-screen text-zinc-200 selection:bg-[#a3e635] selection:text-black font-sans overflow-x-hidden">
+      <ScrollProgress />
+      <SectionNav />
       <Navbar />
       <main>
         <Hero />
@@ -48,6 +69,7 @@ const App = () => {
           <Services />
           <Projects />
           <WhyUs />
+          <OrderTrackingScrolly />
           <Pricing />
           <Contact />
           <FAQ />

@@ -22,13 +22,13 @@ const FaqItem = ({
     <motion.div
       variants={fadeUpVariants}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border border-slate-800/50 rounded-2xl overflow-hidden hover:border-violet-500/20 transition-colors"
+      className="border border-zinc-800 rounded-[2px] bg-[#121212] overflow-hidden hover:border-zinc-700 transition-colors"
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-5 md:p-6 text-left bg-transparent border-none cursor-pointer group"
       >
-        <span className="text-sm md:text-base font-semibold text-white pr-4 group-hover:text-violet-300 transition-colors">
+        <span className="text-sm md:text-base font-medium text-white pr-4 group-hover:text-[#a3e635] transition-colors">
           {item.question}
         </span>
         <motion.div
@@ -36,7 +36,7 @@ const FaqItem = ({
           transition={{ duration: 0.3 }}
           className="shrink-0"
         >
-          <ChevronDown className="w-5 h-5 text-violet-400" />
+          <ChevronDown className="w-5 h-5 text-[#a3e635]" />
         </motion.div>
       </button>
 
@@ -47,9 +47,9 @@ const FaqItem = ({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
+            className="overflow-hidden border-t border-zinc-800/60"
           >
-            <p className="px-5 md:px-6 pb-5 md:pb-6 text-sm text-slate-400 leading-relaxed -mt-1">
+            <p className="px-5 md:px-6 py-4 text-sm text-zinc-400 leading-relaxed">
               {item.answer}
             </p>
           </motion.div>
@@ -76,13 +76,13 @@ export const FAQ = () => {
         variants={staggerContainer}
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
+          <span className="text-[#a3e635] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
             {t("faq.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             {t("faq.title")}
           </h2>
-          <p className="text-slate-400 max-w-lg mx-auto">{t("faq.subtitle")}</p>
+          <p className="text-zinc-400 max-w-lg mx-auto">{t("faq.subtitle")}</p>
         </motion.div>
 
         <div className="max-w-3xl mx-auto space-y-3">

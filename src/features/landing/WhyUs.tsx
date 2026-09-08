@@ -12,23 +12,30 @@ import {
 const ICONS = [Zap, Shield, HeadsetIcon, Rocket];
 const STATS = ["3-5", "100%", "24/7", "∞"];
 
-const AnimatedStat = ({
-  value,
-  isInView,
-}: {
+interface AnimatedStatProps {
   value: string;
   isInView: boolean;
-}) => {
-  const [display, setDisplay] = useState(value);
+}
+
+const AnimatedStat = ({ value, isInView }: AnimatedStatProps) => {
+  const [display, setDisplay] = useState(value === "∞" ? "∞" : "0");
   const hasAnimated = useRef(false);
 
-  const { numericPart, suffix, isNumeric } = useMemo(() => {
-    const match = value.match(/^[\d.]+/);
-    return {
-      numericPart: match ? parseFloat(match[0]) : 0,
-      suffix: match ? value.replace(match[0], "") : "",
-      isNumeric: !!match,
-    };
+  const { targetNum, prefix, suffix, isNumeric } = useMemo(() => {
+    if (value === "∞") return { targetNum: 0, prefix: "", suffix: "∞", isNumeric: false };
+    if (value === "3-5") return { targetNum: 5, prefix: "3-", suffix: "", isNumeric: true };
+    if (value === "24/7") return { targetNum: 24, prefix: "", suffix: "/7", isNumeric: true };
+
+    const match = value.match(/^(\d+)(.*)$/);
+    if (match) {
+      return {
+        targetNum: parseInt(match[1], 10),
+        prefix: "",
+        suffix: match[2] || "",
+        isNumeric: true,
+      };
+    }
+    return { targetNum: 0, prefix: "", suffix: value, isNumeric: false };
   }, [value]);
 
   useEffect(() => {
@@ -40,23 +47,41 @@ const AnimatedStat = ({
       return;
     }
 
-    const steps = 30;
-    const increment = numericPart / steps;
-    let current = 0;
-    let step = 0;
+    const duration = 1000; // ms
+    let startTime: number | null = null;
+    let animationFrameId: number;
 
-    const timer = setInterval(() => {
-      step++;
-      current = Math.min(current + increment, numericPart);
-      setDisplay(Math.round(current) + suffix);
-      if (step >= steps) {
-        setDisplay(value);
-        clearInterval(timer);
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out cubic: 1 - (1 - progress)^3
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+      const currentVal = Math.round(easeOutCubic * targetNum);
+
+      if (value === "3-5") {
+        if (progress < 0.5) {
+          setDisplay(`1-2`);
+        } else if (progress < 0.8) {
+          setDisplay(`2-4`);
+        } else {
+          setDisplay(`3-5`);
+        }
+      } else {
+        setDisplay(`${prefix}${currentVal}${suffix}`);
       }
-    }, 40);
 
-    return () => clearInterval(timer);
-  }, [isInView, value, numericPart, suffix, isNumeric]);
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      } else {
+        setDisplay(value);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isInView, value, targetNum, prefix, suffix, isNumeric]);
 
   return <span>{display}</span>;
 };
@@ -65,7 +90,7 @@ export const WhyUs = () => {
   const { t } = useTranslation();
   const { ref, isInView } = useScrollReveal(0.1);
   const statRef = useRef(null);
-  const statsInView = useInView(statRef, { once: true, amount: 0.3 });
+  const statsInView = useInView(statRef, { once: true, amount: 0.25 });
 
   const items = t("whyus.items", { returnObjects: true }) as {
     title: string;
@@ -81,14 +106,14 @@ export const WhyUs = () => {
         animate={isInView ? "visible" : "hidden"}
         variants={staggerContainer}
       >
-        <motion.div variants={fadeUpVariants} className="text-center mb-16">
-          <span className="text-violet-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
+        <motion.div variants={fadeUpVariants} className="text-center mb-14">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#a3e635] mb-2 block">
             {t("whyus.eyebrow")}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
             {t("whyus.title")}
           </h2>
-          <p className="text-slate-400 max-w-xl mx-auto">
+          <p className="text-zinc-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
             {t("whyus.subtitle")}
           </p>
         </motion.div>
@@ -103,26 +128,27 @@ export const WhyUs = () => {
               <motion.div
                 key={i}
                 variants={fadeUpVariants}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative p-8 rounded-3xl bg-linear-to-b from-slate-900/80 to-slate-900/30 border border-slate-800/50 hover:border-violet-500/30 transition-[border-color,transform] duration-300 group text-center hover:-translate-y-1.5"
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className="p-8 rounded-[2px] bg-[#121212] border border-zinc-800 hover:border-zinc-700 transition-colors group text-left shadow-sm"
               >
-                <div className="mb-4">
-                  <div className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-indigo-300">
+                {/* Metric with animated counter (solid white, no gradients) */}
+                <div className="mb-6">
+                  <div className="text-4xl lg:text-5xl font-black text-white tracking-tight">
                     <AnimatedStat value={STATS[i]} isInView={statsInView} />
                   </div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wider mt-1">
+                  <div className="font-mono text-xs uppercase tracking-wider text-zinc-400 mt-1">
                     {diff.statLabel}
                   </div>
                 </div>
 
-                <div className="w-12 h-12 bg-violet-900/30 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:bg-violet-900/50 transition-colors">
-                  <Icon className="text-violet-400 w-6 h-6" />
+                <div className="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-[2px] flex items-center justify-center mb-4 text-[#a3e635]">
+                  <Icon className="w-5 h-5" />
                 </div>
 
-                <h3 className="font-bold text-white mb-2 text-lg">
+                <h3 className="font-bold uppercase text-white mb-2 text-base tracking-tight">
                   {diff.title}
                 </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                   {diff.desc}
                 </p>
               </motion.div>

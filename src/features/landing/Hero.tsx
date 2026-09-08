@@ -11,71 +11,61 @@ export const Hero = () => {
     target: containerRef,
     offset: ["start start", "end start"],
   });
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="relative px-4 flex flex-col items-center text-center overflow-hidden min-h-screen justify-center"
+      className="relative px-4 flex flex-col items-center text-center overflow-hidden min-h-screen justify-center bg-[#050505]"
     >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <motion.div style={{ opacity }} className="relative z-10 max-w-4xl pt-16">
         <motion.div
-          style={{ y: glowY, willChange: "transform" }}
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-violet-600/15 blur-[60px] rounded-full"
-        />
-      </div>
-
-      <motion.div style={{ opacity }} className="relative z-10 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-900/20 border border-violet-500/30 text-violet-300 text-xs font-bold uppercase tracking-wider mb-8"
+          transition={{ duration: 0.4 }}
+          className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[#a3e635] font-mono text-xs uppercase tracking-widest rounded-[2px] mb-8"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500" />
-          </span>
-          {t("hero.badge")}
+          <span className="w-1.5 h-1.5 bg-[#a3e635]" />
+          <span>{t("hero.badge")}</span>
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-white mb-6 leading-[1.05] tracking-tight"
         >
           {t("hero.title_1")} <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-violet-400 via-purple-400 to-indigo-300">
+          <span className="text-[#a3e635]">
             {t("hero.title_2")}
           </span>
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="text-zinc-400 text-base sm:text-lg mb-10 max-w-2xl mx-auto leading-relaxed"
         >
           {t("hero.subtitle")}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a href="#planes" className="w-full sm:w-auto no-underline">
             <Button className="w-full">
-              {t("hero.cta_primary")} <ArrowRight size={18} />
+              <span>{t("hero.cta_primary")}</span>
+              <ArrowRight size={15} />
             </Button>
           </a>
           <a href="#servicios" className="w-full sm:w-auto no-underline">
             <Button variant="secondary" className="w-full">
-              {t("hero.cta_secondary")}
+              <span>{t("hero.cta_secondary")}</span>
             </Button>
           </a>
         </motion.div>
@@ -84,16 +74,16 @@ export const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        transition={{ delay: 0.8 }}
         className="absolute bottom-8 z-10"
       >
         <a href="#servicios" className="no-underline">
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="cursor-pointer text-slate-500 hover:text-violet-400 transition-colors"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="cursor-pointer text-zinc-600 hover:text-[#a3e635] transition-colors"
           >
-            <ChevronDown size={28} />
+            <ChevronDown size={24} />
           </motion.div>
         </a>
       </motion.div>

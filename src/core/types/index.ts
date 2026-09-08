@@ -15,6 +15,7 @@ export interface Project {
     tags: string[];
     image: string;
     gallery?: string[];
+    ecosystem?: "trackdeli" | "client" | "external";
 }
 
 export interface Differentiator {

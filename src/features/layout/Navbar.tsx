@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Layers, FolderOpen, Tag, Mail, Home } from "lucide-react";
+import { Menu, X, Layers, FolderOpen, Tag, Mail, Home, Radio } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export const Navbar = () => {
@@ -15,6 +15,7 @@ export const Navbar = () => {
   const NAV_LINKS = [
     { label: t("nav.services"), href: "#servicios", icon: Layers },
     { label: t("nav.projects"), href: "#proyectos", icon: FolderOpen },
+    { label: t("nav.tracking", "Tracking"), href: "#tracking", icon: Radio },
     { label: t("nav.pricing"), href: "#planes", icon: Tag },
     { label: t("nav.contact"), href: "#contacto", icon: Mail },
   ];
@@ -23,7 +24,10 @@ export const Navbar = () => {
   const nextLang = i18n.language.startsWith("es") ? "EN" : "ES";
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 40;
+      setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -97,31 +101,28 @@ export const Navbar = () => {
         <div
           className={`
             pointer-events-auto
-            flex items-center gap-1
+            flex items-center gap-2
             px-3 py-2
-            rounded-full
+            rounded-[2px]
             border
-            transition-all duration-500
+            transition-all duration-300
             ${
               scrolled
-                ? "bg-slate-950/75 backdrop-blur-xl border-white/10 shadow-[0_0_30px_rgba(139,92,246,0.15),0_8px_32px_rgba(0,0,0,0.4)]"
-                : "bg-slate-950/50 backdrop-blur-md border-white/5 shadow-[0_0_20px_rgba(139,92,246,0.08)]"
+                ? "bg-[#0c0c0c]/90 backdrop-blur-md border-zinc-800 shadow-sm"
+                : "bg-[#0c0c0c]/60 backdrop-blur-sm border-zinc-800/80 shadow-none"
             }
           `}
         >
           <button
             onClick={scrollToTop}
-            className="font-bold text-sm tracking-tight text-white flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-full hover:bg-white/5 transition-colors mr-1"
+            className="font-bold text-sm tracking-tight text-white flex items-center gap-2 cursor-pointer px-2.5 py-1 rounded-[2px] hover:bg-zinc-800/50 transition-colors mr-1"
             aria-label="Ir al inicio"
           >
-            <div className="relative">
-              <div className="w-2 h-2 rounded-full bg-violet-500" />
-              <div className="w-2 h-2 rounded-full bg-violet-400 absolute inset-0 animate-ping opacity-60" />
-            </div>
-            <span className="text-sm font-semibold">DETDevs</span>
+            <div className="w-2 h-2 rounded-full bg-[#a3e635]" />
+            <span className="text-sm font-semibold tracking-tight">DETDevs</span>
           </button>
 
-          <div className="w-px h-4 bg-white/10 mx-1" />
+          <div className="w-px h-4 bg-zinc-800 mx-1" />
 
           <div
             className="hidden md:flex items-center relative"
@@ -129,7 +130,7 @@ export const Navbar = () => {
           >
             {hasActiveIndicator && (
               <motion.div
-                className="absolute top-0 bottom-0 rounded-full bg-violet-500/15 border border-violet-500/20"
+                className="absolute top-0 bottom-0 rounded-[2px] bg-zinc-800/80 border border-zinc-700/50"
                 animate={indicatorStyle}
                 transition={{ type: "spring", stiffness: 400, damping: 35 }}
               />
@@ -146,9 +147,9 @@ export const Navbar = () => {
                   onClick={() => scrollToSection(link.href)}
                   onMouseEnter={() => setHoverIndex(i)}
                   className={`
-                    relative px-4 py-1.5 text-xs font-medium rounded-full cursor-pointer
+                    relative px-3.5 py-1.5 text-xs font-mono tracking-wide rounded-[2px] cursor-pointer
                     transition-colors duration-200 bg-transparent border-none
-                    ${isActive ? "text-violet-300" : "text-slate-400 hover:text-slate-200"}
+                    ${isActive ? "text-[#a3e635] font-semibold" : "text-zinc-400 hover:text-zinc-200"}
                   `}
                 >
                   {link.label}
@@ -157,14 +158,14 @@ export const Navbar = () => {
             })}
           </div>
 
-          <div className="w-px h-4 bg-white/10 mx-1 hidden md:block" />
+          <div className="w-px h-4 bg-zinc-800 mx-1 hidden md:block" />
 
           <div
-            className="hidden md:flex items-center bg-white/5 rounded-full p-0.5 border border-white/8 relative"
+            className="hidden md:flex items-center bg-[#121212] rounded-[2px] p-0.5 border border-zinc-800 relative"
             title={`Switch to ${nextLang}`}
           >
             <motion.div
-              className="absolute top-0.5 bottom-0.5 rounded-full bg-white/10"
+              className="absolute top-0.5 bottom-0.5 rounded-[2px] bg-zinc-800"
               animate={{
                 left: currentLang === "ES" ? "2px" : "50%",
                 width: "calc(50% - 2px)",
@@ -176,9 +177,9 @@ export const Navbar = () => {
                 key={lang}
                 onClick={() => i18n.changeLanguage(lang.toLowerCase())}
                 className={`
-                  relative z-10 px-3 py-1 text-[11px] font-bold rounded-full cursor-pointer border-none
+                  relative z-10 px-2.5 py-0.5 text-[11px] font-mono font-bold rounded-[2px] cursor-pointer border-none
                   transition-colors duration-200 bg-transparent
-                  ${currentLang === lang ? "text-white" : "text-slate-500 hover:text-slate-300"}
+                  ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-500 hover:text-zinc-300"}
                 `}
               >
                 {lang}
@@ -197,23 +198,20 @@ export const Navbar = () => {
                 });
               });
             }}
-            className={`
+            className="
               hidden md:flex items-center gap-1.5
-              px-4 py-1.5 rounded-full text-xs font-semibold
+              px-3.5 py-1.5 rounded-[2px] text-xs font-mono font-bold uppercase tracking-wider
               cursor-pointer border-none
-              bg-violet-600 hover:bg-violet-500
-              text-white
-              transition-all duration-200
-              shadow-[0_0_15px_rgba(139,92,246,0.4)]
-              hover:shadow-[0_0_20px_rgba(139,92,246,0.6)]
-              hover:scale-105 active:scale-95
-            `}
+              bg-[#a3e635] hover:bg-[#bef264]
+              text-black
+              transition-colors duration-150
+            "
           >
             {t("nav.cta")}
           </button>
 
           <button
-            className="md:hidden text-slate-300 bg-transparent border-none cursor-pointer p-1.5 rounded-full hover:bg-white/5 transition-colors"
+            className="md:hidden text-zinc-300 bg-transparent border-none cursor-pointer p-1.5 rounded-[2px] hover:bg-zinc-800/60 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           >
@@ -253,7 +251,7 @@ export const Navbar = () => {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed top-20 left-4 right-4 z-40 md:hidden"
           >
-            <div className="bg-slate-950/95 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_30px_rgba(139,92,246,0.1)]">
+            <div className="bg-[#0c0c0c]/98 backdrop-blur-xl border border-zinc-800 rounded-[2px] overflow-hidden shadow-2xl">
               <div className="p-3 flex flex-col gap-1">
                 {[
                   { label: t("nav.home"), href: "#hero", icon: Home },
@@ -266,19 +264,19 @@ export const Navbar = () => {
                       key={link.href}
                       onClick={() => scrollToSection(link.href)}
                       className={`
-                        flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium w-full text-left
-                        border-none cursor-pointer transition-all duration-200
+                        flex items-center gap-3 px-4 py-3 rounded-[2px] text-xs font-mono uppercase tracking-wider w-full text-left
+                        border cursor-pointer transition-all duration-150
                         ${
                           isActive
-                            ? "bg-violet-600/20 text-violet-300 border border-violet-500/30"
-                            : "bg-transparent text-slate-300 hover:bg-white/5 hover:text-white"
+                            ? "bg-zinc-900 text-[#a3e635] border-zinc-700"
+                            : "bg-transparent text-zinc-400 border-transparent hover:bg-zinc-900 hover:text-white"
                         }
                       `}
                     >
                       <Icon
                         size={16}
                         className={
-                          isActive ? "text-violet-400" : "text-slate-500"
+                          isActive ? "text-[#a3e635]" : "text-zinc-500"
                         }
                       />
                       {link.label}
@@ -286,13 +284,13 @@ export const Navbar = () => {
                   );
                 })}
 
-                <div className="flex items-center justify-between px-4 py-3 rounded-xl border border-white/8 bg-white/5 mt-1">
-                  <span className="text-sm text-slate-400 font-medium">
+                <div className="flex items-center justify-between px-4 py-3 rounded-[2px] border border-zinc-800 bg-[#121212] mt-1">
+                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-400">
                     Idioma / Language
                   </span>
-                  <div className="flex items-center bg-slate-900 rounded-full p-0.5 border border-white/10 relative">
+                  <div className="flex items-center bg-zinc-900 rounded-[2px] p-0.5 border border-zinc-800 relative">
                     <motion.div
-                      className="absolute top-0.5 bottom-0.5 rounded-full bg-violet-600/70"
+                      className="absolute top-0.5 bottom-0.5 rounded-[2px] bg-zinc-800"
                       animate={{
                         left: currentLang === "ES" ? "2px" : "50%",
                         width: "calc(50% - 2px)",
@@ -308,9 +306,9 @@ export const Navbar = () => {
                         key={lang}
                         onClick={() => i18n.changeLanguage(lang.toLowerCase())}
                         className={`
-                          relative z-10 px-4 py-1 text-xs font-bold rounded-full cursor-pointer border-none
-                          transition-colors duration-200 bg-transparent
-                          ${currentLang === lang ? "text-white" : "text-slate-500"}
+                          relative z-10 px-3 py-1 text-[11px] font-mono font-bold rounded-[2px] cursor-pointer border-none
+                          transition-colors duration-150 bg-transparent
+                          ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-500"}
                         `}
                       >
                         {lang}
@@ -319,7 +317,7 @@ export const Navbar = () => {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-white/5 mt-1">
+                <div className="pt-2 border-t border-zinc-800 mt-1">
                   <button
                     onClick={() => {
                       scrollToSection("#contacto");
@@ -332,13 +330,12 @@ export const Navbar = () => {
                       });
                     }}
                     className="
-                      w-full py-3 rounded-xl text-sm font-semibold
-                      bg-violet-600 hover:bg-violet-500 text-white
-                      border-none cursor-pointer transition-all duration-200
-                      shadow-[0_0_20px_rgba(139,92,246,0.3)]
+                      w-full py-3 rounded-[2px] text-xs font-mono font-bold uppercase tracking-wider
+                      bg-[#a3e635] hover:bg-[#bef264] text-black
+                      border-none cursor-pointer transition-colors duration-150
                     "
                   >
-                    {t("nav.cta")} ✦
+                    {t("nav.cta")}
                   </button>
                 </div>
               </div>

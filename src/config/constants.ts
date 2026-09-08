@@ -1,7 +1,7 @@
 import {
     FileText, Package, Users, ClipboardList,
     BarChart3, FileBarChart, Globe, Smartphone,
-    Zap, Shield, HeadsetIcon, Rocket,
+    Server, Zap, Shield, HeadsetIcon, Rocket,
 } from 'lucide-react';
 import type { ServiceItem, PricingPlan, Project, Differentiator } from '../core/types';
 
@@ -46,89 +46,135 @@ export const SERVICES: ServiceItem[] = [
         title: "Apps Móviles",
         desc: "Aplicaciones nativas para iOS y Android que conectan tu negocio con tus clientes.",
     },
+    {
+        icon: Server,
+        title: "Backend & Arquitectura",
+        desc: "APIs robustas, tiempo real y sistemas que escalan con tu negocio, desde microservicios hasta plataformas multi-tenant completas.",
+    },
 ];
-
-import mopetcoHero from '../assets/LandingMopetco/Hero.png';
-import mopetcoGallery from '../assets/LandingMopetco/Gallery.png';
-import mopetcoServiceDetail from '../assets/LandingMopetco/ServiceDetail.png';
-import mopetcoServices from '../assets/LandingMopetco/Services.png';
-import mopetcoContact from '../assets/LandingMopetco/contact.png';
-
-import bookingServices from '../assets/BookingMopetco/Services.png';
-import bookingStep1 from '../assets/BookingMopetco/Step1Booking.png';
-import bookingStep2 from '../assets/BookingMopetco/Step2Booking.png';
-import bookingStep3 from '../assets/BookingMopetco/Step3Booking.png';
-import bookingStep4 from '../assets/BookingMopetco/Step4Booking.png';
-
-import boHome from '../assets/BackOfficeBookingMopetco/Home.png';
-import boReservaList from '../assets/BackOfficeBookingMopetco/ReservaList.png';
-import boCalendar from '../assets/BackOfficeBookingMopetco/calendar.png';
-import boMakeReserva from '../assets/BackOfficeBookingMopetco/makeReserva.png';
-import boGroomers from '../assets/BackOfficeBookingMopetco/groomers.png';
-import boClientes from '../assets/BackOfficeBookingMopetco/clientes.png';
-import boAgendaDeHoy from '../assets/BackOfficeBookingMopetco/AgendaDeHoy.png';
-import boSettings from '../assets/BackOfficeBookingMopetco/Settings.png';
-import boProfile from '../assets/BackOfficeBookingMopetco/profile.png';
-
-import dmDash from '../assets/DulcesMomentosPOS/Dash.png';
-import dmNuevaOrden from '../assets/DulcesMomentosPOS/NuevaOrden.png';
-import dmOrdenes from '../assets/DulcesMomentosPOS/OrdenesTomadas.png';
-import dmPedidos from '../assets/DulcesMomentosPOS/Pedidos.png';
-import dmProductos from '../assets/DulcesMomentosPOS/Productos.png';
-import dmReportes from '../assets/DulcesMomentosPOS/Reportes.png';
 
 export const PROJECTS: Project[] = [
     {
         id: 1,
-        title: "Landing Page Mopetco",
-        category: "Web",
-        description: "Sitio web corporativo para empresa de servicios petroleros con diseño premium, SEO optimizado y formulario de contacto integrado.",
-        tags: ["Web", "SEO", "Diseño"],
-        image: "from-blue-600 to-cyan-900",
-        gallery: [mopetcoHero, mopetcoGallery, mopetcoServiceDetail, mopetcoServices, mopetcoContact],
+        title: "TrackDeli — Web Platform",
+        category: "Web & Real-Time",
+        ecosystem: "trackdeli",
+        description: "Plataforma SaaS multi-tenant para logística y delivery: despacho inteligente en tiempo real, mapas interactivos con WebSockets y portal público de seguimiento de pedidos.",
+        tags: ["React", "NestJS", "PostgreSQL", "Socket.IO", "Mapbox"],
+        image: "/assets/project/webtrack/dash_webtrack.png",
+        gallery: [
+            "/assets/project/webtrack/dash_webtrack.png",
+            "/assets/project/webtrack/pedido_webtrack.png",
+            "/assets/project/webtrack/pedidodetalle_webtrack.png",
+            "/assets/project/webtrack/riders_webtrack.png",
+            "/assets/project/webtrack/tracking_werbtracking.png",
+            "/assets/project/webtrack/reportes_webtrack.png",
+            "/assets/project/webtrack/comisiones_webtrack.png",
+            "/assets/project/webtrack/config_webtrack.png",
+        ],
     },
     {
         id: 2,
-        title: "Sistema de Booking Mopetco",
-        category: "Gestión",
-        description: "Plataforma de reservas y gestión de citas con calendario interactivo, notificaciones automáticas y panel administrativo.",
-        tags: ["Reservas", "Calendario", "Admin Panel"],
-        image: "from-emerald-600 to-teal-900",
-        gallery: [bookingServices, bookingStep1, bookingStep2, bookingStep3, bookingStep4],
+        title: "TrackDeli — Rider App",
+        category: "App Móvil",
+        ecosystem: "trackdeli",
+        description: "Aplicación móvil en Flutter para repartidores con telemetría GPS continua, recepción automática de órdenes, negociación de tarifas y navegación fluida sincronizada.",
+        tags: ["Flutter", "Dart", "Riverpod", "Mapbox", "Firebase", "Socket.IO"],
+        image: "/assets/project/appdeli/rutaentrega_app.jpg",
+        gallery: [
+            "/assets/project/appdeli/rutaentrega_app.jpg",
+            "/assets/project/appdeli/taking_app.jpg",
+            "/assets/project/appdeli/takepedido_app.jpg",
+            "/assets/project/appdeli/listasolicitudes_app.jpg",
+            "/assets/project/appdeli/validandoentrega_app.jpg",
+            "/assets/project/appdeli/pedidoexitoso_app.jpg",
+            "/assets/project/appdeli/historial_app.jpg",
+            "/assets/project/appdeli/profile_app.jpg",
+        ],
     },
     {
         id: 3,
-        title: "Dulces Momentos",
-        category: "Facturación",
-        description: "Sistema punto de venta completo: facturación electrónica, inventario en tiempo real, control de caja (Cash In/Out) y gestión de pedidos.",
-        tags: ["Facturación", "Inventario", "Pedidos", "Caja"],
-        image: "from-violet-600 to-purple-900",
-        gallery: [dmDash, dmNuevaOrden, dmOrdenes, dmPedidos, dmProductos, dmReportes],
+        title: "TrackDeli POS",
+        category: "Punto de Venta",
+        ecosystem: "trackdeli",
+        description: "Sistema de escritorio con Electron para gestión integral de caja, inventarios y facturación, con soporte nativo para impresoras térmicas ESC/POS y cajón de dinero.",
+        tags: ["Electron", "React", "TypeScript", "ESC/POS", "Hardware"],
+        image: "/assets/project/pos/order_POS.png",
+        gallery: [
+            "/assets/project/pos/order_POS.png",
+            "/assets/project/pos/caja_POS.png",
+            "/assets/project/pos/catalogo_POS.png",
+            "/assets/project/pos/order2_POS.png",
+            "/assets/project/pos/historial_POS.png",
+            "/assets/project/pos/reportes_POS.png",
+        ],
     },
     {
         id: 4,
-        title: "AgroTrack Dashboard Logístico",
-        category: "Gestión",
-        description: "Panel de control para cooperativa agrícola con métricas de producción, trazabilidad de lotes y reportes exportables.",
-        tags: ["Dashboard", "Gestión", "Reportes"],
-        image: "from-orange-600 to-red-900",
+        title: "Dulces Momentos POS",
+        category: "Facturación & POS",
+        ecosystem: "client",
+        description: "Sistema punto de venta completo: facturación rápida, inventario con alertas de stock, control de apertura/cierre de caja (Cash In/Out) y reportes de rentabilidad.",
+        tags: ["Facturación", "Inventario", "Caja", "Reportes"],
+        image: "/assets/project/DulcesMomentos/project.png",
+        gallery: [
+            "/assets/project/DulcesMomentos/project.png",
+            "/assets/project/DulcesMomentos/gallery/Dash.png",
+            "/assets/project/DulcesMomentos/gallery/NuevaOrden.png",
+            "/assets/project/DulcesMomentos/gallery/OrdenesTomadas.png",
+            "/assets/project/DulcesMomentos/gallery/Pedidos.png",
+            "/assets/project/DulcesMomentos/gallery/Productos.png",
+            "/assets/project/DulcesMomentos/gallery/Reportes.png",
+        ],
     },
     {
         id: 5,
-        title: "PideLo App de Delivery",
-        category: "App",
-        description: "Aplicación móvil de delivery con tracking en tiempo real, notificaciones push, pasarela de pagos y panel de restaurantes.",
-        tags: ["App Móvil", "Delivery", "Pagos"],
-        image: "from-pink-600 to-rose-900",
+        title: "Sistema de Booking Mopetco",
+        category: "Gestión & Reservas",
+        ecosystem: "client",
+        description: "Plataforma web de citas y gestión de reservas en tiempo real con calendario interactivo, recordatorios automatizados y panel de administración.",
+        tags: ["Reservas", "Calendario", "BackOffice", "Automatización"],
+        image: "/assets/project/bookingwebsite/project.png",
+        gallery: [
+            "/assets/project/bookingwebsite/project.png",
+            "/assets/project/bookingwebsite/gallery/Services.png",
+            "/assets/project/bookingwebsite/gallery/Step1Booking.png",
+            "/assets/project/bookingwebsite/gallery/Step2Booking.png",
+            "/assets/project/bookingwebsite/gallery/Step3Booking.png",
+            "/assets/project/bookingwebsite/gallery/Step4Booking.png",
+        ],
     },
     {
         id: 6,
-        title: "BackOffice Booking Mopetco",
-        category: "Gestión",
-        description: "Panel administrativo centralizado para gestionar citas, clientes y servicios del sistema de booking en tiempo real.",
-        tags: ["BackOffice", "Dashboard", "Gestión de Citas"],
-        image: "from-blue-600 to-indigo-900",
-        gallery: [boHome, boReservaList, boCalendar, boMakeReserva, boGroomers, boClientes, boAgendaDeHoy, boSettings, boProfile],
+        title: "Landing Page Mopetco",
+        category: "Sitio Web",
+        ecosystem: "client",
+        description: "Sitio web corporativo de alta conversión para empresa de servicios petroleros con diseño premium, SEO técnico avanzado y canal directo a WhatsApp.",
+        tags: ["Web", "SEO", "Alta Conversión", "Branding"],
+        image: "/assets/project/mopetcowebsite/project.png",
+        gallery: [
+            "/assets/project/mopetcowebsite/project.png",
+            "/assets/project/mopetcowebsite/gallery/Hero.png",
+            "/assets/project/mopetcowebsite/gallery/Services.png",
+            "/assets/project/mopetcowebsite/gallery/ServiceDetail.png",
+            "/assets/project/mopetcowebsite/gallery/Gallery.png",
+            "/assets/project/mopetcowebsite/gallery/contact.png",
+        ],
+    },
+    {
+        id: 7,
+        title: "Legal Track USA",
+        category: "App Móvil",
+        ecosystem: "external",
+        description: "Aplicación móvil multiplataforma para seguimiento en tiempo real de casos de inmigración en EE.UU., feed de video corto optimizado y notificaciones push inmediatas.",
+        tags: ["React Native", "Firebase", "Redux", "Push Notifications"],
+        image: "/assets/project/legaltrack/img1.png",
+        gallery: [
+            "/assets/project/legaltrack/img1.png",
+            "/assets/project/legaltrack/img2.png",
+            "/assets/project/legaltrack/img3.png",
+            "/assets/project/legaltrack/img4.png",
+        ],
     },
 ];
 
@@ -177,7 +223,7 @@ export const PLANS: PricingPlan[] = [
         devFeatures: [
             "Diseño moderno y adaptable",
             "Formulario de contacto + WhatsApp",
-            "Entrega en 3-5 semanas",
+            "Entrega en 1-3 semanas",
             "2 meses de mantenimiento incluidos",
         ],
         membershipFeatures: [
@@ -190,82 +236,62 @@ export const PLANS: PricingPlan[] = [
         cta: "Solicitar mi sitio",
     },
     {
-        id: 'essential',
-        title: "Esencial",
+        id: 'pos',
+        title: "Sistema de Facturación / POS",
         implementationPrice: "",
         prices: {
-            monthly: "$49",
-            semiannual: "$42",
-            annual: "$37",
+            monthly: "$45",
+            semiannual: "$40",
+            annual: "$35",
         },
-        desc: "Lo justo para dejar el cuaderno y empezar a controlar tu negocio.",
+        desc: "Todo incluido en una sola cuota mensual. Sin escalones de funciones ni costos ocultos.",
         devFeatures: [
-            "Implementación",
-            "Facturación + inventario básico",
-            "Dashboard de tu negocio",
-            "Hasta 3 usuarios incluidos",
+            "Facturación electrónica y comprobantes",
+            "Inventario en tiempo real con alertas de stock",
+            "Control de caja: aperturas, cierres y arqueos",
+            "Reportes avanzados de ventas y rentabilidad",
+            "Hardware ESC/POS: impresora térmica y cajón",
+            "Multi-usuario con roles configurables",
         ],
         membershipFeatures: [
-            "Soporte cuando lo necesités",
-            "Actualizaciones de seguridad",
-            "Respaldos incluidos",
-        ],
-        highlight: false,
-        disclaimer: "$42/mes × 6 meses. Luego $49/mes sin compromiso.",
-        cta: "Empezar ahora",
-    },
-    {
-        id: 'growth',
-        title: "Profesional",
-        implementationPrice: "",
-        prices: {
-            monthly: "$75",
-            semiannual: "$64",
-            annual: "$56",
-        },
-        desc: "Dejá de hacer todo a mano: tu operación merece un sistema profesional.",
-        devFeatures: [
-            "Implementación",
-            "Facturación + inventario + reportes",
-            "Capacitación + manual de uso",
-            "Hasta 6 usuarios incluidos",
-            "Entrega en 4-8 semanas",
-        ],
-        membershipFeatures: [
-            "Soporte cuando lo necesités",
-            "Actualizaciones de seguridad",
-            "Corrección de errores incluida",
+            "Soporte técnico prioritario",
+            "Actualizaciones continuas sin costo extra",
+            "Respaldos automáticos en la nube",
         ],
         highlight: true,
-        disclaimer: "$64/mes × 6 meses. Luego $75/mes sin compromiso.",
-        cta: "Comenzar implementación",
+        disclaimer: "Precio único mensual todo incluido. Hardware integrado.",
+        cta: "Solicitar demo de POS",
     },
     {
-        id: 'enterprise',
-        title: "Solución a Medida",
+        id: 'logistics',
+        title: "Logística y Delivery",
         implementationPrice: "",
         prices: {
-            monthly: "Cotizar",
-            semiannual: "Cotizar",
-            annual: "Cotizar",
+            monthly: "A convenir",
+            semiannual: "A convenir",
+            annual: "A convenir",
         },
-        desc: "Tu problema es único; tu solución también debería serlo.",
+        desc: "Modelo de comisión por entrega — sin costo fijo mensual, solo pagás cuando tu negocio despacha.",
         devFeatures: [
-            "Software 100% a tu medida",
-            "Conectamos con tus otros sistemas",
-            "Diseñado según tus necesidades",
+            "Despacho automático y algoritmo de proximidad",
+            "Tracking GPS en tiempo real para cliente final",
+            "App nativa para repartidores (Flutter)",
+            "Panel administrativo multi-tenant en vivo",
+            "Liquidación automática de comisiones",
         ],
         membershipFeatures: [
-            "Atención prioritaria",
-            "Sistema siempre disponible",
-            "Crece con tu negocio",
+            "Acompañamiento en puesta en marcha",
+            "Monitoreo 24/7 de infraestructura en tiempo real",
+            "Soporte directo para la flota de repartidores",
         ],
         highlight: false,
-        cta: "Solicitar cotización",
+        disclaimer: "Sin costo fijo mensual. Comisiones por volumen de entregas.",
+        cta: "Agendar una llamada",
     },
 ];
+
 export const CONTACT_INFO = {
     email: "contacto@detdevs.com",
-    phone: "+505 8714-0989",
+    phone: "+505 8806-8133",
     location: "Managua, Nicaragua",
 };

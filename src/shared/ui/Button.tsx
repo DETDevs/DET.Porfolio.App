@@ -9,16 +9,16 @@ export const Button = ({
   type = "button",
 }: ButtonProps) => {
   const baseStyle =
-    "px-5 py-3 rounded-full font-medium transition-[background-color,transform,border-color] duration-200 flex items-center justify-center gap-2 text-sm md:text-base cursor-pointer active:scale-[0.98] hover:scale-[1.02]";
+    "px-5 py-3 rounded-[2px] font-mono text-xs uppercase tracking-wider font-bold transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
 
   const styles = {
     primary:
-      "bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_15px_rgba(124,58,237,0.4)]",
+      "bg-[#a3e635] hover:bg-[#b5ff14] text-black shadow-sm",
     secondary:
-      "bg-slate-800 hover:bg-slate-700 text-white border border-slate-700",
+      "bg-transparent hover:bg-zinc-900 text-white border border-zinc-700 shadow-sm",
     outline:
-      "border border-violet-500/40 text-violet-300 hover:bg-violet-500/10",
-    ghost: "bg-transparent hover:bg-white/5 text-slate-300",
+      "border border-[#a3e635] text-[#a3e635] hover:bg-[#a3e635]/10",
+    ghost: "bg-transparent hover:bg-white/5 text-zinc-300",
   };
 
   return (
