@@ -118,7 +118,7 @@ export const Projects = () => {
   }[];
 
   // Filtering logic:
-  // "trackdeli": strictly projects with ecosystem === "trackdeli" (Legal Track USA will NEVER appear here)
+  // "trackdeli": strictly projects with ecosystem === "trackdeli"
   // "pos": Point of sale solutions
   // "web": Web platforms and landing pages
   // "all": Complete portfolio

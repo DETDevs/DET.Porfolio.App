@@ -96,11 +96,6 @@
         "title": "Landing Page Mopetco",
         "category": "Sitio Web",
         "description": "Sitio web corporativo de alta conversión para empresa de servicios petroleros con diseño premium, SEO técnico avanzado y canal directo a WhatsApp."
-      },
-      {
-        "title": "Legal Track USA",
-        "category": "App Móvil",
-        "description": "Aplicación móvil multiplataforma para seguimiento en tiempo real de casos de inmigración en EE.UU., feed de video corto optimizado y notificaciones push inmediatas."
       }
     ]
   },
@@ -108,7 +103,7 @@
     "eyebrow": "Tracking en Tiempo Real",
     "title": "Ciclo de Vida de un Pedido en Vivo",
     "subtitle": "Conocé la tecnología detrás de TrackDeli: cómo coordinamos clientes, despachadores y repartidores con telemetría en vivo a cada metro.",
-    "scroll_hint": "Scrollea para avanzar en la ruta ↓",
+    "scroll_hint": "Scrollea o seleccioná una etapa para explorar el flujo",
     "stages": [
       {
         "id": "pending",
@@ -244,7 +239,7 @@
       "devFeatures": [
         "Despacho automático algorítmico al repartidor más cercano o asignación manual asistida",
         "Tracking GPS en tiempo real para el cliente final (sin necesidad de descargar apps)",
-        "App móvil nativa para repartidores (Flutter) con telemetría en vivo y ruta optimizada",
+        "App móvil nativa para repartidores con telemetría en vivo y ruta optimizada",
         "Panel web administrativo multi-tenant para monitorear órdenes, tiempos y flota",
         "Liquidación automática y transparente de comisiones por cada entrega completada",
         "Integración con WhatsApp y canales de recepción de órdenes"

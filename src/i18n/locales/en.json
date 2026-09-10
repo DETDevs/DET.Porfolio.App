@@ -96,11 +96,6 @@
         "title": "Mopetco Landing Page",
         "category": "Website",
         "description": "Corporate high-conversion website for an oil services firm — premium aesthetics, SEO optimization, and direct WhatsApp channel."
-      },
-      {
-        "title": "Legal Track USA",
-        "category": "Mobile App",
-        "description": "Cross-platform mobile application for real-time tracking of U.S. immigration cases, short video reels module, and instant push notifications."
       }
     ]
   },
@@ -108,7 +103,7 @@
     "eyebrow": "Real-Time Tracking",
     "title": "Live Order Lifecycle",
     "subtitle": "Discover the technology powering TrackDeli: how we orchestrate customers, dispatchers, and couriers with meter-by-meter live telemetry.",
-    "scroll_hint": "Scroll to follow the delivery route ↓",
+    "scroll_hint": "Scroll or select a stage to explore the flow",
     "stages": [
       {
         "id": "pending",

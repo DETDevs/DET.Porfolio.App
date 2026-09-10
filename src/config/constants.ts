@@ -161,21 +161,6 @@ export const PROJECTS: Project[] = [
             "/assets/project/mopetcowebsite/gallery/contact.png",
         ],
     },
-    {
-        id: 7,
-        title: "Legal Track USA",
-        category: "App Móvil",
-        ecosystem: "external",
-        description: "Aplicación móvil multiplataforma para seguimiento en tiempo real de casos de inmigración en EE.UU., feed de video corto optimizado y notificaciones push inmediatas.",
-        tags: ["React Native", "Firebase", "Redux", "Push Notifications"],
-        image: "/assets/project/legaltrack/img1.png",
-        gallery: [
-            "/assets/project/legaltrack/img1.png",
-            "/assets/project/legaltrack/img2.png",
-            "/assets/project/legaltrack/img3.png",
-            "/assets/project/legaltrack/img4.png",
-        ],
-    },
 ];
 
 export const DIFFERENTIATORS: Differentiator[] = [

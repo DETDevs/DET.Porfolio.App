@@ -191,7 +191,10 @@ export const Pricing = () => {
                       </div>
                       <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-1.5">
                         <span className="text-[#a3e635]">—</span>
-                        <span>+ ${WEB_MAINTENANCE_PRICE}/mes tras 2 meses de soporte incluidos</span>
+                        <span>
+                          + ${WEB_MAINTENANCE_PRICE}/mes tras 2 meses de soporte
+                          incluidos
+                        </span>
                       </p>
                     </div>
 
@@ -207,7 +210,10 @@ export const Pricing = () => {
                         "Entrega rápida garantizada en 1 a 3 semanas",
                         "2 meses de soporte técnico y mantenimiento preventivo incluidos",
                       ].map((feat, fi) => (
-                        <div key={fi} className="flex items-start gap-3 text-sm text-zinc-300">
+                        <div
+                          key={fi}
+                          className="flex items-start gap-3 text-sm text-zinc-300"
+                        >
                           <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
@@ -216,7 +222,9 @@ export const Pricing = () => {
                   </div>
 
                   <a
-                    href={getWhatsAppLink("Hola DETDevs, me interesa cotizar un Sitio Web Profesional para mi negocio.")}
+                    href={getWhatsAppLink(
+                      "Hola DETDevs, me interesa cotizar un Sitio Web Profesional para mi negocio.",
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
@@ -237,7 +245,9 @@ export const Pricing = () => {
                       Tu sitio siempre disponible
                     </h5>
                     <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                      No desaparecemos después de entregar. Nuestro soporte se asegura de que tu plataforma funcione de manera ininterrumpida.
+                      No desaparecemos después de entregar. Nuestro soporte se
+                      asegura de que tu plataforma funcione de manera
+                      ininterrumpida.
                     </p>
 
                     <div className="space-y-4">
@@ -255,7 +265,10 @@ export const Pricing = () => {
                           desc: "Ajustes de contenidos, actualización de catálogos y asistencia vía WhatsApp.",
                         },
                       ].map((item, idx) => (
-                        <div key={idx} className="p-4 rounded-[2px] bg-black border border-zinc-800">
+                        <div
+                          key={idx}
+                          className="p-4 rounded-[2px] bg-black border border-zinc-800"
+                        >
                           <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
                             <span className="w-1.5 h-1.5 bg-[#a3e635]" />
                             {item.title}
@@ -301,7 +314,9 @@ export const Pricing = () => {
                         Sistema de Facturación / POS
                       </h3>
                       <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                        Sin versiones recortadas ni escalones artificiales. Toda la funcionalidad completa del punto de venta en una única cuota mensual predecible.
+                        Sin versiones recortadas ni escalones artificiales. Toda
+                        la funcionalidad completa del punto de venta en una
+                        única cuota mensual predecible.
                       </p>
 
                       {/* Flat Price Box (No gradients) */}
@@ -319,7 +334,10 @@ export const Pricing = () => {
                         </div>
                         <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
                           <Check className="w-3.5 h-3.5 text-[#a3e635]" />
-                          <span>Actualizaciones continuas, hosting y soporte técnico incluidos</span>
+                          <span>
+                            Actualizaciones continuas, hosting y soporte técnico
+                            incluidos
+                          </span>
                         </p>
                       </div>
 
@@ -336,7 +354,10 @@ export const Pricing = () => {
                           "Gestión multi-usuario con roles de cajero, supervisor y administrador",
                           "Hardware ESC/POS integrado: impresoras térmicas de tickets y cajón de dinero",
                         ].map((feat, idx) => (
-                          <div key={idx} className="flex items-start gap-3 text-sm text-zinc-200">
+                          <div
+                            key={idx}
+                            className="flex items-start gap-3 text-sm text-zinc-200"
+                          >
                             <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
                             <span>{feat}</span>
                           </div>
@@ -346,7 +367,9 @@ export const Pricing = () => {
 
                     {/* Solid Primary Button */}
                     <a
-                      href={getWhatsAppLink(`Hola DETDevs, quiero una demo del Sistema de Facturación / POS Todo Incluido ($${POS_MONTHLY_PRICE}/mes).`)}
+                      href={getWhatsAppLink(
+                        `Hola DETDevs, quiero una demo del Sistema de Facturación / POS Todo Incluido ($${POS_MONTHLY_PRICE}/mes).`,
+                      )}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
@@ -382,7 +405,11 @@ export const Pricing = () => {
                           className="w-full h-full object-cover object-top"
                         />
                         <button
-                          onClick={() => setLightboxImage(POS_SHOWCASE_IMAGES[selectedPosImage].src)}
+                          onClick={() =>
+                            setLightboxImage(
+                              POS_SHOWCASE_IMAGES[selectedPosImage].src,
+                            )
+                          }
                           className="absolute top-2 right-2 px-2.5 py-1 bg-black/80 hover:bg-black text-zinc-300 hover:text-white border border-zinc-700 font-mono text-[10px] uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer rounded-[2px]"
                         >
                           <Maximize2 className="w-3 h-3 text-[#a3e635]" />
@@ -425,7 +452,10 @@ export const Pricing = () => {
                     {/* Hardware Notice */}
                     <div className="mt-5 p-3 rounded-[2px] bg-zinc-900 border border-zinc-800 flex items-center gap-3 text-xs text-zinc-300">
                       <Printer className="w-4 h-4 text-[#a3e635] shrink-0" />
-                      <span>Compatible con impresoras térmicas USB/Red y gavetas de dinero RJ11.</span>
+                      <span>
+                        Compatible con impresoras térmicas USB/Red y gavetas de
+                        dinero RJ11.
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -458,10 +488,12 @@ export const Pricing = () => {
                     {/* Flat Highlight Box (Zero fixed cost) */}
                     <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
                       <p className="text-base sm:text-lg font-bold text-white leading-snug uppercase tracking-tight">
-                        "Modelo de comisión por entrega — sin costo fijo mensual, solo pagás cuando tu negocio despacha."
+                        "Modelo de comisión por entrega — sin costo fijo
+                        mensual, solo pagás cuando tu negocio despacha."
                       </p>
                       <p className="text-xs text-zinc-400 mt-2 font-mono leading-relaxed">
-                        Tarifa acordada por pedido entregado según el volumen de tu operación. Si no despachás, no pagás.
+                        Tarifa acordada por pedido entregado según el volumen de
+                        tu operación. Si no despachás, no pagás.
                       </p>
                     </div>
 
@@ -470,11 +502,14 @@ export const Pricing = () => {
                       {[
                         "Despacho automático algorítmico al repartidor más cercano o asignación manual",
                         "Tracking GPS en tiempo real para el cliente final (sin necesidad de descargar apps)",
-                        "App móvil nativa para repartidores (Flutter) con telemetría en vivo y ruta optimizada",
+                        "App móvil nativa para repartidores con telemetría en vivo y ruta optimizada",
                         "Panel web administrativo multi-tenant para monitorear órdenes, tiempos y flota",
                         "Liquidación automática y transparente de comisiones por cada entrega completada",
                       ].map((feat, idx) => (
-                        <div key={idx} className="flex items-start gap-3 text-sm text-zinc-300">
+                        <div
+                          key={idx}
+                          className="flex items-start gap-3 text-sm text-zinc-300"
+                        >
                           <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
@@ -493,13 +528,16 @@ export const Pricing = () => {
                         Agendar una llamada
                       </h4>
                       <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
-                        Revisamos tu volumen de pedidos y definimos la tarifa por viaje adecuada a tu negocio.
+                        Revisamos tu volumen de pedidos y definimos la tarifa
+                        por viaje adecuada a tu negocio.
                       </p>
                     </div>
 
                     <div className="space-y-3">
                       <a
-                        href={getWhatsAppLink("Hola DETDevs, me interesa agendar una llamada sobre el Sistema de Logística y Delivery (modelo de comisión).")}
+                        href={getWhatsAppLink(
+                          "Hola DETDevs, me interesa agendar una llamada sobre el Sistema de Logística y Delivery (modelo de comisión).",
+                        )}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
