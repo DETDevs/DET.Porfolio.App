@@ -23,10 +23,10 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="font-bold text-lg uppercase text-white flex items-center gap-2 tracking-tight">
           <div className="w-2 h-2 bg-[#a3e635]" />
-          DETDevs
+          Nexol
         </div>
         <div className="text-xs text-zinc-500 font-mono text-center md:text-right">
-          © {new Date().getFullYear()} DETDevs.
+          © {new Date().getFullYear()} Nexol.
           <br />
           {t("footer.rights")}
         </div>

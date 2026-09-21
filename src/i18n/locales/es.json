@@ -10,12 +10,46 @@
     "home": "Inicio"
   },
   "hero": {
-    "badge": "Disponible para nuevos proyectos",
-    "title_1": "Sistemas que resuelven,",
-    "title_2": "no que complican.",
-    "subtitle": "Somos un equipo en Nicaragua que diseña software a la medida de tu negocio. Facturación, inventarios, apps, webs y más.",
+    "title_1": "Sistemas que impulsan",
+    "title_2": "la escala de tu negocio",
+    "subtitle": "Diseñamos software a la medida de alto impacto. Facturación, inventarios, apps móviles y plataformas web en tiempo real.",
     "cta_primary": "Ver Planes",
-    "cta_secondary": "Nuestros Servicios"
+    "cta_secondary": "Nuestros Servicios",
+    "cta_card": "Ver proyecto",
+    "slides": [
+      {
+        "id": "01",
+        "tag": "SaaS & Logística",
+        "title": "TrackDeli Web Platform",
+        "desc": "Despacho inteligente en tiempo real, mapas interactivos y telemetría continua de pedidos.",
+        "image": "/assets/project/webtrack/dash_webtrack.png",
+        "link": "#proyectos"
+      },
+      {
+        "id": "02",
+        "tag": "Punto de Venta",
+        "title": "TrackDeli POS Desktop",
+        "desc": "Facturación ultrarrápida, apertura/cierre de caja y soporte para impresoras térmicas.",
+        "image": "/assets/project/pos/caja_POS.png",
+        "link": "#proyectos"
+      },
+      {
+        "id": "03",
+        "tag": "App Móvil en Vivo",
+        "title": "TrackDeli Rider App",
+        "desc": "Aplicación móvil para repartidores con telemetría GPS continua y sincronización instantánea.",
+        "image": "/assets/project/appdeli/rutaentrega_app.jpg",
+        "link": "#proyectos"
+      },
+      {
+        "id": "04",
+        "tag": "Gestión Comercial",
+        "title": "Dulces Momentos POS",
+        "desc": "Control total de stock, alertas automáticas de reabastecimiento y reportes de rentabilidad.",
+        "image": "/assets/project/DulcesMomentos/project.png",
+        "link": "#proyectos"
+      }
+    ]
   },
   "services": {
     "eyebrow": "Soluciones",
@@ -151,7 +185,7 @@
     }
   },
   "whyus": {
-    "eyebrow": "¿Por qué DETDevs?",
+    "eyebrow": "¿Por qué Nexol?",
     "title": "La diferencia está en cómo trabajamos",
     "subtitle": "No solo escribimos código, resolvemos problemas de negocio. Cada línea de código está pensada para generar valor real.",
     "items": [

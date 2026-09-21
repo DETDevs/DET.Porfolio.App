@@ -119,7 +119,7 @@ export const Navbar = () => {
             aria-label="Ir al inicio"
           >
             <div className="w-2 h-2 rounded-full bg-[#a3e635]" />
-            <span className="text-sm font-semibold tracking-tight">DETDevs</span>
+            <span className="text-sm font-semibold tracking-tight">Nexol</span>
           </button>
 
           <div className="w-px h-4 bg-zinc-800 mx-1" />

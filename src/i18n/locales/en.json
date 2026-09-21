@@ -11,11 +11,46 @@
   },
   "hero": {
     "badge": "Now accepting new projects",
-    "title_1": "Software that solves,",
-    "title_2": "not complicates.",
-    "subtitle": "We're a team based in Nicaragua that builds custom software tailored to your business — invoicing, inventory, apps, websites, and more.",
+    "title_1": "Software that drives",
+    "title_2": "your business scale",
+    "subtitle": "We engineer high-impact custom software — real-time platforms, billing systems, inventory engines, and native mobile apps.",
     "cta_primary": "See Pricing",
-    "cta_secondary": "Our Services"
+    "cta_secondary": "Our Services",
+    "cta_card": "View project",
+    "slides": [
+      {
+        "id": "01",
+        "tag": "SaaS & Logistics",
+        "title": "TrackDeli Web Platform",
+        "desc": "Real-time intelligent dispatch, live interactive maps, and continuous order telemetry.",
+        "image": "/assets/project/webtrack/dash_webtrack.png",
+        "link": "#proyectos"
+      },
+      {
+        "id": "02",
+        "tag": "Point of Sale",
+        "title": "TrackDeli POS Desktop",
+        "desc": "Lightning-fast billing, cash management, and native ESC/POS thermal printer integration.",
+        "image": "/assets/project/pos/caja_POS.png",
+        "link": "#proyectos"
+      },
+      {
+        "id": "03",
+        "tag": "Live Mobile App",
+        "title": "TrackDeli Rider App",
+        "desc": "Native courier mobile app with active GPS telemetry and WebSocket instantaneous sync.",
+        "image": "/assets/project/appdeli/rutaentrega_app.jpg",
+        "link": "#proyectos"
+      },
+      {
+        "id": "04",
+        "tag": "Retail Management",
+        "title": "Dulces Momentos POS",
+        "desc": "Real-time inventory control, smart replenishment alerts, and profitability analytics.",
+        "image": "/assets/project/DulcesMomentos/project.png",
+        "link": "#proyectos"
+      }
+    ]
   },
   "services": {
     "eyebrow": "What We Do",
@@ -151,7 +186,7 @@
     }
   },
   "whyus": {
-    "eyebrow": "Why DETDevs?",
+    "eyebrow": "Why Nexol?",
     "title": "The difference is in how we work",
     "subtitle": "We don't just write code — we solve real business problems. Every decision we make is driven by the value it creates for you.",
     "items": [
