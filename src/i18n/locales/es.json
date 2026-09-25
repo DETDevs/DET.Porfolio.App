@@ -16,6 +16,10 @@
     "cta_primary": "Ver Planes",
     "cta_secondary": "Nuestros Servicios",
     "cta_card": "Ver proyecto",
+    "architecture_engine": "Nexol Architecture Engine",
+    "architecture_tagline": "Ingeniería de software robusta, interfaces fluidas y arquitecturas en la nube diseñadas para perdurar.",
+    "footer_tagline": "Desarrollo de Software a Medida",
+    "scroll_hint": "Scroll para explorar",
     "slides": [
       {
         "id": "01",

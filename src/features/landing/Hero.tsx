@@ -164,11 +164,10 @@ export const Hero = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-zinc-300 font-mono text-[11px]">
               <span className="w-2 h-2 rounded-full bg-[#a3e635] animate-pulse" />
-              <span>Nexol Architecture Engine</span>
+              <span>{t("hero.architecture_engine", "Nexol Architecture Engine")}</span>
             </div>
             <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed font-sans">
-              Ingeniería de software robusta, interfaces fluidas y arquitecturas
-              en la nube diseñadas para perdurar.
+              {t("hero.architecture_tagline", "Ingeniería de software robusta, interfaces fluidas y arquitecturas en la nube diseñadas para perdurar.")}
             </p>
           </motion.div>
         </div>
@@ -329,14 +328,14 @@ export const Hero = () => {
         <div className="hidden sm:flex items-center gap-2">
           <span>Nexol © {new Date().getFullYear()}</span>
           <span className="text-zinc-700">/</span>
-          <span>Desarrollo de Software a Medida</span>
+          <span>{t("hero.footer_tagline", "Desarrollo de Software a Medida")}</span>
         </div>
 
         <a
           href="#servicios"
           className="mx-auto sm:mx-0 flex items-center gap-2 text-zinc-500 hover:text-[#a3e635] transition-colors duration-200 no-underline"
         >
-          <span>Scroll para explorar</span>
+          <span>{t("hero.scroll_hint", "Scroll para explorar")}</span>
           <motion.span
             animate={{ y: [0, 4, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}

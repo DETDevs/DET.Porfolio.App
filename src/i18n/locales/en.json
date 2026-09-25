@@ -10,13 +10,16 @@
     "home": "Home"
   },
   "hero": {
-    "badge": "Now accepting new projects",
     "title_1": "Software that drives",
     "title_2": "your business scale",
     "subtitle": "We engineer high-impact custom software — real-time platforms, billing systems, inventory engines, and native mobile apps.",
     "cta_primary": "See Pricing",
     "cta_secondary": "Our Services",
     "cta_card": "View project",
+    "architecture_engine": "Nexol Architecture Engine",
+    "architecture_tagline": "Robust software engineering, fluid interfaces, and cloud architectures built to endure.",
+    "footer_tagline": "Custom Software Development",
+    "scroll_hint": "Scroll to explore",
     "slides": [
       {
         "id": "01",
