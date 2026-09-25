@@ -1,6 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Layers, FolderOpen, Tag, Mail, Home, Radio } from "lucide-react";
+import {
+  Menu,
+  X,
+  Layers,
+  FolderOpen,
+  Tag,
+  Mail,
+  Home,
+  Radio,
+  ArrowUpRight,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export const Navbar = () => {
@@ -95,44 +105,50 @@ export const Navbar = () => {
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-5 left-0 right-0 z-50 flex justify-center pointer-events-none"
+        transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-4 sm:top-5 left-0 right-0 z-50 flex justify-center pointer-events-none px-4"
       >
         <div
           className={`
             pointer-events-auto
-            flex items-center gap-2
-            px-3 py-2
-            rounded-[2px]
-            border
-            transition-all duration-300
+            flex items-center gap-1.5 sm:gap-2.5
+            pl-3.5 sm:pl-4 pr-2 sm:pr-2.5 py-1.5 sm:py-2
+            rounded-full
+            border transition-all duration-300
             ${
               scrolled
-                ? "bg-[#0c0c0c]/90 backdrop-blur-md border-zinc-800 shadow-sm"
-                : "bg-[#0c0c0c]/60 backdrop-blur-sm border-zinc-800/80 shadow-none"
+                ? "bg-zinc-950/85 backdrop-blur-2xl border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.65)] scale-[0.98]"
+                : "bg-zinc-950/60 backdrop-blur-xl border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.45)]"
             }
           `}
         >
+          {/* Brand Logo */}
           <button
             onClick={scrollToTop}
-            className="font-bold text-sm tracking-tight text-white flex items-center gap-2 cursor-pointer px-2.5 py-1 rounded-[2px] hover:bg-zinc-800/50 transition-colors mr-1"
+            className="flex items-center gap-2.5 cursor-pointer py-1 pr-1.5 rounded-full group transition-transform duration-200 active:scale-95 bg-transparent border-none"
             aria-label="Ir al inicio"
           >
-            <div className="w-2 h-2 rounded-full bg-[#a3e635]" />
-            <span className="text-sm font-semibold tracking-tight">Nexol</span>
+            <span className="relative flex h-2.5 w-2.5 items-center justify-center">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#a3e635] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#a3e635] shadow-[0_0_8px_rgba(163,230,53,0.8)]" />
+            </span>
+            <span className="text-sm font-bold tracking-tight text-white group-hover:text-[#a3e635] transition-colors">
+              Nexol
+            </span>
           </button>
 
-          <div className="w-px h-4 bg-zinc-800 mx-1" />
+          <div className="w-px h-4 bg-white/10 mx-0.5 hidden md:block" />
 
+          {/* Desktop Nav Links */}
           <div
-            className="hidden md:flex items-center relative"
+            className="hidden md:flex items-center gap-0.5 relative"
             onMouseLeave={() => setHoverIndex(null)}
           >
             {hasActiveIndicator && (
               <motion.div
-                className="absolute top-0 bottom-0 rounded-[2px] bg-zinc-800/80 border border-zinc-700/50"
+                className="absolute top-0 bottom-0 rounded-full bg-white/10 border border-white/10"
                 animate={indicatorStyle}
-                transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                transition={{ type: "spring", stiffness: 450, damping: 35 }}
               />
             )}
 
@@ -147,9 +163,13 @@ export const Navbar = () => {
                   onClick={() => scrollToSection(link.href)}
                   onMouseEnter={() => setHoverIndex(i)}
                   className={`
-                    relative px-3.5 py-1.5 text-xs font-mono tracking-wide rounded-[2px] cursor-pointer
+                    relative px-3.5 py-1.5 text-xs font-medium tracking-normal rounded-full cursor-pointer
                     transition-colors duration-200 bg-transparent border-none
-                    ${isActive ? "text-[#a3e635] font-semibold" : "text-zinc-400 hover:text-zinc-200"}
+                    ${
+                      isActive
+                        ? "text-[#a3e635] font-semibold"
+                        : "text-zinc-300 hover:text-white"
+                    }
                   `}
                 >
                   {link.label}
@@ -158,14 +178,15 @@ export const Navbar = () => {
             })}
           </div>
 
-          <div className="w-px h-4 bg-zinc-800 mx-1 hidden md:block" />
+          <div className="w-px h-4 bg-white/10 mx-0.5 hidden md:block" />
 
+          {/* Language Switcher */}
           <div
-            className="hidden md:flex items-center bg-[#121212] rounded-[2px] p-0.5 border border-zinc-800 relative"
+            className="hidden md:flex items-center bg-black/40 rounded-full p-0.5 border border-white/10 relative"
             title={`Switch to ${nextLang}`}
           >
             <motion.div
-              className="absolute top-0.5 bottom-0.5 rounded-[2px] bg-zinc-800"
+              className="absolute top-0.5 bottom-0.5 rounded-full bg-white/15"
               animate={{
                 left: currentLang === "ES" ? "2px" : "50%",
                 width: "calc(50% - 2px)",
@@ -177,9 +198,9 @@ export const Navbar = () => {
                 key={lang}
                 onClick={() => i18n.changeLanguage(lang.toLowerCase())}
                 className={`
-                  relative z-10 px-2.5 py-0.5 text-[11px] font-mono font-bold rounded-[2px] cursor-pointer border-none
+                  relative z-10 px-2.5 py-0.5 text-[11px] font-semibold rounded-full cursor-pointer border-none
                   transition-colors duration-200 bg-transparent
-                  ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-500 hover:text-zinc-300"}
+                  ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-400 hover:text-zinc-200"}
                 `}
               >
                 {lang}
@@ -187,6 +208,7 @@ export const Navbar = () => {
             ))}
           </div>
 
+          {/* CTA Button */}
           <button
             onClick={() => {
               scrollToSection("#contacto");
@@ -199,19 +221,22 @@ export const Navbar = () => {
               });
             }}
             className="
-              hidden md:flex items-center gap-1.5
-              px-3.5 py-1.5 rounded-[2px] text-xs font-mono font-bold uppercase tracking-wider
+              hidden md:inline-flex items-center gap-1.5
+              px-4 py-1.5 rounded-full text-xs font-bold tracking-tight
               cursor-pointer border-none
-              bg-[#a3e635] hover:bg-[#bef264]
+              bg-[#a3e635] hover:bg-[#bcf947]
               text-black
-              transition-colors duration-150
+              shadow-[0_0_20px_rgba(163,230,53,0.3)] hover:shadow-[0_0_25px_rgba(163,230,53,0.5)]
+              transition-all duration-200 active:scale-95
             "
           >
-            {t("nav.cta")}
+            <span>{t("nav.cta")}</span>
+            <ArrowUpRight size={13} className="stroke-[2.5]" />
           </button>
 
+          {/* Mobile Menu Toggle Button */}
           <button
-            className="md:hidden text-zinc-300 bg-transparent border-none cursor-pointer p-1.5 rounded-[2px] hover:bg-zinc-800/60 transition-colors"
+            className="md:hidden text-zinc-200 bg-transparent border-none cursor-pointer p-1.5 rounded-full hover:bg-white/10 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           >
@@ -223,8 +248,9 @@ export const Navbar = () => {
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.15 }}
+                  className="flex items-center justify-center"
                 >
-                  <X size={16} />
+                  <X size={18} />
                 </motion.span>
               ) : (
                 <motion.span
@@ -233,8 +259,9 @@ export const Navbar = () => {
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: -90, opacity: 0 }}
                   transition={{ duration: 0.15 }}
+                  className="flex items-center justify-center"
                 >
-                  <Menu size={16} />
+                  <Menu size={18} />
                 </motion.span>
               )}
             </AnimatePresence>
@@ -242,6 +269,7 @@ export const Navbar = () => {
         </div>
       </motion.nav>
 
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -251,8 +279,8 @@ export const Navbar = () => {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed top-20 left-4 right-4 z-40 md:hidden"
           >
-            <div className="bg-[#0c0c0c]/98 backdrop-blur-xl border border-zinc-800 rounded-[2px] overflow-hidden shadow-2xl">
-              <div className="p-3 flex flex-col gap-1">
+            <div className="bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+              <div className="p-4 flex flex-col gap-1.5">
                 {[
                   { label: t("nav.home"), href: "#hero", icon: Home },
                   ...NAV_LINKS,
@@ -264,19 +292,19 @@ export const Navbar = () => {
                       key={link.href}
                       onClick={() => scrollToSection(link.href)}
                       className={`
-                        flex items-center gap-3 px-4 py-3 rounded-[2px] text-xs font-mono uppercase tracking-wider w-full text-left
+                        flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-semibold tracking-wide w-full text-left
                         border cursor-pointer transition-all duration-150
                         ${
                           isActive
-                            ? "bg-zinc-900 text-[#a3e635] border-zinc-700"
-                            : "bg-transparent text-zinc-400 border-transparent hover:bg-zinc-900 hover:text-white"
+                            ? "bg-white/10 text-[#a3e635] border-white/15"
+                            : "bg-transparent text-zinc-400 border-transparent hover:bg-white/5 hover:text-white"
                         }
                       `}
                     >
                       <Icon
                         size={16}
                         className={
-                          isActive ? "text-[#a3e635]" : "text-zinc-500"
+                          isActive ? "text-[#a3e635]" : "text-zinc-400"
                         }
                       />
                       {link.label}
@@ -284,13 +312,13 @@ export const Navbar = () => {
                   );
                 })}
 
-                <div className="flex items-center justify-between px-4 py-3 rounded-[2px] border border-zinc-800 bg-[#121212] mt-1">
-                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+                <div className="flex items-center justify-between px-4 py-3 rounded-2xl border border-white/10 bg-white/5 mt-1">
+                  <span className="text-xs font-medium text-zinc-400">
                     Idioma / Language
                   </span>
-                  <div className="flex items-center bg-zinc-900 rounded-[2px] p-0.5 border border-zinc-800 relative">
+                  <div className="flex items-center bg-black/50 rounded-full p-0.5 border border-white/10 relative">
                     <motion.div
-                      className="absolute top-0.5 bottom-0.5 rounded-[2px] bg-zinc-800"
+                      className="absolute top-0.5 bottom-0.5 rounded-full bg-white/15"
                       animate={{
                         left: currentLang === "ES" ? "2px" : "50%",
                         width: "calc(50% - 2px)",
@@ -306,9 +334,9 @@ export const Navbar = () => {
                         key={lang}
                         onClick={() => i18n.changeLanguage(lang.toLowerCase())}
                         className={`
-                          relative z-10 px-3 py-1 text-[11px] font-mono font-bold rounded-[2px] cursor-pointer border-none
+                          relative z-10 px-3 py-1 text-[11px] font-semibold rounded-full cursor-pointer border-none
                           transition-colors duration-150 bg-transparent
-                          ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-500"}
+                          ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-400"}
                         `}
                       >
                         {lang}
@@ -317,7 +345,7 @@ export const Navbar = () => {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-zinc-800 mt-1">
+                <div className="pt-2 border-t border-white/10 mt-1">
                   <button
                     onClick={() => {
                       scrollToSection("#contacto");
@@ -330,12 +358,13 @@ export const Navbar = () => {
                       });
                     }}
                     className="
-                      w-full py-3 rounded-[2px] text-xs font-mono font-bold uppercase tracking-wider
-                      bg-[#a3e635] hover:bg-[#bef264] text-black
-                      border-none cursor-pointer transition-colors duration-150
+                      w-full py-3 rounded-full text-xs font-bold tracking-tight flex items-center justify-center gap-1.5
+                      bg-[#a3e635] hover:bg-[#bcf947] text-black
+                      border-none cursor-pointer transition-all duration-150 shadow-[0_0_20px_rgba(163,230,53,0.3)]
                     "
                   >
-                    {t("nav.cta")}
+                    <span>{t("nav.cta")}</span>
+                    <ArrowUpRight size={14} className="stroke-[2.5]" />
                   </button>
                 </div>
               </div>
@@ -351,7 +380,7 @@ export const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 z-30 md:hidden bg-black/20 backdrop-blur-sm"
+            className="fixed inset-0 z-30 md:hidden bg-black/40 backdrop-blur-sm"
           />
         )}
       </AnimatePresence>

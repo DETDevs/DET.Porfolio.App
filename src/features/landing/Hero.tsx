@@ -175,17 +175,6 @@ export const Hero = () => {
 
         {/* Right Column (Hero Headline, Progress Tracker & Floating Card Carousel) */}
         <div className="lg:col-span-7 flex flex-col items-start lg:pl-4">
-          {/* Eyebrow Badge */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 text-[#a3e635] font-mono text-xs uppercase tracking-widest rounded-full mb-6"
-          > */}
-          {/* <span className="w-1.5 h-1.5 rounded-full bg-[#a3e635]" /> */}
-          {/* <span>{t("hero.badge")}</span> */}
-          {/* <   /motion.div> */}
-
           {/* Main Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
