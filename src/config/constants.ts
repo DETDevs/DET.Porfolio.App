@@ -273,6 +273,58 @@ export const PLANS: PricingPlan[] = [
         disclaimer: "Sin costo fijo mensual. Comisiones por volumen de entregas.",
         cta: "Agendar una llamada",
     },
+    {
+        id: 'citas',
+        title: "Citas / Booking",
+        implementationPrice: "",
+        prices: {
+            monthly: "$30",
+            semiannual: "$27",
+            annual: "$23",
+        },
+        desc: "Reservas online 24/7 con cobro automático al finalizar la cita — sin agenda de papel ni cobros pendientes por recordar.",
+        devFeatures: [
+            "Portal público de reservas, disponible 24/7",
+            "Selección de múltiples servicios en una sola cita",
+            "Especialistas filtrados automáticamente según servicios elegidos",
+            "Bloqueo temporal de horarios (sin dobles reservas)",
+            "Cobro automático al completar la cita",
+            "Confirmación automática por email y WhatsApp",
+        ],
+        membershipFeatures: [
+            "Soporte técnico cuando lo necesités",
+            "Actualizaciones continuas sin costo extra",
+            "Respaldos automáticos en la nube",
+        ],
+        highlight: false,
+        disclaimer: "Precio único mensual. Incluye notificaciones automáticas por email y WhatsApp.",
+        cta: "Solicitar demo de Citas",
+    },
+    {
+        id: 'cartera',
+        title: "Cartera de Cobro",
+        implementationPrice: "",
+        prices: {
+            monthly: "$25",
+            semiannual: "$22",
+            annual: "$19",
+        },
+        desc: "Controlá el fiado de tus clientes con historial real, conectado directamente a tus ventas — se acabó la libreta.",
+        devFeatures: [
+            "Registro de ventas a crédito (fiado) por cliente",
+            "Registro de abonos y pagos parciales",
+            "Historial completo conectado a la venta que lo originó",
+            "Conectado directo a POS, Delivery y Citas — no es un módulo aislado",
+        ],
+        membershipFeatures: [
+            "Soporte técnico cuando lo necesités",
+            "Actualizaciones continuas sin costo extra",
+            "Respaldos automáticos en la nube",
+        ],
+        highlight: false,
+        disclaimer: "Precio único mensual. Conectado automáticamente a tus ventas de POS, Delivery y Citas.",
+        cta: "Solicitar demo de Cartera",
+    },
 ];
 
 export const CONTACT_INFO = {

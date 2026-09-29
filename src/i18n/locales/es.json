@@ -222,6 +222,8 @@
     "tabs": {
       "web": "Páginas Web",
       "pos": "Facturación / POS",
+      "citas": "Citas / Booking",
+      "cartera": "Cartera de Cobro",
       "logistics": "Logística y Delivery"
     },
     "web": {

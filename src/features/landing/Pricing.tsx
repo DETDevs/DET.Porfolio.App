@@ -10,6 +10,8 @@ import {
   Maximize2,
   Calendar,
   MessageCircle,
+  CalendarCheck,
+  Wallet,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Section } from "@/shared/ui/Section";
@@ -23,12 +25,14 @@ import {
 // CONFIGURACIÓN DE PRECIOS EDITABLE
 // =========================================================================
 export const POS_MONTHLY_PRICE = 45; // Precio mensual en USD para el POS Todo Incluido
+export const CITAS_MONTHLY_PRICE = 30; // Precio mensual en USD para Citas / Booking
+export const CARTERA_MONTHLY_PRICE = 25; // Precio mensual en USD para Cartera de Cobro
 export const WEB_STARTER_PRICE = 300; // Precio base en USD para Páginas Web
 export const WEB_MAINTENANCE_PRICE = 30; // Mantenimiento mensual en USD tras meses incluidos
 
 const WHATSAPP_PHONE = "50587140989";
 
-type PricingCategory = "web" | "pos" | "logistics";
+type PricingCategory = "web" | "pos" | "citas" | "cartera" | "logistics";
 
 const POS_SHOWCASE_IMAGES = [
   {
@@ -69,6 +73,16 @@ export const Pricing = () => {
       id: "pos",
       label: t("pricing.tabs.pos", "Facturación / POS"),
       icon: Receipt,
+    },
+    {
+      id: "citas",
+      label: t("pricing.tabs.citas", "Citas / Booking"),
+      icon: CalendarCheck,
+    },
+    {
+      id: "cartera",
+      label: t("pricing.tabs.cartera", "Cartera de Cobro"),
+      icon: Wallet,
     },
     {
       id: "logistics",
@@ -463,7 +477,289 @@ export const Pricing = () => {
             )}
 
             {/* ================================================================= */}
-            {/* PESTAÑA 3: LOGÍSTICA Y DELIVERY (SIN PRECIOS NI NÚMEROS)          */}
+            {/* PESTAÑA 3: CITAS / BOOKING                                        */}
+            {/* ================================================================= */}
+            {activeCategory === "citas" && (
+              <motion.div
+                key="citas"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+              >
+                {/* Main Plan Card (7 cols) */}
+                <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <div className="flex items-center justify-between gap-4 mb-4">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#a3e635] font-bold">
+                        Agenda Inteligente
+                      </span>
+                      <span className="font-mono text-[11px] text-zinc-400">
+                        Disponibilidad 24/7
+                      </span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase text-white mb-3 tracking-tight">
+                      Citas / Booking
+                    </h3>
+                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                      Reservas online 24/7 con cobro automático al finalizar la cita — sin agenda de papel ni cobros pendientes por recordar.
+                    </p>
+
+                    {/* Flat Price Block */}
+                    <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl font-black text-white tracking-tight">
+                          ${CITAS_MONTHLY_PRICE}
+                        </span>
+                        <span className="font-mono text-sm text-zinc-300 font-bold">
+                          /mes
+                        </span>
+                        <span className="font-mono text-xs text-zinc-500 ml-1">
+                          por negocio
+                        </span>
+                      </div>
+                      <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#a3e635]" />
+                        <span>
+                          Actualizaciones continuas, hosting y soporte técnico incluidos
+                        </span>
+                      </p>
+                    </div>
+
+                    {/* Features List */}
+                    <div className="space-y-3 mb-8">
+                      <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-bold">
+                        Capacidades incluidas:
+                      </p>
+                      {[
+                        "Portal público de reservas 24/7",
+                        "Selección de múltiples servicios en una sola cita",
+                        "Especialistas filtrados automáticamente según servicios elegidos",
+                        "Bloqueo temporal de horarios (sin dobles reservas)",
+                        "Cobro automático al completar la cita",
+                        "Confirmación automática por email y WhatsApp",
+                      ].map((feat, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-3 text-sm text-zinc-300"
+                        >
+                          <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <a
+                    href={getWhatsAppLink(
+                      "Hola DETDevs, quiero una demo del módulo de Citas / Booking ($30/mes).",
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Solicitar demo de Citas</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+
+                {/* Side Card: Qué incluye tu membresía (5 cols) */}
+                <div className="lg:col-span-5 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
+                      Servicio Continuo
+                    </h4>
+                    <h5 className="text-xl font-bold uppercase text-white mb-3 tracking-tight">
+                      Qué incluye tu membresía
+                    </h5>
+                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                      Todo lo necesario para que tu sistema funcione de manera
+                      ininterrumpida y sin costos imprevistos.
+                    </p>
+
+                    <div className="space-y-4">
+                      {[
+                        {
+                          title: "Soporte Técnico Continuo",
+                          desc: "Asistencia directa, resolución de dudas y acompañamiento continuo vía WhatsApp.",
+                        },
+                        {
+                          title: "Actualizaciones sin Costo Extra",
+                          desc: "Nuevas mejoras de software, optimizaciones y parches automáticos sin cargos adicionales.",
+                        },
+                        {
+                          title: "Respaldos Automáticos",
+                          desc: "Copias de seguridad periódicas en la nube para asegurar la información de tu negocio.",
+                        },
+                      ].map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 rounded-[2px] bg-black border border-zinc-800"
+                        >
+                          <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 bg-[#a3e635]" />
+                            {item.title}
+                          </div>
+                          <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                            {item.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-500 font-mono text-center">
+                    Capturas de este módulo — próximamente.
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ================================================================= */}
+            {/* PESTAÑA 4: CARTERA DE COBRO                                       */}
+            {/* ================================================================= */}
+            {activeCategory === "cartera" && (
+              <motion.div
+                key="cartera"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+              >
+                {/* Main Plan Card (7 cols) */}
+                <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <div className="flex items-center justify-between gap-4 mb-4">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#a3e635] font-bold">
+                        Control Financiero
+                      </span>
+                      <span className="font-mono text-[11px] text-zinc-400">
+                        Cuentas Claras
+                      </span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase text-white mb-3 tracking-tight">
+                      Cartera de Cobro
+                    </h3>
+                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                      Controlá el fiado de tus clientes con historial real, conectado directamente a tus ventas — se acabó la libreta.
+                    </p>
+
+                    {/* Flat Price Block */}
+                    <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl font-black text-white tracking-tight">
+                          ${CARTERA_MONTHLY_PRICE}
+                        </span>
+                        <span className="font-mono text-sm text-zinc-300 font-bold">
+                          /mes
+                        </span>
+                        <span className="font-mono text-xs text-zinc-500 ml-1">
+                          por negocio
+                        </span>
+                      </div>
+                      <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#a3e635]" />
+                        <span>
+                          Actualizaciones continuas, hosting y soporte técnico incluidos
+                        </span>
+                      </p>
+                    </div>
+
+                    {/* Features List */}
+                    <div className="space-y-3 mb-8">
+                      <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-bold">
+                        Capacidades incluidas:
+                      </p>
+                      {[
+                        "Registro de ventas a crédito (fiado) por cliente",
+                        "Registro de abonos y pagos parciales",
+                        "Historial completo conectado a la venta que lo originó",
+                        "Conectado directo a POS, Delivery y Citas (no es un módulo aislado)",
+                      ].map((feat, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-3 text-sm text-zinc-300"
+                        >
+                          <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <a
+                    href={getWhatsAppLink(
+                      "Hola DETDevs, quiero una demo del módulo de Cartera de Cobro ($25/mes).",
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Solicitar demo de Cartera</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+
+                {/* Side Card: Qué incluye tu membresía (5 cols) */}
+                <div className="lg:col-span-5 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
+                      Servicio Continuo
+                    </h4>
+                    <h5 className="text-xl font-bold uppercase text-white mb-3 tracking-tight">
+                      Qué incluye tu membresía
+                    </h5>
+                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                      Todo lo necesario para que tu sistema funcione de manera
+                      ininterrumpida y sin costos imprevistos.
+                    </p>
+
+                    <div className="space-y-4">
+                      {[
+                        {
+                          title: "Soporte Técnico Continuo",
+                          desc: "Asistencia directa, resolución de dudas y acompañamiento continuo vía WhatsApp.",
+                        },
+                        {
+                          title: "Actualizaciones sin Costo Extra",
+                          desc: "Nuevas mejoras de software, optimizaciones y parches automáticos sin cargos adicionales.",
+                        },
+                        {
+                          title: "Respaldos Automáticos",
+                          desc: "Copias de seguridad periódicas en la nube para asegurar la información de tu negocio.",
+                        },
+                      ].map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 rounded-[2px] bg-black border border-zinc-800"
+                        >
+                          <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 bg-[#a3e635]" />
+                            {item.title}
+                          </div>
+                          <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                            {item.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-500 font-mono text-center">
+                    Capturas de este módulo — próximamente.
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ================================================================= */}
+            {/* PESTAÑA 5: LOGÍSTICA Y DELIVERY (SIN PRECIOS NI NÚMEROS)          */}
             {/* ================================================================= */}
             {activeCategory === "logistics" && (
               <motion.div

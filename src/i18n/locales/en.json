@@ -222,6 +222,8 @@
     "tabs": {
       "web": "Websites",
       "pos": "Billing / POS",
+      "citas": "Appointments / Booking",
+      "cartera": "Accounts Receivable",
       "logistics": "Logistics & Delivery"
     },
     "web": {
