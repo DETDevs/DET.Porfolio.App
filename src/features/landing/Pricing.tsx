@@ -237,7 +237,7 @@ export const Pricing = () => {
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola DETDevs, me interesa cotizar un Sitio Web Profesional para mi negocio.",
+                      "Hola Nexol, me interesa cotizar un Sitio Web Profesional para mi negocio.",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -361,11 +361,14 @@ export const Pricing = () => {
                           Capacidades incluidas:
                         </p>
                         {[
-                          "Facturación electrónica rápida y emisión de comprobantes",
-                          "Inventario en tiempo real con alertas automáticas de stock bajo",
-                          "Control de caja: apertura/cierre de turno, arqueo y entradas/salidas (Cash In / Out)",
-                          "Reportes avanzados de ventas, productos de mayor rotación y márgenes",
-                          "Gestión multi-usuario con roles de cajero, supervisor y administrador",
+                          "Cobro rápido con ticket térmico y comprobantes de venta",
+                          "Pagos en efectivo, tarjeta, transferencia, crédito (fiado) y pago mixto, en córdobas y dólares con vuelto en córdobas",
+                          "Control de caja: apertura y cierre de turno, cierre ciego, arqueo y entradas/salidas de efectivo",
+                          "Anulaciones y devoluciones con autorización del encargado y reversa de inventario",
+                          "Inventario en tiempo real: compras a proveedores, ajustes, conteo físico y alertas de stock bajo",
+                          "Usuarios con roles de cajero, mesero y encargado, y reglas del negocio que vos configurás",
+                          "Reportes de ventas y de productos de mayor rotación",
+                          "Sigue cobrando sin internet en negocios de una sola caja",
                           "Hardware ESC/POS integrado: impresoras térmicas de tickets y cajón de dinero",
                         ].map((feat, idx) => (
                           <div
@@ -382,7 +385,7 @@ export const Pricing = () => {
                     {/* Solid Primary Button */}
                     <a
                       href={getWhatsAppLink(
-                        `Hola DETDevs, quiero una demo del Sistema de Facturación / POS Todo Incluido ($${POS_MONTHLY_PRICE}/mes).`,
+                        `Hola Nexol, quiero una demo del Sistema de Facturación / POS Todo Incluido ($${POS_MONTHLY_PRICE}/mes).`,
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -554,7 +557,7 @@ export const Pricing = () => {
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola DETDevs, quiero una demo del módulo de Citas / Booking ($30/mes).",
+                      "Hola Nexol, quiero una demo del módulo de Citas / Booking ($30/mes).",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -694,7 +697,7 @@ export const Pricing = () => {
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola DETDevs, quiero una demo del módulo de Cartera de Cobro ($25/mes).",
+                      "Hola Nexol, quiero una demo del módulo de Cartera de Cobro ($25/mes).",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -832,7 +835,7 @@ export const Pricing = () => {
                     <div className="space-y-3">
                       <a
                         href={getWhatsAppLink(
-                          "Hola DETDevs, me interesa agendar una llamada sobre el Sistema de Logística y Delivery (modelo de comisión).",
+                          "Hola Nexol, me interesa agendar una llamada sobre el Sistema de Logística y Delivery (modelo de comisión).",
                         )}
                         target="_blank"
                         rel="noopener noreferrer"

@@ -33,7 +33,7 @@
         "id": "02",
         "tag": "Point of Sale",
         "title": "TrackDeli POS Desktop",
-        "desc": "Lightning-fast billing, cash management, and native ESC/POS thermal printer integration.",
+        "desc": "Checkout with split and USD payments, cash drawer control with blind closeout, authorized returns, and real-time inventory.",
         "image": "/assets/project/pos/caja_POS.png",
         "link": "#proyectos"
       },
@@ -62,7 +62,7 @@
     "items": [
       {
         "title": "Billing System",
-        "desc": "Issue invoices automatically, stay on top of your sales, and always know where your numbers stand."
+        "desc": "Check out fast, issue sales receipts, and keep your sales, cash drawer, and numbers clear."
       },
       {
         "title": "Inventory Management",
@@ -118,7 +118,7 @@
       {
         "title": "TrackDeli POS",
         "category": "Point of Sale",
-        "description": "Electron desktop point-of-sale for complete cash register, inventory, and billing operations, with native ESC/POS thermal printer and cash drawer integration."
+        "description": "Electron desktop application for complete cash drawer, inventory, and sales management: split and USD payments, blind cash drawer closeout, manager-authorized returns, supplier purchases, and native support for ESC/POS thermal printers and cash drawers."
       },
       {
         "title": "Bakery POS System",
@@ -254,17 +254,20 @@
       "per_month": "/mo",
       "per_branch": "per branch · unlimited transactions",
       "devFeatures": [
-        "Fast electronic invoicing and receipt generation",
-        "Live inventory tracking with stock depletion alerts",
-        "Comprehensive cash drawer management (shifts, reconciliation, cash in/out)",
-        "Advanced revenue, best-sellers, and margin analytics",
-        "Multi-user roles for cashiers, supervisors, and managers",
-        "Native ESC/POS hardware support for thermal receipt printers and automatic cash drawers"
+        "Fast checkout with thermal ticket printing and sales receipts",
+        "Payments via cash, card, bank transfer, store credit, and split payments, in córdobas and USD with change in córdobas",
+        "Cash drawer control: shift open and close, blind closeout, reconciliation, and cash in/out movements",
+        "Voids and returns with manager authorization and inventory reversal",
+        "Real-time inventory: supplier purchases, adjustments, physical stock counts, and low-stock alerts",
+        "User roles for cashier, server, and manager, with configurable business rules",
+        "Sales reports and top-selling product analytics",
+        "Keeps processing sales without internet in single-terminal businesses",
+        "Integrated ESC/POS hardware: thermal receipt printers and cash drawers"
       ],
       "membershipFeatures": [
-        "Priority technical support and setup onboarding",
+        "Technical support and initial setup assistance",
         "Continuous software updates at no extra cost",
-        "Automated cloud backup and high redundancy"
+        "Hosting included"
       ],
       "social_proof_title": "Proven in real production",
       "social_proof_desc": "Live screenshots of the TrackDeli POS operating in active businesses:",
@@ -325,24 +328,56 @@
     "subtitle": "Don't see your question here? Reach out on WhatsApp — we usually reply within minutes.",
     "items": [
       {
-        "question": "How much does a custom billing system cost?",
-        "answer": "It depends on the scope and features your business needs. We offer plans ranging from basic business websites to full custom platforms. Contact us for a no-commitment personalized quote."
+        "question": "How much does the point-of-sale system cost?",
+        "answer": "The POS has a single all-inclusive plan of $45 per month per branch: no stripped-down versions or extra charges per feature. Appointments & Booking costs $30 per month and Accounts Receivable (store credit) costs $25 per month, per business. Delivery has no fixed monthly cost: you pay a per-delivery commission based on your volume."
       },
       {
         "question": "What's included in the monthly fee?",
-        "answer": "It covers cloud hosting, dedicated technical support, server maintenance, continuous backups, and system upgrades. Everything required to keep your software running smoothly without surprises."
+        "answer": "Hosting, technical support, and all system updates at no extra cost. When we release improvements, you get them without paying anything extra."
       },
       {
-        "question": "How long does a project take to complete?",
-        "answer": "Most projects are live within 3 to 5 weeks. Larger, more complex builds can take anywhere from 1 to 3 months. Either way, you'll have full visibility into our progress from day one."
+        "question": "Do I need to buy hardware?",
+        "answer": "It's not mandatory. The system works with USB or network thermal printers and RJ11 cash drawers. If you prefer a turnkey solution, we offer a ready-to-use kit (computer, receipt printer, and cash drawer, installed and configured) starting at $530; the hardware is yours and flexible payment plans are available."
+      },
+      {
+        "question": "Does it work if the internet goes down?",
+        "answer": "In single-terminal businesses, you can keep processing sales offline; transactions are saved locally and sync automatically once the internet is restored."
+      },
+      {
+        "question": "Can I accept payments in US dollars?",
+        "answer": "Yes. You can charge in córdobas or US dollars, and change is calculated in córdobas using the exchange rate you define in the system."
+      },
+      {
+        "question": "How do I monitor cashier activity at the cash drawer?",
+        "answer": "Each cashier counts their cash at shift close without seeing the expected total (blind closeout), and the system flags any discrepancy. Voids and returns require manager authorization, logging who performed the action and who approved it."
+      },
+      {
+        "question": "Does it work for restaurants and coffee shops?",
+        "answer": "Yes. The same system manages tables and lets your servers take orders directly from their smartphone or a tablet; you don't need a separate app."
+      },
+      {
+        "question": "Can I import my products from Excel?",
+        "answer": "Yes. You can import your entire product catalog from an Excel file and export it whenever you need to."
+      },
+      {
+        "question": "Does it issue official tax invoices (DGI)?",
+        "answer": "Currently, the system issues sales tickets and receipts. Official electronic tax invoicing is not included for now; reach out on WhatsApp if you require it and we can review your specific case."
+      },
+      {
+        "question": "How long does setup take?",
+        "answer": "POS, Booking, and Accounts Receivable are deployed within 1 week. A website is delivered in 1 to 3 weeks. Custom systems take 3 to 5 weeks, and larger projects take 1 to 3 months, with direct communication at every milestone."
       },
       {
         "question": "Do you provide support after launch?",
-        "answer": "Yes, absolutely. We don't disappear after shipping. All our plans include ongoing technical support and maintenance. Your software grows right alongside your business."
+        "answer": "Yes. We don't disappear after shipping: all our plans include ongoing technical support, and your software evolves alongside your business."
+      },
+      {
+        "question": "How much does a website or custom software cost?",
+        "answer": "A professional website starts at $300 (one-time payment) and includes 2 months of maintenance and support; thereafter it's $30 per month. Custom systems are quoted based on your requirements: message us for a personalized, no-commitment quote."
       },
       {
         "question": "Do you only work with businesses in Nicaragua?",
-        "answer": "Not at all. We work with clients across Latin America and internationally. We're proud to be from Nicaragua, but our software has no borders."
+        "answer": "No, we work with clients across Latin America and worldwide. We are based in Nicaragua, but our software has no borders."
       }
     ]
   },

@@ -62,7 +62,8 @@ const FaqItem = ({
 export const FAQ = () => {
   const { t } = useTranslation();
   const { ref, isInView } = useScrollReveal(0.1);
-  const items = t("faq.items", { returnObjects: true }) as {
+  const rawItems = t("faq.items", { returnObjects: true });
+  const items = (Array.isArray(rawItems) ? rawItems : []) as {
     question: string;
     answer: string;
   }[];

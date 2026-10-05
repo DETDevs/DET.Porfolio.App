@@ -33,7 +33,7 @@
         "id": "02",
         "tag": "Punto de Venta",
         "title": "TrackDeli POS Desktop",
-        "desc": "Facturación ultrarrápida, apertura/cierre de caja y soporte para impresoras térmicas.",
+        "desc": "Cobro con pagos mixtos y dólares, control de caja con cierre ciego, devoluciones con autorización e inventario en tiempo real.",
         "image": "/assets/project/pos/caja_POS.png",
         "link": "#proyectos"
       },
@@ -62,7 +62,7 @@
     "items": [
       {
         "title": "Sistema de Facturación",
-        "desc": "Generá facturas automáticas, llevá control de lo que vendés, y tené tus números claros."
+        "desc": "Cobrá rápido, emití comprobantes y tené tus ventas, tu caja y tus números claros."
       },
       {
         "title": "Gestión de Inventarios",
@@ -118,7 +118,7 @@
       {
         "title": "TrackDeli POS",
         "category": "Punto de Venta",
-        "description": "Sistema de escritorio con Electron para gestión integral de caja, inventarios y facturación, con soporte nativo para impresoras térmicas ESC/POS y cajón de dinero."
+        "description": "Sistema de escritorio con Electron para gestión integral de caja, inventarios y ventas: pagos mixtos y en dólares, cierre de caja ciego, devoluciones con autorización del encargado, compras a proveedores, y soporte nativo para impresoras térmicas ESC/POS y cajón de dinero."
       },
       {
         "title": "Dulces Momentos POS",
@@ -254,17 +254,20 @@
       "per_month": "/mes",
       "per_branch": "por sucursal · sin límites de operaciones",
       "devFeatures": [
-        "Facturación electrónica rápida y emisión de comprobantes",
-        "Inventario en tiempo real con alertas de stock bajo y reabastecimiento",
-        "Control total de caja: apertura/cierre de turno, arqueo y movimientos (Cash In / Out)",
-        "Reportes avanzados de ventas, productos más vendidos y márgenes",
-        "Gestión multi-usuario con roles de cajero, supervisor y administrador",
-        "Integración de hardware ESC/POS: impresoras térmicas de tickets y cajón de dinero automático"
+        "Cobro rápido con ticket térmico y comprobantes de venta",
+        "Pagos en efectivo, tarjeta, transferencia, crédito (fiado) y pago mixto, en córdobas y dólares con vuelto en córdobas",
+        "Control de caja: apertura y cierre de turno, cierre ciego, arqueo y entradas/salidas de efectivo",
+        "Anulaciones y devoluciones con autorización del encargado y reversa de inventario",
+        "Inventario en tiempo real: compras a proveedores, ajustes, conteo físico y alertas de stock bajo",
+        "Usuarios con roles de cajero, mesero y encargado, y reglas del negocio que vos configurás",
+        "Reportes de ventas y de productos de mayor rotación",
+        "Sigue cobrando sin internet en negocios de una sola caja",
+        "Hardware ESC/POS integrado: impresoras térmicas de tickets y cajón de dinero"
       ],
       "membershipFeatures": [
-        "Soporte técnico prioritario y asistencia en configuración",
+        "Soporte técnico y asistencia en la configuración inicial",
         "Actualizaciones de software continuas sin cobros adicionales",
-        "Respaldos automáticos en la nube y alta disponibilidad"
+        "Hosting incluido"
       ],
       "social_proof_title": "Probado en producción real",
       "social_proof_desc": "Capturas directas del sistema TrackDeli POS operando en negocios reales:",
@@ -325,20 +328,52 @@
     "subtitle": "Si tu pregunta no está aquí, escribinos por WhatsApp y te respondemos al toque.",
     "items": [
       {
-        "question": "¿Cuánto cuesta desarrollar un sistema de facturación?",
-        "answer": "El costo varía según las funcionalidades que necesites. Ofrecemos planes desde sitios web básicos hasta sistemas completos a medida. Contactanos para una cotización personalizada sin compromiso."
+        "question": "¿Cuánto cuesta el sistema de punto de venta?",
+        "answer": "El POS tiene un único plan de $45 al mes por sucursal, con todo incluido: sin versiones recortadas ni cobros por función. Agenda de Citas cuesta $30 al mes y Cartera de Cobro (fiado) $25 al mes, por negocio. Delivery no tiene costo fijo: se paga una comisión por entrega según tu volumen."
       },
       {
         "question": "¿Qué incluye la cuota mensual?",
-        "answer": "Cubre hosting, soporte técnico prioritario, mantenimiento, copias de seguridad continuas y actualizaciones del sistema. Es todo lo que necesitás para que tu software funcione sin preocupaciones."
+        "answer": "Hosting, soporte técnico y todas las actualizaciones del sistema, sin costo extra. Cuando sacamos mejoras, las recibís sin pagar de más."
       },
       {
-        "question": "¿En cuánto tiempo entregan un proyecto?",
-        "answer": "En 3 a 5 semanas tu proyecto está listo. Proyectos más grandes pueden tomar de 1 a 3 meses, dependiendo de la complejidad. En cualquier caso, siempre mantenemos comunicación directa para que estés al tanto de cada avance."
+        "question": "¿Necesito comprar equipo?",
+        "answer": "No es obligatorio. El sistema funciona con impresoras térmicas USB o de red y gavetas de dinero RJ11. Si preferís no complicarte, tenemos un kit listo (computadora, impresora de recibos y caja registradora, instalados y configurados) desde $530; el equipo queda a tu nombre y hay arreglos de pago."
+      },
+      {
+        "question": "¿Funciona si se cae el internet?",
+        "answer": "En negocios con una sola caja podés seguir cobrando sin conexión; las ventas se guardan y se sincronizan cuando vuelve el internet."
+      },
+      {
+        "question": "¿Puedo cobrar en dólares?",
+        "answer": "Sí. Podés cobrar en córdobas o en dólares, y el vuelto sale en córdobas con la tasa de cambio que vos definís en el sistema."
+      },
+      {
+        "question": "¿Cómo controlo lo que hacen mis empleados en la caja?",
+        "answer": "Cada cajero cuenta su efectivo al cerrar sin ver lo que debería haber (cierre ciego), y el sistema te muestra la diferencia. Anular una venta o hacer una devolución requiere la autorización del encargado, y queda registrado quién lo hizo y quién lo aprobó."
+      },
+      {
+        "question": "¿Sirve para restaurantes y cafeterías?",
+        "answer": "Sí. El mismo sistema maneja mesas y permite que tus meseros tomen pedidos desde el teléfono o una tablet; no necesitás otra aplicación."
+      },
+      {
+        "question": "¿Puedo pasar mis productos desde Excel?",
+        "answer": "Sí. Podés importar tu catálogo desde un archivo de Excel y exportarlo cuando lo necesités."
+      },
+      {
+        "question": "¿Emite facturas fiscales (DGI)?",
+        "answer": "Hoy el sistema emite tickets y comprobantes de venta. La facturación fiscal electrónica oficial no está incluida por ahora; escribinos por WhatsApp si la necesitás y vemos tu caso."
+      },
+      {
+        "question": "¿En cuánto tiempo está listo?",
+        "answer": "El POS, las Citas y la Cartera de Cobro se activan en 1 semana. Un sitio web se entrega en 1 a 3 semanas. Los sistemas a medida toman de 3 a 5 semanas, y los proyectos más grandes de 1 a 3 meses, con comunicación directa en cada avance."
       },
       {
         "question": "¿Ofrecen soporte después de la entrega?",
-        "answer": "Sí. No desaparecemos después de entregar. Todos nuestros planes incluyen soporte técnico y mantenimiento. Tu sistema evoluciona con tu negocio."
+        "answer": "Sí. No desaparecemos después de entregar: todos nuestros planes incluyen soporte técnico, y tu sistema evoluciona con tu negocio."
+      },
+      {
+        "question": "¿Cuánto cuesta una página web o un sistema a medida?",
+        "answer": "Un sitio web profesional parte desde $300 (pago único) e incluye 2 meses de soporte y mantenimiento; después son $30 al mes. Los sistemas a medida se cotizan según lo que necesites: escribinos y te damos una cotización sin compromiso."
       },
       {
         "question": "¿Trabajan solo con empresas de Nicaragua?",
