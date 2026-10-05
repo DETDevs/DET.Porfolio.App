@@ -594,8 +594,8 @@ export const Pricing = () => {
                           desc: "Nuevas mejoras de software, optimizaciones y parches automáticos sin cargos adicionales.",
                         },
                         {
-                          title: "Respaldos Automáticos",
-                          desc: "Copias de seguridad periódicas en la nube para asegurar la información de tu negocio.",
+                          title: "Hosting Incluido",
+                          desc: "Tu información en la nube, siempre disponible, sin pagar infraestructura aparte.",
                         },
                       ].map((item, idx) => (
                         <div
@@ -649,7 +649,7 @@ export const Pricing = () => {
                       Cartera de Cobro
                     </h3>
                     <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                      Controlá el fiado de tus clientes con historial real, conectado directamente a tus ventas — se acabó la libreta.
+                      Controlá el crédito de tus clientes y de las empresas con convenio: cada consumo queda en su cuenta, con límite de crédito y estado de cuenta listo para cobrar. Se acabó la libreta.
                     </p>
 
                     {/* Flat Price Block */}
@@ -679,10 +679,12 @@ export const Pricing = () => {
                         Capacidades incluidas:
                       </p>
                       {[
-                        "Registro de ventas a crédito (fiado) por cliente",
+                        "Ventas a crédito (fiado) por cliente, con historial conectado a la venta que lo originó",
                         "Registro de abonos y pagos parciales",
-                        "Historial completo conectado a la venta que lo originó",
-                        "Conectado directo a POS, Delivery y Citas (no es un módulo aislado)",
+                        "Límite de crédito por persona y por empresa, con autorización del encargado para las excepciones",
+                        "Empresas y convenios: agrupá a tus empleados, estudiantes o clientes por empresa e identificalos con su carnet y lector de código de barras",
+                        "Estado de cuenta por empresa y por persona, exportable a Excel, para deducción de planilla o cobro periódico",
+                        "Cortes por quincena, mes o semana, y registro del pago de la empresa aplicado a cada cuenta",
                       ].map((feat, idx) => (
                         <div
                           key={idx}
@@ -734,8 +736,8 @@ export const Pricing = () => {
                           desc: "Nuevas mejoras de software, optimizaciones y parches automáticos sin cargos adicionales.",
                         },
                         {
-                          title: "Respaldos Automáticos",
-                          desc: "Copias de seguridad periódicas en la nube para asegurar la información de tu negocio.",
+                          title: "Hosting Incluido",
+                          desc: "Tu información en la nube, siempre disponible, sin pagar infraestructura aparte.",
                         },
                       ].map((item, idx) => (
                         <div
