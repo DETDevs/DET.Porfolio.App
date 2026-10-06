@@ -15,7 +15,8 @@
     "subtitle": "We engineer high-impact custom software — real-time platforms, billing systems, inventory engines, and native mobile apps.",
     "cta_primary": "See Pricing",
     "cta_secondary": "Our Services",
-    "cta_card": "View project",
+    "cta_card": "View plan",
+    "cta_whatsapp": "Quote via WhatsApp",
     "architecture_engine": "Nexol Architecture Engine",
     "architecture_tagline": "Robust software engineering, fluid interfaces, and cloud architectures built to endure.",
     "footer_tagline": "Custom Software Development",
@@ -23,35 +24,48 @@
     "slides": [
       {
         "id": "01",
-        "tag": "SaaS & Logistics",
-        "title": "TrackDeli Web Platform",
-        "desc": "Real-time intelligent dispatch, live interactive maps, and continuous order telemetry.",
-        "image": "/assets/project/webtrack/dash_webtrack.png",
-        "link": "#proyectos"
+        "tag": "Point of Sale",
+        "title": "Point of Sale (POS)",
+        "price": "$45/mo per branch",
+        "desc": "Fast checkout with split and USD payments, cash drawer control by shift and cashier, inventory and sales reports.",
+        "image": "/assets/project/pos/caja_POS.png",
+        "link": "#planes"
       },
       {
         "id": "02",
-        "tag": "Point of Sale",
-        "title": "TrackDeli POS Desktop",
-        "desc": "Checkout with split and USD payments, cash drawer control with blind closeout, authorized returns, and real-time inventory.",
-        "image": "/assets/project/pos/caja_POS.png",
-        "link": "#proyectos"
+        "tag": "Customer Credit",
+        "title": "Customer Credit & Accounts",
+        "price": "$25/mo per business",
+        "desc": "Charge purchases to employee accounts using barcode badges and generate deduction reports for payroll.",
+        "image": "/assets/project/pos/historial_POS.png",
+        "link": "#planes"
       },
       {
         "id": "03",
-        "tag": "Live Mobile App",
-        "title": "TrackDeli Rider App",
-        "desc": "Native courier mobile app with active GPS telemetry and WebSocket instantaneous sync.",
-        "image": "/assets/project/appdeli/rutaentrega_app.jpg",
-        "link": "#proyectos"
+        "tag": "Online Booking",
+        "title": "Appointment Booking",
+        "price": "$30/mo",
+        "desc": "Online reservations for your clients, staff schedule management, and automatic confirmations.",
+        "image": "/assets/project/bookingwebsite/project.png",
+        "link": "#planes"
       },
       {
         "id": "04",
-        "tag": "Retail Management",
-        "title": "Dulces Momentos POS",
-        "desc": "Real-time inventory control, smart replenishment alerts, and profitability analytics.",
+        "tag": "Delivery",
+        "title": "Delivery & Logistics",
+        "price": "Per-delivery commission",
+        "desc": "Real-time dispatch with live maps, drivers, and full order tracking.",
+        "image": "/assets/project/webtrack/dash_webtrack.png",
+        "link": "#planes"
+      },
+      {
+        "id": "05",
+        "tag": "Tailored Websites",
+        "title": "Tailored Websites",
+        "price": "From $300",
+        "desc": "Professional website for your business, with hosting included and monthly support.",
         "image": "/assets/project/DulcesMomentos/project.png",
-        "link": "#proyectos"
+        "link": "#planes"
       }
     ]
   },
@@ -293,7 +307,7 @@
         "Direct courier team support"
       ],
       "cta": "Schedule a Call",
-      "scrolly_hint": "See how a delivery moves in real time in our interactive demo below ↓"
+      "scrolly_hint": "See how a delivery moves in real time in our interactive tour below ↓"
     }
   },
   "contact": {

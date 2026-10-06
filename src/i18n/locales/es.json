@@ -15,7 +15,8 @@
     "subtitle": "Diseñamos software a la medida de alto impacto. Facturación, inventarios, apps móviles y plataformas web en tiempo real.",
     "cta_primary": "Ver Planes",
     "cta_secondary": "Nuestros Servicios",
-    "cta_card": "Ver proyecto",
+    "cta_card": "Ver plan",
+    "cta_whatsapp": "Cotizar por WhatsApp",
     "architecture_engine": "Nexol Architecture Engine",
     "architecture_tagline": "Ingeniería de software robusta, interfaces fluidas y arquitecturas en la nube diseñadas para perdurar.",
     "footer_tagline": "Desarrollo de Software a Medida",
@@ -23,35 +24,48 @@
     "slides": [
       {
         "id": "01",
-        "tag": "SaaS & Logística",
-        "title": "TrackDeli Web Platform",
-        "desc": "Despacho inteligente en tiempo real, mapas interactivos y telemetría continua de pedidos.",
-        "image": "/assets/project/webtrack/dash_webtrack.png",
-        "link": "#proyectos"
+        "tag": "Punto de Venta",
+        "title": "Punto de Venta (POS)",
+        "price": "$45/mes por sucursal",
+        "desc": "Cobro rápido con pagos mixtos y dólares, control de caja por turno y cajero, inventario y reportes de ventas.",
+        "image": "/assets/project/pos/caja_POS.png",
+        "link": "#planes"
       },
       {
         "id": "02",
-        "tag": "Punto de Venta",
-        "title": "TrackDeli POS Desktop",
-        "desc": "Cobro con pagos mixtos y dólares, control de caja con cierre ciego, devoluciones con autorización e inventario en tiempo real.",
-        "image": "/assets/project/pos/caja_POS.png",
-        "link": "#proyectos"
+        "tag": "Cartera de Cobro",
+        "title": "Cartera de Cobro",
+        "price": "$25/mes por negocio",
+        "desc": "Cargá consumos a cuenta de empleados con carnet de código de barras y generá el reporte de deducción para planilla.",
+        "image": "/assets/project/pos/historial_POS.png",
+        "link": "#planes"
       },
       {
         "id": "03",
-        "tag": "App Móvil en Vivo",
-        "title": "TrackDeli Rider App",
-        "desc": "Aplicación móvil para repartidores con telemetría GPS continua y sincronización instantánea.",
-        "image": "/assets/project/appdeli/rutaentrega_app.jpg",
-        "link": "#proyectos"
+        "tag": "Citas en línea",
+        "title": "Agenda de Citas",
+        "price": "$30/mes",
+        "desc": "Reservas en línea para tus clientes, agenda por profesional y confirmación automática.",
+        "image": "/assets/project/bookingwebsite/project.png",
+        "link": "#planes"
       },
       {
         "id": "04",
-        "tag": "Gestión Comercial",
-        "title": "Dulces Momentos POS",
-        "desc": "Control total de stock, alertas automáticas de reabastecimiento y reportes de rentabilidad.",
+        "tag": "Delivery",
+        "title": "Delivery",
+        "price": "Comisión por entrega",
+        "desc": "Despacho en tiempo real con mapa, repartidores y seguimiento de pedidos.",
+        "image": "/assets/project/webtrack/dash_webtrack.png",
+        "link": "#planes"
+      },
+      {
+        "id": "05",
+        "tag": "Páginas web",
+        "title": "Páginas web a la medida",
+        "price": "Desde $300",
+        "desc": "Sitio profesional para tu negocio, con hosting incluido y soporte mensual.",
         "image": "/assets/project/DulcesMomentos/project.png",
-        "link": "#proyectos"
+        "link": "#planes"
       }
     ]
   },
@@ -293,7 +307,7 @@
         "Capacitación completa para tu equipo de despacho y repartidores"
       ],
       "cta": "Agendar una llamada",
-      "scrolly_hint": "Mirá cómo viaja un pedido en tiempo real en nuestro demo ↓"
+      "scrolly_hint": "Mirá cómo viaja un pedido en tiempo real con este recorrido interactivo ↓"
     }
   },
   "contact": {

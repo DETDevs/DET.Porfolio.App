@@ -7,43 +7,63 @@ interface SlideData {
   id: string;
   tag: string;
   title: string;
+  price: string;
   desc: string;
   image: string;
   link: string;
+  category?: "web" | "pos" | "citas" | "cartera" | "logistics";
 }
 
 const BASE_SLIDES: SlideData[] = [
   {
     id: "01",
-    tag: "SaaS & Logística",
-    title: "TrackDeli Web Platform",
-    desc: "Despacho inteligente en tiempo real, mapas interactivos y telemetría continua de pedidos.",
-    image: "/assets/project/webtrack/dash_webtrack.png",
-    link: "#proyectos",
+    tag: "Punto de Venta",
+    title: "Punto de Venta (POS)",
+    price: "$45/mes por sucursal",
+    desc: "Cobro rápido con pagos mixtos y dólares, control de caja por turno y cajero, inventario y reportes de ventas.",
+    image: "/assets/project/pos/caja_POS.png",
+    link: "#planes",
+    category: "pos",
   },
   {
     id: "02",
-    tag: "Punto de Venta",
-    title: "TrackDeli POS Desktop",
-    desc: "Facturación ultrarrápida, apertura/cierre de caja y soporte para impresoras térmicas.",
-    image: "/assets/project/pos/caja_POS.png",
-    link: "#proyectos",
+    tag: "Cartera de Cobro",
+    title: "Cartera de Cobro",
+    price: "$25/mes por negocio",
+    desc: "Cargá consumos a cuenta de empleados con carnet de código de barras y generá el reporte de deducción para planilla.",
+    image: "/assets/project/pos/historial_POS.png",
+    link: "#planes",
+    category: "cartera",
   },
   {
     id: "03",
-    tag: "App Móvil en Vivo",
-    title: "TrackDeli Rider App",
-    desc: "Aplicación móvil para repartidores con telemetría GPS continua y sincronización instantánea.",
-    image: "/assets/project/appdeli/rutaentrega_app.jpg",
-    link: "#proyectos",
+    tag: "Citas en línea",
+    title: "Agenda de Citas",
+    price: "$30/mes",
+    desc: "Reservas en línea para tus clientes, agenda por profesional y confirmación automática.",
+    image: "/assets/project/bookingwebsite/project.png",
+    link: "#planes",
+    category: "citas",
   },
   {
     id: "04",
-    tag: "Gestión Comercial",
-    title: "Dulces Momentos POS",
-    desc: "Control total de stock, alertas automáticas de reabastecimiento y reportes de rentabilidad.",
+    tag: "Delivery",
+    title: "Delivery",
+    price: "Comisión por entrega",
+    desc: "Despacho en tiempo real con mapa, repartidores y seguimiento de pedidos.",
+    image: "/assets/project/webtrack/dash_webtrack.png",
+    link: "#planes",
+    category: "logistics",
+  },
+  {
+    id: "05",
+    tag: "Páginas web",
+    title: "Páginas web a la medida",
+    price: "Desde $300",
+    desc: "Sitio profesional para tu negocio, con hosting incluido y soporte mensual.",
     image: "/assets/project/DulcesMomentos/project.png",
-    link: "#proyectos",
+    link: "#planes",
+    category: "web",
   },
 ];
 
@@ -64,6 +84,7 @@ export const Hero = () => {
         ...(localized[idx] || {}),
         image: base.image,
         link: base.link,
+        category: base.category,
       }));
     }
     return BASE_SLIDES;
@@ -83,6 +104,20 @@ export const Hero = () => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + total) % total);
   }, [total]);
+
+  const handlePlanClick = (category?: string, e?: React.MouseEvent) => {
+    if (category) {
+      window.dispatchEvent(
+        new CustomEvent("select-pricing-tab", { detail: category })
+      );
+    }
+    const el = document.getElementById("planes");
+    if (el) {
+      if (e) e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", "#planes");
+    }
+  };
 
   // Auto-advance slides every 6 seconds when not hovered
   useEffect(() => {
@@ -187,7 +222,7 @@ export const Hero = () => {
             </span>
           </motion.h1>
 
-          {/* Progress Tracker: 01 ─────── 04 */}
+          {/* Progress Tracker: 01 ─────── 05 */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -216,7 +251,7 @@ export const Hero = () => {
           {/* Carousel Cards Container (Active Card + Peek of Next Slide) */}
           <div className="w-full max-w-xl flex items-center gap-4 relative">
             {/* Active Floating Card */}
-            <div className="flex-1 relative overflow-hidden rounded-3xl bg-zinc-900/60 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] group">
+            <div className="flex-1 relative overflow-hidden rounded-3xl bg-zinc-900/60 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] group sm:h-[196px]">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={currentIndex}
@@ -225,10 +260,10 @@ export const Hero = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  className="p-4 sm:p-5 flex flex-col sm:flex-row items-center sm:items-stretch gap-4 sm:gap-5"
+                  className="w-full h-full p-4 sm:p-5 flex flex-col sm:flex-row items-center sm:items-stretch gap-4 sm:gap-5"
                 >
                   {/* Thumbnail Image */}
-                  <div className="w-full sm:w-44 h-36 sm:h-32 shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/60 relative">
+                  <div className="w-full sm:w-36 h-36 sm:h-auto shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/60 relative">
                     <img
                       src={currentSlide.image}
                       alt={currentSlide.title}
@@ -238,26 +273,45 @@ export const Hero = () => {
                   </div>
 
                   {/* Card Content */}
-                  <div className="flex-1 flex flex-col justify-between w-full">
+                  <div className="flex-1 flex flex-col justify-between w-full min-w-0">
                     <div>
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-[#a3e635] block mb-1">
-                        {currentSlide.tag}
-                      </span>
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#a3e635] font-semibold truncate">
+                          {currentSlide.tag}
+                        </span>
+                        {currentSlide.price && (
+                          <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-[2px] bg-[#a3e635] text-black font-mono text-[10px] font-bold tracking-tight">
+                            {currentSlide.price}
+                          </span>
+                        )}
+                      </div>
                       <h3 className="text-base sm:text-lg font-bold text-white tracking-tight line-clamp-1">
                         {currentSlide.title}
                       </h3>
-                      <p className="text-zinc-400 text-xs sm:text-[13px] leading-relaxed line-clamp-2 mt-1 mb-3">
+                      <p className="text-zinc-400 text-xs sm:text-[13px] leading-relaxed line-clamp-2 mt-1 mb-2">
                         {currentSlide.desc}
                       </p>
                     </div>
 
-                    <div>
+                    <div className="flex items-center flex-wrap gap-3 pt-1">
                       <a
                         href={currentSlide.link}
+                        onClick={(e) => handlePlanClick(currentSlide.category, e)}
                         className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white hover:bg-zinc-200 text-black text-xs font-semibold tracking-tight transition-all duration-200 hover:shadow-md cursor-pointer no-underline"
                       >
-                        <span>{t("hero.cta_card", "Ver proyecto")}</span>
+                        <span>{t("hero.cta_card", "Ver plan")}</span>
                         <ArrowUpRight size={13} />
+                      </a>
+                      <a
+                        href={`https://wa.me/50587140989?text=${encodeURIComponent(
+                          `Hola, me interesa ${currentSlide.title}`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-[#a3e635] transition-colors duration-200 no-underline font-mono"
+                      >
+                        <span>{t("hero.cta_whatsapp", "Cotizar por WhatsApp")}</span>
+                        <ArrowUpRight size={12} className="opacity-70" />
                       </a>
                     </div>
                   </div>
@@ -269,9 +323,9 @@ export const Hero = () => {
             <div
               onClick={handleNext}
               title={`Siguiente: ${nextSlide.title}`}
-              className="hidden md:flex w-24 h-32 shrink-0 rounded-3xl bg-zinc-900/40 backdrop-blur-xl border border-white/10 overflow-hidden cursor-pointer opacity-50 hover:opacity-90 hover:scale-[1.02] transition-all duration-300 relative p-2 flex-col justify-between"
+              className="hidden md:flex w-24 sm:h-[196px] shrink-0 rounded-3xl bg-zinc-900/40 backdrop-blur-xl border border-white/10 overflow-hidden cursor-pointer opacity-50 hover:opacity-90 hover:scale-[1.02] transition-all duration-300 relative p-2 flex-col justify-between"
             >
-              <div className="w-full h-16 rounded-xl overflow-hidden bg-black/40 border border-white/5">
+              <div className="w-full h-20 rounded-xl overflow-hidden bg-black/40 border border-white/5">
                 <img
                   src={nextSlide.image}
                   alt={nextSlide.title}
@@ -279,7 +333,7 @@ export const Hero = () => {
                 />
               </div>
               <div className="text-[10px] font-mono text-zinc-400 truncate">
-                {nextSlide.id} / 0{total}
+                {nextSlide.id} / {String(total).padStart(2, "0")}
               </div>
             </div>
           </div>

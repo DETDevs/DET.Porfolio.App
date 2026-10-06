@@ -245,7 +245,7 @@ export const PLANS: PricingPlan[] = [
         ],
         highlight: true,
         disclaimer: "Precio único mensual todo incluido. Hardware integrado.",
-        cta: "Solicitar demo de POS",
+        cta: "Comenzar con POS",
     },
     {
         id: 'logistics',
@@ -298,7 +298,7 @@ export const PLANS: PricingPlan[] = [
         ],
         highlight: false,
         disclaimer: "Precio único mensual. Incluye notificaciones automáticas por email y WhatsApp.",
-        cta: "Solicitar demo de Citas",
+        cta: "Comenzar con Citas",
     },
     {
         id: 'cartera',
@@ -323,12 +323,12 @@ export const PLANS: PricingPlan[] = [
         ],
         highlight: false,
         disclaimer: "Precio único mensual. Conectado automáticamente a tus ventas de POS, Delivery y Citas.",
-        cta: "Solicitar demo de Cartera",
+        cta: "Comenzar con Cartera",
     },
 ];
 
 export const CONTACT_INFO = {
     email: "contacto@detdevs.com",
-    phone: "+505 8806-8133",
+    phone: "+505 8714-0989",
     location: "Managua, Nicaragua",
 };

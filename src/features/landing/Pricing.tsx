@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Check,
@@ -58,6 +58,36 @@ export const Pricing = () => {
   const [selectedPosImage, setSelectedPosImage] = useState(0);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const { ref, isInView } = useScrollReveal(0.1);
+
+  useEffect(() => {
+    const handleTabSelect = (e: Event) => {
+      const customEvent = e as CustomEvent<PricingCategory>;
+      if (
+        customEvent.detail &&
+        ["web", "pos", "citas", "cartera", "logistics"].includes(customEvent.detail)
+      ) {
+        setActiveCategory(customEvent.detail);
+      }
+    };
+
+    const handleHash = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes("pos")) setActiveCategory("pos");
+      else if (hash.includes("cartera")) setActiveCategory("cartera");
+      else if (hash.includes("citas") || hash.includes("booking")) setActiveCategory("citas");
+      else if (hash.includes("delivery") || hash.includes("logistics")) setActiveCategory("logistics");
+      else if (hash.includes("web")) setActiveCategory("web");
+    };
+
+    window.addEventListener("select-pricing-tab", handleTabSelect);
+    window.addEventListener("hashchange", handleHash);
+    handleHash();
+
+    return () => {
+      window.removeEventListener("select-pricing-tab", handleTabSelect);
+      window.removeEventListener("hashchange", handleHash);
+    };
+  }, []);
 
   const CATEGORY_TABS: {
     id: PricingCategory;
@@ -385,7 +415,7 @@ export const Pricing = () => {
                     {/* Solid Primary Button */}
                     <a
                       href={getWhatsAppLink(
-                        `Hola Nexol, quiero una demo del Sistema de Facturación / POS Todo Incluido ($${POS_MONTHLY_PRICE}/mes).`,
+                        `Hola Nexol, me interesa el Sistema de Facturación / POS Todo Incluido ($${POS_MONTHLY_PRICE}/mes).`,
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -557,14 +587,14 @@ export const Pricing = () => {
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola Nexol, quiero una demo del módulo de Citas / Booking ($30/mes).",
+                      "Hola Nexol, me interesa el módulo de Citas / Booking ($30/mes).",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Solicitar demo de Citas</span>
+                    <span>Comenzar con Citas</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
@@ -699,14 +729,14 @@ export const Pricing = () => {
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola Nexol, quiero una demo del módulo de Cartera de Cobro ($25/mes).",
+                      "Hola Nexol, me interesa el módulo de Cartera de Cobro ($25/mes).",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Solicitar demo de Cartera</span>
+                    <span>Comenzar con Cartera</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
