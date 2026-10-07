@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Check,
@@ -60,6 +60,7 @@ export const Pricing = () => {
   const [selectedPosImage, setSelectedPosImage] = useState(0);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const { ref, isInView } = useScrollReveal(0.1);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
     const handleTabSelect = (e: Event) => {
@@ -90,6 +91,17 @@ export const Pricing = () => {
       window.removeEventListener("hashchange", handleHash);
     };
   }, []);
+
+  useEffect(() => {
+    const activeEl = tabRefs.current[activeCategory];
+    if (activeEl) {
+      activeEl.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [activeCategory]);
 
   const CATEGORY_TABS: {
     id: PricingCategory;
@@ -150,7 +162,7 @@ export const Pricing = () => {
       >
         {/* Section Header */}
         <motion.div variants={fadeUpVariants} className="text-center mb-10">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#a3e635] mb-2 block">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-2 block">
             {t("pricing.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
@@ -161,36 +173,41 @@ export const Pricing = () => {
           </p>
         </motion.div>
 
-        {/* 3 Main Category Tabs (No decorative pill badges) */}
+        {/* Category Tabs: single row horizontal tactile scroll on mobile, centered on larger screens */}
         <motion.div
           variants={fadeUpVariants}
-          className="flex justify-center mb-10"
+          className="w-full flex justify-center mb-10 overflow-hidden"
         >
-          <div
-            className="inline-flex flex-wrap justify-center gap-1.5 p-1 bg-[#121212] border border-zinc-800 rounded-[2px]"
-            role="tablist"
-            aria-label="Planes por Categoría"
-          >
-            {CATEGORY_TABS.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeCategory === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveCategory(tab.id)}
-                  role="tab"
-                  aria-selected={isActive}
-                  className={`px-5 py-2.5 rounded-[2px] font-mono text-xs uppercase tracking-wider font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                    isActive
-                      ? "bg-[#a3e635] text-black shadow-sm"
-                      : "bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-800/40"
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
+          <div className="w-full max-w-full overflow-x-auto no-scrollbar py-1 px-4 flex justify-start sm:justify-center">
+            <div
+              className="inline-flex flex-nowrap shrink-0 gap-1.5 p-1 bg-[#121212] border border-zinc-800 rounded-[2px]"
+              role="tablist"
+              aria-label="Planes por Categoría"
+            >
+              {CATEGORY_TABS.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeCategory === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    ref={(el) => {
+                      tabRefs.current[tab.id] = el;
+                    }}
+                    onClick={() => setActiveCategory(tab.id)}
+                    role="tab"
+                    aria-selected={isActive}
+                    className={`px-5 py-2.5 rounded-[2px] font-mono text-xs uppercase tracking-wider font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
+                      isActive
+                        ? "bg-[#8FD14F] text-black shadow-sm"
+                        : "bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-800/40"
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </motion.div>
 
@@ -213,7 +230,7 @@ export const Pricing = () => {
                 <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
                   <div>
                     <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#a3e635] font-bold">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
                         Presencia Digital
                       </span>
                       <span className="font-mono text-[11px] text-zinc-400">
@@ -237,12 +254,12 @@ export const Pricing = () => {
                         <span className="text-5xl font-black text-white tracking-tight">
                           ${WEB_STARTER_PRICE}
                         </span>
-                        <span className="font-mono text-xs text-zinc-500 ml-1">
+                        <span className="font-mono text-xs text-zinc-400 ml-1">
                           pago único
                         </span>
                       </div>
                       <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-1.5">
-                        <span className="text-[#a3e635]">—</span>
+                        <span className="text-[#8FD14F]">—</span>
                         <span>
                           + ${WEB_MAINTENANCE_PRICE}/mes tras 2 meses de soporte
                           incluidos
@@ -266,7 +283,7 @@ export const Pricing = () => {
                           key={fi}
                           className="flex items-start gap-3 text-sm text-zinc-300"
                         >
-                          <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
+                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -279,7 +296,7 @@ export const Pricing = () => {
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Solicitar mi sitio web</span>
@@ -322,7 +339,7 @@ export const Pricing = () => {
                           className="p-4 rounded-[2px] bg-black border border-zinc-800"
                         >
                           <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-[#a3e635]" />
+                            <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
                             {item.title}
                           </div>
                           <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
@@ -333,7 +350,7 @@ export const Pricing = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-500 font-mono text-center">
+                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-400 font-mono text-center">
                     Código limpio y de tu propiedad. Sin letra chica.
                   </div>
                 </div>
@@ -357,7 +374,7 @@ export const Pricing = () => {
                   <div className="lg:col-span-6 flex flex-col justify-between h-full">
                     <div>
                       <div className="flex items-center gap-3 mb-2">
-                        <span className="font-mono text-xs uppercase tracking-wider text-[#a3e635] font-bold">
+                        <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
                           Un Solo Plan · Todo Incluido
                         </span>
                       </div>
@@ -380,12 +397,12 @@ export const Pricing = () => {
                           <span className="font-mono text-sm text-zinc-300 font-bold">
                             /mes
                           </span>
-                          <span className="font-mono text-xs text-zinc-500 ml-1">
+                          <span className="font-mono text-xs text-zinc-400 ml-1">
                             por sucursal
                           </span>
                         </div>
                         <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
-                          <Check className="w-3.5 h-3.5 text-[#a3e635]" />
+                          <Check className="w-3.5 h-3.5 text-[#8FD14F]" />
                           <span>
                             Actualizaciones continuas, hosting y soporte técnico
                             incluidos
@@ -413,7 +430,7 @@ export const Pricing = () => {
                             key={idx}
                             className="flex items-start gap-3 text-sm text-zinc-200"
                           >
-                            <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
+                            <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
                             <span>{feat}</span>
                           </div>
                         ))}
@@ -427,7 +444,7 @@ export const Pricing = () => {
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Comenzar con POS</span>
@@ -447,7 +464,7 @@ export const Pricing = () => {
                             Probado en producción real
                           </h4>
                         </div>
-                        <span className="px-2 py-0.5 rounded-[2px] bg-zinc-900 border border-zinc-800 text-[10px] text-[#a3e635] font-mono">
+                        <span className="px-2 py-0.5 rounded-[2px] bg-zinc-900 border border-zinc-800 text-[10px] text-[#8FD14F] font-mono">
                           TrackDeli POS
                         </span>
                       </div>
@@ -465,9 +482,9 @@ export const Pricing = () => {
                               POS_SHOWCASE_IMAGES[selectedPosImage].src,
                             )
                           }
-                          className="absolute top-2 right-2 px-2.5 py-1 bg-black/80 hover:bg-black text-zinc-300 hover:text-white border border-zinc-700 font-mono text-[10px] uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer rounded-[2px]"
+                          className="absolute top-2 right-2 px-2.5 py-1 bg-black/80 hover:bg-black text-zinc-300 hover:text-white border border-zinc-700 font-mono text-[10px] uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
                         >
-                          <Maximize2 className="w-3 h-3 text-[#a3e635]" />
+                          <Maximize2 className="w-3 h-3 text-[#8FD14F]" />
                           <span>Ampliar</span>
                         </button>
                       </div>
@@ -485,9 +502,10 @@ export const Pricing = () => {
                           <button
                             key={idx}
                             onClick={() => setSelectedPosImage(idx)}
-                            className={`rounded-[2px] overflow-hidden border transition-all p-0.5 bg-zinc-950 cursor-pointer ${
+                            aria-label={`Ver captura de ${item.title}`}
+                            className={`rounded-[2px] overflow-hidden border transition-all p-0.5 bg-zinc-950 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
                               selectedPosImage === idx
-                                ? "border-[#a3e635]"
+                                ? "border-[#8FD14F] ring-1 ring-[#8FD14F]"
                                 : "border-zinc-800 hover:border-zinc-700 opacity-60 hover:opacity-100"
                             }`}
                           >
@@ -506,7 +524,7 @@ export const Pricing = () => {
 
                     {/* Hardware Notice */}
                     <div className="mt-5 p-3 rounded-[2px] bg-zinc-900 border border-zinc-800 flex items-center gap-3 text-xs text-zinc-300">
-                      <Printer className="w-4 h-4 text-[#a3e635] shrink-0" />
+                      <Printer className="w-4 h-4 text-[#8FD14F] shrink-0" />
                       <span>
                         Compatible con impresoras térmicas USB/Red y gavetas de
                         dinero RJ11.
@@ -533,7 +551,7 @@ export const Pricing = () => {
                 <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
                   <div>
                     <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#a3e635] font-bold">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
                         Agenda Inteligente
                       </span>
                       <span className="font-mono text-[11px] text-zinc-400">
@@ -557,12 +575,12 @@ export const Pricing = () => {
                         <span className="font-mono text-sm text-zinc-300 font-bold">
                           /mes
                         </span>
-                        <span className="font-mono text-xs text-zinc-500 ml-1">
+                        <span className="font-mono text-xs text-zinc-400 ml-1">
                           por negocio
                         </span>
                       </div>
                       <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-[#a3e635]" />
+                        <Check className="w-3.5 h-3.5 text-[#8FD14F]" />
                         <span>
                           Actualizaciones continuas, hosting y soporte técnico incluidos
                         </span>
@@ -586,7 +604,7 @@ export const Pricing = () => {
                           key={idx}
                           className="flex items-start gap-3 text-sm text-zinc-300"
                         >
-                          <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
+                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -599,7 +617,7 @@ export const Pricing = () => {
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Comenzar con Citas</span>
@@ -641,7 +659,7 @@ export const Pricing = () => {
                           className="p-4 rounded-[2px] bg-black border border-zinc-800"
                         >
                           <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-[#a3e635]" />
+                            <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
                             {item.title}
                           </div>
                           <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
@@ -652,7 +670,7 @@ export const Pricing = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-500 font-mono text-center">
+                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-400 font-mono text-center">
                     Capturas de este módulo — próximamente.
                   </div>
                 </div>
@@ -675,7 +693,7 @@ export const Pricing = () => {
                 <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
                   <div>
                     <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#a3e635] font-bold">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
                         Control Financiero
                       </span>
                       <span className="font-mono text-[11px] text-zinc-400">
@@ -699,12 +717,12 @@ export const Pricing = () => {
                         <span className="font-mono text-sm text-zinc-300 font-bold">
                           /mes
                         </span>
-                        <span className="font-mono text-xs text-zinc-500 ml-1">
+                        <span className="font-mono text-xs text-zinc-400 ml-1">
                           por negocio
                         </span>
                       </div>
                       <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-[#a3e635]" />
+                        <Check className="w-3.5 h-3.5 text-[#8FD14F]" />
                         <span>
                           Actualizaciones continuas, hosting y soporte técnico incluidos
                         </span>
@@ -728,7 +746,7 @@ export const Pricing = () => {
                           key={idx}
                           className="flex items-start gap-3 text-sm text-zinc-300"
                         >
-                          <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
+                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -741,7 +759,7 @@ export const Pricing = () => {
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Comenzar con Cartera</span>
@@ -783,7 +801,7 @@ export const Pricing = () => {
                           className="p-4 rounded-[2px] bg-black border border-zinc-800"
                         >
                           <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-[#a3e635]" />
+                            <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
                             {item.title}
                           </div>
                           <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
@@ -794,7 +812,7 @@ export const Pricing = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-500 font-mono text-center">
+                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-400 font-mono text-center">
                     Capturas de este módulo — próximamente.
                   </div>
                 </div>
@@ -816,7 +834,7 @@ export const Pricing = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   {/* Left Column: Value Proposition (7 cols) */}
                   <div className="lg:col-span-7">
-                    <span className="font-mono text-xs uppercase tracking-wider text-[#a3e635] font-bold block mb-2">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold block mb-2">
                       Modelo Flexible
                     </span>
 
@@ -849,7 +867,7 @@ export const Pricing = () => {
                           key={idx}
                           className="flex items-start gap-3 text-sm text-zinc-300"
                         >
-                          <Check className="w-4 h-4 text-[#a3e635] shrink-0 mt-0.5" />
+                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -859,7 +877,7 @@ export const Pricing = () => {
                   {/* Right Column: CTA (5 cols) */}
                   <div className="lg:col-span-5 bg-black border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between text-center">
                     <div>
-                      <div className="w-12 h-12 rounded-[2px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#a3e635] mx-auto mb-4">
+                      <div className="w-12 h-12 rounded-[2px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#8FD14F] mx-auto mb-4">
                         <Calendar className="w-6 h-6" />
                       </div>
 
@@ -879,20 +897,12 @@ export const Pricing = () => {
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full py-3.5 rounded-[2px] bg-[#a3e635] hover:bg-[#b5ff14] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                        className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
                       >
                         <MessageCircle className="w-4 h-4" />
                         <span>Agendar una llamada</span>
                         <ArrowRight className="w-4 h-4" />
                       </a>
-
-                      {/* <button
-                        onClick={scrollToTracking}
-                        className="w-full py-2.5 rounded-[2px] bg-transparent hover:bg-zinc-900 text-zinc-400 hover:text-white font-mono text-[11px] uppercase tracking-wider border border-zinc-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                      >
-                        <span>Ver simulación en vivo del tracking</span>
-                        <span className="text-[#a3e635]">↓</span>
-                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -924,7 +934,7 @@ export const Pricing = () => {
             />
             <button
               onClick={() => setLightboxImage(null)}
-              className="absolute top-6 right-6 z-20 px-4 py-2 bg-[#121212] hover:bg-zinc-800 font-mono text-xs uppercase tracking-wider text-white border border-zinc-700 rounded-[2px] cursor-pointer"
+              className="absolute top-6 right-6 z-20 px-4 py-2 bg-[#121212] hover:bg-zinc-800 font-mono text-xs uppercase tracking-wider text-white border border-zinc-700 rounded-[2px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
             >
               Cerrar
             </button>

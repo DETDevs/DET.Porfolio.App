@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, Maximize2, Minimize2, Eye, Images } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Section } from "@/shared/ui/Section";
@@ -26,6 +26,7 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ projectConfig, itemText, index, onOpen }: ProjectCardProps) {
+  const { t } = useTranslation();
   const cardRef = useRef<HTMLDivElement>(null);
   const { handleMove, handleLeave } = useTilt(cardRef);
 
@@ -39,8 +40,17 @@ function ProjectCard({ projectConfig, itemText, index, onOpen }: ProjectCardProp
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       onClick={onOpen}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label={`${itemText.title} — ${t("projects.view_screenshots", "Ver capturas")}`}
       style={{ transformStyle: "preserve-3d" }}
-      className="group relative rounded-[2px] bg-[#121212] border border-zinc-800 overflow-hidden hover:border-zinc-700 transition-colors duration-200 cursor-pointer flex flex-col will-change-transform shadow-sm"
+      className="group relative rounded-[2px] bg-[#121212] border border-zinc-800 overflow-hidden hover:border-zinc-700 transition-colors duration-200 cursor-pointer flex flex-col will-change-transform shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
     >
       {/* Subtle shine overlay */}
       <div className="card-shine absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 z-20" />
@@ -55,16 +65,22 @@ function ProjectCard({ projectConfig, itemText, index, onOpen }: ProjectCardProp
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60" />
 
-        {/* Hover Action Pill */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-          <div className="px-4 py-2 rounded-[2px] bg-[#a3e635] text-black font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-2 shadow-sm">
+        {/* Hover Action Pill (fine pointer only) */}
+        <div className="hidden [@media(pointer:fine)]:flex absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+          <div className="px-4 py-2 rounded-[2px] bg-[#8FD14F] text-black font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-2 shadow-sm">
             <Eye className="w-3.5 h-3.5" />
-            <span>Ver Proyecto</span>
+            <span>{t("projects.view_screenshots", "Ver capturas")}</span>
           </div>
         </div>
 
+        {/* On touch / non-fine pointer: permanent discrete badge (Requirement 7) */}
+        <div className="absolute bottom-3 right-3 z-10 [@media(pointer:fine)]:hidden px-2.5 py-1 bg-black/90 rounded-[2px] font-mono text-[10px] uppercase tracking-wider text-[#8FD14F] border border-zinc-800 flex items-center gap-1.5 shadow-sm">
+          <Eye className="w-3 h-3 text-[#8FD14F]" />
+          <span>{t("projects.view_screenshots", "Ver capturas")}</span>
+        </div>
+
         {/* Top Meta Badges */}
-        <div className="absolute top-3 left-3 z-10 px-2.5 py-1 bg-black/90 rounded-[2px] font-mono text-[10px] uppercase tracking-wider text-[#a3e635] border border-zinc-800">
+        <div className="absolute top-3 left-3 z-10 px-2.5 py-1 bg-black/90 rounded-[2px] font-mono text-[10px] uppercase tracking-wider text-[#8FD14F] border border-zinc-800">
           {itemText.category}
         </div>
 
@@ -79,7 +95,7 @@ function ProjectCard({ projectConfig, itemText, index, onOpen }: ProjectCardProp
       {/* Content Info */}
       <div className="p-6 flex-1 flex flex-col justify-between">
         <div>
-          <h3 className="text-lg font-bold text-white uppercase tracking-tight mb-2 group-hover:text-[#a3e635] transition-colors">
+          <h3 className="text-lg font-bold text-white uppercase tracking-tight mb-2 group-hover:text-[#8FD14F] transition-colors">
             {itemText.title}
           </h3>
           <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-5 line-clamp-3">
@@ -105,6 +121,7 @@ function ProjectCard({ projectConfig, itemText, index, onOpen }: ProjectCardProp
 
 export const Projects = () => {
   const { t } = useTranslation();
+  const shouldReduceMotion = useReducedMotion();
   const { ref, isInView } = useScrollReveal(0.05);
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>("trackdeli");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -166,7 +183,7 @@ export const Projects = () => {
           transition={{ duration: 0.4 }}
           className="text-center mb-10"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#a3e635] mb-2 block">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-2 block">
             {t("projects.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
@@ -182,16 +199,18 @@ export const Projects = () => {
           variants={fadeUpVariants}
           className="flex justify-center mb-10"
         >
-          <div className="inline-flex flex-wrap justify-center gap-1.5 p-1 bg-[#121212] border border-zinc-800 rounded-[2px]">
+          <div className="inline-flex flex-wrap justify-center gap-1.5 p-1 bg-[#121212] border border-zinc-800 rounded-[2px]" role="tablist">
             {FILTER_TABS.map((tab) => {
               const isActive = activeFilter === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveFilter(tab.id)}
-                  className={`px-4 py-2 font-mono text-xs uppercase tracking-wider font-bold transition-all rounded-[2px] cursor-pointer ${
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`px-4 py-2 font-mono text-xs uppercase tracking-wider font-bold transition-all rounded-[2px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
                     isActive
-                      ? "bg-[#a3e635] text-black shadow-sm"
+                      ? "bg-[#8FD14F] text-black shadow-sm"
                       : "bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-800/40"
                   }`}
                 >
@@ -240,17 +259,17 @@ export const Projects = () => {
             />
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.98, y: 10 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.98, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98, y: 10 }}
-              transition={{ duration: 0.2 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98, y: 10 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="relative w-full max-w-5xl max-h-[90vh] bg-[#121212] border border-zinc-800 rounded-[2px] overflow-hidden shadow-2xl flex flex-col sm:flex-row z-10"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={handleCloseModal}
-                className="absolute top-4 right-4 z-20 p-2 bg-black/80 hover:bg-black text-zinc-400 hover:text-white border border-zinc-800 rounded-[2px] transition-colors cursor-pointer"
+                className="absolute top-4 right-4 z-20 p-2 bg-black/80 hover:bg-black text-zinc-400 hover:text-white border border-zinc-800 rounded-[2px] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
                 aria-label="Cerrar modal"
               >
                 <X className="w-4 h-4" />
@@ -262,9 +281,9 @@ export const Projects = () => {
                   <>
                     <motion.img
                       key={mainImageIndex}
-                      initial={{ opacity: 0 }}
+                      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                       src={selectedProject.gallery[mainImageIndex]}
                       alt={`${selectedProject.title} vista ${mainImageIndex + 1}`}
                       className="max-w-full max-h-[50vh] sm:max-h-[70vh] object-contain rounded-[2px] border border-zinc-800 cursor-pointer"
@@ -272,14 +291,14 @@ export const Projects = () => {
                     />
                     <button
                       onClick={() => setIsFullscreen(true)}
-                      className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3.5 py-1.5 bg-[#121212] hover:bg-zinc-800 text-zinc-300 hover:text-white font-mono text-xs uppercase tracking-wider rounded-[2px] transition-all border border-zinc-700 shadow-sm cursor-pointer"
+                      className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3.5 py-1.5 bg-[#121212] hover:bg-zinc-800 text-zinc-300 hover:text-white font-mono text-xs uppercase tracking-wider rounded-[2px] transition-all border border-zinc-700 shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
                     >
-                      <Maximize2 className="w-3 h-3 text-[#a3e635]" />
+                      <Maximize2 className="w-3 h-3 text-[#8FD14F]" />
                       Ver pantalla completa
                     </button>
                   </>
                 ) : (
-                  <div className="w-full h-full min-h-[300px] bg-black flex items-center justify-center text-zinc-600 font-mono text-xs">
+                  <div className="w-full h-full min-h-[300px] bg-black flex items-center justify-center text-zinc-500 font-mono text-xs">
                     Sin vista previa disponible
                   </div>
                 )}
@@ -289,7 +308,7 @@ export const Projects = () => {
               <div className="w-full sm:w-[340px] lg:w-[400px] flex flex-col h-full max-h-[50vh] sm:max-h-[90vh] overflow-y-auto bg-[#121212]">
                 <div className="p-6 pb-2">
                   <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-3 flex items-center gap-2">
-                    <Images className="w-3.5 h-3.5 text-[#a3e635]" />
+                    <Images className="w-3.5 h-3.5 text-[#8FD14F]" />
                     Capturas del Sistema ({selectedProject.gallery?.length || 0})
                   </h4>
                   {selectedProject.gallery && selectedProject.gallery.length > 0 ? (
@@ -298,15 +317,17 @@ export const Projects = () => {
                         <button
                           key={idx}
                           onClick={() => setMainImageIndex(idx)}
-                          className={`relative aspect-video rounded-[2px] overflow-hidden border transition-all cursor-pointer ${
+                          aria-label={`${selectedProject.title} — Captura ${idx + 1} de ${selectedProject.gallery?.length || 0}`}
+                          aria-current={mainImageIndex === idx ? "true" : undefined}
+                          className={`relative aspect-video rounded-[2px] overflow-hidden border transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
                             mainImageIndex === idx
-                              ? "border-[#a3e635] opacity-100"
+                              ? "border-[#8FD14F] opacity-100 ring-1 ring-[#8FD14F]"
                               : "border-zinc-800 hover:border-zinc-700 opacity-60 hover:opacity-100"
                           }`}
                         >
                           <img
                             src={img}
-                            alt={`Miniatura ${idx + 1}`}
+                            alt={`${selectedProject.title} miniatura ${idx + 1}`}
                             className="w-full h-full object-cover"
                           />
                         </button>
@@ -317,7 +338,7 @@ export const Projects = () => {
 
                 <div className="p-6 mt-auto bg-[#121212] border-t border-zinc-800">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-[#a3e635] font-mono text-[10px] uppercase tracking-wider rounded-[2px]">
+                    <span className="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-[#8FD14F] font-mono text-[10px] uppercase tracking-wider rounded-[2px]">
                       {selectedProject.category}
                     </span>
                   </div>
@@ -356,10 +377,10 @@ export const Projects = () => {
             onClick={() => setIsFullscreen(false)}
           >
             <motion.img
-              initial={{ opacity: 0, scale: 0.98 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               src={selectedProject.gallery[mainImageIndex]}
               alt={`${selectedProject.title} vista completa`}
               className="relative max-w-[95vw] max-h-[92vh] object-contain rounded-[2px] border border-zinc-800"
@@ -367,9 +388,9 @@ export const Projects = () => {
             />
             <button
               onClick={() => setIsFullscreen(false)}
-              className="absolute top-6 right-6 z-20 flex items-center gap-2 px-4 py-2 bg-[#121212] hover:bg-zinc-800 text-white font-mono text-xs uppercase tracking-wider rounded-[2px] border border-zinc-700 cursor-pointer"
+              className="absolute top-6 right-6 z-20 flex items-center gap-2 px-4 py-2 bg-[#121212] hover:bg-zinc-800 text-white font-mono text-xs uppercase tracking-wider rounded-[2px] border border-zinc-700 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
             >
-              <Minimize2 className="w-4 h-4 text-[#a3e635]" />
+              <Minimize2 className="w-4 h-4 text-[#8FD14F]" />
               Cerrar
             </button>
           </motion.div>

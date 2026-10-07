@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -80,6 +80,7 @@ const BASE_SLIDES: SlideData[] = [
 
 export const Hero = () => {
   const { t } = useTranslation();
+  const shouldReduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
@@ -148,14 +149,14 @@ export const Hero = () => {
     }
   };
 
-  // Auto-advance slides every 6 seconds when not hovered
+  // Auto-advance slides every 6 seconds when not hovered and reduced motion is off
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || shouldReduceMotion) return;
     const interval = setInterval(() => {
       handleNext();
     }, 6000);
     return () => clearInterval(interval);
-  }, [isPaused, handleNext]);
+  }, [isPaused, shouldReduceMotion, handleNext]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -169,22 +170,24 @@ export const Hero = () => {
 
   const slideVariants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? 25 : -25,
+      x: shouldReduceMotion ? 0 : dir > 0 ? 25 : -25,
       opacity: 0,
     }),
     center: {
       x: 0,
       opacity: 1,
       transition: {
-        x: { type: "spring" as const, stiffness: 320, damping: 28 },
-        opacity: { duration: 0.2 },
+        x: shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring" as const, stiffness: 320, damping: 28 },
+        opacity: { duration: shouldReduceMotion ? 0.05 : 0.2 },
       },
     },
     exit: (dir: number) => ({
-      x: dir > 0 ? -25 : 25,
+      x: shouldReduceMotion ? 0 : dir > 0 ? -25 : 25,
       opacity: 0,
       transition: {
-        duration: 0.15,
+        duration: shouldReduceMotion ? 0.05 : 0.15,
       },
     }),
   };
@@ -195,7 +198,7 @@ export const Hero = () => {
     <section
       id="hero"
       aria-label="Hero Nexol"
-      className="relative min-h-screen w-full flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-14 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-[#050505] selection:bg-[#a3e635] selection:text-black"
+      className="relative min-h-screen w-full flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-14 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-[#050505] selection:bg-[#8FD14F] selection:text-black"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -210,7 +213,7 @@ export const Hero = () => {
         {/* Cinematic Vignette Overlays for contrast & readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/60 to-black/90 lg:to-[#050505]/95" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_40%,rgba(163,230,53,0.06),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_40%,rgba(143,209,79,0.06),transparent_55%)]" />
       </div>
 
       {/* Top spacing spacer */}
@@ -221,13 +224,13 @@ export const Hero = () => {
         {/* Left Column (Spacious for 3D visual anchor) */}
         <div className="hidden lg:flex lg:col-span-5 flex-col justify-end pb-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-4 max-w-sm"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-zinc-300 font-mono text-[11px]">
-              <span className="w-2 h-2 rounded-full bg-[#a3e635] animate-pulse" />
+              <span className={`w-2 h-2 rounded-full bg-[#8FD14F] ${shouldReduceMotion ? "" : "animate-pulse"}`} />
               <span>{t("hero.architecture_engine", "Nexol Architecture Engine")}</span>
             </div>
             <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed font-sans">
@@ -240,22 +243,22 @@ export const Hero = () => {
         <div className="lg:col-span-7 flex flex-col items-start lg:pl-4">
           {/* Main Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.5, delay: shouldReduceMotion ? 0 : 0.1 }}
             className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white mb-8 leading-[1.08] tracking-tight"
           >
             {t("hero.title_1")}{" "}
-            <span className="text-[#a3e635] block sm:inline">
+            <span className="text-[#8FD14F] block sm:inline">
               {t("hero.title_2")}
             </span>
           </motion.h1>
 
           {/* Progress Tracker: 01 ─────── 05 */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : 0.2 }}
             className="w-full max-w-xl flex items-center gap-4 mb-6 text-xs font-mono text-zinc-400"
           >
             <span className="font-bold text-white tracking-wider">
@@ -268,11 +271,11 @@ export const Hero = () => {
                 className="absolute top-0 bottom-0 left-0 bg-white"
                 initial={false}
                 animate={{ width: `${progressPercent}%` }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
               />
             </div>
 
-            <span className="text-zinc-500 tracking-wider">
+            <span className="text-zinc-400 tracking-wider">
               {String(total).padStart(2, "0")}
             </span>
           </motion.div>
@@ -294,7 +297,7 @@ export const Hero = () => {
                   {/* Thumbnail Image */}
                   <div className="w-full sm:w-36 h-36 sm:h-auto shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/60 relative">
                     {imageErrors[currentSlide.id] ? (
-                      <div className="w-full h-full min-h-[140px] flex flex-col items-center justify-center bg-zinc-950 text-[#a3e635] p-3 text-center">
+                      <div className="w-full h-full min-h-[140px] flex flex-col items-center justify-center bg-zinc-950 text-[#8FD14F] p-3 text-center">
                         {renderFallbackIcon(currentSlide.category, "w-10 h-10 mb-2 opacity-90")}
                         <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">
                           {currentSlide.tag}
@@ -322,11 +325,11 @@ export const Hero = () => {
                   <div className="flex-1 flex flex-col justify-between w-full min-w-0">
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-1.5">
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#a3e635] font-semibold truncate">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#8FD14F] font-semibold truncate">
                           {currentSlide.tag}
                         </span>
                         {currentSlide.price && (
-                          <span className="shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#a3e635] text-black font-mono text-[10px] font-bold tracking-tight shadow-sm">
+                          <span className="shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#8FD14F] text-black font-mono text-[10px] font-bold tracking-tight shadow-sm">
                             {currentSlide.price}
                           </span>
                         )}
@@ -343,7 +346,7 @@ export const Hero = () => {
                       <a
                         href={currentSlide.link}
                         onClick={(e) => handlePlanClick(currentSlide.category, e)}
-                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white hover:bg-zinc-200 text-black text-xs font-semibold tracking-tight transition-all duration-200 hover:shadow-md cursor-pointer no-underline"
+                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white hover:bg-zinc-200 text-black text-xs font-semibold tracking-tight transition-all duration-200 hover:shadow-md cursor-pointer no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
                       >
                         <span>{t("hero.cta_card", "Ver plan")}</span>
                         <ArrowUpRight size={13} />
@@ -354,7 +357,7 @@ export const Hero = () => {
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-[#a3e635] transition-colors duration-200 no-underline font-mono"
+                        className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-[#8FD14F] transition-colors duration-200 no-underline font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
                       >
                         <span>{t("hero.cta_whatsapp", "Cotizar por WhatsApp")}</span>
                         <ArrowUpRight size={12} className="opacity-70" />
@@ -373,7 +376,7 @@ export const Hero = () => {
             >
               <div className="w-full h-20 rounded-xl overflow-hidden bg-black/40 border border-white/5">
                 {imageErrors[nextSlide.id] ? (
-                  <div className="w-full h-full flex items-center justify-center bg-zinc-950 text-[#a3e635]">
+                  <div className="w-full h-full flex items-center justify-center bg-zinc-950 text-[#8FD14F]">
                     {renderFallbackIcon(nextSlide.category, "w-6 h-6 opacity-80")}
                   </div>
                 ) : (
@@ -401,14 +404,14 @@ export const Hero = () => {
             <button
               onClick={handlePrev}
               aria-label="Slide anterior"
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-white/10 backdrop-blur-md transition-all duration-200 cursor-pointer active:scale-95 shadow-md"
+              className="w-10 h-10 rounded-full flex items-center justify-center bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-white/10 backdrop-blur-md transition-all duration-200 cursor-pointer active:scale-95 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
             >
               <ArrowLeft size={16} />
             </button>
             <button
               onClick={handleNext}
               aria-label="Siguiente slide"
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-white hover:bg-zinc-200 text-black border border-white/20 transition-all duration-200 cursor-pointer active:scale-95 shadow-lg font-bold"
+              className="w-10 h-10 rounded-full flex items-center justify-center bg-white hover:bg-zinc-200 text-black border border-white/20 transition-all duration-200 cursor-pointer active:scale-95 shadow-lg font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
             >
               <ArrowRight size={16} />
             </button>
@@ -423,9 +426,9 @@ export const Hero = () => {
                     setCurrentIndex(idx);
                   }}
                   aria-label={`Ir al slide ${idx + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer border-none p-0 ${
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer border-none p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
                     idx === currentIndex
-                      ? "w-6 bg-[#a3e635]"
+                      ? "w-6 bg-[#8FD14F]"
                       : "w-1.5 bg-zinc-700 hover:bg-zinc-500"
                   }`}
                 />
@@ -436,21 +439,21 @@ export const Hero = () => {
       </div>
 
       {/* Bottom Footer hint with scroll arrow */}
-      <div className="relative z-10 w-full flex items-center justify-between text-xs font-mono text-zinc-500 pt-4 border-t border-white/5">
+      <div className="relative z-10 w-full flex items-center justify-between text-xs font-mono text-zinc-400 pt-4 border-t border-white/5">
         <div className="hidden sm:flex items-center gap-2">
           <span>Nexol © {new Date().getFullYear()}</span>
-          <span className="text-zinc-700">/</span>
+          <span className="text-zinc-600">/</span>
           <span>{t("hero.footer_tagline", "Desarrollo de Software a Medida")}</span>
         </div>
 
         <a
           href="#servicios"
-          className="mx-auto sm:mx-0 flex items-center gap-2 text-zinc-500 hover:text-[#a3e635] transition-colors duration-200 no-underline"
+          className="mx-auto sm:mx-0 flex items-center gap-2 text-zinc-400 hover:text-[#8FD14F] transition-colors duration-200 no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
         >
           <span>{t("hero.scroll_hint", "Scroll para explorar")}</span>
           <motion.span
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            animate={shouldReduceMotion ? { y: 0 } : { y: [0, 4, 0] }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           >
             <ChevronDown size={14} />
           </motion.span>
