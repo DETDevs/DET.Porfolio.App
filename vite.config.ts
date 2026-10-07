@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import fs from "fs";
 import { marked } from "marked";
+import { terminosRaw, privacidadRaw } from "./src/features/legal/legalContent";
 
 function prerenderLegalPages(): Plugin {
   return {
@@ -19,14 +20,14 @@ function prerenderLegalPages(): Plugin {
       const pages = [
         {
           slug: "terminos",
-          mdPath: path.resolve(__dirname, "src/terminos/terminos.md"),
+          content: terminosRaw,
           title: "Términos y Condiciones | NEXOL",
           description:
             "Términos y condiciones regulan el uso del sitio web y los servicios de software y membresía de NEXOL.",
         },
         {
           slug: "privacidad",
-          mdPath: path.resolve(__dirname, "src/privacidad/privacidad.md"),
+          content: privacidadRaw,
           title: "Política de Privacidad | NEXOL",
           description:
             "Política de privacidad y protección de datos personales de NEXOL y la plataforma TrackDeli.",
@@ -34,10 +35,9 @@ function prerenderLegalPages(): Plugin {
       ];
 
       for (const page of pages) {
-        if (!fs.existsSync(page.mdPath)) continue;
+        if (!page.content) continue;
 
-        const mdContent = fs.readFileSync(page.mdPath, "utf-8");
-        const bodyHtml = marked.parse(mdContent, { gfm: true }) as string;
+        const bodyHtml = marked.parse(page.content, { gfm: true }) as string;
 
         const targetDir = path.join(distDir, page.slug);
         if (!fs.existsSync(targetDir)) {

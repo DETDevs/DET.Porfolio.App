@@ -2,8 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import { ArrowLeft } from "lucide-react";
-import terminosRaw from "@/terminos/terminos.md?raw";
-import privacidadRaw from "@/privacidad/privacidad.md?raw";
+import { terminosRaw, privacidadRaw } from "./legalContent";
 
 interface LegalPageProps {
   type: "terminos" | "privacidad";
