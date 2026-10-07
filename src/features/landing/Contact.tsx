@@ -7,6 +7,8 @@ import {
   Send,
   CheckCircle2,
   AlertCircle,
+  MessageCircle,
+  ArrowUpRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Section } from "@/shared/ui/Section";
@@ -112,7 +114,7 @@ export const Contact = () => {
         variants={staggerContainer}
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="text-[#a3e635] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
+          <span className="text-[#8FD14F] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
             {t("contact.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -136,13 +138,13 @@ export const Contact = () => {
                   href={method.href}
                   variants={fadeUpVariants}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4 p-4 rounded-[2px] bg-[#121212] border border-zinc-800 hover:border-zinc-700 transition-colors duration-200 group"
+                  className="flex items-center gap-4 p-4 rounded-[2px] bg-[#121212] border border-zinc-800 hover:border-zinc-700 transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
                 >
                   <div className="w-10 h-10 bg-zinc-800 rounded-[2px] flex items-center justify-center shrink-0">
-                    <method.icon className="text-[#a3e635] w-4 h-4" />
+                    <method.icon className="text-[#8FD14F] w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
                       {method.label}
                     </div>
                     <div className="text-white text-sm font-medium">{method.value}</div>
@@ -156,10 +158,10 @@ export const Contact = () => {
                   className="flex items-center gap-4 p-4 rounded-[2px] bg-[#121212] border border-zinc-800"
                 >
                   <div className="w-10 h-10 bg-zinc-800 rounded-[2px] flex items-center justify-center shrink-0">
-                    <method.icon className="text-[#a3e635] w-4 h-4" />
+                    <method.icon className="text-[#8FD14F] w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
                       {method.label}
                     </div>
                     <div className="text-white text-sm font-medium">{method.value}</div>
@@ -181,130 +183,172 @@ export const Contact = () => {
             </motion.div>
           </motion.div>
 
-          <motion.form
+          <motion.div
             variants={slideRightVariants}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-3 space-y-4"
-            onSubmit={onSubmit}
+            className="lg:col-span-3 space-y-5"
           >
-            <input
-              type="checkbox"
-              name="botcheck"
-              className="hidden"
-              style={{ display: "none" }}
-            />
+            {/* WhatsApp Direct Action Highlight (Requirement 15) */}
+            <div className="p-4 sm:p-5 rounded-[2px] bg-[#121212] border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <div className="w-10 h-10 rounded-full bg-[#25D366]/10 border border-[#25D366]/30 flex items-center justify-center shrink-0">
+                  <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                </div>
+                <div>
+                  <div className="text-white text-xs sm:text-sm font-semibold">
+                    {t("contact.whatsapp_prompt", "¿Prefieres respuesta inmediata? Escríbenos por WhatsApp")}
+                  </div>
+                  <div className="text-zinc-400 text-xs font-mono">
+                    {t("contact.direct_subtitle", "¿Preferís hablar directamente? Estamos a un mensaje de distancia.")}
+                  </div>
+                </div>
+              </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label
-                  htmlFor="contact-name"
-                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-                >
-                  {t("contact.label_name")}
-                </label>
-                <input
-                  id="contact-name"
-                  name="name"
-                  type="text"
-                  required
-                  placeholder={t("contact.placeholder_name")}
-                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="contact-email"
-                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-                >
-                  {t("contact.label_email")}
-                </label>
-                <input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder={t("contact.placeholder_email")}
-                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
-                />
-              </div>
+              <a
+                href={`https://wa.me/50587140989?text=${encodeURIComponent(
+                  t("footer.cta_whatsapp_msg", "Hola NEXOL, me gustaría recibir asesoría para mi negocio.")
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  import("react-ga4").then((ga) => {
+                    ga.default.event({
+                      category: "Leads",
+                      action: "Clic WhatsApp Contact Banner",
+                      label: "Contact Section",
+                    });
+                  });
+                }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[2px] bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold tracking-wider font-mono uppercase transition-colors shrink-0 cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
+              >
+                <span>{t("contact.whatsapp_cta", "Escríbenos por WhatsApp")}</span>
+                <ArrowUpRight size={13} />
+              </a>
             </div>
 
-            <div>
-              <label
-                htmlFor="contact-project"
-                className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-              >
-                {t("contact.label_service")}
-              </label>
-              <select
-                id="contact-project"
-                name="project"
-                required
-                className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white focus:outline-none focus:border-[#a3e635] transition-colors text-sm cursor-pointer"
-              >
-                <option value="" className="bg-[#121212] text-white">
-                  {t("contact.select_service")}
-                </option>
-                <option value="facturacion" className="bg-[#121212] text-white">
-                  {t("contact.option_billing")}
-                </option>
-                <option value="logistica" className="bg-[#121212] text-white">
-                  {t("contact.option_logistics")}
-                </option>
-                <option value="web" className="bg-[#121212] text-white">
-                  {t("contact.option_web")}
-                </option>
-                <option value="app" className="bg-[#121212] text-white">
-                  {t("contact.option_mobile")}
-                </option>
-                <option value="custom" className="bg-[#121212] text-white">
-                  {t("contact.option_custom")}
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label
-                htmlFor="contact-message"
-                className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-              >
-                {t("contact.label_message")}
-              </label>
-              <textarea
-                id="contact-message"
-                name="message"
-                required
-                rows={4}
-                placeholder={t("contact.placeholder_message")}
-                className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#a3e635] transition-colors text-sm resize-none"
+            <form
+              className="space-y-4"
+              onSubmit={onSubmit}
+            >
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="hidden"
+                style={{ display: "none" }}
               />
-            </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Button
-                type="submit"
-                className="w-full sm:w-auto"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Enviando..." : t("contact.send")}
-                {!isSubmitting && <Send size={14} />}
-              </Button>
-
-              {submitStatus === "success" && (
-                <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-2 rounded-[2px]">
-                  <CheckCircle2 size={14} />
-                  <span>¡Mensaje enviado con éxito!</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="contact-name"
+                    className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
+                  >
+                    {t("contact.label_name")}
+                  </label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    required
+                    placeholder={t("contact.placeholder_name")}
+                    className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm"
+                  />
                 </div>
-              )}
-
-              {submitStatus === "error" && (
-                <div className="flex items-center gap-2 text-rose-400 text-xs font-mono bg-rose-500/10 border border-rose-500/20 px-3.5 py-2 rounded-[2px]">
-                  <AlertCircle size={14} />
-                  <span>Hubo un error al enviar el mensaje.</span>
+                <div>
+                  <label
+                    htmlFor="contact-email"
+                    className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
+                  >
+                    {t("contact.label_email")}
+                  </label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder={t("contact.placeholder_email")}
+                    className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm"
+                  />
                 </div>
-              )}
-            </div>
-          </motion.form>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-project"
+                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
+                >
+                  {t("contact.label_service")}
+                </label>
+                <select
+                  id="contact-project"
+                  name="project"
+                  required
+                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm cursor-pointer"
+                >
+                  <option value="" className="bg-[#121212] text-white">
+                    {t("contact.select_service")}
+                  </option>
+                  <option value="facturacion" className="bg-[#121212] text-white">
+                    {t("contact.option_billing")}
+                  </option>
+                  <option value="logistica" className="bg-[#121212] text-white">
+                    {t("contact.option_logistics")}
+                  </option>
+                  <option value="web" className="bg-[#121212] text-white">
+                    {t("contact.option_web")}
+                  </option>
+                  <option value="app" className="bg-[#121212] text-white">
+                    {t("contact.option_mobile")}
+                  </option>
+                  <option value="custom" className="bg-[#121212] text-white">
+                    {t("contact.option_custom")}
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-message"
+                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
+                >
+                  {t("contact.label_message")}
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  required
+                  rows={4}
+                  placeholder={t("contact.placeholder_message")}
+                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm resize-none"
+                />
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <Button
+                  type="submit"
+                  className="w-full sm:w-auto"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Enviando..." : t("contact.send")}
+                  {!isSubmitting && <Send size={14} />}
+                </Button>
+
+                {submitStatus === "success" && (
+                  <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-2 rounded-[2px]">
+                    <CheckCircle2 size={14} />
+                    <span>¡Mensaje enviado con éxito!</span>
+                  </div>
+                )}
+
+                {submitStatus === "error" && (
+                  <div className="flex items-center gap-2 text-rose-400 text-xs font-mono bg-rose-500/10 border border-rose-500/20 px-3.5 py-2 rounded-[2px]">
+                    <AlertCircle size={14} />
+                    <span>Hubo un error al enviar el mensaje.</span>
+                  </div>
+                )}
+              </div>
+            </form>
+          </motion.div>
         </div>
       </motion.div>
     </Section>

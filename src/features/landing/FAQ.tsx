@@ -22,13 +22,15 @@ const FaqItem = ({
     <motion.div
       variants={fadeUpVariants}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border border-zinc-800 rounded-[2px] bg-[#121212] overflow-hidden hover:border-zinc-700 transition-colors"
+      className={`transition-colors duration-200 ${
+        isOpen ? "bg-white/[0.03]" : "bg-transparent"
+      }`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-5 md:p-6 text-left bg-transparent border-none cursor-pointer group"
+        className="w-full flex items-center justify-between p-5 md:p-6 text-left bg-transparent border-none cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-inset"
       >
-        <span className="text-sm md:text-base font-medium text-white pr-4 group-hover:text-[#a3e635] transition-colors">
+        <span className="text-sm md:text-base font-medium text-white pr-4 group-hover:text-[#8FD14F] transition-colors">
           {item.question}
         </span>
         <motion.div
@@ -36,7 +38,7 @@ const FaqItem = ({
           transition={{ duration: 0.3 }}
           className="shrink-0"
         >
-          <ChevronDown className="w-5 h-5 text-[#a3e635]" />
+          <ChevronDown className="w-5 h-5 text-[#8FD14F]" />
         </motion.div>
       </button>
 
@@ -47,9 +49,9 @@ const FaqItem = ({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-zinc-800/60"
+            className="overflow-hidden"
           >
-            <p className="px-5 md:px-6 py-4 text-sm text-zinc-400 leading-relaxed">
+            <p className="px-5 md:px-6 pb-5 pt-1 text-sm text-zinc-300 leading-relaxed">
               {item.answer}
             </p>
           </motion.div>
@@ -77,7 +79,7 @@ export const FAQ = () => {
         variants={staggerContainer}
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="text-[#a3e635] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
+          <span className="text-[#8FD14F] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
             {t("faq.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -86,7 +88,7 @@ export const FAQ = () => {
           <p className="text-zinc-400 max-w-lg mx-auto">{t("faq.subtitle")}</p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div className="max-w-3xl mx-auto border border-zinc-800 rounded-[2px] bg-[#121212] overflow-hidden divide-y divide-zinc-800/80">
           {items.map((item, i) => (
             <FaqItem key={i} item={item} index={i} />
           ))}

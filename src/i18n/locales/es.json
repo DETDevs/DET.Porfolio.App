@@ -118,6 +118,7 @@
     "subtitle": "Cada proyecto es una solución diseñada para resolver problemas reales de nuestros clientes.",
     "viewCase": "Ver Detalles",
     "viewGallery": "Galería",
+    "view_screenshots": "Ver capturas",
     "items": [
       {
         "title": "TrackDeli — Web Platform",
@@ -333,6 +334,8 @@
     "send": "Enviar mensaje",
     "phone_label": "Teléfono",
     "location_label": "Ubicación",
+    "whatsapp_prompt": "¿Prefieres respuesta inmediata? Escríbenos por WhatsApp",
+    "whatsapp_cta": "Escríbenos por WhatsApp",
     "idea_heading": "¿Tenés una idea en mente?",
     "idea_body": "Nos encanta escuchar proyectos nuevos. Si tenés una idea o requerimiento especial, contanos y lo diseñamos a tu medida."
   },

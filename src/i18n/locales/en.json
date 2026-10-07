@@ -118,6 +118,7 @@
     "subtitle": "Every project we ship is a solution crafted to tackle real challenges for real businesses.",
     "viewCase": "View Details",
     "viewGallery": "Gallery",
+    "view_screenshots": "View screenshots",
     "items": [
       {
         "title": "TrackDeli — Web Platform",
@@ -333,6 +334,8 @@
     "send": "Send Message",
     "phone_label": "Phone",
     "location_label": "Location",
+    "whatsapp_prompt": "Prefer an immediate response? Chat with us on WhatsApp",
+    "whatsapp_cta": "Chat on WhatsApp",
     "idea_heading": "Have a custom idea in mind?",
     "idea_body": "We love tackling new challenges. Tell us what you need and we will design a tailor-made solution for your business."
   },

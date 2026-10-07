@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Zap, Shield, HeadsetIcon, Rocket } from "lucide-react";
@@ -18,6 +18,7 @@ interface AnimatedStatProps {
 }
 
 const AnimatedStat = ({ value, isInView }: AnimatedStatProps) => {
+  const shouldReduceMotion = useReducedMotion();
   const [display, setDisplay] = useState(value === "∞" ? "∞" : "0");
   const hasAnimated = useRef(false);
 
@@ -42,7 +43,7 @@ const AnimatedStat = ({ value, isInView }: AnimatedStatProps) => {
     if (!isInView || hasAnimated.current) return;
     hasAnimated.current = true;
 
-    if (!isNumeric) {
+    if (!isNumeric || shouldReduceMotion) {
       setDisplay(value);
       return;
     }
@@ -107,7 +108,7 @@ export const WhyUs = () => {
         variants={staggerContainer}
       >
         <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#a3e635] mb-2 block">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-2 block">
             {t("whyus.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
@@ -141,7 +142,7 @@ export const WhyUs = () => {
                   </div>
                 </div>
 
-                <div className="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-[2px] flex items-center justify-center mb-4 text-[#a3e635]">
+                <div className="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-[2px] flex items-center justify-center mb-4 text-[#8FD14F]">
                   <Icon className="w-5 h-5" />
                 </div>
 

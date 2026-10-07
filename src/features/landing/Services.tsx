@@ -51,7 +51,7 @@ export const Services = () => {
           transition={{ duration: 0.4 }}
           className="text-center mb-12"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#a3e635] mb-2 block">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-2 block">
             {t("services.eyebrow")}
           </span>
           <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
@@ -72,7 +72,7 @@ export const Services = () => {
                 transition={{ duration: 0.35 }}
                 className="p-6 rounded-[2px] bg-[#121212] border border-zinc-800 hover:border-zinc-700 transition-colors group cursor-default text-left shadow-sm"
               >
-                <div className="w-9 h-9 bg-zinc-900 border border-zinc-800 rounded-[2px] flex items-center justify-center mb-4 text-[#a3e635]">
+                <div className="w-9 h-9 bg-zinc-900 border border-zinc-800 rounded-[2px] flex items-center justify-center mb-4 text-[#8FD14F]">
                   <Icon className="w-4 h-4" />
                 </div>
                 <h3 className="font-bold uppercase text-white mb-2 text-sm tracking-tight">
