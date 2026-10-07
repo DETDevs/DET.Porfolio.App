@@ -26,7 +26,7 @@ export const ScrollProgress = memo(function ScrollProgress() {
     <div className="fixed top-0 left-0 right-0 h-[2px] z-50 pointer-events-none bg-transparent">
       <div
         ref={barRef}
-        className="w-full h-full origin-left bg-[#a3e635]"
+        className="w-full h-full origin-left bg-[#8FD14F]"
         style={{ transform: "scaleX(0)" }}
       />
     </div>

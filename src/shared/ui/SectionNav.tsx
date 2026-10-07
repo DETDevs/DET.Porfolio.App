@@ -64,8 +64,8 @@ export const SectionNav = memo(function SectionNav() {
             <span
               className={`text-[10px] font-mono tracking-widest uppercase transition-all duration-200 ${
                 isActive
-                  ? "text-[#a3e635] opacity-100 translate-x-0 font-bold"
-                  : "text-zinc-500 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
+                  ? "text-[#8FD14F] opacity-100 translate-x-0 font-bold"
+                  : "text-zinc-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
               }`}
             >
               {section.label}
@@ -74,7 +74,7 @@ export const SectionNav = memo(function SectionNav() {
             <div
               className={`transition-all duration-200 ${
                 isActive
-                  ? "w-2 h-2 bg-[#a3e635]"
+                  ? "w-2 h-2 bg-[#8FD14F]"
                   : "w-1.5 h-1.5 bg-zinc-700 group-hover:bg-zinc-400"
               }`}
             />

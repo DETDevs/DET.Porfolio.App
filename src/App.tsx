@@ -71,7 +71,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="bg-[#050505] min-h-screen text-zinc-200 selection:bg-[#a3e635] selection:text-black font-sans overflow-x-hidden">
+    <div className="bg-[#050505] min-h-screen text-zinc-200 selection:bg-[#8FD14F] selection:text-black font-sans overflow-x-hidden">
       <ScrollProgress />
       <SectionNav />
       <Navbar />

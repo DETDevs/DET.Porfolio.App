@@ -9,15 +9,15 @@ export const Button = ({
   type = "button",
 }: ButtonProps) => {
   const baseStyle =
-    "px-5 py-3 rounded-[2px] font-mono text-xs uppercase tracking-wider font-bold transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
+    "px-5 py-3 rounded-[2px] font-mono text-xs uppercase tracking-wider font-bold transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505] active:scale-[0.98]";
 
   const styles = {
     primary:
-      "bg-[#a3e635] hover:bg-[#b5ff14] text-black shadow-sm",
+      "bg-[#8FD14F] hover:bg-[#5FA22B] text-black shadow-sm",
     secondary:
       "bg-transparent hover:bg-zinc-900 text-white border border-zinc-700 shadow-sm",
     outline:
-      "border border-[#a3e635] text-[#a3e635] hover:bg-[#a3e635]/10",
+      "border border-[#8FD14F] text-[#8FD14F] hover:bg-[#8FD14F]/10",
     ghost: "bg-transparent hover:bg-white/5 text-zinc-300",
   };
 

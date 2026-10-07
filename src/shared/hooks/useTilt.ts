@@ -3,6 +3,10 @@ import { useCallback, type RefObject } from "react";
 export function useTilt<T extends HTMLElement>(cardRef: RefObject<T | null>) {
   const handleMove = useCallback(
     (e: React.MouseEvent<T>) => {
+      if (typeof window !== "undefined" && !window.matchMedia("(pointer: fine)").matches) {
+        return;
+      }
+
       const el = cardRef.current;
       if (!el) return;
 
@@ -18,7 +22,7 @@ export function useTilt<T extends HTMLElement>(cardRef: RefObject<T | null>) {
 
       const shine = el.querySelector<HTMLElement>(".card-shine");
       if (shine) {
-        shine.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(163, 230, 53, 0.12) 0%, transparent 65%)`;
+        shine.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(143, 209, 79, 0.12) 0%, transparent 65%)`;
         shine.style.opacity = "1";
       }
     },
