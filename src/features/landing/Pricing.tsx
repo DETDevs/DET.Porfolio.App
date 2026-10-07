@@ -136,6 +136,12 @@ export const Pricing = () => {
 
   return (
     <Section id="planes">
+      <span id="planes-pos" className="sr-only" />
+      <span id="planes-cartera" className="sr-only" />
+      <span id="planes-citas" className="sr-only" />
+      <span id="planes-delivery" className="sr-only" />
+      <span id="planes-logistics" className="sr-only" />
+      <span id="planes-web" className="sr-only" />
       <motion.div
         ref={ref}
         initial="hidden"

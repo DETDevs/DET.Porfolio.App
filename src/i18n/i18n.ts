@@ -18,7 +18,7 @@ i18n
         detection: {
             order: ["localStorage", "navigator"],
             caches: ["localStorage"],
-            lookupLocalStorage: "detdevs_lang",
+            lookupLocalStorage: "nexol_lang",
         },
         interpolation: {
             escapeValue: false,

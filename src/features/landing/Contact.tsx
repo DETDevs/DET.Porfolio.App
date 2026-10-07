@@ -65,7 +65,7 @@ export const Contact = () => {
       "subject",
       ` Nuevo proyecto: ${userName} quiere hablar sobre "${userProject}"`,
     );
-    formData.append("from_name", "DETDevs Portfolio");
+    formData.append("from_name", "NEXOL Portfolio");
     if (userEmail) {
       formData.append("replyto", userEmail as string);
     }

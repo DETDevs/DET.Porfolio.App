@@ -1,6 +1,16 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  Receipt,
+  Wallet,
+  CalendarCheck,
+  Truck,
+  Globe,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { POS_PRICE } from "@/config/constants";
 
@@ -73,6 +83,23 @@ export const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+
+  const renderFallbackIcon = (category?: string, className = "w-10 h-10") => {
+    switch (category) {
+      case "pos":
+        return <Receipt className={className} />;
+      case "cartera":
+        return <Wallet className={className} />;
+      case "citas":
+        return <CalendarCheck className={className} />;
+      case "logistics":
+        return <Truck className={className} />;
+      case "web":
+      default:
+        return <Globe className={className} />;
+    }
+  };
 
   // Merge localized data with asset paths
   const slides = useMemo(() => {
@@ -112,11 +139,12 @@ export const Hero = () => {
         new CustomEvent("select-pricing-tab", { detail: category })
       );
     }
-    const el = document.getElementById("planes");
+    const targetId = category ? `planes-${category}` : "planes";
+    const el = document.getElementById(targetId) || document.getElementById("planes");
     if (el) {
       if (e) e.preventDefault();
       el.scrollIntoView({ behavior: "smooth" });
-      window.history.pushState(null, "", "#planes");
+      window.history.pushState(null, "", `#planes-${category || "pos"}`);
     }
   };
 
@@ -265,12 +293,29 @@ export const Hero = () => {
                 >
                   {/* Thumbnail Image */}
                   <div className="w-full sm:w-36 h-36 sm:h-auto shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/60 relative">
-                    <img
-                      src={currentSlide.image}
-                      alt={currentSlide.title}
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                    {imageErrors[currentSlide.id] ? (
+                      <div className="w-full h-full min-h-[140px] flex flex-col items-center justify-center bg-zinc-950 text-[#a3e635] p-3 text-center">
+                        {renderFallbackIcon(currentSlide.category, "w-10 h-10 mb-2 opacity-90")}
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">
+                          {currentSlide.tag}
+                        </span>
+                      </div>
+                    ) : (
+                      <>
+                        <img
+                          src={currentSlide.image}
+                          alt={currentSlide.title}
+                          onError={() =>
+                            setImageErrors((prev) => ({
+                              ...prev,
+                              [currentSlide.id]: true,
+                            }))
+                          }
+                          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                      </>
+                    )}
                   </div>
 
                   {/* Card Content */}
@@ -281,7 +326,7 @@ export const Hero = () => {
                           {currentSlide.tag}
                         </span>
                         {currentSlide.price && (
-                          <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-[2px] bg-[#a3e635] text-black font-mono text-[10px] font-bold tracking-tight">
+                          <span className="shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#a3e635] text-black font-mono text-[10px] font-bold tracking-tight shadow-sm">
                             {currentSlide.price}
                           </span>
                         )}
@@ -327,11 +372,23 @@ export const Hero = () => {
               className="hidden md:flex w-24 sm:h-[196px] shrink-0 rounded-3xl bg-zinc-900/40 backdrop-blur-xl border border-white/10 overflow-hidden cursor-pointer opacity-50 hover:opacity-90 hover:scale-[1.02] transition-all duration-300 relative p-2 flex-col justify-between"
             >
               <div className="w-full h-20 rounded-xl overflow-hidden bg-black/40 border border-white/5">
-                <img
-                  src={nextSlide.image}
-                  alt={nextSlide.title}
-                  className="w-full h-full object-cover object-top brightness-75"
-                />
+                {imageErrors[nextSlide.id] ? (
+                  <div className="w-full h-full flex items-center justify-center bg-zinc-950 text-[#a3e635]">
+                    {renderFallbackIcon(nextSlide.category, "w-6 h-6 opacity-80")}
+                  </div>
+                ) : (
+                  <img
+                    src={nextSlide.image}
+                    alt={nextSlide.title}
+                    onError={() =>
+                      setImageErrors((prev) => ({
+                        ...prev,
+                        [nextSlide.id]: true,
+                      }))
+                    }
+                    className="w-full h-full object-cover object-top brightness-75"
+                  />
+                )}
               </div>
               <div className="text-[10px] font-mono text-zinc-400 truncate">
                 {nextSlide.id} / {String(total).padStart(2, "0")}
