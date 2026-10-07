@@ -82,7 +82,7 @@ export const OrderTrackingScrolly = () => {
       if (!bar) return;
       const isCompletedOrCurrent = i <= stageIdx;
       bar.className = `h-1.5 w-full rounded-[1px] transition-colors duration-200 ${
-        isCompletedOrCurrent ? "bg-[#a3e635]" : "bg-zinc-800"
+        isCompletedOrCurrent ? "bg-[#8FD14F]" : "bg-zinc-800"
       }`;
     });
 
@@ -94,7 +94,7 @@ export const OrderTrackingScrolly = () => {
         isCurrent
           ? "text-white font-bold"
           : isCompleted
-          ? "text-[#a3e635]"
+          ? "text-[#8FD14F]"
           : "text-zinc-600"
       }`;
     });
@@ -326,7 +326,7 @@ export const OrderTrackingScrolly = () => {
         <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-6 flex flex-col justify-center">
           {/* Section Header: Compact & elegant, no empty voids */}
           <div className="text-center max-w-3xl mx-auto mb-3 sm:mb-5">
-            <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#a3e635] mb-1 block">
+            <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-1 block">
               {t("tracking_scrolly.eyebrow")}
             </span>
             <h2 className="text-xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white">
@@ -382,7 +382,7 @@ export const OrderTrackingScrolly = () => {
                   ref={pathRef}
                   d="M 120 340 C 200 340, 220 220, 320 220 C 420 220, 440 120, 540 120 C 640 120, 680 200, 710 270"
                   fill="none"
-                  stroke="#a3e635"
+                  stroke="#8FD14F"
                   strokeWidth="4"
                   strokeLinecap="round"
                 />
@@ -409,7 +409,7 @@ export const OrderTrackingScrolly = () => {
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[2px] bg-[#121212] border border-zinc-700 flex items-center justify-center text-white shadow-sm">
                   <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                 </div>
-                <span className="mt-0.5 px-1 py-0.2 rounded-[2px] bg-black border border-zinc-800 font-mono text-[8px] sm:text-[9px] uppercase tracking-wider text-[#a3e635] whitespace-nowrap">
+                <span className="mt-0.5 px-1 py-0.2 rounded-[2px] bg-black border border-zinc-800 font-mono text-[8px] sm:text-[9px] uppercase tracking-wider text-[#8FD14F] whitespace-nowrap">
                   Destino
                 </span>
               </div>
@@ -419,14 +419,14 @@ export const OrderTrackingScrolly = () => {
                 ref={riderRef}
                 className="absolute top-0 left-0 pointer-events-none z-30 will-change-transform opacity-0 transition-opacity duration-200"
               >
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[2px] bg-[#a3e635] flex items-center justify-center text-black shadow-sm">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[2px] bg-[#8FD14F] flex items-center justify-center text-black shadow-sm">
                   <Bike className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
               </div>
 
               {/* Map Top Status */}
               <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-[2px] bg-black border border-zinc-800 text-[9px] sm:text-[10px] text-zinc-300 font-mono">
-                <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-pulse" />
+                <span className="w-1.5 h-1.5 bg-[#8FD14F] rounded-full animate-pulse" />
                 <span>DISPATCH ENGINE · LIVE</span>
               </div>
 
@@ -438,17 +438,17 @@ export const OrderTrackingScrolly = () => {
               >
                 {isSimulating ? (
                   <>
-                    <Pause className="w-3 h-3 text-[#a3e635]" />
+                    <Pause className="w-3 h-3 text-[#8FD14F]" />
                     <span>PAUSAR</span>
                   </>
                 ) : currentProgressRef.current >= 0.98 ? (
                   <>
-                    <RotateCcw className="w-3 h-3 text-[#a3e635]" />
+                    <RotateCcw className="w-3 h-3 text-[#8FD14F]" />
                     <span>REINICIAR</span>
                   </>
                 ) : (
                   <>
-                    <Play className="w-3 h-3 text-[#a3e635]" />
+                    <Play className="w-3 h-3 text-[#8FD14F]" />
                     <span>SIMULAR</span>
                   </>
                 )}
@@ -457,7 +457,7 @@ export const OrderTrackingScrolly = () => {
               {/* Live Telemetry Pill */}
               <div className="absolute bottom-2.5 right-2.5 z-20 flex items-center gap-2.5 px-2.5 py-1 rounded-[2px] bg-black border border-zinc-800 text-[9px] sm:text-[10px] text-zinc-300 font-mono">
                 <div className="flex items-center gap-1 text-white">
-                  <Zap className="w-3 h-3 text-[#a3e635]" />
+                  <Zap className="w-3 h-3 text-[#8FD14F]" />
                   <span ref={speedRef}>0 km/h</span>
                 </div>
                 <div className="w-px h-3 bg-zinc-800" />
@@ -473,7 +473,7 @@ export const OrderTrackingScrolly = () => {
               {/* Stage Stepper Navigation */}
               <div className="bg-[#121212] border border-zinc-800 rounded-[2px] p-3.5 sm:p-5 shadow-sm">
                 <div className="flex items-center justify-between mb-2.5 sm:mb-3 border-b border-zinc-800 pb-2 sm:pb-2.5">
-                  <span ref={stageStepRef} className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-[#a3e635] font-bold">
+                  <span ref={stageStepRef} className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-[#8FD14F] font-bold">
                     Etapa {stages[0]?.step || "01"} / 05
                   </span>
                   <span ref={progressRef} className="font-mono text-[11px] sm:text-xs text-zinc-500">
@@ -484,7 +484,7 @@ export const OrderTrackingScrolly = () => {
                 {/* Active Stage Details */}
                 <div className="min-h-[65px] sm:min-h-[85px] flex flex-col justify-center">
                   <div className="flex items-center gap-2 mb-1 sm:mb-1.5">
-                    <span ref={stageLabelRef} className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-[2px] bg-zinc-900 text-[#a3e635] border border-zinc-800">
+                    <span ref={stageLabelRef} className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-[2px] bg-zinc-900 text-[#8FD14F] border border-zinc-800">
                       {stages[0]?.label}
                     </span>
                     <h3 ref={stageTitleRef} className="text-sm sm:text-lg font-bold uppercase text-white tracking-tight">
@@ -513,7 +513,7 @@ export const OrderTrackingScrolly = () => {
                             stepBarsRef.current[i] = el;
                           }}
                           className={`h-1.5 w-full rounded-[1px] ${
-                            isCurrent ? "bg-[#a3e635]" : "bg-zinc-800 group-hover:bg-zinc-700"
+                            isCurrent ? "bg-[#8FD14F]" : "bg-zinc-800 group-hover:bg-zinc-700"
                           }`}
                         />
                         <span
@@ -535,7 +535,7 @@ export const OrderTrackingScrolly = () => {
               {/* Technical Architecture Metrics */}
               <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 <div className="p-2.5 sm:p-3 rounded-[2px] bg-[#121212] border border-zinc-800 flex items-center gap-2.5">
-                  <Wifi className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#a3e635] shrink-0" />
+                  <Wifi className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8FD14F] shrink-0" />
                   <div>
                     <div className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500">
                       WebSockets
@@ -545,7 +545,7 @@ export const OrderTrackingScrolly = () => {
                 </div>
 
                 <div className="p-2.5 sm:p-3 rounded-[2px] bg-[#121212] border border-zinc-800 flex items-center gap-2.5">
-                  <Navigation className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#a3e635] shrink-0" />
+                  <Navigation className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8FD14F] shrink-0" />
                   <div>
                     <div className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500">
                       Mapbox GL
