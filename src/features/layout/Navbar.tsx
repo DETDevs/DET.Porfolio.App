@@ -125,14 +125,14 @@ export const Navbar = () => {
           {/* Brand Logo */}
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2.5 cursor-pointer py-1 pr-1.5 rounded-full group transition-transform duration-200 active:scale-95 bg-transparent border-none"
+            className="flex items-center gap-2.5 cursor-pointer py-1 pr-1.5 rounded-full group transition-transform duration-200 active:scale-95 bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
             aria-label="Ir al inicio"
           >
             <span className="relative flex h-2.5 w-2.5 items-center justify-center">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#a3e635] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#a3e635] shadow-[0_0_8px_rgba(163,230,53,0.8)]" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8FD14F] opacity-50" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8FD14F] shadow-[0_0_6px_rgba(143,209,79,0.5)]" />
             </span>
-            <span className="text-sm font-bold tracking-tight text-white group-hover:text-[#a3e635] transition-colors">
+            <span className="text-sm font-bold tracking-tight text-white group-hover:text-[#8FD14F] transition-colors">
               Nexol
             </span>
           </button>
@@ -164,10 +164,10 @@ export const Navbar = () => {
                   onMouseEnter={() => setHoverIndex(i)}
                   className={`
                     relative px-3.5 py-1.5 text-xs font-medium tracking-normal rounded-full cursor-pointer
-                    transition-colors duration-200 bg-transparent border-none
+                    transition-colors duration-200 bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
                     ${
                       isActive
-                        ? "text-[#a3e635] font-semibold"
+                        ? "text-[#8FD14F] font-semibold"
                         : "text-zinc-300 hover:text-white"
                     }
                   `}
@@ -199,8 +199,8 @@ export const Navbar = () => {
                 onClick={() => i18n.changeLanguage(lang.toLowerCase())}
                 className={`
                   relative z-10 px-2.5 py-0.5 text-[11px] font-semibold rounded-full cursor-pointer border-none
-                  transition-colors duration-200 bg-transparent
-                  ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-400 hover:text-zinc-200"}
+                  transition-colors duration-200 bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
+                  ${currentLang === lang ? "text-[#8FD14F]" : "text-zinc-400 hover:text-zinc-200"}
                 `}
               >
                 {lang}
@@ -224,10 +224,10 @@ export const Navbar = () => {
               hidden md:inline-flex items-center gap-1.5
               px-4 py-1.5 rounded-full text-xs font-bold tracking-tight
               cursor-pointer border-none
-              bg-[#a3e635] hover:bg-[#bcf947]
+              bg-[#8FD14F] hover:bg-[#5FA22B]
               text-black
-              shadow-[0_0_20px_rgba(163,230,53,0.3)] hover:shadow-[0_0_25px_rgba(163,230,53,0.5)]
-              transition-all duration-200 active:scale-95
+              shadow-[0_0_12px_rgba(143,209,79,0.25)] hover:shadow-[0_0_16px_rgba(143,209,79,0.4)]
+              transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]
             "
           >
             <span>{t("nav.cta")}</span>
@@ -236,7 +236,7 @@ export const Navbar = () => {
 
           {/* Mobile Menu Toggle Button */}
           <button
-            className="md:hidden text-zinc-200 bg-transparent border-none cursor-pointer p-1.5 rounded-full hover:bg-white/10 transition-colors"
+            className="md:hidden text-zinc-200 bg-transparent border-none cursor-pointer p-1.5 rounded-full hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           >
@@ -279,8 +279,8 @@ export const Navbar = () => {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed top-20 left-4 right-4 z-40 md:hidden"
           >
-            <div className="bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-              <div className="p-4 flex flex-col gap-1.5">
+            <div className="bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] max-h-[calc(100dvh-5.5rem)] flex flex-col">
+              <div className="p-4 flex flex-col gap-1.5 overflow-y-auto no-scrollbar">
                 {[
                   { label: t("nav.home"), href: "#hero", icon: Home },
                   ...NAV_LINKS,
@@ -293,10 +293,10 @@ export const Navbar = () => {
                       onClick={() => scrollToSection(link.href)}
                       className={`
                         flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-semibold tracking-wide w-full text-left
-                        border cursor-pointer transition-all duration-150
+                        border cursor-pointer transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
                         ${
                           isActive
-                            ? "bg-white/10 text-[#a3e635] border-white/15"
+                            ? "bg-white/10 text-[#8FD14F] border-white/15"
                             : "bg-transparent text-zinc-400 border-transparent hover:bg-white/5 hover:text-white"
                         }
                       `}
@@ -304,7 +304,7 @@ export const Navbar = () => {
                       <Icon
                         size={16}
                         className={
-                          isActive ? "text-[#a3e635]" : "text-zinc-400"
+                          isActive ? "text-[#8FD14F]" : "text-zinc-400"
                         }
                       />
                       {link.label}
@@ -335,8 +335,8 @@ export const Navbar = () => {
                         onClick={() => i18n.changeLanguage(lang.toLowerCase())}
                         className={`
                           relative z-10 px-3 py-1 text-[11px] font-semibold rounded-full cursor-pointer border-none
-                          transition-colors duration-150 bg-transparent
-                          ${currentLang === lang ? "text-[#a3e635]" : "text-zinc-400"}
+                          transition-colors duration-150 bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
+                          ${currentLang === lang ? "text-[#8FD14F]" : "text-zinc-400"}
                         `}
                       >
                         {lang}
@@ -359,8 +359,8 @@ export const Navbar = () => {
                     }}
                     className="
                       w-full py-3 rounded-full text-xs font-bold tracking-tight flex items-center justify-center gap-1.5
-                      bg-[#a3e635] hover:bg-[#bcf947] text-black
-                      border-none cursor-pointer transition-all duration-150 shadow-[0_0_20px_rgba(163,230,53,0.3)]
+                      bg-[#8FD14F] hover:bg-[#5FA22B] text-black
+                      border-none cursor-pointer transition-all duration-150 shadow-[0_0_12px_rgba(143,209,79,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]
                     "
                   >
                     <span>{t("nav.cta")}</span>
