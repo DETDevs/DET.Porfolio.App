@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { POS_PRICE } from "@/config/constants";
 
 interface SlideData {
   id: string;
@@ -19,7 +20,7 @@ const BASE_SLIDES: SlideData[] = [
     id: "01",
     tag: "Punto de Venta",
     title: "Punto de Venta (POS)",
-    price: "$45/mes por sucursal",
+    price: `$${POS_PRICE}/mes por sucursal`,
     desc: "Cobro rápido con pagos mixtos y dólares, control de caja por turno y cajero, inventario y reportes de ventas.",
     image: "/assets/project/pos/caja_POS.png",
     link: "#planes",

@@ -14,6 +14,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { POS_PRICE } from "@/config/constants";
 import { Section } from "@/shared/ui/Section";
 import {
   useScrollReveal,
@@ -24,7 +25,8 @@ import {
 // =========================================================================
 // CONFIGURACIÓN DE PRECIOS EDITABLE
 // =========================================================================
-export const POS_MONTHLY_PRICE = 45; // Precio mensual en USD para el POS Todo Incluido
+export { POS_PRICE };
+export const POS_MONTHLY_PRICE = POS_PRICE; // Precio mensual en USD para el POS Todo Incluido
 export const CITAS_MONTHLY_PRICE = 30; // Precio mensual en USD para Citas / Booking
 export const CARTERA_MONTHLY_PRICE = 25; // Precio mensual en USD para Cartera de Cobro
 export const WEB_STARTER_PRICE = 300; // Precio base en USD para Páginas Web

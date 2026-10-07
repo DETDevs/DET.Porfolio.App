@@ -194,6 +194,8 @@ export const DIFFERENTIATORS: Differentiator[] = [
     },
 ];
 
+export const POS_PRICE = 40;
+
 export const PLANS: PricingPlan[] = [
     {
         id: 'starter',
@@ -225,7 +227,7 @@ export const PLANS: PricingPlan[] = [
         title: "Sistema de Facturación / POS",
         implementationPrice: "",
         prices: {
-            monthly: "$45",
+            monthly: `$${POS_PRICE}`,
             semiannual: "$40",
             annual: "$35",
         },
