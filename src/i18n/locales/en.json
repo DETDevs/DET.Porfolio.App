@@ -396,9 +396,25 @@
     ]
   },
   "footer": {
-    "tagline": "Crafted with passion in Nicaragua 🇳🇮",
-    "sub_tagline": "Every great project starts with a conversation.\nYours can start today.",
-    "rights": "Nicaragua to the World."
+    "cta_title": "Looking to streamline your business sales or launch your website?",
+    "cta_subtitle": "Let's talk about your project. No-commitment consultation to find the right solution for your business.",
+    "cta_button": "Chat on WhatsApp",
+    "cta_whatsapp_msg": "Hello NEXOL, I would like to get consultation for my business.",
+    "brand_tagline": "Custom software and systems for your business. Made in Nicaragua.",
+    "col_products": "Products",
+    "col_company": "Company",
+    "col_legal": "Legal",
+    "product_pos": "TrackDeli POS",
+    "product_cartera": "Accounts Receivable",
+    "product_citas": "Appointment Booking",
+    "product_delivery": "Delivery Logistics",
+    "company_services": "Services",
+    "company_projects": "Projects",
+    "company_plans": "Pricing Plans",
+    "company_contact": "Contact",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "crafted": "Crafted with passion in Nicaragua 🇳🇮"
   },
   "whatsapp": {
     "tooltip_heading": "Have a project in mind?",

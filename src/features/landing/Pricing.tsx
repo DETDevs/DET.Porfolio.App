@@ -127,12 +127,12 @@ export const Pricing = () => {
     return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
   };
 
-  const scrollToTracking = () => {
-    const el = document.getElementById("tracking");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // const scrollToTracking = () => {
+  //   const el = document.getElementById("tracking");
+  //   if (el) {
+  //     el.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
 
   return (
     <Section id="planes">
@@ -886,13 +886,13 @@ export const Pricing = () => {
                         <ArrowRight className="w-4 h-4" />
                       </a>
 
-                      <button
+                      {/* <button
                         onClick={scrollToTracking}
                         className="w-full py-2.5 rounded-[2px] bg-transparent hover:bg-zinc-900 text-zinc-400 hover:text-white font-mono text-[11px] uppercase tracking-wider border border-zinc-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                       >
                         <span>Ver simulación en vivo del tracking</span>
                         <span className="text-[#a3e635]">↓</span>
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

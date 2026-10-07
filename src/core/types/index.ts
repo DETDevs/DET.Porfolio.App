@@ -55,5 +55,6 @@ export interface ButtonProps {
 export interface SectionProps {
     children: ReactNode;
     className?: string;
+    sectionClassName?: string;
     id?: string;
 }

@@ -1,5 +1,9 @@
 import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ReactGA from "react-ga4";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { Navbar } from "@/features/layout/Navbar";
 import { Footer } from "@/features/layout/Footer";
 import { Hero } from "@/features/landing/Hero";
@@ -21,11 +25,11 @@ const Projects = lazy(() =>
 const WhyUs = lazy(() =>
   import("@/features/landing/WhyUs").then((m) => ({ default: m.WhyUs })),
 );
-const OrderTrackingScrolly = lazy(() =>
-  import("@/features/landing/OrderTrackingScrolly").then((m) => ({
-    default: m.OrderTrackingScrolly,
-  })),
-);
+// const OrderTrackingScrolly = lazy(() =>
+//   import("@/features/landing/OrderTrackingScrolly").then((m) => ({
+//     default: m.OrderTrackingScrolly,
+//   })),
+// );
 const Pricing = lazy(() =>
   import("@/features/landing/Pricing").then((m) => ({ default: m.Pricing })),
 );
@@ -35,21 +39,29 @@ const Contact = lazy(() =>
 const FAQ = lazy(() =>
   import("@/features/landing/FAQ").then((m) => ({ default: m.FAQ })),
 );
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+const LegalPage = lazy(() =>
+  import("@/features/legal/LegalPage").then((m) => ({ default: m.LegalPage })),
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
-const App = () => {
+const RouteTracker = () => {
+  const location = useLocation();
+
   useEffect(() => {
     if (GA_ID) {
       ReactGA.send({
         hitType: "pageview",
-        page: window.location.pathname + window.location.search,
+        page: location.pathname + location.search,
       });
     }
+  }, [location]);
 
+  return null;
+};
+
+const LandingPage = () => {
+  useEffect(() => {
     // Refresh ScrollTrigger once dynamic suspense sections mount to ensure pin calculations are exact
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
@@ -69,7 +81,7 @@ const App = () => {
           <Services />
           <Projects />
           <WhyUs />
-          <OrderTrackingScrolly />
+          {/* <OrderTrackingScrolly /> */}
           <Pricing />
           <Contact />
           <FAQ />
@@ -78,6 +90,22 @@ const App = () => {
       <Footer />
       <WhatsAppButton />
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <>
+      <RouteTracker />
+      <Suspense fallback={<div className="min-h-screen bg-[#050505]" />}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/terminos" element={<LegalPage type="terminos" />} />
+          <Route path="/privacidad" element={<LegalPage type="privacidad" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 };
 

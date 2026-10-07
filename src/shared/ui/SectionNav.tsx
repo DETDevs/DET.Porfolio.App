@@ -8,7 +8,7 @@ const SECTIONS = [
   { id: "servicios", label: "Servicios" },
   { id: "proyectos", label: "Proyectos" },
   { id: "nosotros", label: "¿Por qué Nexol?" },
-  { id: "tracking", label: "Tracking en Vivo" },
+  // { id: "tracking", label: "Tracking en Vivo" },
   { id: "planes", label: "Planes" },
   { id: "contacto", label: "Contacto" },
 ];

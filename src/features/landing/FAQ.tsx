@@ -69,7 +69,7 @@ export const FAQ = () => {
   }[];
 
   return (
-    <Section id="faq">
+    <Section id="faq" sectionClassName="pt-20 md:pt-28 pb-8 md:pb-12">
       <motion.div
         ref={ref}
         initial="hidden"

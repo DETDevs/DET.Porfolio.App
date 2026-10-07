@@ -26,6 +26,10 @@ dist-ssr
 # Internal docs (do not push)
 DETDevs_Guia_Precios_Interna.md
 detdevs-combos.md
+src/privacidad/privacidad.md
+src/terminos/terminos.md
+web-terminos-y-condiciones.md
+web-politica-de-privacidad.md
 
 # Environment variables
 .env

@@ -8,7 +8,7 @@ import {
   Tag,
   Mail,
   Home,
-  Radio,
+  // Radio,
   ArrowUpRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -25,7 +25,7 @@ export const Navbar = () => {
   const NAV_LINKS = [
     { label: t("nav.services"), href: "#servicios", icon: Layers },
     { label: t("nav.projects"), href: "#proyectos", icon: FolderOpen },
-    { label: t("nav.tracking", "Tracking"), href: "#tracking", icon: Radio },
+    // { label: t("nav.tracking", "Tracking"), href: "#tracking", icon: Radio },
     { label: t("nav.pricing"), href: "#planes", icon: Tag },
     { label: t("nav.contact"), href: "#contacto", icon: Mail },
   ];
