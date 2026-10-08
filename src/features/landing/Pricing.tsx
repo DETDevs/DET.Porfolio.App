@@ -421,6 +421,7 @@ export const Pricing = () => {
                           "Control de caja: apertura y cierre de turno, cierre ciego, arqueo y entradas/salidas de efectivo",
                           "Anulaciones y devoluciones con autorización del encargado y reversa de inventario",
                           "Inventario en tiempo real: compras a proveedores, ajustes, conteo físico y alertas de stock bajo",
+                          "Backoffice web básico de consulta (ventas, inventario y cierres de caja)",
                           "Usuarios con roles de cajero, mesero y encargado, y reglas del negocio que vos configurás",
                           "Reportes de ventas y de productos de mayor rotación",
                           "Sigue cobrando sin internet en negocios de una sola caja",

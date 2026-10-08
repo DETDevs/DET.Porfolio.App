@@ -26,7 +26,7 @@
         "id": "01",
         "tag": "Point of Sale",
         "title": "Point of Sale (POS)",
-        "price": "$40/mo per branch",
+        "price": "$45/mo per branch",
         "desc": "Fast checkout with split and USD payments, cash drawer control by shift and cashier, inventory and sales reports.",
         "image": "/assets/project/pos/caja_POS.png",
         "link": "#planes"
@@ -274,6 +274,7 @@
         "Cash drawer control: shift open and close, blind closeout, reconciliation, and cash in/out movements",
         "Voids and returns with manager authorization and inventory reversal",
         "Real-time inventory: supplier purchases, adjustments, physical stock counts, and low-stock alerts",
+        "Basic web backoffice for consultation (sales, inventory, and cash drawer closeouts)",
         "User roles for cashier, server, and manager, with configurable business rules",
         "Sales reports and top-selling product analytics",
         "Keeps processing sales without internet in single-terminal businesses",
@@ -346,7 +347,7 @@
     "items": [
       {
         "question": "How much does the point-of-sale system cost?",
-        "answer": "The POS has a single all-inclusive plan of $40 per month per branch: no stripped-down versions or extra charges per feature. Appointments & Booking costs $30 per month and Accounts Receivable (store credit) costs $25 per month, per business. Delivery has no fixed monthly cost: you pay a per-delivery commission based on your volume."
+        "answer": "The POS has a single all-inclusive plan of $45 per month per branch: no stripped-down versions or extra charges per feature. Appointments & Booking costs $30 per month and Accounts Receivable (store credit) costs $25 per month, per business. Delivery has no fixed monthly cost: you pay a per-delivery commission based on your volume."
       },
       {
         "question": "What's included in the monthly fee?",

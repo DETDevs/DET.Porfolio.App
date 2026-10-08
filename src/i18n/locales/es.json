@@ -26,7 +26,7 @@
         "id": "01",
         "tag": "Punto de Venta",
         "title": "Punto de Venta (POS)",
-        "price": "$40/mes por sucursal",
+        "price": "$45/mes por sucursal",
         "desc": "Cobro rápido con pagos mixtos y dólares, control de caja por turno y cajero, inventario y reportes de ventas.",
         "image": "/assets/project/pos/caja_POS.png",
         "link": "#planes"
@@ -274,6 +274,7 @@
         "Control de caja: apertura y cierre de turno, cierre ciego, arqueo y entradas/salidas de efectivo",
         "Anulaciones y devoluciones con autorización del encargado y reversa de inventario",
         "Inventario en tiempo real: compras a proveedores, ajustes, conteo físico y alertas de stock bajo",
+        "Backoffice web básico de consulta (ventas, inventario y cierres de caja)",
         "Usuarios con roles de cajero, mesero y encargado, y reglas del negocio que vos configurás",
         "Reportes de ventas y de productos de mayor rotación",
         "Sigue cobrando sin internet en negocios de una sola caja",
@@ -346,7 +347,7 @@
     "items": [
       {
         "question": "¿Cuánto cuesta el sistema de punto de venta?",
-        "answer": "El POS tiene un único plan de $40 al mes por sucursal, con todo incluido: sin versiones recortadas ni cobros por función. Agenda de Citas cuesta $30 al mes y Cartera de Cobro (fiado) $25 al mes, por negocio. Delivery no tiene costo fijo: se paga una comisión por entrega según tu volumen."
+        "answer": "El POS tiene un único plan de $45 al mes por sucursal, con todo incluido: sin versiones recortadas ni cobros por función. Agenda de Citas cuesta $30 al mes y Cartera de Cobro (fiado) $25 al mes, por negocio. Delivery no tiene costo fijo: se paga una comisión por entrega según tu volumen."
       },
       {
         "question": "¿Qué incluye la cuota mensual?",

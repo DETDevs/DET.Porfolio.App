@@ -194,7 +194,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
     },
 ];
 
-export const POS_PRICE = 40;
+export const POS_PRICE = 45;
 
 export const PLANS: PricingPlan[] = [
     {
@@ -237,6 +237,7 @@ export const PLANS: PricingPlan[] = [
             "Inventario en tiempo real con alertas de stock",
             "Control de caja: aperturas, cierres y arqueos",
             "Reportes avanzados de ventas y rentabilidad",
+            "Backoffice web básico de consulta (ventas, inventario y cierres de caja)",
             "Hardware ESC/POS: impresora térmica y cajón",
             "Multi-usuario con roles configurables",
         ],
