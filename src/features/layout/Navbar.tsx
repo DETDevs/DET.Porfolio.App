@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { scrollTo } from "@/shared/hooks/useLenis";
 
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -85,16 +86,13 @@ export const Navbar = () => {
   const scrollToSection = (href: string) => {
     setIsOpen(false);
     setActiveLink(href);
-    setTimeout(() => {
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 300);
+    scrollTo(href, { offset: href === "#servicios" ? 0 : -90, duration: 1.2 });
   };
 
   const scrollToTop = (e: React.MouseEvent) => {
     e.preventDefault();
     setActiveLink(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollTo(0, { offset: 0, duration: 1.2 });
   };
 
   const hasActiveIndicator =
@@ -132,7 +130,10 @@ export const Navbar = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8FD14F] opacity-50" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8FD14F] shadow-[0_0_6px_rgba(143,209,79,0.5)]" />
             </span>
-            <span className="text-sm font-bold tracking-tight text-white group-hover:text-[#8FD14F] transition-colors">
+            <span
+              id="nav-logo-text"
+              className="text-sm font-bold tracking-tight text-white group-hover:text-[#8FD14F] transition-colors"
+            >
               Nexol
             </span>
           </button>

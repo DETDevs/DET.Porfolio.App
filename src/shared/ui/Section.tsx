@@ -10,7 +10,7 @@ export const Section: React.FC<SectionProps> = ({
 }) => (
   <section
     id={id}
-    className={twMerge("py-20 md:py-28 scroll-mt-20", sectionClassName)}
+    className={twMerge("py-16 md:py-24 scroll-mt-28", sectionClassName)}
   >
     <div className={`max-w-7xl mx-auto px-4 md:px-8 ${className}`}>
       {children}

@@ -1,129 +1,39 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { X, Maximize2, Minimize2, Eye, Images } from "lucide-react";
+import { X, Maximize2, Minimize2, Images, ArrowUpRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Section } from "@/shared/ui/Section";
-import {
-  useScrollReveal,
-  fadeUpVariants,
-  staggerContainer,
-} from "@/shared/hooks/useScrollReveal";
-import { useTilt } from "@/shared/hooks/useTilt";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PROJECTS } from "@/config/constants";
 import type { Project } from "@/core/types";
 
-type ProjectFilter = "trackdeli" | "all" | "pos" | "web";
+gsap.registerPlugin(ScrollTrigger);
 
-interface ProjectCardProps {
-  projectConfig: Project;
-  itemText: {
-    title: string;
-    category: string;
-    description: string;
-  };
-  index: number;
-  onOpen: () => void;
-}
-
-function ProjectCard({ projectConfig, itemText, index, onOpen }: ProjectCardProps) {
-  const { t } = useTranslation();
-  const cardRef = useRef<HTMLDivElement>(null);
-  const { handleMove, handleLeave } = useTilt(cardRef);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 15 }}
-      transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.2) }}
-      ref={cardRef}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      onClick={onOpen}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onOpen();
-        }
-      }}
-      tabIndex={0}
-      role="button"
-      aria-label={`${itemText.title} — ${t("projects.view_screenshots", "Ver capturas")}`}
-      style={{ transformStyle: "preserve-3d" }}
-      className="group relative rounded-[2px] bg-[#121212] border border-zinc-800 overflow-hidden hover:border-zinc-700 transition-colors duration-200 cursor-pointer flex flex-col will-change-transform shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
-    >
-      {/* Subtle shine overlay */}
-      <div className="card-shine absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 z-20" />
-
-      {/* Screenshot Container */}
-      <div className="relative h-56 w-full overflow-hidden bg-black border-b border-zinc-800">
-        <img
-          src={projectConfig.image}
-          alt={`${itemText.title} preview`}
-          loading="lazy"
-          className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60" />
-
-        {/* Hover Action Pill (fine pointer only) */}
-        <div className="hidden [@media(pointer:fine)]:flex absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-          <div className="px-4 py-2 rounded-[2px] bg-[#8FD14F] text-black font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-2 shadow-sm">
-            <Eye className="w-3.5 h-3.5" />
-            <span>{t("projects.view_screenshots", "Ver capturas")}</span>
-          </div>
-        </div>
-
-        {/* On touch / non-fine pointer: permanent discrete badge (Requirement 7) */}
-        <div className="absolute bottom-3 right-3 z-10 [@media(pointer:fine)]:hidden px-2.5 py-1 bg-black/90 rounded-[2px] font-mono text-[10px] uppercase tracking-wider text-[#8FD14F] border border-zinc-800 flex items-center gap-1.5 shadow-sm">
-          <Eye className="w-3 h-3 text-[#8FD14F]" />
-          <span>{t("projects.view_screenshots", "Ver capturas")}</span>
-        </div>
-
-        {/* Top Meta Badges */}
-        <div className="absolute top-3 left-3 z-10 px-2.5 py-1 bg-black/90 rounded-[2px] font-mono text-[10px] uppercase tracking-wider text-[#8FD14F] border border-zinc-800">
-          {itemText.category}
-        </div>
-
-        {projectConfig.gallery && projectConfig.gallery.length > 1 && (
-          <div className="absolute top-3 right-3 z-10 px-2 py-1 bg-black/90 rounded-[2px] font-mono text-[10px] text-zinc-400 border border-zinc-800 flex items-center gap-1.5">
-            <Images className="w-3 h-3 text-zinc-400" />
-            <span>{projectConfig.gallery.length}</span>
-          </div>
-        )}
-      </div>
-
-      {/* Content Info */}
-      <div className="p-6 flex-1 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg font-bold text-white uppercase tracking-tight mb-2 group-hover:text-[#8FD14F] transition-colors">
-            {itemText.title}
-          </h3>
-          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-5 line-clamp-3">
-            {itemText.description}
-          </p>
-        </div>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-800/80">
-          {projectConfig.tags?.map((tag: string) => (
-            <span
-              key={tag}
-              className="px-2 py-0.5 font-mono text-[11px] bg-zinc-900 text-zinc-400 rounded-[2px] border border-zinc-800"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    </motion.div>
+/** Desktop with a real mouse (hover states) vs. touch / no-hover (accordion). */
+function useHoverPointer() {
+  const query = "(any-hover: hover) and (any-pointer: fine) and (min-width: 768px)";
+  const [ok, setOk] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(query).matches
   );
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const update = () => setOk(mq.matches);
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return ok;
 }
 
 export const Projects = () => {
   const { t } = useTranslation();
   const shouldReduceMotion = useReducedMotion();
-  const { ref, isInView } = useScrollReveal(0.05);
-  const [activeFilter, setActiveFilter] = useState<ProjectFilter>("trackdeli");
+  const hoverMode = useHoverPointer();
+
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<number | null>(null);
+
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -134,26 +44,28 @@ export const Projects = () => {
     description: string;
   }[];
 
-  // Filtering logic:
-  // "trackdeli": strictly projects with ecosystem === "trackdeli"
-  // "pos": Point of sale solutions
-  // "web": Web platforms and landing pages
-  // "all": Complete portfolio
-  const filteredProjects = PROJECTS.filter((p) => {
-    if (activeFilter === "trackdeli") return p.ecosystem === "trackdeli";
-    if (activeFilter === "pos") return p.category.includes("POS") || p.category.includes("Punto de Venta");
-    if (activeFilter === "web") return p.id === 1 || p.id === 5 || p.id === 6;
-    return true; // "all"
-  });
+  // Merge translation with base projects
+  const projectsData = useMemo(() => {
+    return PROJECTS.map((projectConfig, i) => {
+      const itemText = items[i] || {
+        title: projectConfig.title,
+        category: projectConfig.category,
+        description: projectConfig.description,
+      };
+      return {
+        ...projectConfig,
+        title: itemText.title,
+        category: itemText.category,
+        description: itemText.description,
+      };
+    });
+  }, [items]);
+
+  const total = projectsData.length;
+  const pad = (n: number) => String(n).padStart(2, "0");
 
   const handleOpenModal = (projectConfig: Project) => {
-    const originalIndex = PROJECTS.findIndex((p) => p.id === projectConfig.id);
-    setSelectedProject({
-      ...projectConfig,
-      title: items[originalIndex]?.title || projectConfig.title,
-      description: items[originalIndex]?.description || projectConfig.description,
-      category: items[originalIndex]?.category || projectConfig.category,
-    });
+    setSelectedProject(projectConfig);
     setMainImageIndex(0);
   };
 
@@ -162,87 +74,204 @@ export const Projects = () => {
     setIsFullscreen(false);
   };
 
-  const FILTER_TABS: { id: ProjectFilter; label: string }[] = [
-    { id: "trackdeli", label: "Ecosistema TrackDeli" },
-    { id: "all", label: "Todos los Proyectos" },
-    { id: "pos", label: "Puntos de Venta (POS)" },
-    { id: "web", label: "Sitios Web & Apps" },
-  ];
+  // Mask reveal of the rows as they enter the viewport
+  useEffect(() => {
+    if (shouldReduceMotion || !listRef.current) return;
+    const ctx = gsap.context(() => {
+      const rows = gsap.utils.toArray<HTMLElement>(".proj-row");
+      rows.forEach((row, i) => {
+        const inner = row.querySelector<HTMLElement>(".proj-title-inner");
+        const line = row.querySelector<HTMLElement>(".proj-line");
+        const meta = row.querySelectorAll<HTMLElement>(".proj-meta");
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: row, start: "top 90%", once: true },
+          delay: Math.min(i, 2) * 0.05,
+        });
+        if (line) tl.fromTo(line, { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.out" }, 0);
+        if (inner) tl.fromTo(inner, { yPercent: 110 }, { yPercent: 0, duration: 0.9, ease: "power3.out" }, 0.05);
+        if (meta.length) tl.fromTo(meta, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", stagger: 0.05 }, 0.25);
+      });
+    }, listRef);
+    return () => ctx.revert();
+  }, [shouldReduceMotion, projectsData.length]);
+
+  const counterIdx = hovered ?? expanded ?? 0;
 
   return (
-    <Section id="proyectos">
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
+    <>
+      <section
+        id="proyectos"
+        aria-label="Proyectos Nexol"
+        className="relative w-full overflow-hidden scroll-mt-28 py-20 sm:py-28 px-6 sm:px-12 lg:px-16 bg-gradient-to-b from-[#0b0b0b] via-[#0f0f0f] to-[#0b0b0b]"
       >
-        {/* Section Header */}
-        <motion.div
-          variants={fadeUpVariants}
-          transition={{ duration: 0.4 }}
-          className="text-center mb-10"
-        >
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-2 block">
-            {t("projects.eyebrow")}
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
-            {t("projects.title")}
-          </h2>
-          <p className="text-zinc-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-            {t("projects.subtitle")}
-          </p>
-        </motion.div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(143,209,79,0.05),transparent_55%)] pointer-events-none" />
 
-        {/* Filter Navigation Tabs */}
-        <motion.div
-          variants={fadeUpVariants}
-          className="flex justify-center mb-10"
-        >
-          <div className="inline-flex flex-wrap justify-center gap-1.5 p-1 bg-[#121212] border border-zinc-800 rounded-[2px]" role="tablist">
-            {FILTER_TABS.map((tab) => {
-              const isActive = activeFilter === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveFilter(tab.id)}
-                  role="tab"
-                  aria-selected={isActive}
-                  className={`px-4 py-2 font-mono text-xs uppercase tracking-wider font-bold transition-all rounded-[2px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
-                    isActive
-                      ? "bg-[#8FD14F] text-black shadow-sm"
-                      : "bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-800/40"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
+        <div className="relative z-10 w-full max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-14">
+            <div>
+              <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-[#8FD14F] block mb-3">
+                {t("projects.eyebrow", "Portafolio")}
+              </span>
+              <h2 className="text-[clamp(1.75rem,3.6vw,3.25rem)] font-black uppercase text-white tracking-tight leading-[1.05] max-w-3xl">
+                {t("projects.title", "Proyectos que hablan por nosotros")}
+              </h2>
+            </div>
+            <div className="font-mono text-xs uppercase tracking-widest text-zinc-500 whitespace-nowrap">
+              {t("projects.scene_label", "Proyecto")}{" "}
+              <span className="text-[#8FD14F] font-bold text-sm">{pad(counterIdx + 1)}</span>{" "}
+              / {pad(total)}
+            </div>
           </div>
-        </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((projectConfig, i) => {
-            const originalIndex = PROJECTS.findIndex((p) => p.id === projectConfig.id);
-            const itemText = items[originalIndex] || {
-              title: projectConfig.title,
-              category: projectConfig.category,
-              description: projectConfig.description,
-            };
+          {/* Editorial list */}
+          <div
+            ref={listRef}
+            className="relative"
+            onMouseLeave={hoverMode ? () => setHovered(null) : undefined}
+          >
+            <div className="flex flex-col">
+              {projectsData.map((project, idx) => {
+                const isOpen = expanded === idx;
+                const isHot = hoverMode && hovered === idx;
+                const dimmed = hoverMode && hovered !== null && hovered !== idx;
+                return (
+                  <div
+                    key={project.id}
+                    className={`proj-row relative transition-opacity duration-300 ${
+                      dimmed ? "opacity-30" : "opacity-100"
+                    }`}
+                    onMouseEnter={hoverMode ? () => setHovered(idx) : undefined}
+                  >
+                    <div className="proj-line absolute top-0 left-0 right-0 h-px bg-white/10 origin-left" />
 
-            return (
-              <ProjectCard
-                key={projectConfig.id}
-                projectConfig={projectConfig}
-                itemText={itemText}
-                index={i}
-                onOpen={() => handleOpenModal(projectConfig)}
-              />
-            );
-          })}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        hoverMode
+                          ? handleOpenModal(project)
+                          : setExpanded(isOpen ? null : idx)
+                      }
+                      aria-expanded={hoverMode ? undefined : isOpen}
+                      className="group w-full text-left bg-transparent border-none cursor-pointer py-5 sm:py-7 flex items-center gap-4 sm:gap-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
+                    >
+                      <span className="proj-meta font-mono text-xs sm:text-sm text-[#8FD14F] w-7 sm:w-10 shrink-0">
+                        {pad(idx + 1)}
+                      </span>
+
+                      <span className="flex-1 min-w-0">
+                        <span className="block overflow-hidden pb-[0.08em]">
+                          <span
+                            className={`proj-title-inner block text-[clamp(1.5rem,5.6vw,5.5rem)] font-black uppercase tracking-tight leading-[1.02] text-white transition-transform duration-500 ease-out ${
+                              hoverMode ? "group-hover:translate-x-4" : ""
+                            } break-words`}
+                          >
+                            {project.title}
+                          </span>
+                        </span>
+
+                        {/* Short description rises with a mask on hover (mouse only) */}
+                        {hoverMode && (
+                          <span
+                            className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+                              isHot ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                            }`}
+                          >
+                            <span className="block overflow-hidden">
+                              <span
+                                className={`block pt-2 pl-4 text-sm sm:text-base text-zinc-400 font-sans truncate transition-transform duration-500 ease-out ${
+                                  isHot ? "translate-y-0" : "translate-y-full"
+                                }`}
+                              >
+                                {project.description}
+                              </span>
+                            </span>
+                          </span>
+                        )}
+                      </span>
+
+                      <span className="proj-meta hidden md:flex flex-wrap justify-end gap-1.5 max-w-[22%] shrink-0">
+                        {project.tags?.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-0.5 font-mono text-[10px] border border-white/15 text-zinc-400 uppercase tracking-wider"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </span>
+
+                      {hoverMode ? (
+                        <span
+                          className={`proj-meta hidden lg:inline-flex items-center gap-1.5 text-xs font-mono shrink-0 transition-colors duration-300 ${
+                            isHot ? "text-[#8FD14F]" : "text-zinc-500"
+                          }`}
+                        >
+                          {t("projects.viewCase", "Ver caso")}
+                          <span
+                            className={`inline-flex items-center justify-center w-9 h-9 rounded-full border transition-all duration-500 ease-out ${
+                              isHot
+                                ? "border-[#8FD14F] bg-[#8FD14F] text-black rotate-0 scale-110"
+                                : "border-white/15 -rotate-45"
+                            }`}
+                          >
+                            <ArrowUpRight size={16} />
+                          </span>
+                        </span>
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          className={`proj-meta font-mono text-xl text-zinc-500 transition-transform duration-300 ${
+                            isOpen ? "rotate-45 text-[#8FD14F]" : ""
+                          }`}
+                        >
+                          +
+                        </span>
+                      )}
+                    </button>
+
+                    {/* Touch: expandable short description + details button */}
+                    {!hoverMode && (
+                      <div
+                        className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+                          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                        }`}
+                      >
+                        <div className="overflow-hidden">
+                          <div className="pb-6 pl-11 flex flex-col gap-4">
+                            <p className="text-zinc-400 text-sm leading-relaxed font-sans">
+                              {project.description}
+                            </p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {project.tags?.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="px-2 py-0.5 font-mono text-[10px] bg-[#8FD14F]/10 border border-[#8FD14F]/30 text-[#8FD14F] uppercase tracking-wider"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                            <button
+                              onClick={() => handleOpenModal(project)}
+                              className="self-start inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold tracking-tight cursor-pointer border-none active:scale-95"
+                            >
+                              <span>{t("projects.viewCase", "Ver caso")}</span>
+                              <ArrowUpRight size={13} className="stroke-[2.5]" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+              <div className="h-px bg-white/10" />
+            </div>
+          </div>
         </div>
-      </motion.div>
+
+      </section>
 
       {/* Project Modal */}
       <AnimatePresence>
@@ -251,7 +280,7 @@ export const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
           >
             <div
               className="absolute inset-0 bg-black/85 backdrop-blur-sm"
@@ -373,7 +402,7 @@ export const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
             onClick={() => setIsFullscreen(false)}
           >
             <motion.img
@@ -396,6 +425,6 @@ export const Projects = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </Section>
+    </>
   );
 };

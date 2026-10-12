@@ -11,9 +11,6 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Section } from "@/shared/ui/Section";
-import { Button } from "@/shared/ui/Button";
-import { CONTACT_INFO } from "@/config/constants";
 import {
   useScrollReveal,
   fadeUpVariants,
@@ -21,6 +18,11 @@ import {
   slideLeftVariants,
   slideRightVariants,
 } from "@/shared/hooks/useScrollReveal";
+import { MaskLine } from "@/shared/ui/MaskLine";
+import { Section } from "@/shared/ui/Section";
+import { Button } from "@/shared/ui/Button";
+import { CONTACT_INFO } from "@/config/constants";
+
 
 export const Contact = () => {
   const { t } = useTranslation();
@@ -112,18 +114,52 @@ export const Contact = () => {
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         variants={staggerContainer}
+        className="w-full flex flex-col justify-center min-h-[80vh]"
       >
-        <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="text-[#8FD14F] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
+        <div className="relative w-full flex flex-col items-center justify-center mb-12">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(143,209,79,0.06),transparent_60%)] pointer-events-none" />
+          
+          <span className="text-[#8FD14F] font-mono text-xs font-bold uppercase tracking-widest mb-4 block z-10">
             {t("contact.eyebrow")}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            {t("contact.title")}
-          </h2>
-          <p className="text-zinc-400 max-w-lg mx-auto">
-            {t("contact.subtitle")}
+          
+          <div className="max-w-4xl mx-auto text-center z-10 px-4">
+            <h2
+              className="font-black uppercase tracking-tight text-white leading-[1.08] text-center"
+              style={{ fontSize: "clamp(2rem, 5.5vw, 4.25rem)" }}
+            >
+              <MaskLine triggerOnScroll>
+                {t("contact.title", "¿Listo para empezar?")}
+              </MaskLine>
+            </h2>
+          </div>
+          
+          <p className="mt-4 mb-8 text-zinc-400 text-sm sm:text-base md:text-lg font-medium max-w-xl text-center z-10 px-4">
+            {t("contact.subtitle", "¿Listo para escalar tu negocio? Estamos a un mensaje de distancia.")}
           </p>
-        </motion.div>
+
+          <a
+            href={`https://wa.me/50587140989?text=${encodeURIComponent(
+              t("footer.cta_whatsapp_msg", "Hola NEXOL, me gustaría recibir asesoría para mi negocio.")
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              import("react-ga4").then((ga) => {
+                ga.default.event({
+                  category: "Leads",
+                  action: "Clic WhatsApp Contact Main",
+                  label: "Contact Section Giant CTA",
+                });
+              });
+            }}
+            className="z-10 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#8FD14F] hover:bg-[#5FA22B] text-black text-sm font-bold tracking-wider font-mono uppercase transition-all duration-200 cursor-pointer shadow-[0_0_20px_rgba(143,209,79,0.3)] hover:shadow-[0_0_30px_rgba(143,209,79,0.5)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
+          >
+            <MessageCircle className="w-5 h-5" />
+            <span>{t("contact.whatsapp_cta", "Escríbenos por WhatsApp")}</span>
+            <ArrowUpRight className="w-5 h-5" />
+          </a>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           <motion.div

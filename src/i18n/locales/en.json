@@ -70,6 +70,7 @@
     ]
   },
   "services": {
+    "scene_label": "Service",
     "eyebrow": "What We Do",
     "title": "Built around your business",
     "subtitle": "We build end-to-end systems that streamline your operations and put you in full control of your company.",
@@ -113,6 +114,7 @@
     ]
   },
   "projects": {
+    "scene_label": "Project",
     "eyebrow": "Portfolio",
     "title": "Work that speaks for itself",
     "subtitle": "Every project we ship is a solution crafted to tackle real challenges for real businesses.",

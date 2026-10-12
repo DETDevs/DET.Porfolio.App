@@ -70,6 +70,7 @@
     ]
   },
   "services": {
+    "scene_label": "Servicio",
     "eyebrow": "Soluciones",
     "title": "Lo que hacemos por tu negocio",
     "subtitle": "Desarrollamos sistemas completos que automatizan tu operación y te dan control total de tu empresa.",
@@ -113,6 +114,7 @@
     ]
   },
   "projects": {
+    "scene_label": "Proyecto",
     "eyebrow": "Portafolio",
     "title": "Proyectos que hablan por nosotros",
     "subtitle": "Cada proyecto es una solución diseñada para resolver problemas reales de nuestros clientes.",

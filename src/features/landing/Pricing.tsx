@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { MaskLine } from "@/shared/ui/MaskLine";
 import {
   Check,
   Globe,
@@ -61,6 +62,12 @@ export const Pricing = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const { ref, isInView } = useScrollReveal(0.1);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   useEffect(() => {
     const handleTabSelect = (e: Event) => {
@@ -147,13 +154,14 @@ export const Pricing = () => {
   // };
 
   return (
-    <Section id="planes">
-      <span id="planes-pos" className="sr-only" />
-      <span id="planes-cartera" className="sr-only" />
-      <span id="planes-citas" className="sr-only" />
-      <span id="planes-delivery" className="sr-only" />
-      <span id="planes-logistics" className="sr-only" />
-      <span id="planes-web" className="sr-only" />
+    <Section id="planes" sectionClassName="bg-[#050505] overflow-hidden relative" className="relative z-10">
+      <div ref={containerRef}>
+      <span id="planes-pos" className="sr-only scroll-mt-32 block" />
+      <span id="planes-cartera" className="sr-only scroll-mt-32 block" />
+      <span id="planes-citas" className="sr-only scroll-mt-32 block" />
+      <span id="planes-delivery" className="sr-only scroll-mt-32 block" />
+      <span id="planes-logistics" className="sr-only scroll-mt-32 block" />
+      <span id="planes-web" className="sr-only scroll-mt-32 block" />
       <motion.div
         ref={ref}
         initial="hidden"
@@ -171,6 +179,26 @@ export const Pricing = () => {
           <p className="text-zinc-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
             {t("pricing.subtitle")}
           </p>
+        </motion.div>
+
+        {/* Giant Background Price */}
+        <motion.div style={{ y }} className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.04] z-0 overflow-hidden select-none">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              {activeCategory === "web" && <MaskLine triggerOnScroll className="text-[35vw] font-black text-white leading-none whitespace-nowrap">{`$${WEB_STARTER_PRICE}`}</MaskLine>}
+              {activeCategory === "pos" && <MaskLine triggerOnScroll className="text-[45vw] font-black text-white leading-none whitespace-nowrap">{`$${POS_MONTHLY_PRICE}`}</MaskLine>}
+              {activeCategory === "citas" && <MaskLine triggerOnScroll className="text-[40vw] font-black text-white leading-none whitespace-nowrap">{`$${CITAS_MONTHLY_PRICE}`}</MaskLine>}
+              {activeCategory === "cartera" && <MaskLine triggerOnScroll className="text-[40vw] font-black text-white leading-none whitespace-nowrap">{`$${CARTERA_MONTHLY_PRICE}`}</MaskLine>}
+              {activeCategory === "logistics" && <MaskLine triggerOnScroll className="text-[50vw] font-black text-white leading-none whitespace-nowrap">%</MaskLine>}
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
         {/* Category Tabs: single row horizontal tactile scroll on mobile, centered on larger screens */}
@@ -227,7 +255,7 @@ export const Pricing = () => {
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
               >
                 {/* Main Web Plan Card (7 cols) */}
-                <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                <div className="lg:col-span-7 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between gap-4 mb-4">
                       <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
@@ -246,7 +274,7 @@ export const Pricing = () => {
                     </p>
 
                     {/* Flat Price Block */}
-                    <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
+                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
                       <div className="flex items-baseline gap-2">
                         <span className="font-mono text-xs uppercase tracking-wider text-zinc-400 font-medium">
                           Desde
@@ -305,7 +333,7 @@ export const Pricing = () => {
                 </div>
 
                 {/* Side Card: Maintenance (5 cols) */}
-                <div className="lg:col-span-5 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                <div className="lg:col-span-5 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
                   <div>
                     <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
                       Garantía & Mantenimiento
@@ -336,7 +364,7 @@ export const Pricing = () => {
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-[2px] bg-black border border-zinc-800"
+                          className="p-4 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md"
                         >
                           <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
                             <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
@@ -367,7 +395,7 @@ export const Pricing = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="bg-[#121212] border border-zinc-800 rounded-[2px] p-6 sm:p-8 shadow-sm"
+                className="relative z-10 p-0 sm:p-4"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   {/* Left Column: Plan Information (6 cols) */}
@@ -389,7 +417,7 @@ export const Pricing = () => {
                       </p>
 
                       {/* Flat Price Box (No gradients) */}
-                      <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
+                      <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
                         <div className="flex items-baseline gap-2">
                           <span className="text-5xl sm:text-6xl font-black text-white tracking-tight">
                             ${POS_MONTHLY_PRICE}
@@ -454,7 +482,7 @@ export const Pricing = () => {
                   </div>
 
                   {/* Right Column: Social Proof (6 cols) */}
-                  <div className="lg:col-span-6 bg-black border border-zinc-800 rounded-[2px] p-6 flex flex-col justify-between">
+                  <div className="lg:col-span-6 relative z-10 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2px] p-6 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between mb-4 border-b border-zinc-800 pb-3">
                         <div>
@@ -549,7 +577,7 @@ export const Pricing = () => {
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
               >
                 {/* Main Plan Card (7 cols) */}
-                <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                <div className="lg:col-span-7 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between gap-4 mb-4">
                       <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
@@ -568,7 +596,7 @@ export const Pricing = () => {
                     </p>
 
                     {/* Flat Price Block */}
-                    <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
+                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
                       <div className="flex items-baseline gap-2">
                         <span className="text-5xl font-black text-white tracking-tight">
                           ${CITAS_MONTHLY_PRICE}
@@ -627,7 +655,7 @@ export const Pricing = () => {
                 </div>
 
                 {/* Side Card: Qué incluye tu membresía (5 cols) */}
-                <div className="lg:col-span-5 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                <div className="lg:col-span-5 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
                   <div>
                     <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
                       Servicio Continuo
@@ -657,7 +685,7 @@ export const Pricing = () => {
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-[2px] bg-black border border-zinc-800"
+                          className="p-4 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md"
                         >
                           <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
                             <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
@@ -691,7 +719,7 @@ export const Pricing = () => {
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
               >
                 {/* Main Plan Card (7 cols) */}
-                <div className="lg:col-span-7 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                <div className="lg:col-span-7 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between gap-4 mb-4">
                       <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
@@ -710,7 +738,7 @@ export const Pricing = () => {
                     </p>
 
                     {/* Flat Price Block */}
-                    <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
+                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
                       <div className="flex items-baseline gap-2">
                         <span className="text-5xl font-black text-white tracking-tight">
                           ${CARTERA_MONTHLY_PRICE}
@@ -769,7 +797,7 @@ export const Pricing = () => {
                 </div>
 
                 {/* Side Card: Qué incluye tu membresía (5 cols) */}
-                <div className="lg:col-span-5 bg-[#121212] border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between shadow-sm">
+                <div className="lg:col-span-5 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
                   <div>
                     <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
                       Servicio Continuo
@@ -799,7 +827,7 @@ export const Pricing = () => {
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-[2px] bg-black border border-zinc-800"
+                          className="p-4 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md"
                         >
                           <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
                             <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
@@ -830,7 +858,7 @@ export const Pricing = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="bg-[#121212] border border-zinc-800 rounded-[2px] p-6 sm:p-8 shadow-sm"
+                className="relative z-10 p-0 sm:p-4"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   {/* Left Column: Value Proposition (7 cols) */}
@@ -844,7 +872,7 @@ export const Pricing = () => {
                     </h3>
 
                     {/* Flat Highlight Box (Zero fixed cost) */}
-                    <div className="p-6 rounded-[2px] bg-black border border-zinc-800 mb-6">
+                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
                       <p className="text-base sm:text-lg font-bold text-white leading-snug uppercase tracking-tight">
                         "Modelo de comisión por entrega — sin costo fijo
                         mensual, solo pagás cuando tu negocio despacha."
@@ -876,7 +904,7 @@ export const Pricing = () => {
                   </div>
 
                   {/* Right Column: CTA (5 cols) */}
-                  <div className="lg:col-span-5 bg-black border border-zinc-800 rounded-[2px] p-8 flex flex-col justify-between text-center">
+                  <div className="lg:col-span-5 relative z-10 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2px] p-8 flex flex-col justify-between text-center">
                     <div>
                       <div className="w-12 h-12 rounded-[2px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#8FD14F] mx-auto mb-4">
                         <Calendar className="w-6 h-6" />
@@ -942,6 +970,7 @@ export const Pricing = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </Section>
   );
 };

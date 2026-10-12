@@ -1,12 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
-import { MessageCircle, ArrowUpRight, Globe, Phone } from "lucide-react";
+import { Globe, Phone } from "lucide-react";
 
 export const Footer = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const shouldReduceMotion = useReducedMotion();
 
   const handleAnchorClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -32,67 +30,11 @@ export const Footer = () => {
     }
   };
 
-  const ctaWhatsAppUrl = `https://wa.me/50587140989?text=${encodeURIComponent(
-    t("footer.cta_whatsapp_msg"),
-  )}`;
-
   const currentYear = new Date().getFullYear();
-
-  const fadeUp = {
-    initial: shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-40px" },
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  };
 
   return (
     <footer className="border-t border-zinc-800 bg-[#050505] text-zinc-300 relative overflow-hidden">
-      {/* 1. Franja de Cierre (CTA) */}
-      <motion.div
-        {...fadeUp}
-        className="max-w-7xl mx-auto px-6 pt-16 pb-16 sm:pt-20 sm:pb-20 border-b border-zinc-800/80"
-      >
-        <div className="relative max-w-3xl mx-auto text-center">
-          {/* Subtle background glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-36 bg-[#8FD14F]/5 blur-3xl pointer-events-none rounded-full" />
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase text-white tracking-tight leading-tight">
-            {t("footer.cta_title")}
-          </h2>
-
-          <p className="mt-4 text-sm sm:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            {t("footer.cta_subtitle")}
-          </p>
-
-          <div className="mt-8 flex justify-center">
-            <a
-              href={ctaWhatsAppUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
-                import("react-ga4").then((ga) => {
-                  ga.default.event({
-                    category: "Leads",
-                    action: "Clic WhatsApp CTA Footer",
-                    label: "Footer Closing Strip",
-                  });
-                });
-              }}
-              className="
-                inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full
-                bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-bold text-sm
-                shadow-[0_0_16px_rgba(143,209,79,0.25)] hover:shadow-[0_0_24px_rgba(143,209,79,0.4)]
-                transition-all duration-200 active:scale-95 cursor-pointer
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-black
-              "
-            >
-              <MessageCircle className="w-4 h-4 fill-current stroke-none" />
-              <span>{t("footer.cta_button")}</span>
-              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-            </a>
-          </div>
-        </div>
-      </motion.div>
 
       {/* 2. Footer Principal en 4 Columnas (con Empresa y Legal 2 col en móvil) */}
       <div className="max-w-7xl mx-auto px-6 py-12 sm:py-16">

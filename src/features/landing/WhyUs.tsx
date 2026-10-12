@@ -1,7 +1,6 @@
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Zap, Shield, HeadsetIcon, Rocket } from "lucide-react";
 import { Section } from "@/shared/ui/Section";
 import {
   useScrollReveal,
@@ -9,7 +8,6 @@ import {
   staggerContainer,
 } from "@/shared/hooks/useScrollReveal";
 
-const ICONS = [Zap, Shield, HeadsetIcon, Rocket];
 const STATS = ["3-5", "100%", "24/7", "∞"];
 
 interface AnimatedStatProps {
@@ -121,35 +119,32 @@ export const WhyUs = () => {
 
         <div
           ref={statRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-b border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10 my-8"
         >
           {items.map((diff, i) => {
-            const Icon = ICONS[i];
             return (
               <motion.div
                 key={i}
                 variants={fadeUpVariants}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="p-8 rounded-[2px] bg-[#121212] border border-zinc-800 hover:border-zinc-700 transition-colors group text-left shadow-sm"
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="py-10 px-6 sm:px-8 flex flex-col justify-start text-left group"
               >
-                {/* Metric with animated counter (solid white, no gradients) */}
-                <div className="mb-6">
-                  <div className="text-4xl lg:text-5xl font-black text-white tracking-tight">
+                {/* Metric with animated counter */}
+                <div className="mb-4">
+                  <div className="text-5xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none mb-2">
                     <AnimatedStat value={STATS[i]} isInView={statsInView} />
                   </div>
-                  <div className="font-mono text-xs uppercase tracking-wider text-zinc-400 mt-1">
+                  <div className="font-mono text-xs uppercase tracking-widest text-[#8FD14F] font-bold">
                     {diff.statLabel}
                   </div>
                 </div>
 
-                <div className="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-[2px] flex items-center justify-center mb-4 text-[#8FD14F]">
-                  <Icon className="w-5 h-5" />
-                </div>
+                <div className="w-8 h-[2px] bg-[#8FD14F]/40 mb-4 transition-all duration-300 group-hover:w-16 group-hover:bg-[#8FD14F]" />
 
-                <h3 className="font-bold uppercase text-white mb-2 text-base tracking-tight">
+                <h3 className="font-bold uppercase text-white mb-2 text-sm sm:text-base tracking-tight">
                   {diff.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
                   {diff.desc}
                 </p>
               </motion.div>

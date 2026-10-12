@@ -7,18 +7,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Navbar } from "@/features/layout/Navbar";
 import { Footer } from "@/features/layout/Footer";
 import { Hero } from "@/features/landing/Hero";
+import { Services } from "@/features/landing/Services";
 import { WhatsAppButton } from "@/shared/ui/WhatsAppButton";
 import { ScrollProgress } from "@/shared/ui/ScrollProgress";
 import { SectionNav } from "@/shared/ui/SectionNav";
+import { useLenisSmoothScroll } from "@/shared/hooks/useLenis";
 
 const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 if (GA_ID) {
   ReactGA.initialize(GA_ID);
 }
 
-const Services = lazy(() =>
-  import("@/features/landing/Services").then((m) => ({ default: m.Services })),
-);
 const Projects = lazy(() =>
   import("@/features/landing/Projects").then((m) => ({ default: m.Projects })),
 );
@@ -61,6 +60,8 @@ const RouteTracker = () => {
 };
 
 const LandingPage = () => {
+  useLenisSmoothScroll();
+
   useEffect(() => {
     // Refresh ScrollTrigger once dynamic suspense sections mount to ensure pin calculations are exact
     const timer = setTimeout(() => {
@@ -71,7 +72,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="bg-[#050505] min-h-screen text-zinc-200 selection:bg-[#8FD14F] selection:text-black font-sans overflow-x-hidden">
+    <div className="bg-[#050505] min-h-screen text-zinc-200 selection:bg-[#8FD14F] selection:text-black font-sans">
       <ScrollProgress />
       <SectionNav />
       <Navbar />
