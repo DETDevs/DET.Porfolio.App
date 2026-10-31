@@ -70,11 +70,11 @@ export const Footer = () => {
               </a>
 
               <a
-                href="https://detdevs.com"
+                href="https://www.nexolsoft.com"
                 className="inline-flex items-center gap-2 hover:text-[#8FD14F] transition-colors focus-visible:text-[#8FD14F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] rounded-[2px] w-fit"
               >
                 <Globe className="w-3.5 h-3.5 text-[#8FD14F]" />
-                <span>detdevs.com</span>
+                <span>www.nexolsoft.com</span>
               </a>
             </div>
           </div>
@@ -88,8 +88,10 @@ export const Footer = () => {
               <ul className="flex flex-col space-y-3 text-sm">
                 <li>
                   <a
-                    href="/#planes-pos"
-                    onClick={(e) => handleAnchorClick(e, "#planes-pos", "pos")}
+                    href="https://pos.nexolsoft.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+
                     className="text-zinc-300 hover:text-[#8FD14F] focus-visible:text-[#8FD14F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] rounded-[2px] transition-colors inline-block"
                   >
                     {t("footer.product_pos")}

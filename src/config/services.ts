@@ -19,7 +19,7 @@ export const BASE_SERVICES: ServiceSceneData[] = [
     price: `$${POS_PRICE}/mes por sucursal`,
     desc: "Cobro rápido con pagos mixtos y dólares, control de caja por turno y cajero, inventario y reportes de ventas.",
     image: "/assets/project/pos/caja_POS.png",
-    link: "#planes",
+    link: "https://pos.nexolsoft.com",
     category: "pos",
   },
   {

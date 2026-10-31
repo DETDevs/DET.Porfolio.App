@@ -493,9 +493,9 @@ export const Pricing = () => {
                             Probado en producción real
                           </h4>
                         </div>
-                        <span className="px-2 py-0.5 rounded-[2px] bg-zinc-900 border border-zinc-800 text-[10px] text-[#8FD14F] font-mono">
-                          TrackDeli POS
-                        </span>
+                        <a href="https://pos.nexolsoft.com" target="_blank" rel="noopener noreferrer" className="px-2 py-0.5 rounded-[2px] bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-[#8FD14F] font-mono transition-colors">
+                          TrackDeli POS ↗
+                        </a>
                       </div>
 
                       {/* Main Featured Screenshot */}

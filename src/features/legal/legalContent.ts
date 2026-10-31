@@ -2,7 +2,7 @@ export const terminosRaw = `# Términos y Condiciones
 
 **Última actualización:** 6 de octubre de 2026
 
-Estos Términos y Condiciones regulan el uso del sitio web **detdevs.com** y de los servicios de **NEXOL**, nombre comercial de Edwin Torrez, con domicilio en Managua, Nicaragua (en adelante, "NEXOL", "nosotros"). Al navegar este sitio o contratar nuestros servicios, aceptas estos términos. Si no estás de acuerdo, por favor no uses el sitio ni los servicios.
+Estos Términos y Condiciones regulan el uso del sitio web **www.nexolsoft.com** y de los servicios de **NEXOL**, nombre comercial de Edwin Torrez, con domicilio en Managua, Nicaragua (en adelante, "NEXOL", "nosotros"). Al navegar este sitio o contratar nuestros servicios, aceptas estos términos. Si no estás de acuerdo, por favor no uses el sitio ni los servicios.
 
 ## 1. Qué ofrecemos
 
@@ -72,14 +72,14 @@ Estos términos se rigen por las leyes de la República de Nicaragua. Cualquier 
 ## 14. Contacto
 
 **NEXOL** · Managua, Nicaragua
-WhatsApp: +505 8714 0989 · Sitio web: detdevs.com
+WhatsApp: +505 8714 0989 · Sitio web: www.nexolsoft.com
 `;
 
 export const privacidadRaw = `# Política de Privacidad
 
 **Última actualización:** 6 de octubre de 2026
 
-En **NEXOL** (nombre comercial de Edwin Torrez, Managua, Nicaragua) respetamos tu privacidad. Esta política explica qué datos personales tratamos cuando visitas **detdevs.com**, nos contactas o usas la plataforma **TrackDeli**, para qué los usamos y qué derechos tienes.
+En **NEXOL** (nombre comercial de Edwin Torrez, Managua, Nicaragua) respetamos tu privacidad. Esta política explica qué datos personales tratamos cuando visitas **www.nexolsoft.com**, nos contactas o usas la plataforma **TrackDeli**, para qué los usamos y qué derechos tienes.
 
 ## 1. Quién es el responsable
 
@@ -134,7 +134,7 @@ Nuestros servicios están dirigidos a negocios y personas adultas. No recopilamo
 ## 11. Contacto
 
 **NEXOL** · Managua, Nicaragua
-WhatsApp: +505 8714 0989 · Sitio web: detdevs.com
+WhatsApp: +505 8714 0989 · Sitio web: www.nexolsoft.com
 
 ## 12. Cambios a esta política
 
