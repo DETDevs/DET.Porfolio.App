@@ -325,7 +325,7 @@ export const Services = () => {
       className={
         pinned
           ? "relative w-full h-screen overflow-hidden bg-black select-none scroll-mt-28"
-          : "relative w-full pt-20 pb-6 px-6 sm:px-10 bg-black scroll-mt-28"
+          : "relative w-full pt-20 pb-6 px-6 sm:px-10 bg-black scroll-mt-28 overflow-hidden"
       }
     >
       {pinned ? (

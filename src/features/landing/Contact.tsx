@@ -15,8 +15,8 @@ import {
   useScrollReveal,
   fadeUpVariants,
   staggerContainer,
-  slideLeftVariants,
-  slideRightVariants,
+
+
 } from "@/shared/hooks/useScrollReveal";
 import { MaskLine } from "@/shared/ui/MaskLine";
 import { Section } from "@/shared/ui/Section";
@@ -108,7 +108,7 @@ export const Contact = () => {
   };
 
   return (
-    <Section id="contacto">
+    <Section id="contacto" sectionClassName="overflow-hidden">
       <motion.div
         ref={ref}
         initial="hidden"
@@ -161,9 +161,9 @@ export const Contact = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 overflow-hidden">
           <motion.div
-            variants={slideLeftVariants}
+            variants={fadeUpVariants}
             transition={{ duration: 0.6 }}
             className="lg:col-span-2 space-y-4"
           >
@@ -220,7 +220,7 @@ export const Contact = () => {
           </motion.div>
 
           <motion.div
-            variants={slideRightVariants}
+            variants={fadeUpVariants}
             transition={{ duration: 0.6 }}
             className="lg:col-span-3 space-y-5"
           >

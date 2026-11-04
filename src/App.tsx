@@ -72,11 +72,11 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="bg-[#050505] min-h-screen text-zinc-200 selection:bg-[#8FD14F] selection:text-black font-sans">
+    <div className="bg-[#050505] min-h-screen text-zinc-200 selection:bg-[#8FD14F] selection:text-black font-sans overflow-x-hidden w-full max-w-full">
       <ScrollProgress />
       <SectionNav />
       <Navbar />
-      <main>
+      <main className="overflow-x-hidden w-full max-w-full">
         <Hero />
         <Suspense>
           <Services />

@@ -23,12 +23,12 @@ export const scaleInVariants = {
 };
 
 export const slideLeftVariants = {
-    hidden: { opacity: 0, x: -60 },
+    hidden: { opacity: 0, x: -25 },
     visible: { opacity: 1, x: 0 },
 };
 
 export const slideRightVariants = {
-    hidden: { opacity: 0, x: 60 },
+    hidden: { opacity: 0, x: 25 },
     visible: { opacity: 1, x: 0 },
 };
 

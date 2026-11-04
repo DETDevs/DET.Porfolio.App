@@ -98,7 +98,7 @@ export const WhyUs = () => {
   }[];
 
   return (
-    <Section id="nosotros">
+    <Section id="nosotros" sectionClassName="overflow-hidden">
       <motion.div
         ref={ref}
         initial="hidden"

@@ -107,7 +107,7 @@ export const TicketAnim = ({ mode, active }: AnimProps) => {
     <div
       ref={rootRef}
       aria-hidden="true"
-      className="service-anim-root service-anim-ticket relative w-[min(88vw,540px)] mx-auto font-mono select-none"
+      className="service-anim-root service-anim-ticket relative w-full max-w-[540px] overflow-hidden mx-auto font-mono select-none"
     >
       {/* printer slot */}
       <div className="relative z-10 h-3 rounded-full bg-white/10 border border-white/15" />
@@ -217,20 +217,20 @@ export const LedgerAnim = ({ mode, active }: AnimProps) => {
     <div
       ref={rootRef}
       aria-hidden="true"
-      className="service-anim-root service-anim-ledger relative w-[min(88vw,660px)] mx-auto font-mono select-none"
+      className="service-anim-root service-anim-ledger relative w-full max-w-[660px] overflow-hidden mx-auto font-mono select-none"
     >
       <div className="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-3">
         {es ? "Saldo pendiente" : "Outstanding balance"}
       </div>
-      <div className="flex items-baseline gap-3 text-white">
+      <div className="flex items-baseline flex-wrap gap-2 sm:gap-3 text-white">
         <span className="text-4xl" style={{ color: LIME }}>
           $
         </span>
-        <span className="l-balance inline-block min-w-[3ch] text-[clamp(5rem,12vw,9rem)] font-bold leading-none tabular-nums">
+        <span className="l-balance inline-block min-w-[3ch] text-[clamp(3.2rem,10vw,9rem)] font-bold leading-none tabular-nums">
           {LEDGER_START}
         </span>
         <span
-          className="l-badge ml-auto self-center px-4 py-1.5 border-[3px] text-lg font-black tracking-[0.2em] uppercase opacity-0"
+          className="l-badge ml-auto self-center px-3 sm:px-4 py-1 sm:py-1.5 border-[2px] sm:border-[3px] text-sm sm:text-lg font-black tracking-[0.15em] sm:tracking-[0.2em] uppercase opacity-0"
           style={{ color: LIME, borderColor: LIME, transform: "rotate(-6deg)" }}
         >
           {es ? "Saldado" : "Settled"}
@@ -334,7 +334,7 @@ export const CalendarAnim = ({ mode, active }: AnimProps) => {
     <div
       ref={rootRef}
       aria-hidden="true"
-      className="service-anim-root service-anim-calendar w-[min(90vw,740px)] mx-auto font-mono select-none"
+      className="service-anim-root service-anim-calendar w-full max-w-[740px] overflow-hidden mx-auto font-mono select-none"
     >
       <div className="grid grid-cols-5 gap-3 mb-3">
         {days.map((d, i) => (
@@ -448,7 +448,7 @@ export const RouteAnim = ({ mode, active }: AnimProps) => {
     <div
       ref={rootRef}
       aria-hidden="true"
-      className="service-anim-root service-anim-route relative w-[min(92vw,880px)] mx-auto select-none"
+      className="service-anim-root service-anim-route relative w-full max-w-[880px] overflow-hidden mx-auto select-none"
     >
       <div className="absolute top-0 left-2 z-10 font-mono">
         <div className="r-min-wrap flex items-baseline gap-2 text-white">
@@ -458,7 +458,7 @@ export const RouteAnim = ({ mode, active }: AnimProps) => {
           <span className="text-sm tracking-[0.3em] uppercase text-zinc-500">min</span>
         </div>
       </div>
-      <svg viewBox="0 0 400 300" className="w-full h-auto overflow-visible">
+      <svg viewBox="0 0 400 300" className="w-full h-auto overflow-hidden">
         <g stroke="rgba(255,255,255,0.06)" strokeWidth="1">
           {[50, 100, 150, 200, 250].map((y) => (
             <line key={`h${y}`} x1="0" y1={y} x2="400" y2={y} />
@@ -572,7 +572,7 @@ export const BrowserAnim = ({ mode, active }: AnimProps) => {
     <div
       ref={rootRef}
       aria-hidden="true"
-      className="service-anim-root service-anim-web w-[min(92vw,820px)] mx-auto select-none"
+      className="service-anim-root service-anim-web w-full max-w-[820px] overflow-hidden mx-auto select-none"
     >
       <div
         className="b-frame relative overflow-hidden border border-white/15 bg-black"
