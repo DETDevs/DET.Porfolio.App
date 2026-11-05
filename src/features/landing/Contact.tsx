@@ -1,54 +1,109 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  CheckCircle2,
-  AlertCircle,
-  MessageCircle,
-  ArrowUpRight,
-} from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { CheckCircle2, AlertCircle, MessageCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import {
-  useScrollReveal,
-  fadeUpVariants,
-  staggerContainer,
-
-
-} from "@/shared/hooks/useScrollReveal";
-import { MaskLine } from "@/shared/ui/MaskLine";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Section } from "@/shared/ui/Section";
-import { Button } from "@/shared/ui/Button";
+import { SectionTitle } from "@/shared/ui/MaskedTitle";
 import { CONTACT_INFO } from "@/config/constants";
 
+gsap.registerPlugin(ScrollTrigger);
 
 export const Contact = () => {
-  const { t } = useTranslation();
-  const { ref, isInView } = useScrollReveal(0.1);
+  const { t, i18n } = useTranslation();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const shineRef = useRef<HTMLSpanElement>(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
 
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      {
+        motion: "(prefers-reduced-motion: no-preference)",
+        reduce: "(prefers-reduced-motion: reduce)",
+      },
+      (context) => {
+        const { reduce } = context.conditions as {
+          motion: boolean;
+          reduce: boolean;
+        };
+
+        const blocks = root.querySelectorAll<HTMLElement>(".contact-reveal");
+        const shine = shineRef.current;
+
+        if (reduce) {
+          gsap.set(blocks, { clearProps: "all" });
+          if (shine) gsap.set(shine, { xPercent: -130, opacity: 0 });
+          return;
+        }
+
+        gsap.set(blocks, { y: 24, opacity: 0 });
+        if (shine) gsap.set(shine, { xPercent: -130, opacity: 0.9 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: root,
+            start: "top 82%",
+            once: true,
+          },
+        });
+
+        tl.to(
+          blocks,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.65,
+            stagger: 0.1,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+          },
+          0.18,
+        );
+
+        if (shine) {
+          tl.to(
+            shine,
+            {
+              xPercent: 260,
+              duration: 0.85,
+              ease: "power2.out",
+            },
+            0.42,
+          );
+        }
+      },
+      root,
+    );
+
+    return () => mm.revert();
+  }, [i18n.language]);
+
   const contactMethods = [
+    ...(CONTACT_INFO.email
+      ? [
+          {
+            label: "Correo",
+            value: CONTACT_INFO.email,
+            href: `mailto:${CONTACT_INFO.email}`,
+          },
+        ]
+      : []),
     {
-      icon: Mail,
-      label: "Email",
-      value: CONTACT_INFO.email,
-      href: `mailto:${CONTACT_INFO.email}`,
-    },
-    {
-      icon: Phone,
-      label: t("contact.phone_label"),
+      label: t("contact.phone_label", "Teléfono"),
       value: CONTACT_INFO.phone,
       href: `tel:${CONTACT_INFO.phone}`,
     },
     {
-      icon: MapPin,
-      label: t("contact.location_label"),
+      label: t("contact.location_label", "Ubicación"),
       value: CONTACT_INFO.location,
       href: "#",
     },
@@ -67,7 +122,7 @@ export const Contact = () => {
     formData.append("access_key", "269be25d-cf1c-4d7e-82cc-955f58e0b530");
     formData.append(
       "subject",
-      ` Nuevo proyecto: ${userName} quiere hablar sobre "${userProject}"`,
+      `Nuevo proyecto: ${userName} quiere hablar sobre "${userProject}"`,
     );
     formData.append("from_name", "NEXOL Portfolio");
     if (userEmail) {
@@ -108,163 +163,99 @@ export const Contact = () => {
   };
 
   return (
-    <Section id="contacto" sectionClassName="overflow-hidden">
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
-        className="w-full flex flex-col justify-center min-h-[80vh]"
-      >
-        <div className="relative w-full flex flex-col items-center justify-center mb-12">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(143,209,79,0.06),transparent_60%)] pointer-events-none" />
-          
-          <span className="text-[#8FD14F] font-mono text-xs font-bold uppercase tracking-widest mb-4 block z-10">
-            {t("contact.eyebrow")}
-          </span>
-          
-          <div className="max-w-4xl mx-auto text-center z-10 px-4">
-            <h2
-              className="font-black uppercase tracking-tight text-white leading-[1.08] text-center"
-              style={{ fontSize: "clamp(2rem, 5.5vw, 4.25rem)" }}
-            >
-              <MaskLine triggerOnScroll>
-                {t("contact.title", "¿Listo para empezar?")}
-              </MaskLine>
-            </h2>
-          </div>
-          
-          <p className="mt-4 mb-8 text-zinc-400 text-sm sm:text-base md:text-lg font-medium max-w-xl text-center z-10 px-4">
-            {t("contact.subtitle", "¿Listo para escalar tu negocio? Estamos a un mensaje de distancia.")}
-          </p>
+    <Section
+      id="contacto"
+      aria-labelledby="cta-titulo"
+      sectionClassName="relative overflow-hidden bg-azul-tinta text-rosa-niebla"
+    >
+      <div ref={rootRef} className="w-full">
+        <div className="flex flex-wrap gap-12 lg:gap-16 items-start">
+          {/* ========================================================= */}
+          {/* Columna Izquierda: Título grande, WhatsApp en rosa y Datos */}
+          {/* ========================================================= */}
+          <div className="flex-[1.15_1_420px] min-w-0 flex flex-col gap-6">
+            <SectionTitle
+              id="cta-titulo"
+              segments={[
+                { text: t("contact.title", "Contanos de tu negocio.") },
+              ]}
+              className="m-0 font-bricolage text-[clamp(44px,6.2vw,112px)] font-extrabold text-rosa-niebla tracking-[-0.04em] leading-[0.96]"
+            />
 
-          <a
-            href={`https://wa.me/50587140989?text=${encodeURIComponent(
-              t("footer.cta_whatsapp_msg", "Hola NEXOL, me gustaría recibir asesoría para mi negocio.")
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => {
-              import("react-ga4").then((ga) => {
-                ga.default.event({
-                  category: "Leads",
-                  action: "Clic WhatsApp Contact Main",
-                  label: "Contact Section Giant CTA",
-                });
-              });
-            }}
-            className="z-10 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#8FD14F] hover:bg-[#5FA22B] text-black text-sm font-bold tracking-wider font-mono uppercase transition-all duration-200 cursor-pointer shadow-[0_0_20px_rgba(143,209,79,0.3)] hover:shadow-[0_0_30px_rgba(143,209,79,0.5)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
-          >
-            <MessageCircle className="w-5 h-5" />
-            <span>{t("contact.whatsapp_cta", "Escríbenos por WhatsApp")}</span>
-            <ArrowUpRight className="w-5 h-5" />
-          </a>
-        </div>
+            <p className="contact-reveal m-0 text-texto-azul text-[clamp(16px,1.1vw,19px)] max-w-[540px] leading-[1.55]">
+              {t(
+                "contact.subtitle",
+                "Te respondemos por WhatsApp con una propuesta clara, sin compromiso.",
+              )}
+            </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 overflow-hidden">
-          <motion.div
-            variants={fadeUpVariants}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-4"
-          >
-            {contactMethods.map((method, i) =>
-              method.href !== "#" ? (
-                <motion.a
-                  key={i}
-                  href={method.href}
-                  variants={fadeUpVariants}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4 p-4 rounded-[2px] bg-[#121212] border border-zinc-800 hover:border-zinc-700 transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
-                >
-                  <div className="w-10 h-10 bg-zinc-800 rounded-[2px] flex items-center justify-center shrink-0">
-                    <method.icon className="text-[#8FD14F] w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
-                      {method.label}
-                    </div>
-                    <div className="text-white text-sm font-medium">{method.value}</div>
-                  </div>
-                </motion.a>
-              ) : (
-                <motion.div
-                  key={i}
-                  variants={fadeUpVariants}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4 p-4 rounded-[2px] bg-[#121212] border border-zinc-800"
-                >
-                  <div className="w-10 h-10 bg-zinc-800 rounded-[2px] flex items-center justify-center shrink-0">
-                    <method.icon className="text-[#8FD14F] w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
-                      {method.label}
-                    </div>
-                    <div className="text-white text-sm font-medium">{method.value}</div>
-                  </div>
-                </motion.div>
-              ),
-            )}
-
-            <motion.div
-              variants={fadeUpVariants}
-              className="p-5 rounded-[2px] bg-[#121212] border border-zinc-800"
-            >
-              <p className="text-sm text-white font-semibold mb-1">
-                {t("contact.idea_heading")}
-              </p>
-              <p className="text-sm text-zinc-400 leading-relaxed font-sans">
-                {t("contact.idea_body")}
-              </p>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            variants={fadeUpVariants}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-3 space-y-5"
-          >
-            {/* WhatsApp Direct Action Highlight (Requirement 15) */}
-            <div className="p-4 sm:p-5 rounded-[2px] bg-[#121212] border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <div className="w-10 h-10 rounded-full bg-[#25D366]/10 border border-[#25D366]/30 flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-5 h-5 text-[#25D366]" />
-                </div>
-                <div>
-                  <div className="text-white text-xs sm:text-sm font-semibold">
-                    {t("contact.whatsapp_prompt", "¿Prefieres respuesta inmediata? Escríbenos por WhatsApp")}
-                  </div>
-                  <div className="text-zinc-400 text-xs font-mono">
-                    {t("contact.direct_subtitle", "¿Preferís hablar directamente? Estamos a un mensaje de distancia.")}
-                  </div>
-                </div>
-              </div>
-
-              <a
-                href={`https://wa.me/50587140989?text=${encodeURIComponent(
-                  t("footer.cta_whatsapp_msg", "Hola NEXOL, me gustaría recibir asesoría para mi negocio.")
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  import("react-ga4").then((ga) => {
-                    ga.default.event({
-                      category: "Leads",
-                      action: "Clic WhatsApp Contact Banner",
-                      label: "Contact Section",
-                    });
+            {/* Botón de WhatsApp en Rosa Niebla (alto 60 px) con brillo que cruza una sola vez */}
+            <a
+              id="contact-whatsapp-btn"
+              href={`https://wa.me/50587140989?text=${encodeURIComponent(
+                t(
+                  "footer.cta_whatsapp_msg",
+                  "Hola NEXOL, me gustaría recibir asesoría para mi negocio.",
+                ),
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                import("react-ga4").then((ga) => {
+                  ga.default.event({
+                    category: "Leads",
+                    action: "Clic WhatsApp Contact Main",
+                    label: "Contact Section CTA",
                   });
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[2px] bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold tracking-wider font-mono uppercase transition-colors shrink-0 cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
-              >
-                <span>{t("contact.whatsapp_cta", "Escríbenos por WhatsApp")}</span>
-                <ArrowUpRight size={13} />
-              </a>
-            </div>
+                });
+              }}
+              className="contact-reveal relative overflow-hidden self-start inline-flex items-center gap-3 min-h-[60px] px-7 rounded-[12px] bg-rosa-niebla hover:bg-blanco text-azul-tinta font-semibold text-[17px] no-underline transition-colors"
+            >
+              <span
+                ref={shineRef}
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -skew-x-[20deg] bg-gradient-to-r from-transparent via-blanco/80 to-transparent"
+              />
+              <MessageCircle
+                size={20}
+                className="relative z-10 text-azul-tinta shrink-0"
+              />
+              <span className="relative z-10">
+                {t("contact.whatsapp_cta", "Escribinos por WhatsApp")}
+              </span>
+            </a>
 
+            {/* Datos de contacto */}
+            <dl className="contact-reveal m-0 mt-3 flex flex-col gap-3.5 text-[15px]">
+              {contactMethods.map((method, i) => (
+                <div key={i}>
+                  <dt className="font-mono text-xs text-texto-azul-muted">
+                    {method.label}
+                  </dt>
+                  <dd className="m-0 mt-1 text-rosa-niebla">
+                    {method.href !== "#" ? (
+                      <a
+                        href={method.href}
+                        className="text-rosa-niebla hover:text-esmeralda-clara no-underline transition-colors"
+                      >
+                        {method.value}
+                      </a>
+                    ) : (
+                      <span>{method.value}</span>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* ========================================================= */}
+          {/* Columna Derecha: Formulario en tarjeta Rosa Niebla        */}
+          {/* ========================================================= */}
+          <div className="contact-reveal flex-[1_1_480px] min-w-0 bg-rosa-niebla text-azul-tinta rounded-[24px] p-6 sm:p-8">
             <form
-              className="space-y-4"
               onSubmit={onSubmit}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
               <input
                 type="checkbox"
@@ -273,120 +264,113 @@ export const Contact = () => {
                 style={{ display: "none" }}
               />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="contact-name"
-                    className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-                  >
-                    {t("contact.label_name")}
-                  </label>
-                  <input
-                    id="contact-name"
-                    name="name"
-                    type="text"
-                    required
-                    placeholder={t("contact.placeholder_name")}
-                    className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="contact-email"
-                    className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-                  >
-                    {t("contact.label_email")}
-                  </label>
-                  <input
-                    id="contact-email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder={t("contact.placeholder_email")}
-                    className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm"
-                  />
-                </div>
-              </div>
+              <label
+                htmlFor="contact-name"
+                className="flex flex-col gap-1.5 text-sm font-medium text-azul-tinta"
+              >
+                <span>{t("contact.label_name", "Nombre completo")}</span>
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  required
+                  placeholder={t("contact.placeholder_name", "Juan Pérez")}
+                  className="min-h-[48px] px-3.5 bg-blanco border-[1.5px] border-borde-campo rounded-[10px] text-azul-tinta placeholder:text-texto-secundario-muted/60 focus:outline-none focus:border-esmeralda-oscura focus:ring-2 focus:ring-esmeralda-oscura/20 transition-all text-sm font-normal"
+                />
+              </label>
 
-              <div>
-                <label
-                  htmlFor="contact-project"
-                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-                >
-                  {t("contact.label_service")}
-                </label>
+              <label
+                htmlFor="contact-email"
+                className="flex flex-col gap-1.5 text-sm font-medium text-azul-tinta"
+              >
+                <span>{t("contact.label_email", "Correo electrónico")}</span>
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder={t(
+                    "contact.placeholder_email",
+                    "juan@tuempresa.com",
+                  )}
+                  className="min-h-[48px] px-3.5 bg-blanco border-[1.5px] border-borde-campo rounded-[10px] text-azul-tinta placeholder:text-texto-secundario-muted/60 focus:outline-none focus:border-esmeralda-oscura focus:ring-2 focus:ring-esmeralda-oscura/20 transition-all text-sm font-normal"
+                />
+              </label>
+
+              <label
+                htmlFor="contact-project"
+                className="sm:col-span-2 flex flex-col gap-1.5 text-sm font-medium text-azul-tinta"
+              >
+                <span>
+                  {t("contact.label_service", "¿Qué servicio te interesa?")}
+                </span>
                 <select
                   id="contact-project"
                   name="project"
                   required
-                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm cursor-pointer"
+                  defaultValue=""
+                  className="min-h-[48px] px-3.5 bg-blanco border-[1.5px] border-borde-campo rounded-[10px] text-azul-tinta focus:outline-none focus:border-esmeralda-oscura focus:ring-2 focus:ring-esmeralda-oscura/20 transition-all text-sm font-normal cursor-pointer"
                 >
-                  <option value="" className="bg-[#121212] text-white">
-                    {t("contact.select_service")}
+                  <option value="" disabled>
+                    {t("contact.select_service", "Seleccioná un servicio")}
                   </option>
-                  <option value="facturacion" className="bg-[#121212] text-white">
-                    {t("contact.option_billing")}
-                  </option>
-                  <option value="logistica" className="bg-[#121212] text-white">
-                    {t("contact.option_logistics")}
-                  </option>
-                  <option value="web" className="bg-[#121212] text-white">
-                    {t("contact.option_web")}
-                  </option>
-                  <option value="app" className="bg-[#121212] text-white">
-                    {t("contact.option_mobile")}
-                  </option>
-                  <option value="custom" className="bg-[#121212] text-white">
-                    {t("contact.option_custom")}
-                  </option>
+                  <option value="pos">NEXOL POS</option>
+                  <option value="cobros">NEXOL Cobros</option>
+                  <option value="citas">NEXOL Citas</option>
+                  <option value="delivery">NEXOL Delivery</option>
+                  <option value="web">Página web o sistema a la medida</option>
                 </select>
-              </div>
+              </label>
 
-              <div>
-                <label
-                  htmlFor="contact-message"
-                  className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2 block"
-                >
-                  {t("contact.label_message")}
-                </label>
+              <label
+                htmlFor="contact-message"
+                className="sm:col-span-2 flex flex-col gap-1.5 text-sm font-medium text-azul-tinta"
+              >
+                <span>{t("contact.label_message", "Contanos tu idea")}</span>
                 <textarea
                   id="contact-message"
                   name="message"
                   required
                   rows={4}
-                  placeholder={t("contact.placeholder_message")}
-                  className="w-full px-4 py-3 bg-[#121212] border border-zinc-800 rounded-[2px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-[#8FD14F] focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-1 focus-visible:ring-offset-[#050505] transition-colors text-sm resize-none"
+                  placeholder={t(
+                    "contact.placeholder_message",
+                    "Describí brevemente tu proyecto y qué problema querés resolver.",
+                  )}
+                  className="p-3.5 bg-blanco border-[1.5px] border-borde-campo rounded-[10px] text-azul-tinta placeholder:text-texto-secundario-muted/60 focus:outline-none focus:border-esmeralda-oscura focus:ring-2 focus:ring-esmeralda-oscura/20 transition-all text-sm font-normal resize-y"
                 />
-              </div>
+              </label>
 
-              <div className="flex flex-col sm:flex-row items-center gap-4">
-                <Button
+              <div className="sm:col-span-2 flex flex-wrap items-center gap-4 pt-1">
+                <button
                   type="submit"
-                  className="w-full sm:w-auto"
                   disabled={isSubmitting}
+                  className="justify-self-start inline-flex items-center justify-center min-h-[52px] px-[26px] rounded-[12px] bg-esmeralda-oscura hover:bg-esmeralda-hover text-blanco text-[16px] font-semibold transition-colors cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-esmeralda-oscura"
                 >
-                  {isSubmitting ? "Enviando..." : t("contact.send")}
-                  {!isSubmitting && <Send size={14} />}
-                </Button>
+                  {isSubmitting ? "Enviando..." : "Enviar mensaje"}
+                </button>
 
                 {submitStatus === "success" && (
-                  <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-2 rounded-[2px]">
-                    <CheckCircle2 size={14} />
-                    <span>¡Mensaje enviado con éxito!</span>
+                  <div className="inline-flex items-center gap-2 text-badge-verde-text text-xs font-semibold font-mono bg-badge-verde-bg px-3.5 py-2 rounded-lg">
+                    <CheckCircle2 size={15} />
+                    <span>
+                      ¡Mensaje enviado con éxito! Te contactaremos pronto.
+                    </span>
                   </div>
                 )}
 
                 {submitStatus === "error" && (
-                  <div className="flex items-center gap-2 text-rose-400 text-xs font-mono bg-rose-500/10 border border-rose-500/20 px-3.5 py-2 rounded-[2px]">
-                    <AlertCircle size={14} />
-                    <span>Hubo un error al enviar el mensaje.</span>
+                  <div className="inline-flex items-center gap-2 text-rose-700 text-xs font-semibold font-mono bg-rose-50 border border-rose-200 px-3.5 py-2 rounded-lg">
+                    <AlertCircle size={15} />
+                    <span>
+                      Ocurrió un error. Por favor intentá por WhatsApp.
+                    </span>
                   </div>
                 )}
               </div>
             </form>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </Section>
   );
 };

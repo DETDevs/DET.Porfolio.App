@@ -15,7 +15,7 @@ export interface Project {
     tags: string[];
     image: string;
     gallery?: string[];
-    ecosystem?: "trackdeli" | "client" | "external";
+    ecosystem?: "nexol" | "client" | "external";
 }
 
 export interface Differentiator {
@@ -57,4 +57,6 @@ export interface SectionProps {
     className?: string;
     sectionClassName?: string;
     id?: string;
+    "aria-labelledby"?: string;
+    "aria-label"?: string;
 }

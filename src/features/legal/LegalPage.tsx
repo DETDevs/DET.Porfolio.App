@@ -20,7 +20,7 @@ export const LegalPage = ({ type }: LegalPageProps) => {
 
   const pageDescription = isTerminos
     ? "Términos y condiciones regulan el uso del sitio web y los servicios de software y membresía de NEXOL."
-    : "Política de privacidad y protección de datos personales de NEXOL y la plataforma TrackDeli.";
+    : "Política de privacidad y protección de datos personales de NEXOL y sus servicios.";
 
   useEffect(() => {
     // Scroll to top on mount or type change
@@ -79,7 +79,7 @@ export const LegalPage = ({ type }: LegalPageProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8] text-[#1f2937] font-geist selection:bg-[#8FD14F]/30 selection:text-black">
+    <div className="min-h-screen bg-[#FAFAF8] text-[#1f2937] font-geist selection:bg-[#00A060]/30 selection:text-black">
       {/* Top Header */}
       <header className="sticky top-0 z-30 bg-[#FAFAF8]/90 backdrop-blur-md border-b border-[#e5e5e0] px-6 py-4">
         <div className="max-w-[760px] mx-auto flex items-center justify-between">
@@ -89,7 +89,7 @@ export const LegalPage = ({ type }: LegalPageProps) => {
             aria-label="NEXOL - Volver al inicio"
           >
             <span className="relative flex h-2.5 w-2.5 items-center justify-center">
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#5FA22B] shadow-[0_0_6px_rgba(95,162,43,0.7)]" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#007A48] shadow-[0_0_6px_rgba(0, 122, 72,0.7)]" />
             </span>
             <span className="text-base font-bold tracking-tight text-zinc-900">
               Nexol
@@ -98,7 +98,7 @@ export const LegalPage = ({ type }: LegalPageProps) => {
 
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-600 hover:text-[#5FA22B] transition-colors py-1 px-3 rounded-full hover:bg-zinc-100"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-600 hover:text-[#007A48] transition-colors py-1 px-3 rounded-full hover:bg-zinc-100"
           >
             <ArrowLeft size={14} />
             <span>Volver al inicio</span>
@@ -118,7 +118,7 @@ export const LegalPage = ({ type }: LegalPageProps) => {
         <footer className="mt-16 pt-8 border-t border-[#e5e5e0] flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#5FA22B] hover:text-[#8FD14F] transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#007A48] hover:text-[#00A060] transition-colors"
           >
             <ArrowLeft size={16} />
             <span>Volver al inicio</span>

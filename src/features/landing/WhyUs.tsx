@@ -1,157 +1,335 @@
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Section } from "@/shared/ui/Section";
-import {
-  useScrollReveal,
-  fadeUpVariants,
-  staggerContainer,
-} from "@/shared/hooks/useScrollReveal";
+import { SectionTitle } from "@/shared/ui/MaskedTitle";
 
-const STATS = ["3-5", "100%", "24/7", "∞"];
-
-interface AnimatedStatProps {
-  value: string;
-  isInView: boolean;
-}
-
-const AnimatedStat = ({ value, isInView }: AnimatedStatProps) => {
-  const shouldReduceMotion = useReducedMotion();
-  const [display, setDisplay] = useState(value === "∞" ? "∞" : "0");
-  const hasAnimated = useRef(false);
-
-  const { targetNum, prefix, suffix, isNumeric } = useMemo(() => {
-    if (value === "∞") return { targetNum: 0, prefix: "", suffix: "∞", isNumeric: false };
-    if (value === "3-5") return { targetNum: 5, prefix: "3-", suffix: "", isNumeric: true };
-    if (value === "24/7") return { targetNum: 24, prefix: "", suffix: "/7", isNumeric: true };
-
-    const match = value.match(/^(\d+)(.*)$/);
-    if (match) {
-      return {
-        targetNum: parseInt(match[1], 10),
-        prefix: "",
-        suffix: match[2] || "",
-        isNumeric: true,
-      };
-    }
-    return { targetNum: 0, prefix: "", suffix: value, isNumeric: false };
-  }, [value]);
-
-  useEffect(() => {
-    if (!isInView || hasAnimated.current) return;
-    hasAnimated.current = true;
-
-    if (!isNumeric || shouldReduceMotion) {
-      setDisplay(value);
-      return;
-    }
-
-    const duration = 1000; // ms
-    let startTime: number | null = null;
-    let animationFrameId: number;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Ease-out cubic: 1 - (1 - progress)^3
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-      const currentVal = Math.round(easeOutCubic * targetNum);
-
-      if (value === "3-5") {
-        if (progress < 0.5) {
-          setDisplay(`1-2`);
-        } else if (progress < 0.8) {
-          setDisplay(`2-4`);
-        } else {
-          setDisplay(`3-5`);
-        }
-      } else {
-        setDisplay(`${prefix}${currentVal}${suffix}`);
-      }
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(step);
-      } else {
-        setDisplay(value);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isInView, value, targetNum, prefix, suffix, isNumeric]);
-
-  return <span>{display}</span>;
-};
+gsap.registerPlugin(ScrollTrigger);
 
 export const WhyUs = () => {
   const { t } = useTranslation();
-  const { ref, isInView } = useScrollReveal(0.1);
-  const statRef = useRef(null);
-  const statsInView = useInView(statRef, { once: true, amount: 0.25 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stat35Ref = useRef<HTMLSpanElement>(null);
+  const checkPathRef = useRef<SVGPathElement>(null);
+  const stat12Ref = useRef<HTMLSpanElement>(null);
+  const infinityRef = useRef<HTMLSpanElement>(null);
 
-  const items = t("whyus.items", { returnObjects: true }) as {
-    title: string;
-    desc: string;
-    statLabel: string;
-  }[];
+  const items = [
+    {
+      id: "fast",
+      stat: "3–5",
+      statLabel: t("whyus.items.0.statLabel", "Semanas para entrega"),
+      title: t("whyus.items.0.title", "Entrega rápida"),
+      desc: t(
+        "whyus.items.0.desc",
+        "Mientras otros cotizan, nosotros ya vamos por la mitad.",
+      ),
+      isBlue: false,
+    },
+    {
+      id: "tested",
+      stat: "✓",
+      statLabel: t("whyus.items.1.statLabel", "Código probado"),
+      title: t("whyus.items.1.title", "Código probado"),
+      desc: t(
+        "whyus.items.1.desc",
+        "Lo que entregamos se prueba antes de llegar a tu negocio.",
+      ),
+      isBlue: false,
+    },
+    {
+      id: "support",
+      stat: "12",
+      statLabel: t("whyus.items.2.statLabel", "Meses de mantenimiento"),
+      title: t("whyus.items.2.title", "Soporte continuo"),
+      desc: t(
+        "whyus.items.2.desc",
+        "No desaparecemos después de entregar. Soporte técnico y mantenimiento incluidos.",
+      ),
+      isBlue: true,
+    },
+    {
+      id: "scale",
+      stat: "∞",
+      statLabel: t("whyus.items.3.statLabel", "Potencial de escala"),
+      title: t("whyus.items.3.title", "Escalabilidad"),
+      desc: t(
+        "whyus.items.3.desc",
+        "Sistemas diseñados para crecer contigo, de una sucursal a varias.",
+      ),
+      isBlue: false,
+    },
+  ];
+
+  useEffect(() => {
+    const containerEl = containerRef.current;
+    if (!containerEl) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+      gsap.set(containerEl.querySelectorAll(".whyus-card"), {
+        clearProps: "all",
+        opacity: 1,
+        y: 0,
+      });
+      if (stat35Ref.current) stat35Ref.current.textContent = "3–5";
+      if (stat12Ref.current) stat12Ref.current.textContent = "12";
+      if (checkPathRef.current) {
+        gsap.set(checkPathRef.current, {
+          clearProps: "all",
+          strokeDashoffset: 0,
+        });
+      }
+      if (infinityRef.current) {
+        gsap.set(infinityRef.current, {
+          clearProps: "all",
+          rotation: 0,
+          scale: 1,
+          opacity: 1,
+        });
+      }
+    });
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const cards = gsap.utils.toArray<HTMLElement>(
+        containerEl.querySelectorAll(".whyus-card"),
+      );
+      gsap.set(cards, { opacity: 0, y: 28 });
+
+      if (stat35Ref.current) stat35Ref.current.textContent = "0–0";
+      if (stat12Ref.current) stat12Ref.current.textContent = "0";
+      if (checkPathRef.current) {
+        gsap.set(checkPathRef.current, {
+          strokeDasharray: 80,
+          strokeDashoffset: 80,
+        });
+      }
+      if (infinityRef.current) {
+        gsap.set(infinityRef.current, {
+          rotation: -32,
+          scale: 0.72,
+          opacity: 0,
+        });
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerEl.querySelector(".whyus-grid"),
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      tl.to(
+        cards,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          stagger: 0.09,
+          ease: "power3.out",
+        },
+        0,
+      );
+
+      // 1. "3–5" cuenta hacia arriba
+      const c35 = { a: 0, b: 0 };
+      tl.to(
+        c35,
+        {
+          a: 3,
+          b: 5,
+          duration: 0.75,
+          ease: "power3.out",
+          onUpdate: () => {
+            if (stat35Ref.current) {
+              stat35Ref.current.textContent = `${Math.round(c35.a)}–${Math.round(c35.b)}`;
+            }
+          },
+        },
+        0.1,
+      );
+
+      // 2. El "✓" se dibuja como trazo
+      if (checkPathRef.current) {
+        tl.to(
+          checkPathRef.current,
+          {
+            strokeDashoffset: 0,
+            duration: 0.75,
+            ease: "power3.out",
+          },
+          0.18,
+        );
+      }
+
+      // 3. "12" cuenta hacia arriba
+      const c12 = { val: 0 };
+      tl.to(
+        c12,
+        {
+          val: 12,
+          duration: 0.8,
+          ease: "power3.out",
+          onUpdate: () => {
+            if (stat12Ref.current) {
+              stat12Ref.current.textContent = `${Math.round(c12.val)}`;
+            }
+          },
+        },
+        0.24,
+      );
+
+      // 4. El "∞" entra con un giro corto
+      if (infinityRef.current) {
+        tl.to(
+          infinityRef.current,
+          {
+            rotation: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.75,
+            ease: "power3.out",
+          },
+          0.32,
+        );
+      }
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  const renderStat = (item: (typeof items)[number]) => {
+    if (item.id === "fast") {
+      return (
+        <span
+          ref={stat35Ref}
+          className="font-bricolage text-[clamp(48px,5vw,88px)] font-extrabold text-azul-tinta tracking-[-0.03em] leading-none"
+        >
+          3–5
+        </span>
+      );
+    }
+    if (item.id === "tested") {
+      return (
+        <span
+          role="img"
+          aria-label="✓"
+          className="inline-flex items-center font-bricolage text-[clamp(48px,5vw,88px)] font-extrabold text-azul-tinta leading-none h-[1em]"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 56 56"
+            className="w-[0.82em] h-[0.82em] overflow-visible"
+          >
+            <path
+              ref={checkPathRef}
+              d="M9 30 L22 43 L47 13"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="7.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+      );
+    }
+    if (item.id === "support") {
+      return (
+        <span
+          ref={stat12Ref}
+          className="font-bricolage text-[clamp(48px,5vw,88px)] font-extrabold text-esmeralda-clara tracking-[-0.03em] leading-none"
+        >
+          12
+        </span>
+      );
+    }
+    return (
+      <span
+        ref={infinityRef}
+        className="inline-block origin-center self-start font-bricolage text-[clamp(48px,5vw,88px)] font-extrabold text-azul-tinta tracking-[-0.03em] leading-none will-change-transform"
+      >
+        ∞
+      </span>
+    );
+  };
 
   return (
-    <Section id="nosotros" sectionClassName="overflow-hidden">
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
-      >
-        <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-2 block">
-            {t("whyus.eyebrow")}
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
-            {t("whyus.title")}
-          </h2>
-          <p className="text-zinc-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-            {t("whyus.subtitle")}
+    <Section
+      id="nosotros"
+      sectionClassName="overflow-hidden bg-blanco text-azul-tinta"
+    >
+      <div ref={containerRef} className="w-full flex flex-col gap-12">
+        {/* Encabezado */}
+        <div className="flex flex-col gap-3.5 max-w-[900px]">
+          <p className="m-0 font-mono text-[13px] tracking-[0.06em] text-esmeralda-oscura">
+            {t("whyus.eyebrow", "¿Por qué NEXOL?")}
           </p>
-        </motion.div>
+          <SectionTitle
+            className="m-0 font-bricolage text-[clamp(36px,4.6vw,80px)] font-extrabold text-azul-tinta tracking-[-0.035em] leading-[0.98]"
+            segments={[
+              {
+                text: t(
+                  "whyus.title",
+                  "La diferencia de trabajar con nosotros.",
+                ),
+              },
+            ]}
+          />
+          <p className="m-0 text-texto-secundario text-[clamp(16px,1.1vw,19px)] max-w-[680px] leading-[1.55]">
+            {t(
+              "whyus.subtitle",
+              "No somos una agencia genérica ni vendemos sistemas enlatados. Desarrollamos herramientas que se adaptan a cómo opera tu comercio en Nicaragua.",
+            )}
+          </p>
+        </div>
 
-        <div
-          ref={statRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-b border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10 my-8"
-        >
-          {items.map((diff, i) => {
-            return (
-              <motion.div
-                key={i}
-                variants={fadeUpVariants}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="py-10 px-6 sm:px-8 flex flex-col justify-start text-left group"
-              >
-                {/* Metric with animated counter */}
-                <div className="mb-4">
-                  <div className="text-5xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none mb-2">
-                    <AnimatedStat value={STATS[i]} isInView={statsInView} />
-                  </div>
-                  <div className="font-mono text-xs uppercase tracking-widest text-[#8FD14F] font-bold">
-                    {diff.statLabel}
-                  </div>
+        {/* 4 Tarjetas */}
+        <div className="whyus-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[16px]">
+          {items.map((item) => {
+            if (item.isBlue) {
+              return (
+                <div
+                  key={item.id}
+                  className="whyus-card bg-azul-tinta text-rosa-niebla rounded-[24px] p-7 sm:p-8 flex flex-col gap-2.5"
+                >
+                  {renderStat(item)}
+                  <span className="font-mono text-xs text-texto-azul-muted">
+                    {item.statLabel}
+                  </span>
+                  <h3 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-rosa-niebla mt-2 leading-tight tracking-[-0.02em]">
+                    {item.title}
+                  </h3>
+                  <p className="m-0 text-[15px] text-texto-azul leading-[1.5]">
+                    {item.desc}
+                  </p>
                 </div>
+              );
+            }
 
-                <div className="w-8 h-[2px] bg-[#8FD14F]/40 mb-4 transition-all duration-300 group-hover:w-16 group-hover:bg-[#8FD14F]" />
-
-                <h3 className="font-bold uppercase text-white mb-2 text-sm sm:text-base tracking-tight">
-                  {diff.title}
+            return (
+              <div
+                key={item.id}
+                className="whyus-card bg-rosa-niebla text-azul-tinta rounded-[24px] p-7 sm:p-8 flex flex-col gap-2.5"
+              >
+                {renderStat(item)}
+                <span className="font-mono text-xs text-texto-secundario-muted">
+                  {item.statLabel}
+                </span>
+                <h3 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-azul-tinta mt-2 leading-tight tracking-[-0.02em]">
+                  {item.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
-                  {diff.desc}
+                <p className="m-0 text-[15px] text-texto-secundario leading-[1.5]">
+                  {item.desc}
                 </p>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-      </motion.div>
+      </div>
     </Section>
   );
 };

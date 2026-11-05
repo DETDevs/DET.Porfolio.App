@@ -12,7 +12,7 @@ export const WhatsAppButton = () => {
   const [dismissed, setDismissed] = useState(false);
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-    t("footer.cta_whatsapp_msg", "Hola NEXOL, me gustaría recibir asesoría para mi negocio.")
+    t("footer.cta_whatsapp_msg", "Hola NEXOL, me gustaría recibir asesoría para mi negocio."),
   )}`;
 
   useEffect(() => {
@@ -53,20 +53,20 @@ export const WhatsAppButton = () => {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 20, scale: 0.8 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                className="relative bg-[#121212]/95 backdrop-blur-md border border-zinc-800 rounded-xl px-3 py-2 shadow-lg max-w-[170px] sm:max-w-[220px]"
+                className="relative bg-[#1D2B5C] border border-[#26366F] rounded-xl px-3.5 py-2.5 shadow-lg max-w-[190px] sm:max-w-[240px]"
               >
                 <button
                   onClick={() => setDismissed(true)}
-                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-zinc-800 hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors cursor-pointer border border-zinc-700 text-zinc-400 hover:text-white"
-                  aria-label={t("whatsapp.close")}
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#26366F] hover:bg-[#33406B] rounded-full flex items-center justify-center transition-colors cursor-pointer border border-[#3DD68C]/30 text-white"
+                  aria-label={t("whatsapp.close", "Cerrar notificación")}
                 >
-                  <X size={10} />
+                  <X size={12} />
                 </button>
-                <p className="text-[11px] sm:text-xs text-zinc-300 leading-snug">
-                  <span className="text-[#8FD14F] font-semibold block mb-0.5">
-                    {t("whatsapp.tooltip_heading")}
+                <p className="text-xs text-[#F4E1DE] leading-snug">
+                  <span className="text-[#3DD68C] font-semibold block mb-0.5">
+                    {t("whatsapp.tooltip_heading", "Asesoría directa")}
                   </span>{" "}
-                  {t("whatsapp.tooltip_body")}
+                  {t("whatsapp.tooltip_body", "Escribinos por WhatsApp para cotizar tu proyecto.")}
                 </p>
               </motion.div>
             )}
@@ -86,8 +86,8 @@ export const WhatsAppButton = () => {
               });
             }}
             whileTap={{ scale: 0.95 }}
-            className="relative w-[52px] h-[52px] rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.35)] hover:shadow-[0_6px_25px_rgba(37,211,102,0.5)] cursor-pointer transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
-            aria-label={t("whatsapp.aria")}
+            className="relative w-[52px] h-[52px] rounded-full bg-[#007A48] hover:bg-[#005F36] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(0, 122, 72,0.4)] hover:shadow-[0_6px_25px_rgba(0, 122, 72,0.6)] cursor-pointer transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007A48] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4E1DE]"
+            aria-label={t("whatsapp.aria", "Contactar por WhatsApp")}
           >
             <svg
               viewBox="0 0 24 24"

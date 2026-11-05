@@ -6,15 +6,17 @@
     "whyus": "Nosotros",
     "pricing": "Planes",
     "contact": "Contacto",
-    "cta": "Iniciar Proyecto",
-    "home": "Inicio"
+    "cta": "Iniciar proyecto",
+    "home": "Inicio",
+    "top_banner": "Software hecho en Managua, Nicaragua",
+    "top_whatsapp": "WhatsApp +505 8714 0989"
   },
   "hero": {
     "title_1": "Sistemas que impulsan",
     "title_2": "la escala de tu negocio",
-    "subtitle": "Diseñamos software a la medida de alto impacto. Facturación, inventarios, apps móviles y plataformas web en tiempo real.",
-    "cta_primary": "Ver Planes",
-    "cta_secondary": "Nuestros Servicios",
+    "subtitle": "Sistemas listos para comercios de Nicaragua y software a la medida cuando necesitás algo propio. Te lo instalamos, te capacitamos y te acompañamos.",
+    "cta_primary": "Ver planes",
+    "cta_secondary": "Nuestros servicios",
     "cta_card": "Ver plan",
     "cta_whatsapp": "Cotizar por WhatsApp",
     "architecture_engine": "Nexol Architecture Engine",
@@ -67,51 +69,76 @@
         "image": "/assets/project/DulcesMomentos/project.png",
         "link": "#planes"
       }
-    ]
+    ],
+    "title_main": "Tu negocio, en orden.",
+    "title_sub": "Desde la caja hasta el último cobro.",
+    "panel_title": "¿Qué necesita tu negocio?",
+    "options": {
+      "pos": {
+        "main": "Vender y controlar la caja",
+        "product": "NEXOL POS"
+      },
+      "cartera": {
+        "main": "Cobrar a mis clientes",
+        "product": "NEXOL Cobros"
+      },
+      "citas": {
+        "main": "Recibir reservas en línea",
+        "product": "NEXOL Citas"
+      },
+      "delivery": {
+        "main": "Repartir pedidos",
+        "product": "NEXOL Delivery"
+      },
+      "web": {
+        "main": "Tener mi página web",
+        "product": "páginas web y a la medida"
+      }
+    }
   },
   "services": {
-    "scene_label": "Servicio",
-    "eyebrow": "Soluciones",
-    "title": "Lo que hacemos por tu negocio",
-    "subtitle": "Desarrollamos sistemas completos que automatizan tu operación y te dan control total de tu empresa.",
-    "items": [
-      {
-        "title": "Sistema de Facturación",
-        "desc": "Cobrá rápido, emití comprobantes y tené tus ventas, tu caja y tus números claros."
+    "eyebrow": "Lo que hacemos por tu negocio",
+    "title_prefix": "Software hecho aquí, para los negocios ",
+    "title_highlight": "de aquí.",
+    "subtitle": "Cinco servicios que podés usar juntos o por separado. Instalación, capacitación y soporte incluidos.",
+    "cards": {
+      "pos": {
+        "tag": "01 · Punto de venta",
+        "title": "NEXOL POS",
+        "desc": "Cobro rápido con pagos mixtos y dólares, cierre de caja por turno, inventario y reportes. Para tiendas, farmacias, restaurantes y talleres.",
+        "price": "$45 / mes por sucursal",
+        "cta": "Ver plan →",
+        "receipt_alt": "Comprobante de venta de ejemplo con inventario descontado"
       },
-      {
-        "title": "Gestión de Inventarios",
-        "desc": "Control total de stock, alertas de reabastecimiento y seguimiento de productos."
+      "cobros": {
+        "tag": "02 · Cartera de cobro",
+        "title": "NEXOL Cobros",
+        "desc": "Clientes, cuotas y abonos en orden, con el saldo siempre al día.",
+        "price": "$25 / mes",
+        "cta": "Ver plan →"
       },
-      {
-        "title": "Gestión de Clientes",
-        "desc": "Llevá un registro ordenado de tus clientes, lo que han comprado, y nunca pierdas un contacto."
+      "citas": {
+        "tag": "03 · Agenda de citas",
+        "title": "NEXOL Citas",
+        "desc": "Reservas en línea por profesional y servicio, con confirmación automática.",
+        "price": "$30 / mes",
+        "cta": "Ver plan →"
       },
-      {
-        "title": "Gestión de Pedidos",
-        "desc": "Flujo completo desde la orden hasta la entrega, con seguimiento en cada etapa."
+      "delivery": {
+        "tag": "04 · Logística",
+        "title": "NEXOL Delivery",
+        "desc": "Pedidos, repartidores con mapa en vivo y seguimiento para tu cliente. Pagás por entrega, sin mensualidad.",
+        "price": "Por entrega",
+        "cta": "Ver plan →"
       },
-      {
-        "title": "Resumen de tu Negocio",
-        "desc": "Mirá cómo va tu negocio de un vistazo: ventas del día, productos más vendidos, ganancias."
-      },
-      {
-        "title": "Reportes Avanzados",
-        "desc": "Genera reportes personalizados de ventas, operaciones y rendimiento empresarial."
-      },
-      {
-        "title": "Páginas Web",
-        "desc": "Sitios web corporativos, landings y tiendas online con diseño moderno y responsive."
-      },
-      {
-        "title": "Apps Móviles",
-        "desc": "Aplicaciones nativas para iOS y Android que conectan tu negocio con tus clientes."
-      },
-      {
-        "title": "Backend & Arquitectura",
-        "desc": "APIs robustas, tiempo real y sistemas que escalan con tu negocio, desde microservicios hasta plataformas multi-tenant completas."
+      "web": {
+        "tag": "05 · Web y a la medida",
+        "title": "Páginas web y sistemas propios",
+        "desc": "Tu página para vender más, o el sistema que tu negocio necesita y no existe.",
+        "price": "Desde $300",
+        "cta": "Ver plan →"
       }
-    ]
+    }
   },
   "projects": {
     "scene_label": "Proyecto",
@@ -123,17 +150,17 @@
     "view_screenshots": "Ver capturas",
     "items": [
       {
-        "title": "TrackDeli — Web Platform",
+        "title": "NEXOL Delivery — plataforma web",
         "category": "Web & Real-Time",
         "description": "Plataforma SaaS multi-tenant para logística y delivery: despacho inteligente en tiempo real, mapas interactivos con WebSockets y portal público de seguimiento de pedidos."
       },
       {
-        "title": "TrackDeli — Rider App",
+        "title": "NEXOL Delivery — app de repartidores",
         "category": "App Móvil",
         "description": "Aplicación móvil en Flutter para repartidores con telemetría GPS continua, recepción automática de órdenes, negociación de tarifas y navegación fluida sincronizada."
       },
       {
-        "title": "TrackDeli POS",
+        "title": "NEXOL POS",
         "category": "Punto de Venta",
         "description": "Sistema de escritorio con Electron para gestión integral de caja, inventarios y ventas: pagos mixtos y en dólares, cierre de caja ciego, devoluciones con autorización del encargado, compras a proveedores, y soporte nativo para impresoras térmicas ESC/POS y cajón de dinero."
       },
@@ -157,7 +184,7 @@
   "tracking_scrolly": {
     "eyebrow": "Tracking en Tiempo Real",
     "title": "Ciclo de Vida de un Pedido en Vivo",
-    "subtitle": "Conocé la tecnología detrás de TrackDeli: cómo coordinamos clientes, despachadores y repartidores con telemetría en vivo a cada metro.",
+    "subtitle": "Conocé la tecnología detrás de NEXOL Delivery: cómo coordinamos clientes, despachadores y repartidores con telemetría en vivo a cada metro.",
     "scroll_hint": "Scrollea o seleccioná una etapa para explorar el flujo",
     "stages": [
       {
@@ -206,39 +233,43 @@
     }
   },
   "whyus": {
-    "eyebrow": "¿Por qué Nexol?",
-    "title": "La diferencia está en cómo trabajamos",
-    "subtitle": "No solo escribimos código, resolvemos problemas de negocio. Cada línea de código está pensada para generar valor real.",
+    "eyebrow": "¿Por qué NEXOL?",
+    "title": "La diferencia de trabajar con nosotros",
+    "subtitle": "No somos una agencia genérica ni vendemos sistemas enlatados. Desarrollamos herramientas que se adaptan a cómo opera tu comercio en Nicaragua.",
     "items": [
       {
-        "title": "Entrega Rápida",
-        "desc": "Mientras otros cotizan, nosotros ya vamos por la mitad.",
-        "statLabel": "semanas para entrega"
+        "stat": "3-5",
+        "statLabel": "Semanas para entrega",
+        "title": "Entrega rápida",
+        "desc": "Mientras otros cotizan, nosotros ya vamos por la mitad."
       },
       {
-        "title": "Código Blindado",
-        "desc": "Código que no se cae el viernes a las 5pm.",
-        "statLabel": "test coverage"
+        "stat": "✓",
+        "statLabel": "Código probado",
+        "title": "Código probado",
+        "desc": "Lo que entregamos se prueba antes de llegar a tu negocio."
       },
       {
-        "title": "Soporte Continuo",
-        "desc": "No desaparecemos después de entregar. Soporte técnico y mantenimiento incluido.",
-        "statLabel": "disponibilidad"
+        "stat": "12",
+        "statLabel": "Meses de mantenimiento",
+        "title": "Soporte continuo",
+        "desc": "No desaparecemos después de entregar. Soporte técnico y mantenimiento incluidos."
       },
       {
+        "stat": "∞",
+        "statLabel": "Potencial de escala",
         "title": "Escalabilidad",
-        "desc": "Sistemas diseñados para crecer contigo. Desde 10 hasta 10,000 usuarios sin reescribir.",
-        "statLabel": "potencial de escala"
+        "desc": "Sistemas diseñados para crecer contigo, de una sucursal a varias."
       }
     ]
   },
   "pricing": {
     "eyebrow": "Inversión",
-    "title": "Planes Transparentes",
+    "title": "Planes transparentes.",
     "subtitle": "Soluciones claras y adaptadas a la etapa de tu negocio, sin costos sorpresa.",
     "tabs": {
       "web": "Páginas Web",
-      "pos": "Facturación / POS",
+      "pos": "Punto de venta",
       "citas": "Citas / Booking",
       "cartera": "Cartera de Cobro",
       "logistics": "Logística y Delivery"
@@ -264,33 +295,7 @@
       ],
       "cta": "Solicitar mi sitio web"
     },
-    "pos": {
-      "title": "Plan Todo Incluido — Facturación & POS",
-      "badge": "Un Solo Plan · Todo Incluido",
-      "desc": "Sin planes recortados ni escalones artificiales. Toda la potencia del sistema para tu punto de venta en una única cuota mensual.",
-      "per_month": "/mes",
-      "per_branch": "por sucursal · sin límites de operaciones",
-      "devFeatures": [
-        "Cobro rápido con ticket térmico y comprobantes de venta",
-        "Pagos en efectivo, tarjeta, transferencia, crédito (fiado) y pago mixto, en córdobas y dólares con vuelto en córdobas",
-        "Control de caja: apertura y cierre de turno, cierre ciego, arqueo y entradas/salidas de efectivo",
-        "Anulaciones y devoluciones con autorización del encargado y reversa de inventario",
-        "Inventario en tiempo real: compras a proveedores, ajustes, conteo físico y alertas de stock bajo",
-        "Backoffice web básico de consulta (ventas, inventario y cierres de caja)",
-        "Usuarios con roles de cajero, mesero y encargado, y reglas del negocio que vos configurás",
-        "Reportes de ventas y de productos de mayor rotación",
-        "Sigue cobrando sin internet en negocios de una sola caja",
-        "Hardware ESC/POS integrado: impresoras térmicas de tickets y cajón de dinero"
-      ],
-      "membershipFeatures": [
-        "Soporte técnico y asistencia en la configuración inicial",
-        "Actualizaciones de software continuas sin cobros adicionales",
-        "Hosting incluido"
-      ],
-      "social_proof_title": "Probado en producción real",
-      "social_proof_desc": "Capturas directas del sistema TrackDeli POS operando en negocios reales:",
-      "cta": "Comenzar con POS"
-    },
+    "pos": "Punto de venta",
     "logistics": {
       "title": "Logística y Delivery Inteligente",
       "badge": "Comisión por Entrega",
@@ -316,29 +321,29 @@
   },
   "contact": {
     "eyebrow": "Hablemos",
-    "title": "¿Listo para empezar?",
-    "subtitle": "Contanos sobre tu proyecto. Te respondemos en menos de 24 horas con una propuesta clara.",
+    "title": "Contanos de tu negocio.",
+    "subtitle": "Te respondemos por WhatsApp con una propuesta clara, sin compromiso.",
     "direct_title": "Contacto directo",
     "direct_subtitle": "¿Preferís hablar directamente? Estamos a un mensaje de distancia.",
-    "form_title": "Envíanos un mensaje",
+    "form_title": "Envianos un mensaje",
     "label_name": "Nombre completo",
-    "placeholder_name": "Ej. Juan Pérez",
+    "placeholder_name": "Juan Pérez",
     "label_email": "Correo electrónico",
     "placeholder_email": "juan@tuempresa.com",
     "label_service": "¿Qué servicio te interesa?",
-    "select_service": "Selecciona un servicio",
+    "select_service": "Seleccioná un servicio",
     "option_web": "Página Web / Landing Page",
-    "option_billing": "Sistema de Facturación / POS",
+    "option_billing": "Punto de venta",
     "option_logistics": "Logística y Delivery",
     "option_mobile": "Aplicación Móvil",
     "option_custom": "Desarrollo a Medida",
-    "label_message": "Cuéntanos tu idea",
-    "placeholder_message": "Describe brevemente tu proyecto y qué problema quieres resolver...",
+    "label_message": "Contanos tu idea",
+    "placeholder_message": "Describí brevemente tu proyecto y qué problema querés resolver.",
     "send": "Enviar mensaje",
     "phone_label": "Teléfono",
     "location_label": "Ubicación",
-    "whatsapp_prompt": "¿Prefieres respuesta inmediata? Escríbenos por WhatsApp",
-    "whatsapp_cta": "Escríbenos por WhatsApp",
+    "whatsapp_prompt": "¿Preferís respuesta inmediata? Escribinos por WhatsApp",
+    "whatsapp_cta": "Escribinos por WhatsApp",
     "idea_heading": "¿Tenés una idea en mente?",
     "idea_body": "Nos encanta escuchar proyectos nuevos. Si tenés una idea o requerimiento especial, contanos y lo diseñamos a tu medida."
   },
@@ -357,7 +362,7 @@
       },
       {
         "question": "¿Necesito comprar equipo?",
-        "answer": "No es obligatorio. El sistema funciona con impresoras térmicas USB o de red y gavetas de dinero RJ11. Si preferís no complicarte, tenemos un kit listo (computadora con monitor, teclado y mouse, impresora de recibos y caja registradora y lector de código de barras, instalados y configurados) desde $600; el equipo queda a tu nombre y hay arreglos de pago."
+        "answer": "No es obligatorio. El sistema funciona con impresoras térmicas USB o de red y gavetas de dinero RJ11. Si preferís no complicarte, tenemos un kit listo (computadora con monitor, teclado y mouse, impresora de recibos y caja registradora y lector de código de barras, instalados y configurados) desde $750; el equipo queda a tu nombre y hay arreglos de pago."
       },
       {
         "question": "¿Funciona si se cae el internet?",
@@ -380,8 +385,8 @@
         "answer": "Sí. Podés importar tu catálogo desde un archivo de Excel y exportarlo cuando lo necesités."
       },
       {
-        "question": "¿Emite facturas fiscales (DGI)?",
-        "answer": "Hoy el sistema emite tickets y comprobantes de venta. La facturación fiscal electrónica oficial no está incluida por ahora; escribinos por WhatsApp si la necesitás y vemos tu caso."
+        "question": "¿Emite comprobantes fiscales?",
+        "answer": "NEXOL POS emite tickets y comprobantes de venta para control interno del negocio. La facturación fiscal electrónica de la DGI no está incluida; si tu comercio la requiere, escribinos por WhatsApp y evaluamos tu caso."
       },
       {
         "question": "¿En cuánto tiempo está listo?",
@@ -402,30 +407,106 @@
     ]
   },
   "footer": {
-    "cta_title": "¿Tienes un negocio que quiere ordenar sus ventas o lanzar su web?",
+    "cta_title": "¿Tenés un negocio que quiere ordenar sus ventas o lanzar su web?",
     "cta_subtitle": "Hablemos sobre tu proyecto. Te asesoramos sin compromiso para encontrar la solución adecuada a tu operación.",
-    "cta_button": "Escríbenos por WhatsApp",
+    "cta_button": "Escribinos por WhatsApp",
     "cta_whatsapp_msg": "Hola NEXOL, me gustaría recibir asesoría para mi negocio.",
     "brand_tagline": "Software a la medida y sistemas para tu negocio. Hecho en Nicaragua.",
     "col_products": "Productos",
     "col_company": "Empresa",
     "col_legal": "Legal",
-    "product_pos": "TrackDeli POS",
-    "product_cartera": "Cartera de Cobro",
-    "product_citas": "Agenda de Citas",
-    "product_delivery": "Delivery",
+    "product_pos": "NEXOL POS",
+    "product_cartera": "NEXOL Cobros",
+    "product_citas": "NEXOL Citas",
+    "product_delivery": "NEXOL Delivery",
     "company_services": "Servicios",
     "company_projects": "Proyectos",
     "company_plans": "Planes",
     "company_contact": "Contacto",
     "terms": "Términos y Condiciones",
     "privacy": "Política de Privacidad",
-    "crafted": "Hecho con pasión desde Nicaragua 🇳🇮"
+    "crafted": "Software hecho en Managua, Nicaragua"
   },
   "whatsapp": {
     "tooltip_heading": "¿Tenés un proyecto en mente?",
     "tooltip_body": "¡Escribinos por WhatsApp!",
     "close": "Cerrar",
     "aria": "Escribinos por WhatsApp"
+  },
+  "rubros": {
+    "eyebrow": "NEXOL POS por rubro",
+    "title_prefix": "Lo mismo de siempre, ",
+    "title_sub": "ajustado a tu negocio.",
+    "subtitle": "El mismo sistema se adapta a cómo vende cada comercio.",
+    "cta": "Ver NEXOL POS para tu rubro →",
+    "items": [
+      {
+        "num": "01",
+        "title": "Tiendas y supermercados",
+        "points": [
+          "Lector de código de barras y venta con teclado",
+          "Inventario con alerta de stock bajo y compras a proveedores",
+          "Fiado con límite por cliente, cuotas y estado de cuenta",
+          "Venta a granel con decimales"
+        ]
+      },
+      {
+        "num": "02",
+        "title": "Farmacias",
+        "points": [
+          "Lotes y vencimientos, sale primero lo que vence antes",
+          "Alertas de lo que vence en 30, 60 y 90 días",
+          "Laboratorio, principio activo y aviso de receta en caja",
+          "Venta en dos pasos, el vendedor arma y el cajero cobra"
+        ]
+      },
+      {
+        "num": "03",
+        "title": "Restaurantes y cafeterías",
+        "points": [
+          "Zonas y mesas con meseros",
+          "Comanda impresa en cocina por cada ronda",
+          "Recetas que descuentan sus ingredientes al vender",
+          "Cuenta dividida en partes iguales o por plato"
+        ]
+      },
+      {
+        "num": "04",
+        "title": "Talleres",
+        "points": [
+          "Vehículo por placa con su kilometraje",
+          "Historial de cada trabajo hecho al vehículo",
+          "Órdenes con repuestos y mano de obra",
+          "Técnico asignado a cada orden"
+        ]
+      }
+    ]
+  },
+  "proceso": {
+    "eyebrow": "Cómo trabajamos",
+    "title": "De la primera charla a tu negocio funcionando.",
+    "cta": "Empezar por el paso 1",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Nos contás",
+        "desc": "Escribinos por WhatsApp y contanos cómo funciona tu negocio hoy."
+      },
+      {
+        "num": "02",
+        "title": "Te mostramos",
+        "desc": "Te hacemos una demostración con tu tipo de negocio y te decimos qué te conviene."
+      },
+      {
+        "num": "03",
+        "title": "Instalamos y capacitamos",
+        "desc": "Dejamos el sistema funcionando en tu local y le enseñamos a tu equipo a usarlo."
+      },
+      {
+        "num": "04",
+        "title": "Te acompañamos",
+        "desc": "12 meses de mantenimiento y soporte incluidos. No desaparecemos después de entregar."
+      }
+    ]
   }
 }

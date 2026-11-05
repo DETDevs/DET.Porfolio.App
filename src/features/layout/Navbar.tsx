@@ -1,390 +1,411 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Menu,
-  X,
-  Layers,
-  FolderOpen,
-  Tag,
-  Mail,
-  Home,
-  // Radio,
-  ArrowUpRight,
-} from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
 import { scrollTo } from "@/shared/hooks/useLenis";
+
+const NAV_LINKS = [
+  { key: "services", href: "#servicios" },
+  { key: "projects", href: "#proyectos" },
+  { key: "pricing", href: "#planes" },
+  { key: "contact", href: "#contacto" },
+] as const;
 
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState<string | null>(null);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
-  const navLinksRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const currentLang = i18n.language?.startsWith("en") ? "en" : "es";
+  const setLanguage = (lang: "es" | "en") => {
+    i18n.changeLanguage(lang);
+  };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
-  const NAV_LINKS = [
-    { label: t("nav.services"), href: "#servicios", icon: Layers },
-    { label: t("nav.projects"), href: "#proyectos", icon: FolderOpen },
-    // { label: t("nav.tracking", "Tracking"), href: "#tracking", icon: Radio },
-    { label: t("nav.pricing"), href: "#planes", icon: Tag },
-    { label: t("nav.contact"), href: "#contacto", icon: Mail },
-  ];
-
-  const currentLang = i18n.language.startsWith("es") ? "ES" : "EN";
-  const nextLang = i18n.language.startsWith("es") ? "EN" : "ES";
+  const headerRef = useRef<HTMLElement>(null);
+  const topBarRef = useRef<HTMLDivElement>(null);
+  const isMobileMenuOpenRef = useRef(isMobileMenuOpen);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 40;
-      setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    isMobileMenuOpenRef.current = isMobileMenuOpen;
+    if (isMobileMenuOpen && headerRef.current) {
+      gsap.to(headerRef.current, {
+        y: 0,
+        opacity: 1,
+        duration: 0.35,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
-    const sections = NAV_LINKS.map((l) => l.href.replace("#", ""));
-    const observers = sections.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveLink(`#${id}`);
-        },
-        { threshold: 0.4 },
-      );
-      observer.observe(el);
-      return observer;
+    const sections = ["servicios", "proyectos", "planes", "contacto"];
+    const observers: IntersectionObserver[] = [];
+
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setActiveSection(`#${id}`);
+            }
+          },
+          { threshold: 0.25 },
+        );
+        observer.observe(element);
+        observers.push(observer);
+      }
     });
-    return () => observers.forEach((o) => o?.disconnect());
+
+    const handleScrollActive = () => {
+      if (window.scrollY < 200) {
+        setActiveSection("");
+      }
+    };
+    window.addEventListener("scroll", handleScrollActive, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollActive);
+      observers.forEach((obs) => obs.disconnect());
+    };
   }, []);
 
+  // Scroll behavior: top bar leaves on first scroll and only returns at the very top;
+  // past 120px, navbar hides on scroll down and returns on scroll up. Never hides if mobile menu is open.
   useEffect(() => {
-    const targetIndex =
-      hoverIndex !== null
-        ? hoverIndex
-        : NAV_LINKS.findIndex((l) => l.href === activeLink);
-    const el = navLinksRef.current[targetIndex];
-    if (el) {
-      const { offsetLeft, offsetWidth } = el;
-      setIndicatorStyle({ left: offsetLeft, width: offsetWidth });
+    const headerEl = headerRef.current;
+    const topBarEl = topBarRef.current;
+    if (!headerEl || !topBarEl) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      {
+        motion: "(prefers-reduced-motion: no-preference)",
+        reduce: "(prefers-reduced-motion: reduce)",
+      },
+      (context) => {
+        const { reduce } = context.conditions as {
+          motion: boolean;
+          reduce: boolean;
+        };
+
+        let lastY = window.scrollY;
+        let state: "top" | "scrolled-visible" | "hidden" = "top";
+
+        const updateHeader = () => {
+          const currentY = window.scrollY;
+          const delta = currentY - lastY;
+
+          if (isMobileMenuOpenRef.current) {
+            if (state !== "top") {
+              state = "top";
+              gsap.to(headerEl, {
+                y: 0,
+                opacity: 1,
+                duration: reduce ? 0.2 : 0.4,
+                ease: "power3.out",
+                overwrite: "auto",
+              });
+            }
+            lastY = currentY;
+            return;
+          }
+
+          const topBarH = topBarEl.offsetHeight || 33;
+          const totalH = headerEl.offsetHeight || 96;
+
+          if (currentY <= 8) {
+            if (state !== "top") {
+              state = "top";
+              if (reduce) {
+                gsap.set(headerEl, { y: 0 });
+                gsap.to(headerEl, {
+                  opacity: 1,
+                  duration: 0.25,
+                  overwrite: "auto",
+                });
+              } else {
+                gsap.to(headerEl, {
+                  y: 0,
+                  opacity: 1,
+                  duration: 0.45,
+                  ease: "power3.out",
+                  overwrite: "auto",
+                });
+              }
+            }
+          } else if (currentY > 120 && delta > 1.5) {
+            // Scrolling down past 120px -> hide navbar upwards
+            if (state !== "hidden") {
+              state = "hidden";
+              if (reduce) {
+                gsap.to(headerEl, {
+                  opacity: 0,
+                  duration: 0.25,
+                  overwrite: "auto",
+                });
+              } else {
+                gsap.to(headerEl, {
+                  y: -totalH - 4,
+                  duration: 0.45,
+                  ease: "power3.out",
+                  overwrite: "auto",
+                });
+              }
+            }
+          } else if (delta < -1.5 || (currentY <= 120 && currentY > 8)) {
+            // Scrolling up (or between 8px and 120px) -> show main nav, keep top bar hidden
+            if (state !== "scrolled-visible") {
+              state = "scrolled-visible";
+              if (reduce) {
+                gsap.set(headerEl, { y: -topBarH });
+                gsap.to(headerEl, {
+                  opacity: 1,
+                  duration: 0.25,
+                  overwrite: "auto",
+                });
+              } else {
+                gsap.to(headerEl, {
+                  y: -topBarH,
+                  opacity: 1,
+                  duration: 0.45,
+                  ease: "power3.out",
+                  overwrite: "auto",
+                });
+              }
+            }
+          }
+
+          lastY = currentY;
+        };
+
+        window.addEventListener("scroll", updateHeader, { passive: true });
+        return () => {
+          window.removeEventListener("scroll", updateHeader);
+        };
+      },
+    );
+
+    return () => mm.revert();
+  }, []);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      setIsMobileMenuOpen(false);
+      scrollTo(href, { offset: -96 });
     }
-  }, [hoverIndex, activeLink, i18n.language]);
-
-  const scrollToSection = (href: string) => {
-    setIsOpen(false);
-    setActiveLink(href);
-    scrollTo(href, { offset: href === "#servicios" ? 0 : -90, duration: 1.2 });
   };
-
-  const scrollToTop = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setActiveLink(null);
-    scrollTo(0, { offset: 0, duration: 1.2 });
-  };
-
-  const hasActiveIndicator =
-    hoverIndex !== null || NAV_LINKS.some((l) => l.href === activeLink);
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-4 sm:top-5 left-0 right-0 z-50 flex justify-center pointer-events-none px-4"
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 flex flex-col will-change-transform"
+    >
+      {/* 1. Barra superior fina de ubicación y estado */}
+      <div
+        ref={topBarRef}
+        role="region"
+        aria-label={t("nav.topbar_aria", "Ubicación y estado")}
+        className="w-full bg-rosa-niebla border-b border-azul-tinta/[0.18]"
       >
-        <div
-          className={`
-            pointer-events-auto
-            flex items-center gap-1.5 sm:gap-2.5
-            pl-3.5 sm:pl-4 pr-2 sm:pr-2.5 py-1.5 sm:py-2
-            rounded-full
-            border transition-all duration-300
-            ${
-              scrolled
-                ? "bg-zinc-950/85 backdrop-blur-2xl border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.65)] scale-[0.98]"
-                : "bg-zinc-950/60 backdrop-blur-xl border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.45)]"
-            }
-          `}
-        >
-          {/* Brand Logo */}
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-2.5 cursor-pointer py-1 pr-1.5 rounded-full group transition-transform duration-200 active:scale-95 bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
-            aria-label="Ir al inicio"
-          >
-            <span className="relative flex h-2.5 w-2.5 items-center justify-center">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8FD14F] opacity-50" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8FD14F] shadow-[0_0_6px_rgba(143,209,79,0.5)]" />
-            </span>
+        <div className="w-full max-w-[1440px] mx-auto px-[clamp(16px,4vw,64px)] py-2 flex flex-wrap items-center justify-between gap-2 font-mono text-xs text-texto-secundario-muted">
+          <span>
+            {t("nav.top_banner", "Software hecho en Managua, Nicaragua")}
+          </span>
+          <span className="inline-flex items-center gap-2 text-azul-tinta font-medium">
             <span
-              id="nav-logo-text"
-              className="text-sm font-bold tracking-tight text-white group-hover:text-[#8FD14F] transition-colors"
-            >
-              Nexol
-            </span>
-          </button>
+              aria-hidden="true"
+              className="w-2 h-2 rounded-full bg-esmeralda shrink-0"
+            />
+            {t("nav.top_whatsapp", "WhatsApp +505 8714 0989")}
+          </span>
+        </div>
+      </div>
 
-          <div className="w-px h-4 bg-white/10 mx-0.5 hidden md:block" />
-
-          {/* Desktop Nav Links */}
-          <div
-            className="hidden md:flex items-center gap-0.5 relative"
-            onMouseLeave={() => setHoverIndex(null)}
+      {/* 2. Navegación principal */}
+      <nav
+        aria-label={t("nav.main_aria", "Principal")}
+        className="w-full bg-rosa-niebla/90 backdrop-blur-md border-b border-azul-tinta/[0.18]"
+      >
+        <div className="w-full max-w-[1440px] mx-auto px-[clamp(16px,4vw,64px)] py-3.5 flex items-center justify-between gap-4">
+          {/* Logo NEXOL con punto esmeralda */}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsMobileMenuOpen(false);
+              scrollTo(0);
+            }}
+            aria-label={t("nav.logo_aria", "NEXOL, ir al inicio")}
+            className="font-bricolage font-extrabold text-[26px] tracking-[-0.04em] text-azul-tinta no-underline inline-flex items-baseline"
           >
-            {hasActiveIndicator && (
-              <motion.div
-                className="absolute top-0 bottom-0 rounded-full bg-white/10 border border-white/10"
-                animate={indicatorStyle}
-                transition={{ type: "spring", stiffness: 450, damping: 35 }}
-              />
-            )}
+            nexol<span className="text-esmeralda">.</span>
+          </a>
 
-            {NAV_LINKS.map((link, i) => {
-              const isActive = activeLink === link.href;
+          {/* Enlaces centrales (Desktop) */}
+          <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0">
+            {NAV_LINKS.map((item) => {
+              const isActive = activeSection === item.href;
               return (
-                <button
-                  key={link.href}
-                  ref={(el) => {
-                    navLinksRef.current[i] = el;
-                  }}
-                  onClick={() => scrollToSection(link.href)}
-                  onMouseEnter={() => setHoverIndex(i)}
-                  className={`
-                    relative px-3.5 py-1.5 text-xs font-medium tracking-normal rounded-full cursor-pointer
-                    transition-colors duration-200 bg-transparent border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
-                    ${
+                <li key={item.key}>
+                  <a
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className={`text-[15px] font-medium py-2 transition-colors no-underline ${
                       isActive
-                        ? "text-[#8FD14F] font-semibold"
-                        : "text-zinc-300 hover:text-white"
-                    }
-                  `}
-                >
-                  {link.label}
-                </button>
+                        ? "text-esmeralda-oscura font-semibold"
+                        : "text-azul-tinta hover:text-esmeralda-oscura"
+                    }`}
+                  >
+                    {t(`nav.${item.key}`)}
+                  </a>
+                </li>
               );
             })}
-          </div>
+          </ul>
 
-          <div className="w-px h-4 bg-white/10 mx-0.5 hidden md:block" />
-
-          {/* Language Switcher */}
-          <div
-            className="hidden md:flex items-center bg-black/40 rounded-full p-0.5 border border-white/10 relative"
-            title={`Switch to ${nextLang}`}
-          >
-            <motion.div
-              className="absolute top-0.5 bottom-0.5 rounded-full bg-white/15"
-              animate={{
-                left: currentLang === "ES" ? "2px" : "50%",
-                width: "calc(50% - 2px)",
-              }}
-              transition={{ type: "spring", stiffness: 500, damping: 40 }}
-            />
-            {["ES", "EN"].map((lang) => (
+          {/* Acciones derecha (Desktop): Selector ES/EN + Botón Iniciar proyecto */}
+          <div className="hidden md:flex items-center gap-3">
+            <div
+              role="group"
+              aria-label={t("nav.lang_aria", "Idioma")}
+              className="inline-flex border-[1.5px] border-azul-tinta rounded-full p-[3px] font-mono text-xs"
+            >
               <button
-                key={lang}
-                onClick={() => i18n.changeLanguage(lang.toLowerCase())}
-                className={`
-                  relative z-10 px-2.5 py-0.5 text-[11px] font-semibold rounded-full cursor-pointer border-none
-                  transition-colors duration-200 bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
-                  ${currentLang === lang ? "text-[#8FD14F]" : "text-zinc-400 hover:text-zinc-200"}
-                `}
+                type="button"
+                aria-pressed={currentLang === "es"}
+                onClick={() => setLanguage("es")}
+                className={`px-2.5 py-1 rounded-full font-medium transition-colors cursor-pointer ${
+                  currentLang === "es"
+                    ? "bg-azul-tinta text-rosa-niebla"
+                    : "bg-transparent text-azul-tinta hover:text-esmeralda-oscura"
+                }`}
               >
-                {lang}
+                ES
               </button>
-            ))}
+              <button
+                type="button"
+                aria-pressed={currentLang === "en"}
+                onClick={() => setLanguage("en")}
+                className={`px-2.5 py-1 rounded-full font-medium transition-colors cursor-pointer ${
+                  currentLang === "en"
+                    ? "bg-azul-tinta text-rosa-niebla"
+                    : "bg-transparent text-azul-tinta hover:text-esmeralda-oscura"
+                }`}
+              >
+                EN
+              </button>
+            </div>
+
+            <a
+              href="#contacto"
+              onClick={(e) => handleNavClick(e, "#contacto")}
+              className="inline-flex items-center gap-2 bg-esmeralda-oscura hover:bg-esmeralda-hover text-blanco px-[18px] py-[11px] rounded-full font-semibold text-sm no-underline transition-colors"
+            >
+              <span>{t("nav.cta", "Iniciar proyecto")}</span>
+              <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
-          {/* CTA Button */}
-          <button
-            onClick={() => {
-              scrollToSection("#contacto");
-              import("react-ga4").then((ga) => {
-                ga.default.event({
-                  category: "Navigation",
-                  action: "Clic Iniciar Proyecto",
-                  label: "Navbar Desktop",
-                });
-              });
-            }}
-            className="
-              hidden md:inline-flex items-center gap-1.5
-              px-4 py-1.5 rounded-full text-xs font-bold tracking-tight
-              cursor-pointer border-none
-              bg-[#8FD14F] hover:bg-[#5FA22B]
-              text-black
-              shadow-[0_0_12px_rgba(143,209,79,0.25)] hover:shadow-[0_0_16px_rgba(143,209,79,0.4)]
-              transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]
-            "
-          >
-            <span>{t("nav.cta")}</span>
-            <ArrowUpRight size={13} className="stroke-[2.5]" />
-          </button>
-
-          {/* Mobile Menu Toggle Button */}
-          <button
-            className="md:hidden text-zinc-200 bg-transparent border-none cursor-pointer p-1.5 rounded-full hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {isOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="flex items-center justify-center"
-                >
-                  <X size={18} />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="flex items-center justify-center"
-                >
-                  <Menu size={18} />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </button>
-        </div>
-      </motion.nav>
-
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.97 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed top-20 left-4 right-4 z-40 md:hidden"
-          >
-            <div className="bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] max-h-[calc(100dvh-5.5rem)] flex flex-col">
-              <div className="p-4 flex flex-col gap-1.5 overflow-y-auto no-scrollbar">
-                {[
-                  { label: t("nav.home"), href: "#hero", icon: Home },
-                  ...NAV_LINKS,
-                ].map((link) => {
-                  const Icon = link.icon;
-                  const isActive = activeLink === link.href;
-                  return (
-                    <button
-                      key={link.href}
-                      onClick={() => scrollToSection(link.href)}
-                      className={`
-                        flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-semibold tracking-wide w-full text-left
-                        border cursor-pointer transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
-                        ${
-                          isActive
-                            ? "bg-white/10 text-[#8FD14F] border-white/15"
-                            : "bg-transparent text-zinc-400 border-transparent hover:bg-white/5 hover:text-white"
-                        }
-                      `}
-                    >
-                      <Icon
-                        size={16}
-                        className={
-                          isActive ? "text-[#8FD14F]" : "text-zinc-400"
-                        }
-                      />
-                      {link.label}
-                    </button>
-                  );
-                })}
-
-                <div className="flex items-center justify-between px-4 py-3 rounded-2xl border border-white/10 bg-white/5 mt-1">
-                  <span className="text-xs font-medium text-zinc-400">
-                    Idioma / Language
-                  </span>
-                  <div className="flex items-center bg-black/50 rounded-full p-0.5 border border-white/10 relative">
-                    <motion.div
-                      className="absolute top-0.5 bottom-0.5 rounded-full bg-white/15"
-                      animate={{
-                        left: currentLang === "ES" ? "2px" : "50%",
-                        width: "calc(50% - 2px)",
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 40,
-                      }}
-                    />
-                    {["ES", "EN"].map((lang) => (
-                      <button
-                        key={lang}
-                        onClick={() => i18n.changeLanguage(lang.toLowerCase())}
-                        className={`
-                          relative z-10 px-3 py-1 text-[11px] font-semibold rounded-full cursor-pointer border-none
-                          transition-colors duration-150 bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]
-                          ${currentLang === lang ? "text-[#8FD14F]" : "text-zinc-400"}
-                        `}
-                      >
-                        {lang}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-2 border-t border-white/10 mt-1">
-                  <button
-                    onClick={() => {
-                      scrollToSection("#contacto");
-                      import("react-ga4").then((ga) => {
-                        ga.default.event({
-                          category: "Navigation",
-                          action: "Clic Iniciar Proyecto",
-                          label: "Navbar Mobile",
-                        });
-                      });
-                    }}
-                    className="
-                      w-full py-3 rounded-full text-xs font-bold tracking-tight flex items-center justify-center gap-1.5
-                      bg-[#8FD14F] hover:bg-[#5FA22B] text-black
-                      border-none cursor-pointer transition-all duration-150 shadow-[0_0_12px_rgba(143,209,79,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]
-                    "
-                  >
-                    <span>{t("nav.cta")}</span>
-                    <ArrowUpRight size={14} className="stroke-[2.5]" />
-                  </button>
-                </div>
-              </div>
+          {/* Controles Mobile */}
+          <div className="flex items-center gap-2.5 md:hidden">
+            <div
+              role="group"
+              aria-label={t("nav.lang_aria", "Idioma")}
+              className="inline-flex border-[1.5px] border-azul-tinta rounded-full p-[2px] font-mono text-xs"
+            >
+              <button
+                type="button"
+                aria-pressed={currentLang === "es"}
+                onClick={() => setLanguage("es")}
+                className={`px-2 py-0.5 rounded-full font-medium transition-colors ${
+                  currentLang === "es"
+                    ? "bg-azul-tinta text-rosa-niebla"
+                    : "bg-transparent text-azul-tinta"
+                }`}
+              >
+                ES
+              </button>
+              <button
+                type="button"
+                aria-pressed={currentLang === "en"}
+                onClick={() => setLanguage("en")}
+                className={`px-2 py-0.5 rounded-full font-medium transition-colors ${
+                  currentLang === "en"
+                    ? "bg-azul-tinta text-rosa-niebla"
+                    : "bg-transparent text-azul-tinta"
+                }`}
+              >
+                EN
+              </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
-            className="fixed inset-0 z-30 md:hidden bg-black/40 backdrop-blur-sm"
-          />
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-expanded={isMobileMenuOpen}
+              aria-label={
+                isMobileMenuOpen
+                  ? t("nav.close_menu", "Cerrar menú")
+                  : t("nav.open_menu", "Abrir menú")
+              }
+              className="p-2 rounded-lg text-azul-tinta hover:bg-azul-tinta/10 transition-colors"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Menú desplegable Mobile */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-rosa-niebla border-t border-azul-tinta/[0.18] px-4 py-5 flex flex-col gap-3 shadow-lg">
+            <ul className="flex flex-col gap-1 list-none m-0 p-0">
+              {NAV_LINKS.map((item) => {
+                const isActive = activeSection === item.href;
+                return (
+                  <li key={item.key}>
+                    <a
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      className={`flex items-center justify-between px-3 py-3 rounded-xl text-base font-semibold no-underline transition-colors ${
+                        isActive
+                          ? "bg-azul-tinta text-rosa-niebla"
+                          : "text-azul-tinta hover:bg-azul-tinta/10"
+                      }`}
+                    >
+                      <span>{t(`nav.${item.key}`)}</span>
+                      <span
+                        aria-hidden="true"
+                        className={
+                          isActive
+                            ? "text-esmeralda-clara"
+                            : "text-texto-atenuado"
+                        }
+                      >
+                        →
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <a
+              href="#contacto"
+              onClick={(e) => handleNavClick(e, "#contacto")}
+              className="mt-2 w-full inline-flex items-center justify-center gap-2 bg-esmeralda-oscura hover:bg-esmeralda-hover text-blanco px-5 py-3.5 rounded-full font-semibold text-sm no-underline transition-colors"
+            >
+              <span>{t("nav.cta", "Iniciar proyecto")}</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         )}
-      </AnimatePresence>
-    </>
+      </nav>
+    </header>
   );
 };

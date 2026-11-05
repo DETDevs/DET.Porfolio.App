@@ -20,7 +20,7 @@ export interface AnimProps {
   active: boolean;
 }
 
-const LIME = "#8FD14F";
+const LIME = "#3DD68C";
 const pad2 = (n: number) => String(Math.max(0, Math.round(n))).padStart(2, "0");
 
 const prefersReduced = () =>
@@ -112,7 +112,7 @@ export const TicketAnim = ({ mode, active }: AnimProps) => {
       {/* printer slot */}
       <div className="relative z-10 h-3 rounded-full bg-white/10 border border-white/15" />
       <div
-        className="t-paper -mt-1 bg-black border border-[#8FD14F]/35 px-7 pt-8 pb-6 text-base sm:text-lg text-zinc-300 shadow-[0_0_80px_rgba(143,209,79,0.08)]"
+        className="t-paper -mt-1 bg-[#141E42] border border-[#3DD68C]/35 px-7 pt-8 pb-6 text-base sm:text-lg text-zinc-300 shadow-[0_0_80px_rgba(61, 214, 140,0.08)]"
         style={{ clipPath: "inset(0% 0% 100% 0%)" }}
       >
         <div className="flex items-center justify-between text-xs tracking-[0.3em] text-zinc-500 uppercase">
@@ -575,7 +575,7 @@ export const BrowserAnim = ({ mode, active }: AnimProps) => {
       className="service-anim-root service-anim-web w-full max-w-[820px] overflow-hidden mx-auto select-none"
     >
       <div
-        className="b-frame relative overflow-hidden border border-white/15 bg-black"
+        className="b-frame relative overflow-hidden border border-white/15 bg-[#141E42]"
         style={{ clipPath: "inset(0% 0% 100% 0%)" }}
       >
         <div className="flex items-center gap-2 px-5 py-3.5 border-b border-white/10">
@@ -587,7 +587,7 @@ export const BrowserAnim = ({ mode, active }: AnimProps) => {
         <div className="p-5 flex flex-col gap-4">
           <div
             className="b-block h-[clamp(96px,17vh,160px)] px-7 flex flex-col justify-center gap-3 opacity-0"
-            style={{ background: "rgba(143,209,79,0.14)", border: "1px solid rgba(143,209,79,0.4)" }}
+            style={{ background: "rgba(61, 214, 140,0.14)", border: "1px solid rgba(61, 214, 140,0.4)" }}
           >
             <div className="h-4 w-3/5 rounded-full" style={{ background: LIME }} />
             <div className="h-2.5 w-2/5 rounded-full bg-white/25" />
@@ -611,7 +611,7 @@ export const BrowserAnim = ({ mode, active }: AnimProps) => {
           className="b-glint absolute inset-y-0 left-0 w-1/4 pointer-events-none opacity-0"
           style={{
             background:
-              "linear-gradient(100deg, transparent, rgba(143,209,79,0.28), transparent)",
+              "linear-gradient(100deg, transparent, rgba(61, 214, 140,0.28), transparent)",
           }}
         />
       </div>

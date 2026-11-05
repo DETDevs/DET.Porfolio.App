@@ -56,9 +56,9 @@ export const SERVICES: ServiceItem[] = [
 export const PROJECTS: Project[] = [
     {
         id: 1,
-        title: "TrackDeli — Web Platform",
+        title: "NEXOL Delivery — plataforma web",
         category: "Web & Real-Time",
-        ecosystem: "trackdeli",
+        ecosystem: "nexol",
         description: "Plataforma SaaS multi-tenant para logística y delivery: despacho inteligente en tiempo real, mapas interactivos con WebSockets y portal público de seguimiento de pedidos.",
         tags: ["React", "NestJS", "PostgreSQL", "Socket.IO", "Mapbox"],
         image: "/assets/project/webtrack/dash_webtrack.png",
@@ -75,9 +75,9 @@ export const PROJECTS: Project[] = [
     },
     {
         id: 2,
-        title: "TrackDeli — Rider App",
+        title: "NEXOL Delivery — app de repartidores",
         category: "App Móvil",
-        ecosystem: "trackdeli",
+        ecosystem: "nexol",
         description: "Aplicación móvil en Flutter para repartidores con telemetría GPS continua, recepción automática de órdenes, negociación de tarifas y navegación fluida sincronizada.",
         tags: ["Flutter", "Dart", "Riverpod", "Mapbox", "Firebase", "Socket.IO"],
         image: "/assets/project/appdeli/rutaentrega_app.jpg",
@@ -94,9 +94,9 @@ export const PROJECTS: Project[] = [
     },
     {
         id: 3,
-        title: "TrackDeli POS",
+        title: "NEXOL POS",
         category: "Punto de Venta",
-        ecosystem: "trackdeli",
+        ecosystem: "nexol",
         description: "Sistema de escritorio con Electron para gestión integral de caja, inventarios y facturación, con soporte nativo para impresoras térmicas ESC/POS y cajón de dinero.",
         tags: ["Electron", "React", "TypeScript", "ESC/POS", "Hardware"],
         image: "/assets/project/pos/order_POS.png",
@@ -112,7 +112,7 @@ export const PROJECTS: Project[] = [
     {
         id: 4,
         title: "Dulces Momentos POS",
-        category: "Facturación & POS",
+        category: "Punto de Venta",
         ecosystem: "client",
         description: "Sistema punto de venta completo: facturación rápida, inventario con alertas de stock, control de apertura/cierre de caja (Cash In/Out) y reportes de rentabilidad.",
         tags: ["Facturación", "Inventario", "Caja", "Reportes"],
@@ -224,7 +224,7 @@ export const PLANS: PricingPlan[] = [
     },
     {
         id: 'pos',
-        title: "Sistema de Facturación / POS",
+        title: "Punto de Venta",
         implementationPrice: "",
         prices: {
             monthly: `$${POS_PRICE}`,
@@ -233,7 +233,7 @@ export const PLANS: PricingPlan[] = [
         },
         desc: "Todo incluido en una sola cuota mensual. Sin escalones de funciones ni costos ocultos.",
         devFeatures: [
-            "Facturación electrónica y comprobantes",
+            "Emisión de tickets y comprobantes",
             "Inventario en tiempo real con alertas de stock",
             "Control de caja: aperturas, cierres y arqueos",
             "Reportes avanzados de ventas y rentabilidad",
@@ -305,7 +305,7 @@ export const PLANS: PricingPlan[] = [
     },
     {
         id: 'cartera',
-        title: "Cartera de Cobro",
+        title: "NEXOL Cobros",
         implementationPrice: "",
         prices: {
             monthly: "$25",
@@ -326,12 +326,12 @@ export const PLANS: PricingPlan[] = [
         ],
         highlight: false,
         disclaimer: "Precio único mensual. Conectado automáticamente a tus ventas de POS, Delivery y Citas.",
-        cta: "Comenzar con Cartera",
+        cta: "Comenzar con NEXOL Cobros",
     },
 ];
 
 export const CONTACT_INFO = {
-    email: "contacto@detdevs.com",
+    email: "",
     phone: "+505 8714-0989",
     location: "Managua, Nicaragua",
 };

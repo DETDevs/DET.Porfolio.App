@@ -1,16 +1,58 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 @import "lenis/dist/lenis.css";
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #8FD14F;
-  --color-brand-hover: #5FA22B;
+  --color-rosa-niebla: #F4E1DE;
+  --color-azul-tinta: #1D2B5C;
+  --color-azul-tinta-claro: #26366F;
+  --color-azul-profundo: #141E42;
+  --color-azul-footer-bar: #101735;
+  --color-azul-miniatura: #33467F;
+  --color-esmeralda: #00A060;
+  --color-esmeralda-oscura: #007A48;
+  --color-esmeralda-hover: #005F36;
+  --color-esmeralda-clara: #3DD68C;
+  --color-texto-secundario: #33406B;
+  --color-texto-secundario-muted: #4A5578;
+  --color-texto-atenuado: #6B7393;
+  --color-borde-campo: #9AA1B8;
+  --color-texto-azul: #E6D3D0;
+  --color-texto-azul-muted: #D9C5C2;
+  --color-blanco: #FFFFFF;
+  --color-badge-verde-bg: #E2F5EC;
+  --color-badge-verde-text: #005C36;
+
+  --color-brand: #007A48;
+  --color-brand-hover: #005F36;
+  --color-brand-accent: #00A060;
+
+  --font-bricolage: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-geist: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 :root {
-  --brand: #8FD14F;
-  --brand-hover: #5FA22B;
-  --brand-glow: rgba(143, 209, 79, 0.2);
+  --rosa-niebla: #F4E1DE;
+  --azul-tinta: #1D2B5C;
+  --azul-tinta-claro: #26366F;
+  --azul-profundo: #141E42;
+  --esmeralda: #00A060;
+  --esmeralda-oscura: #007A48;
+  --esmeralda-clara: #3DD68C;
+  --texto-secundario: #33406B;
+  --texto-secundario-muted: #4A5578;
+  --texto-azul: #F4E1DE;
+  --texto-azul-muted: #D9C5C2;
+  --blanco: #FFFFFF;
+
+  --brand: #007A48;
+  --brand-hover: #005F36;
+  --brand-glow: rgba(0, 160, 96, 0.2);
+}
+
+.font-bricolage {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .font-instrument {
@@ -21,20 +63,25 @@
   font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+.font-mono,
+.font-geist-mono {
+  font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 /* Legal markdown styling */
 .legal-prose {
   font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #27272a;
+  color: #1D2B5C;
   line-height: 1.8;
   font-size: 1.025rem;
 }
 
 .legal-prose h1 {
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
   font-size: 2.75rem;
   line-height: 1.15;
-  color: #18181b;
-  font-weight: 400;
+  color: #1D2B5C;
+  font-weight: 800;
   margin-bottom: 1.75rem;
   letter-spacing: -0.02em;
 }
@@ -46,11 +93,11 @@
 }
 
 .legal-prose h2 {
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
   font-size: 1.85rem;
   line-height: 1.25;
-  color: #18181b;
-  font-weight: 400;
+  color: #1D2B5C;
+  font-weight: 700;
   margin-top: 2.75rem;
   margin-bottom: 1rem;
   display: flex;
@@ -65,7 +112,7 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 9999px;
-  background-color: #5FA22B;
+  background-color: #00A060;
   flex-shrink: 0;
 }
 
@@ -73,7 +120,7 @@
   font-family: "Geist", system-ui, sans-serif;
   font-size: 1.15rem;
   line-height: 1.4;
-  color: #18181b;
+  color: #1D2B5C;
   font-weight: 600;
   margin-top: 1.75rem;
   margin-bottom: 0.75rem;
@@ -81,21 +128,21 @@
 
 .legal-prose p {
   margin-bottom: 1.35rem;
-  color: #3f3f46;
+  color: #33406B;
 }
 
 .legal-prose ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1.35rem;
-  color: #3f3f46;
+  color: #33406B;
 }
 
 .legal-prose ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin-bottom: 1.35rem;
-  color: #3f3f46;
+  color: #33406B;
 }
 
 .legal-prose li {
@@ -103,77 +150,64 @@
 }
 
 .legal-prose strong {
-  color: #18181b;
+  color: #1D2B5C;
   font-weight: 600;
 }
 
 .legal-prose a {
-  color: #5FA22B;
+  color: #007A48;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.15s ease;
 }
 
 .legal-prose a:hover {
-  color: #8FD14F;
+  color: #00A060;
 }
 
 .legal-prose hr {
   border: 0;
-  border-top: 1px solid #e4e4e7;
+  border-top: 1px solid rgba(29, 43, 92, 0.12);
   margin: 2.5rem 0;
 }
 
 .legal-prose blockquote {
-  border-left: 3px solid #8FD14F;
+  border-left: 3px solid #00A060;
   padding-left: 1rem;
   font-style: italic;
-  color: #52525b;
+  color: #33406B;
   margin: 1.5rem 0;
 }
-
-
 
 @layer base {
   html {
     scroll-behavior: auto;
     overflow-x: hidden;
     max-width: 100vw;
-    overflow-x: hidden;
-    max-width: 100%;
     position: relative;
     width: 100%;
-  }
-
-  #root {
-    overflow-x: hidden;
-    max-width: 100%;
-    width: 100%;
-    max-width: 100%;
+    background-color: #F4E1DE;
+    color: #1D2B5C;
   }
 
   body {
-    font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     max-width: 100vw;
     width: 100%;
-    max-width: 100%;
     position: relative;
-    width: 100%;
-  }
-
-  #root {
-    overflow-x: hidden;
-    max-width: 100vw;
-    width: 100%;
+    background-color: #F4E1DE;
+    color: #1D2B5C;
   }
 
   #root {
     overflow-x: hidden;
     max-width: 100%;
     width: 100%;
+    background-color: #F4E1DE;
+    color: #1D2B5C;
   }
 }
 
@@ -181,14 +215,14 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #F4E1DE;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #1D2B5C;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #26366F;
 }
 
 @utility no-scrollbar {
@@ -196,5 +230,38 @@
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .bento-hover-card {
+    transition:
+      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .bento-hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 38px rgba(10, 16, 40, 0.28);
+  }
+
+  .rubro-hover-card {
+    transition:
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s ease,
+      box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .rubro-hover-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-esmeralda);
+    box-shadow: 0 14px 30px rgba(29, 43, 92, 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-spin,
+  .animate-bounce {
+    animation: none !important;
+    transition: none !important;
   }
 }

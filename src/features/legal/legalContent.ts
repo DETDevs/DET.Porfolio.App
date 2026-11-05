@@ -6,9 +6,9 @@ Estos Términos y Condiciones regulan el uso del sitio web **www.nexolsoft.com**
 
 ## 1. Qué ofrecemos
 
-NEXOL desarrolla y opera la plataforma **TrackDeli**, que se ofrece por **membresía mensual** mediante módulos:
+NEXOL desarrolla y opera plataformas de software que se ofrecen por **membresía mensual** mediante módulos:
 
-- **TrackDeli POS:** punto de venta para computadora con sistema Windows.
+- **NEXOL POS:** punto de venta para computadora con sistema Windows.
 - **Cartera de Cobro:** cuentas de empresa o convenios, carnet con código de barras, límites de crédito y reportes.
 - **Agenda de Citas:** reservas en línea para clientes de un negocio.
 - **Delivery:** gestión de entregas, repartidores y seguimiento de pedidos.
@@ -36,7 +36,7 @@ No está permitido: usar la plataforma para fines ilícitos o fraudulentos; cede
 
 ## 6. Responsabilidades del cliente
 
-El cliente es el único responsable de las obligaciones fiscales, laborales y legales de su negocio, de la veracidad de la información que cargue, de contar con autorización para registrar datos de sus propios clientes y empleados, y de verificar sus cierres de caja y reportes. **TrackDeli es una herramienta de gestión y no sustituye la facturación fiscal ni la contabilidad del negocio.**
+El cliente es el único responsable de las obligaciones fiscales, laborales y legales de su negocio, de la veracidad de la información que cargue, de contar con autorización para registrar datos de sus propios clientes y empleados, y de verificar sus cierres de caja y reportes. **NEXOL es una herramienta de gestión y no sustituye la facturación fiscal ni la contabilidad del negocio.**
 
 ## 7. Equipo suministrado
 
@@ -48,7 +48,7 @@ La plataforma, su código, diseño, marcas y contenido del sitio son propiedad d
 
 ## 9. Disponibilidad del servicio y límite de responsabilidad
 
-- El servicio depende de internet y de servicios de terceros (alojamiento, mensajería, correo). Hacemos lo razonable para mantenerlo disponible, pero **no garantizamos un funcionamiento ininterrumpido ni libre de errores**.
+- El servicio depende de internet y de servicios de terceros (alojamiento, mensajería, email). Hacemos lo razonable para mantenerlo disponible, pero **no garantizamos un funcionamiento ininterrumpido ni libre de errores**.
 - No respondemos por pérdidas de ganancias, daños indirectos, ni por ventas o cobros no registrados por falta de conexión, de energía o por mal uso.
 - Salvo dolo o culpa grave, nuestra responsabilidad total se limita a lo que el cliente pagó por membresía en los últimos tres meses o, en el caso del equipo, al precio del equipo defectuoso.
 - El contenido del sitio es informativo y puede cambiar sin previo aviso.
@@ -79,7 +79,7 @@ export const privacidadRaw = `# Política de Privacidad
 
 **Última actualización:** 6 de octubre de 2026
 
-En **NEXOL** (nombre comercial de Edwin Torrez, Managua, Nicaragua) respetamos tu privacidad. Esta política explica qué datos personales tratamos cuando visitas **www.nexolsoft.com**, nos contactas o usas la plataforma **TrackDeli**, para qué los usamos y qué derechos tienes.
+En **NEXOL** (nombre comercial de Edwin Torrez, Managua, Nicaragua) respetamos tu privacidad. Esta política explica qué datos personales tratamos cuando visitas **www.nexolsoft.com**, nos contactas o usas los servicios de **NEXOL**, para qué los usamos y qué derechos tienes.
 
 ## 1. Quién es el responsable
 
@@ -87,7 +87,7 @@ Para los datos de visitantes del sitio, de personas que nos contactan y de nuest
 
 ## 2. Qué datos recopilamos
 
-- **Datos de contacto:** nombre, teléfono, correo y mensaje que nos envías por el sitio, WhatsApp o redes sociales.
+- **Datos de contacto:** nombre, teléfono, email y mensaje que nos envías por el sitio, WhatsApp o redes sociales.
 - **Datos de clientes:** nombre del negocio, representante, cédula cuando el contrato lo requiere, dirección del local, datos de facturación del servicio y de pago de la membresía.
 - **Datos de usuarios de la plataforma:** nombre, usuario, rol y registros de actividad (por ejemplo, quién realizó una venta o un cobro).
 - **Datos que el negocio carga en la plataforma:** productos, ventas, caja, y, según los módulos, datos de sus clientes y empleados (por ejemplo, nombre, código o carnet, identificación, teléfono y saldos de cartera).
@@ -105,7 +105,7 @@ No pedimos datos que no necesitemos para el servicio y no recopilamos datos de t
 
 ## 4. Con quién los compartimos
 
-Solo compartimos datos con proveedores que nos ayudan a operar el servicio, como alojamiento e infraestructura, correo electrónico y mensajería (por ejemplo, WhatsApp), y únicamente lo necesario para esa función. También podemos compartirlos con una autoridad cuando la ley lo exija. Si en el futuro NEXOL se constituye como sociedad, los datos pasarán a ella bajo las mismas condiciones.
+Solo compartimos datos con proveedores que nos ayudan a operar el servicio, como alojamiento e infraestructura, email y mensajería (por ejemplo, WhatsApp), y únicamente lo necesario para esa función. También podemos compartirlos con una autoridad cuando la ley lo exija. Si en el futuro NEXOL se constituye como sociedad, los datos pasarán a ella bajo las mismas condiciones.
 
 ## 5. Transferencia fuera de Nicaragua
 
@@ -121,7 +121,7 @@ Aplicamos medidas técnicas y organizativas razonables: accesos por usuario y ro
 
 ## 8. Tus derechos
 
-Puedes pedirnos **acceso, rectificación, actualización, cancelación u oposición** respecto de tus datos personales, y retirar tu consentimiento cuando este sea la base del tratamiento. Si eres cliente o empleado de un negocio que usa TrackDeli, escribe primero al negocio, que es el responsable; nosotros te ayudaremos a atender la solicitud. Para ejercer tus derechos, contáctanos por los medios de la sección 11 indicando tu nombre y qué solicitas. Responderemos en un plazo razonable.
+Puedes pedirnos **acceso, rectificación, actualización, cancelación u oposición** respecto de tus datos personales, y retirar tu consentimiento cuando este sea la base del tratamiento. Si eres cliente o empleado de un negocio que usa NEXOL, escribe primero al negocio, que es el responsable; nosotros te ayudaremos a atender la solicitud. Para ejercer tus derechos, contáctanos por los medios de la sección 11 indicando tu nombre y qué solicitas. Responderemos en un plazo razonable.
 
 ## 9. Cookies y medición
 

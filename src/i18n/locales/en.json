@@ -6,15 +6,17 @@
     "whyus": "Why Us",
     "pricing": "Pricing",
     "contact": "Contact",
-    "cta": "Start a Project",
-    "home": "Home"
+    "cta": "Start project",
+    "home": "Home",
+    "top_banner": "Software crafted in Managua, Nicaragua",
+    "top_whatsapp": "WhatsApp +505 8714 0989"
   },
   "hero": {
     "title_1": "Software that drives",
     "title_2": "your business scale",
-    "subtitle": "We engineer high-impact custom software — real-time platforms, billing systems, inventory engines, and native mobile apps.",
-    "cta_primary": "See Pricing",
-    "cta_secondary": "Our Services",
+    "subtitle": "Ready-to-use systems for businesses in Nicaragua and custom software when you need something tailored. We install it, train your team, and support you.",
+    "cta_primary": "View plans",
+    "cta_secondary": "Our services",
     "cta_card": "View plan",
     "cta_whatsapp": "Quote via WhatsApp",
     "architecture_engine": "Nexol Architecture Engine",
@@ -67,51 +69,76 @@
         "image": "/assets/project/DulcesMomentos/project.png",
         "link": "#planes"
       }
-    ]
+    ],
+    "title_main": "Your business, in order.",
+    "title_sub": "From the cash register to the final payment.",
+    "panel_title": "What does your business need?",
+    "options": {
+      "pos": {
+        "main": "Sell and control the register",
+        "product": "NEXOL POS"
+      },
+      "cartera": {
+        "main": "Collect payments from clients",
+        "product": "NEXOL Cobros"
+      },
+      "citas": {
+        "main": "Accept online bookings",
+        "product": "NEXOL Citas"
+      },
+      "delivery": {
+        "main": "Dispatch delivery orders",
+        "product": "NEXOL Delivery"
+      },
+      "web": {
+        "main": "Get my website",
+        "product": "websites & custom software"
+      }
+    }
   },
   "services": {
-    "scene_label": "Service",
-    "eyebrow": "What We Do",
-    "title": "Built around your business",
-    "subtitle": "We build end-to-end systems that streamline your operations and put you in full control of your company.",
-    "items": [
-      {
-        "title": "Billing System",
-        "desc": "Check out fast, issue sales receipts, and keep your sales, cash drawer, and numbers clear."
+    "eyebrow": "What we do for your business",
+    "title_prefix": "Software crafted here, for businesses ",
+    "title_highlight": "from here.",
+    "subtitle": "Five services you can use together or separately. Installation, training, and support included.",
+    "cards": {
+      "pos": {
+        "tag": "01 · Point of sale",
+        "title": "NEXOL POS",
+        "desc": "Fast checkout with split and USD payments, shift cash closing, inventory, and reports. For stores, pharmacies, restaurants, and workshops.",
+        "price": "$45 / month per branch",
+        "cta": "View plan →",
+        "receipt_alt": "Sample sales receipt showing deducted inventory"
       },
-      {
-        "title": "Inventory Management",
-        "desc": "Complete stock control with low-inventory alerts and real-time product tracking."
+      "cobros": {
+        "tag": "02 · Collections ledger",
+        "title": "NEXOL Cobros",
+        "desc": "Clients, installments, and payments in order, with balances always up to date.",
+        "price": "$25 / month",
+        "cta": "View plan →"
       },
-      {
-        "title": "Customer Management",
-        "desc": "Keep a clean, organized record of your customers, their order history, and every contact detail."
+      "citas": {
+        "tag": "03 · Online booking",
+        "title": "NEXOL Citas",
+        "desc": "Online reservations per professional and service, with automated confirmations.",
+        "price": "$30 / month",
+        "cta": "View plan →"
       },
-      {
-        "title": "Order Management",
-        "desc": "A full workflow from order placement to delivery, with status tracking at every step."
+      "delivery": {
+        "tag": "04 · Logistics",
+        "title": "NEXOL Delivery",
+        "desc": "Orders, live map courier dispatch, and customer tracking. Pay per delivery, no monthly fee.",
+        "price": "Per delivery",
+        "cta": "View plan →"
       },
-      {
-        "title": "Business Dashboard",
-        "desc": "Your business at a glance — daily revenue, top-selling products, and profit trends in one view."
-      },
-      {
-        "title": "Advanced Reports",
-        "desc": "Custom reports on sales performance, operations, and business health — ready when you need them."
-      },
-      {
-        "title": "Websites",
-        "desc": "Corporate sites, landing pages, and online stores — built with modern design and mobile-first in mind."
-      },
-      {
-        "title": "Mobile Apps",
-        "desc": "Native iOS and Android apps that bring your business closer to your customers."
-      },
-      {
-        "title": "Backend & Architecture",
-        "desc": "Robust APIs, real-time engines, and systems that scale with your business, from microservices to full multi-tenant platforms."
+      "web": {
+        "tag": "05 · Web & custom",
+        "title": "Websites and custom software",
+        "desc": "Your website to drive more sales, or the custom software your business needs and doesn't exist.",
+        "price": "From $300",
+        "cta": "View plan →"
       }
-    ]
+    }
   },
   "projects": {
     "scene_label": "Project",
@@ -123,17 +150,17 @@
     "view_screenshots": "View screenshots",
     "items": [
       {
-        "title": "TrackDeli — Web Platform",
+        "title": "NEXOL Delivery — web platform",
         "category": "Web & Real-Time",
         "description": "Multi-tenant SaaS platform for delivery logistics: live dispatching, interactive maps via WebSockets, and a public tracking portal for end customers."
       },
       {
-        "title": "TrackDeli — Rider App",
+        "title": "NEXOL Delivery — rider app",
         "category": "Mobile App",
         "description": "Flutter mobile application for delivery couriers featuring continuous GPS telemetry, automated order reception, quote negotiation, and fluid navigation."
       },
       {
-        "title": "TrackDeli POS",
+        "title": "NEXOL POS",
         "category": "Point of Sale",
         "description": "Electron desktop application for complete cash drawer, inventory, and sales management: split and USD payments, blind cash drawer closeout, manager-authorized returns, supplier purchases, and native support for ESC/POS thermal printers and cash drawers."
       },
@@ -157,7 +184,7 @@
   "tracking_scrolly": {
     "eyebrow": "Real-Time Tracking",
     "title": "Live Order Lifecycle",
-    "subtitle": "Discover the technology powering TrackDeli: how we orchestrate customers, dispatchers, and couriers with meter-by-meter live telemetry.",
+    "subtitle": "Discover the technology powering NEXOL Delivery: how we orchestrate customers, dispatchers, and couriers with meter-by-meter live telemetry.",
     "scroll_hint": "Scroll or select a stage to explore the flow",
     "stages": [
       {
@@ -206,39 +233,43 @@
     }
   },
   "whyus": {
-    "eyebrow": "Why Nexol?",
-    "title": "The difference is in how we work",
-    "subtitle": "We don't just write code — we solve real business problems. Every decision we make is driven by the value it creates for you.",
+    "eyebrow": "Why NEXOL?",
+    "title": "The difference of working with us",
+    "subtitle": "We are not a generic agency. We build tools that adapt directly to how your business operates in Nicaragua.",
     "items": [
       {
-        "title": "Fast Turnaround",
-        "desc": "While others are still drafting quotes, we're already halfway done.",
-        "statLabel": "weeks to deliver"
+        "stat": "3-5",
+        "statLabel": "Weeks for delivery",
+        "title": "Fast delivery",
+        "desc": "While others are still quoting, we are halfway done."
       },
       {
-        "title": "Rock-Solid Code",
-        "desc": "Software built not to crash on a Friday afternoon.",
-        "statLabel": "test coverage"
+        "stat": "✓",
+        "statLabel": "Tested code",
+        "title": "Tested code",
+        "desc": "Everything we deliver is rigorously tested before reaching your business."
       },
       {
-        "title": "Ongoing Support",
-        "desc": "We don't vanish after launch. Technical support and maintenance are always included.",
-        "statLabel": "availability"
+        "stat": "12",
+        "statLabel": "Months of maintenance",
+        "title": "Continuous support",
+        "desc": "We don't disappear after delivery. Technical support and maintenance included."
       },
       {
-        "title": "Built to Scale",
-        "desc": "Systems engineered to grow with you. From 10 to 10,000 users without a rewrite.",
-        "statLabel": "scale potential"
+        "stat": "∞",
+        "statLabel": "Scaling potential",
+        "title": "Scalability",
+        "desc": "Systems engineered to grow with you, from one branch to many."
       }
     ]
   },
   "pricing": {
     "eyebrow": "Investment",
-    "title": "Transparent Pricing",
+    "title": "Transparent plans.",
     "subtitle": "Clear solutions adapted to your business growth stage, with zero hidden costs.",
     "tabs": {
       "web": "Websites",
-      "pos": "Billing / POS",
+      "pos": "Point of Sale (POS)",
       "citas": "Appointments / Booking",
       "cartera": "Accounts Receivable",
       "logistics": "Logistics & Delivery"
@@ -264,33 +295,7 @@
       ],
       "cta": "Request My Website"
     },
-    "pos": {
-      "title": "All-Inclusive Plan — Invoicing & POS",
-      "badge": "Single Plan · All-Inclusive",
-      "desc": "No watered-down tiers or artificial limits. The full power of a point-of-sale system for one single monthly rate.",
-      "per_month": "/mo",
-      "per_branch": "per branch · unlimited transactions",
-      "devFeatures": [
-        "Fast checkout with thermal ticket printing and sales receipts",
-        "Payments via cash, card, bank transfer, store credit, and split payments, in córdobas and USD with change in córdobas",
-        "Cash drawer control: shift open and close, blind closeout, reconciliation, and cash in/out movements",
-        "Voids and returns with manager authorization and inventory reversal",
-        "Real-time inventory: supplier purchases, adjustments, physical stock counts, and low-stock alerts",
-        "Basic web backoffice for consultation (sales, inventory, and cash drawer closeouts)",
-        "User roles for cashier, server, and manager, with configurable business rules",
-        "Sales reports and top-selling product analytics",
-        "Keeps processing sales without internet in single-terminal businesses",
-        "Integrated ESC/POS hardware: thermal receipt printers and cash drawers"
-      ],
-      "membershipFeatures": [
-        "Technical support and initial setup assistance",
-        "Continuous software updates at no extra cost",
-        "Hosting included"
-      ],
-      "social_proof_title": "Proven in real production",
-      "social_proof_desc": "Live screenshots of the TrackDeli POS operating in active businesses:",
-      "cta": "Get Started with POS"
-    },
+    "pos": "Point of sale",
     "logistics": {
       "title": "Smart Logistics & Delivery",
       "badge": "Commission per Order",
@@ -316,8 +321,8 @@
   },
   "contact": {
     "eyebrow": "Get in Touch",
-    "title": "Ready to build something great?",
-    "subtitle": "Tell us about your project. We'll get back to you within 24 hours with a clear roadmap and a straightforward quote.",
+    "title": "Tell us about your business.",
+    "subtitle": "We reply on WhatsApp with a clear, no-obligation proposal.",
     "direct_title": "Direct contact",
     "direct_subtitle": "Prefer to chat right away? We're just a message away.",
     "form_title": "Send us a message",
@@ -357,7 +362,7 @@
       },
       {
         "question": "Do I need to buy hardware?",
-        "answer": "It's not mandatory. The system works with USB or network thermal printers and RJ11 cash drawers. If you prefer a turnkey solution, we offer a ready-to-use kit (computer with monitor, keyboard and mouse, receipt printer, cash drawer, and barcode scanner, installed and configured) starting at $600; the hardware is yours and flexible payment plans are available."
+        "answer": "It's not mandatory. The system works with USB or network thermal printers and RJ11 cash drawers. If you prefer a turnkey solution, we offer a ready-to-use kit (computer with monitor, keyboard and mouse, receipt printer, cash drawer, and barcode scanner, installed and configured) starting at $750; the hardware is yours and flexible payment plans are available."
       },
       {
         "question": "Does it work if the internet goes down?",
@@ -410,22 +415,98 @@
     "col_products": "Products",
     "col_company": "Company",
     "col_legal": "Legal",
-    "product_pos": "TrackDeli POS",
-    "product_cartera": "Accounts Receivable",
-    "product_citas": "Appointment Booking",
-    "product_delivery": "Delivery Logistics",
+    "product_pos": "NEXOL POS",
+    "product_cartera": "NEXOL Cobros",
+    "product_citas": "NEXOL Citas",
+    "product_delivery": "NEXOL Delivery",
     "company_services": "Services",
     "company_projects": "Projects",
     "company_plans": "Pricing Plans",
     "company_contact": "Contact",
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
-    "crafted": "Crafted with passion in Nicaragua 🇳🇮"
+    "crafted": "Software crafted in Managua, Nicaragua"
   },
   "whatsapp": {
     "tooltip_heading": "Have a project in mind?",
     "tooltip_body": "Drop us a message on WhatsApp!",
     "close": "Close",
     "aria": "Chat with us on WhatsApp"
+  },
+  "rubros": {
+    "eyebrow": "NEXOL POS by industry",
+    "title_prefix": "Everything you need, ",
+    "title_sub": "tailored to your business.",
+    "subtitle": "The same system adapts to how each business sells.",
+    "cta": "See NEXOL POS for your business →",
+    "items": [
+      {
+        "num": "01",
+        "title": "Stores and supermarkets",
+        "points": [
+          "Barcode scanner and keyboard checkout",
+          "Inventory with low-stock alerts and supplier purchases",
+          "Store credit with customer limits, installments, and statements",
+          "Bulk sales with decimal quantities"
+        ]
+      },
+      {
+        "num": "02",
+        "title": "Pharmacies",
+        "points": [
+          "Batches and expiration dates, first-expiring out first",
+          "Expiration alerts at 30, 60, and 90 days",
+          "Lab, active ingredient, and prescription notice at checkout",
+          "Two-step sales: counter clerk prepares, cashier charges"
+        ]
+      },
+      {
+        "num": "03",
+        "title": "Restaurants and cafes",
+        "points": [
+          "Dining zones and tables with servers",
+          "Kitchen order tickets printed per round",
+          "Recipes that deduct ingredients automatically upon sale",
+          "Split bills equally or by dish"
+        ]
+      },
+      {
+        "num": "04",
+        "title": "Workshops",
+        "points": [
+          "Vehicle tracking by license plate with mileage",
+          "History of every job performed on the vehicle",
+          "Work orders with parts and labor",
+          "Technician assigned to each order"
+        ]
+      }
+    ]
+  },
+  "proceso": {
+    "eyebrow": "How we work",
+    "title": "From our first chat to your business up and running.",
+    "cta": "Start with step 1",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Tell us about your business",
+        "desc": "Message us on WhatsApp and tell us how your business operates today."
+      },
+      {
+        "num": "02",
+        "title": "We show you a live demo",
+        "desc": "We run a demonstration with your business type and recommend what fits best."
+      },
+      {
+        "num": "03",
+        "title": "We install and train",
+        "desc": "We set up the system at your location and teach your team how to use it."
+      },
+      {
+        "num": "04",
+        "title": "We stay by your side",
+        "desc": "12 months of maintenance and support included. We do not disappear after delivery."
+      }
+    ]
   }
 }

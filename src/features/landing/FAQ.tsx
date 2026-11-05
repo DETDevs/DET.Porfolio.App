@@ -1,13 +1,12 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Section } from "@/shared/ui/Section";
-import {
-  useScrollReveal,
-  fadeUpVariants,
-  staggerContainer,
-} from "@/shared/hooks/useScrollReveal";
+import { SectionTitle } from "@/shared/ui/MaskedTitle";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FaqItem = ({
   item,
@@ -16,84 +15,124 @@ const FaqItem = ({
   item: { question: string; answer: string };
   index: number;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(index === 0);
 
   return (
-    <motion.div
-      variants={fadeUpVariants}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className={`transition-colors duration-200 ${
-        isOpen ? "bg-white/[0.03]" : "bg-transparent"
-      }`}
-    >
+    <div className="faq-row border-b border-azul-tinta/[0.18]">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-5 md:p-6 text-left bg-transparent border-none cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-inset"
+        aria-expanded={isOpen}
+        className="w-full flex items-center justify-between py-5 px-1 text-left bg-transparent border-none cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-esmeralda-oscura rounded-md"
       >
-        <span className="text-sm md:text-base font-medium text-white pr-4 group-hover:text-[#8FD14F] transition-colors">
+        <span className="text-[17px] font-semibold text-azul-tinta pr-4 group-hover:text-esmeralda-oscura transition-colors">
           {item.question}
         </span>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="shrink-0"
+        <span
+          className={`shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+            isOpen ? "rotate-180" : "rotate-0"
+          }`}
         >
-          <ChevronDown className="w-5 h-5 text-[#8FD14F]" />
-        </motion.div>
+          <ChevronDown className="w-5 h-5 text-azul-tinta group-hover:text-esmeralda-oscura" />
+        </span>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <p className="px-5 md:px-6 pb-5 pt-1 text-sm text-zinc-300 leading-relaxed">
-              {item.answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      <div
+        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden min-h-0">
+          <p className="m-0 px-1 pb-5 pt-1 text-[16px] text-texto-secundario leading-[1.55]">
+            {item.answer}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export const FAQ = () => {
   const { t } = useTranslation();
-  const { ref, isInView } = useScrollReveal(0.1);
+  const listRef = useRef<HTMLDivElement>(null);
+
   const rawItems = t("faq.items", { returnObjects: true });
   const items = (Array.isArray(rawItems) ? rawItems : []) as {
     question: string;
     answer: string;
   }[];
 
-  return (
-    <Section id="faq" sectionClassName="pt-20 md:pt-28 pb-8 md:pb-12">
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
-      >
-        <motion.div variants={fadeUpVariants} className="text-center mb-14">
-          <span className="text-[#8FD14F] font-mono text-xs font-bold uppercase tracking-widest mb-3 block">
-            {t("faq.eyebrow")}
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            {t("faq.title")}
-          </h2>
-          <p className="text-zinc-400 max-w-lg mx-auto">{t("faq.subtitle")}</p>
-        </motion.div>
+  useEffect(() => {
+    const listEl = listRef.current;
+    if (!listEl) return;
 
-        <div className="max-w-3xl mx-auto border border-zinc-800 rounded-[2px] bg-[#121212] overflow-hidden divide-y divide-zinc-800/80">
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+      gsap.set(listEl.querySelectorAll(".faq-row"), {
+        clearProps: "all",
+        opacity: 1,
+        y: 0,
+      });
+    });
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const rows = gsap.utils.toArray<HTMLElement>(
+        listEl.querySelectorAll(".faq-row"),
+      );
+      gsap.set(rows, { opacity: 0, y: 18 });
+
+      gsap.to(rows, {
+        scrollTrigger: {
+          trigger: listEl,
+          start: "top 85%",
+          once: true,
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.55,
+        stagger: 0.05,
+        ease: "power3.out",
+      });
+    });
+
+    return () => mm.revert();
+  }, [items.length]);
+
+  return (
+    <Section
+      id="faq"
+      aria-labelledby="faq-titulo"
+      sectionClassName="bg-rosa-niebla text-azul-tinta"
+    >
+      <div className="max-w-[920px] mx-auto flex flex-col gap-10">
+        <div className="flex flex-col items-center text-center gap-3.5">
+          <p className="m-0 font-mono text-[13px] tracking-[0.06em] text-esmeralda-oscura">
+            {t("faq.eyebrow", "Preguntas frecuentes")}
+          </p>
+          <SectionTitle
+            id="faq-titulo"
+            className="m-0 font-bricolage text-[clamp(36px,4.6vw,80px)] font-extrabold text-azul-tinta tracking-[-0.035em] leading-[0.98]"
+            segments={[
+              {
+                text: t("faq.title", "Lo que todos preguntan."),
+              },
+            ]}
+          />
+          <p className="m-0 text-texto-secundario text-[clamp(16px,1.1vw,19px)] max-w-xl leading-[1.55]">
+            {t("faq.subtitle")}
+          </p>
+        </div>
+
+        <div
+          ref={listRef}
+          className="flex flex-col border-t border-azul-tinta/[0.18]"
+        >
           {items.map((item, i) => (
             <FaqItem key={i} item={item} index={i} />
           ))}
         </div>
-      </motion.div>
+      </div>
     </Section>
   );
 };

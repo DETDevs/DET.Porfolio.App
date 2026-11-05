@@ -1,246 +1,221 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { MaskLine } from "@/shared/ui/MaskLine";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
-  Check,
-  Globe,
+  MessageCircle,
+  Maximize2,
+  Minimize2,
+  ArrowRight,
+  Calendar,
+  Monitor,
   Receipt,
   Truck,
-  ArrowRight,
   Printer,
-  Maximize2,
-  Calendar,
-  MessageCircle,
-  CalendarCheck,
   Wallet,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { POS_PRICE } from "@/config/constants";
 import { Section } from "@/shared/ui/Section";
-import {
-  useScrollReveal,
-  fadeUpVariants,
-  staggerContainer,
-} from "@/shared/hooks/useScrollReveal";
+import { CONTACT_INFO } from "@/config/constants";
+import { SectionTitle } from "@/shared/ui/MaskedTitle";
 
-// =========================================================================
-// CONFIGURACIÓN DE PRECIOS EDITABLE
-// =========================================================================
-export { POS_PRICE };
-export const POS_MONTHLY_PRICE = POS_PRICE; // Precio mensual en USD para el POS Todo Incluido
-export const CITAS_MONTHLY_PRICE = 30; // Precio mensual en USD para Citas / Booking
-export const CARTERA_MONTHLY_PRICE = 25; // Precio mensual en USD para Cartera de Cobro
-export const WEB_STARTER_PRICE = 300; // Precio base en USD para Páginas Web
-export const WEB_MAINTENANCE_PRICE = 30; // Mantenimiento mensual en USD tras meses incluidos
+type CategoryId = "web" | "pos" | "citas" | "cartera" | "logistics";
 
-const WHATSAPP_PHONE = "50587140989";
+const CATEGORIES: {
+  id: CategoryId;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+}[] = [
+  { id: "web", label: "Páginas web", icon: Monitor },
+  { id: "pos", label: "Punto de venta", icon: Receipt },
+  { id: "citas", label: "Citas / booking", icon: Calendar },
+  { id: "cartera", label: "Cartera de cobro", icon: Wallet },
+  { id: "logistics", label: "Logística y delivery", icon: Truck },
+];
 
-type PricingCategory = "web" | "pos" | "citas" | "cartera" | "logistics";
+const POS_MONTHLY_PRICE = 45;
+const CITAS_MONTHLY_PRICE = 30;
+const CARTERA_MONTHLY_PRICE = 25;
+const WEB_STARTER_PRICE = 300;
+const WEB_MAINTENANCE_PRICE = 30;
 
 const POS_SHOWCASE_IMAGES = [
   {
-    src: "/assets/project/pos/order_POS.png",
-    title: "Toma de Órdenes & Facturación",
-    desc: "Selección rápida de productos, categorías y cobro directo.",
-  },
-  {
     src: "/assets/project/pos/caja_POS.png",
-    title: "Control de Caja & Turnos",
-    desc: "Apertura, cierre de turno, arqueo y registro de movimientos de efectivo.",
+    title: "Toma de órdenes y comprobantes",
+    desc: "Interfaz ágil con soporte para múltiples métodos de pago y cálculo de vuelto.",
   },
   {
-    src: "/assets/project/pos/catalogo_POS.png",
-    title: "Inventario & Catálogo en Vivo",
-    desc: "Stock en tiempo real con precios, costos y alertas de stock bajo.",
+    src: "/assets/project/pos/historial_POS.png",
+    title: "Control de caja y auditoría",
+    desc: "Registro detallado de transacciones, cierres de turno y movimientos de efectivo.",
+  },
+  {
+    src: "/assets/project/DulcesMomentos/project.png",
+    title: "Catálogo e inventario real",
+    desc: "Organización por categorías con búsqueda instantánea y control de existencias.",
   },
 ];
 
 export const Pricing = () => {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState<PricingCategory>("pos");
-  const [selectedPosImage, setSelectedPosImage] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
+
+  const [activeCategory, setActiveCategory] = useState<CategoryId>("pos");
+  const [selectedPosImage, setSelectedPosImage] = useState<number>(0);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-  const { ref, isInView } = useScrollReveal(0.1);
-  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
-    const handleTabSelect = (e: Event) => {
-      const customEvent = e as CustomEvent<PricingCategory>;
+    const handleSelectTab = (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+      const detail = customEvent.detail;
       if (
-        customEvent.detail &&
-        ["web", "pos", "citas", "cartera", "logistics"].includes(customEvent.detail)
+        detail === "web" ||
+        detail === "pos" ||
+        detail === "citas" ||
+        detail === "cartera" ||
+        detail === "logistics"
       ) {
-        setActiveCategory(customEvent.detail);
+        setActiveCategory(detail);
       }
     };
 
-    const handleHash = () => {
-      const hash = window.location.hash.toLowerCase();
-      if (hash.includes("pos")) setActiveCategory("pos");
-      else if (hash.includes("cartera")) setActiveCategory("cartera");
-      else if (hash.includes("citas") || hash.includes("booking")) setActiveCategory("citas");
-      else if (hash.includes("delivery") || hash.includes("logistics")) setActiveCategory("logistics");
-      else if (hash.includes("web")) setActiveCategory("web");
-    };
-
-    window.addEventListener("select-pricing-tab", handleTabSelect);
-    window.addEventListener("hashchange", handleHash);
-    handleHash();
-
-    return () => {
-      window.removeEventListener("select-pricing-tab", handleTabSelect);
-      window.removeEventListener("hashchange", handleHash);
-    };
+    window.addEventListener("select-pricing-tab", handleSelectTab);
+    return () =>
+      window.removeEventListener("select-pricing-tab", handleSelectTab);
   }, []);
 
   useEffect(() => {
-    const activeEl = tabRefs.current[activeCategory];
-    if (activeEl) {
-      activeEl.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxImage(null);
+    };
+    if (lightboxImage) {
+      window.addEventListener("keydown", handleKeyDown);
     }
-  }, [activeCategory]);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxImage]);
 
-  const CATEGORY_TABS: {
-    id: PricingCategory;
-    label: string;
-    icon: typeof Globe;
-  }[] = [
-    {
-      id: "web",
-      label: t("pricing.tabs.web", "Páginas Web"),
-      icon: Globe,
-    },
-    {
-      id: "pos",
-      label: t("pricing.tabs.pos", "Facturación / POS"),
-      icon: Receipt,
-    },
-    {
-      id: "citas",
-      label: t("pricing.tabs.citas", "Citas / Booking"),
-      icon: CalendarCheck,
-    },
-    {
-      id: "cartera",
-      label: t("pricing.tabs.cartera", "Cartera de Cobro"),
-      icon: Wallet,
-    },
-    {
-      id: "logistics",
-      label: t("pricing.tabs.logistics", "Logística y Delivery"),
-      icon: Truck,
-    },
-  ];
-
-  const getWhatsAppLink = (message: string) => {
-    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+  const handleTabKeyDown = (
+    e: React.KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
+    let nextIndex = index;
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      nextIndex = (index + 1) % CATEGORIES.length;
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      nextIndex = (index - 1 + CATEGORIES.length) % CATEGORIES.length;
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      nextIndex = 0;
+    } else if (e.key === "End") {
+      e.preventDefault();
+      nextIndex = CATEGORIES.length - 1;
+    } else {
+      return;
+    }
+    setActiveCategory(CATEGORIES[nextIndex].id);
+    tabRefs.current[nextIndex]?.focus();
   };
 
-  // const scrollToTracking = () => {
-  //   const el = document.getElementById("tracking");
-  //   if (el) {
-  //     el.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
+  const getWhatsAppLink = (message: string) => {
+    const cleanPhone = CONTACT_INFO.phone.replace(/[^0-9]/g, "");
+    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+  };
+
+  const panelMotionProps = {
+    initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: shouldReduceMotion ? { opacity: 1 } : { opacity: 0 },
+    transition: { duration: shouldReduceMotion ? 0 : 0.25, ease: "easeOut" as const },
+  };
 
   return (
-    <Section id="planes" sectionClassName="bg-[#050505] overflow-hidden relative" className="relative z-10">
-      <div ref={containerRef}>
-      <span id="planes-pos" className="sr-only scroll-mt-32 block" />
-      <span id="planes-cartera" className="sr-only scroll-mt-32 block" />
-      <span id="planes-citas" className="sr-only scroll-mt-32 block" />
-      <span id="planes-delivery" className="sr-only scroll-mt-32 block" />
-      <span id="planes-logistics" className="sr-only scroll-mt-32 block" />
-      <span id="planes-web" className="sr-only scroll-mt-32 block" />
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
-      >
-        {/* Section Header */}
-        <motion.div variants={fadeUpVariants} className="text-center mb-10">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8FD14F] mb-2 block">
-            {t("pricing.eyebrow")}
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
-            {t("pricing.title")}
-          </h2>
-          <p className="text-zinc-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-            {t("pricing.subtitle")}
+    <Section
+      id="planes"
+      aria-labelledby="plan-titulo"
+      sectionClassName="bg-rosa-niebla text-azul-tinta relative overflow-hidden"
+    >
+      <div className="relative z-10 w-full flex flex-col gap-10">
+        {/* Header */}
+        <div className="flex flex-col items-center text-center gap-3.5">
+          <p className="m-0 font-mono text-[13px] tracking-[0.06em] text-esmeralda-oscura">
+            {t("pricing.eyebrow", "Inversión")}
           </p>
-        </motion.div>
+          <SectionTitle
+            id="plan-titulo"
+            className="m-0 font-bricolage text-[clamp(36px,4.6vw,80px)] font-extrabold text-azul-tinta tracking-[-0.035em] leading-[0.98]"
+            segments={[
+              {
+                text: t("pricing.title", "Planes transparentes."),
+              },
+            ]}
+          />
+          <p className="m-0 text-texto-secundario text-[clamp(16px,1.1vw,19px)] max-w-[620px] leading-[1.55]">
+            {t(
+              "pricing.subtitle",
+              "Soluciones claras y adaptadas a la etapa de tu negocio, sin costos sorpresa.",
+            )}
+          </p>
+        </div>
 
-        {/* Giant Background Price */}
-        <motion.div style={{ y }} className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.04] z-0 overflow-hidden select-none">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="absolute inset-0 flex items-center justify-center"
-            >
-              {activeCategory === "web" && <MaskLine triggerOnScroll className="text-[35vw] font-black text-white leading-none whitespace-nowrap">{`$${WEB_STARTER_PRICE}`}</MaskLine>}
-              {activeCategory === "pos" && <MaskLine triggerOnScroll className="text-[45vw] font-black text-white leading-none whitespace-nowrap">{`$${POS_MONTHLY_PRICE}`}</MaskLine>}
-              {activeCategory === "citas" && <MaskLine triggerOnScroll className="text-[40vw] font-black text-white leading-none whitespace-nowrap">{`$${CITAS_MONTHLY_PRICE}`}</MaskLine>}
-              {activeCategory === "cartera" && <MaskLine triggerOnScroll className="text-[40vw] font-black text-white leading-none whitespace-nowrap">{`$${CARTERA_MONTHLY_PRICE}`}</MaskLine>}
-              {activeCategory === "logistics" && <MaskLine triggerOnScroll className="text-[50vw] font-black text-white leading-none whitespace-nowrap">%</MaskLine>}
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Category Tabs: single row horizontal tactile scroll on mobile, centered on larger screens */}
-        <motion.div
-          variants={fadeUpVariants}
-          className="w-full flex justify-center mb-10 overflow-hidden"
-        >
-          <div className="w-full max-w-full overflow-x-auto no-scrollbar py-1 px-4 flex justify-start sm:justify-center">
-            <div
-              className="inline-flex flex-nowrap shrink-0 gap-1.5 p-1 bg-[#121212] border border-zinc-800 rounded-[2px]"
-              role="tablist"
-              aria-label="Planes por Categoría"
-            >
-              {CATEGORY_TABS.map((tab) => {
-                const Icon = tab.icon;
-                const isActive = activeCategory === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    ref={(el) => {
-                      tabRefs.current[tab.id] = el;
-                    }}
-                    onClick={() => setActiveCategory(tab.id)}
-                    role="tab"
-                    aria-selected={isActive}
-                    className={`px-5 py-2.5 rounded-[2px] font-mono text-xs uppercase tracking-wider font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
+        {/* Cápsula blanca de pestañas con fondo activo deslizable */}
+        <div className="flex justify-center">
+          <div
+            role="tablist"
+            aria-label="Planes por servicio"
+            className="inline-flex flex-wrap justify-center gap-1.5 p-1.5 rounded-[16px] bg-blanco shadow-2xs"
+          >
+            {CATEGORIES.map((cat, idx) => {
+              const Icon = cat.icon;
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  ref={(el) => {
+                    tabRefs.current[idx] = el;
+                  }}
+                  type="button"
+                  role="tab"
+                  id={`tab-${cat.id}`}
+                  aria-selected={isActive}
+                  aria-controls={`panel-${cat.id}`}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => setActiveCategory(cat.id)}
+                  onKeyDown={(e) => handleTabKeyDown(e, idx)}
+                  className={`relative flex items-center gap-2 min-h-[44px] px-4 rounded-[12px] text-sm transition-colors duration-150 cursor-pointer border-0 bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-esmeralda-oscura ${
+                    isActive
+                      ? "text-rosa-niebla font-semibold"
+                      : "text-azul-tinta hover:bg-azul-tinta/5 font-medium"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="pricing-active-tab-pill"
+                      transition={
+                        shouldReduceMotion
+                          ? { duration: 0 }
+                          : { type: "spring", stiffness: 420, damping: 34 }
+                      }
+                      className="absolute inset-0 rounded-[12px] bg-azul-tinta z-0"
+                    />
+                  )}
+                  <Icon
+                    className={`relative z-10 w-4 h-4 ${
                       isActive
-                        ? "bg-[#8FD14F] text-black shadow-sm"
-                        : "bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-800/40"
+                        ? "text-esmeralda-clara"
+                        : "text-texto-secundario-muted"
                     }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </div>
+                  />
+                  <span className="relative z-10">{cat.label}</span>
+                </button>
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Dynamic Category Panels */}
-        <div className="max-w-6xl mx-auto">
+        {/* Paneles de cada categoría (fundido de 0.25 s) */}
+        <div className="w-full">
           <AnimatePresence mode="wait">
             {/* ================================================================= */}
             {/* PESTAÑA 1: PÁGINAS WEB                                            */}
@@ -248,83 +223,84 @@ export const Pricing = () => {
             {activeCategory === "web" && (
               <motion.div
                 key="web"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+                role="tabpanel"
+                id="panel-web"
+                aria-labelledby="tab-web"
+                {...panelMotionProps}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch"
               >
-                {/* Main Web Plan Card (7 cols) */}
-                <div className="lg:col-span-7 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
-                        Presencia Digital
+                {/* Tarjeta del plan (Azul Tinta) */}
+                <div className="lg:col-span-7 bg-azul-tinta text-rosa-niebla rounded-[24px] p-7 sm:p-9 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="font-mono text-[13px] text-esmeralda-clara">
+                        Presencia digital
                       </span>
-                      <span className="font-mono text-[11px] text-zinc-400">
-                        Entrega en 1-3 semanas
+                      <span className="font-mono text-xs text-texto-azul-muted">
+                        Entrega en 1–3 semanas
                       </span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-black uppercase text-white mb-3 tracking-tight">
-                      Tu Sitio Web Profesional
+                    <h3 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-rosa-niebla tracking-[-0.03em] leading-none">
+                      Tu sitio web profesional
                     </h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                      {t("pricing.web.desc")}
+                    <p className="m-0 text-texto-azul text-[16px] leading-[1.5]">
+                      {t(
+                        "pricing.web.desc",
+                        "Todo lo que necesitás para vender en línea y recibir clientes con una imagen seria y moderna.",
+                      )}
                     </p>
 
-                    {/* Flat Price Block */}
-                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
-                      <div className="flex items-baseline gap-2">
-                        <span className="font-mono text-xs uppercase tracking-wider text-zinc-400 font-medium">
+                    {/* Precio */}
+                    <div className="py-4 border-y border-rosa-niebla/20 flex flex-col gap-1.5">
+                      <div className="flex items-baseline gap-2.5 flex-wrap">
+                        <span className="font-mono text-xs text-texto-azul-muted">
                           Desde
                         </span>
-                        <span className="text-5xl font-black text-white tracking-tight">
+                        <span className="font-bricolage text-5xl sm:text-[64px] font-extrabold text-rosa-niebla leading-none tracking-[-0.04em]">
                           ${WEB_STARTER_PRICE}
                         </span>
-                        <span className="font-mono text-xs text-zinc-400 ml-1">
+                        <span className="text-[15px] text-texto-azul">
                           pago único
                         </span>
                       </div>
-                      <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-1.5">
-                        <span className="text-[#8FD14F]">—</span>
+                      <p className="m-0 font-mono text-xs text-texto-azul-muted flex items-center gap-1.5">
+                        <span className="text-esmeralda-clara font-bold">✓</span>
                         <span>
-                          + ${WEB_MAINTENANCE_PRICE}/mes tras 2 meses de soporte
-                          incluidos
+                          + ${WEB_MAINTENANCE_PRICE}/mes tras 2 meses de soporte incluidos
                         </span>
                       </p>
                     </div>
 
-                    {/* Features List (No colored bubble checkmarks) */}
-                    <div className="space-y-3 mb-8">
-                      <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-bold">
-                        Alcance del proyecto:
-                      </p>
+                    {/* Lista de alcance */}
+                    <ul className="m-0 p-0 list-none flex flex-col gap-2.5 text-[15px] leading-[1.45] text-texto-azul">
                       {[
-                        "Diseño a medida moderno, limpio y 100% adaptable (móvil, tablet, desktop)",
-                        "Formulario de contacto estructurado con enlace directo a WhatsApp",
-                        "Optimización de velocidad y SEO para posicionamiento en Google",
-                        "Entrega rápida garantizada en 1 a 3 semanas",
-                        "2 meses de soporte técnico y mantenimiento preventivo incluidos",
+                        "Diseño a medida moderno, limpio y 100% adaptable (celular, tablet y computadora).",
+                        "Formulario de contacto estructurado con enlace directo a WhatsApp.",
+                        "Optimización de velocidad y posicionamiento en buscadores (SEO).",
+                        "Entrega rápida garantizada en 1 a 3 semanas.",
+                        "2 meses de soporte técnico y mantenimiento preventivo incluidos.",
                       ].map((feat, fi) => (
-                        <div
-                          key={fi}
-                          className="flex items-start gap-3 text-sm text-zinc-300"
-                        >
-                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
+                        <li key={fi} className="flex items-start gap-2.5">
+                          <span
+                            aria-hidden="true"
+                            className="text-esmeralda-clara font-bold shrink-0"
+                          >
+                            ✓
+                          </span>
                           <span>{feat}</span>
-                        </div>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola Nexol, me interesa cotizar un Sitio Web Profesional para mi negocio.",
+                      "Hola NEXOL, me interesa cotizar un sitio web profesional para mi negocio.",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
+                    className="self-start inline-flex items-center justify-center gap-2 min-h-[52px] px-[26px] rounded-[12px] bg-rosa-niebla hover:bg-blanco text-azul-tinta font-semibold text-[16px] no-underline transition-colors mt-2"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Solicitar mi sitio web</span>
@@ -332,45 +308,48 @@ export const Pricing = () => {
                   </a>
                 </div>
 
-                {/* Side Card: Maintenance (5 cols) */}
-                <div className="lg:col-span-5 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
-                  <div>
-                    <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
-                      Garantía & Mantenimiento
-                    </h4>
-                    <h5 className="text-xl font-bold uppercase text-white mb-3 tracking-tight">
+                {/* Tarjeta lateral blanca */}
+                <div className="lg:col-span-5 bg-blanco text-azul-tinta rounded-[24px] p-6 sm:p-8 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-3.5">
+                    <span className="font-mono text-[13px] text-esmeralda-oscura">
+                      Garantía y mantenimiento
+                    </span>
+                    <h4 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-azul-tinta tracking-tight leading-tight">
                       Tu sitio siempre disponible
-                    </h5>
-                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                    </h4>
+                    <p className="m-0 text-texto-secundario text-sm leading-relaxed">
                       No desaparecemos después de entregar. Nuestro soporte se
                       asegura de que tu plataforma funcione de manera
                       ininterrumpida.
                     </p>
 
-                    <div className="space-y-4">
+                    <div className="flex flex-col gap-3 pt-1">
                       {[
                         {
-                          title: "Monitoreo de Infraestructura",
+                          title: "Monitoreo de infraestructura",
                           desc: "Supervisión de servidores, certificados SSL y disponibilidad 24/7.",
                         },
                         {
-                          title: "Respaldos en la Nube",
+                          title: "Respaldos en la nube",
                           desc: "Copias de seguridad semanales para resguardar toda la información.",
                         },
                         {
-                          title: "Soporte Técnico Continuo",
+                          title: "Soporte técnico continuo",
                           desc: "Ajustes de contenidos, actualización de catálogos y asistencia vía WhatsApp.",
                         },
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md"
+                          className="p-4 rounded-[14px] bg-rosa-niebla/65 flex flex-col gap-1"
                         >
-                          <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
+                          <div className="font-semibold text-sm text-azul-tinta flex items-center gap-2">
+                            <span
+                              aria-hidden="true"
+                              className="w-2 h-2 rounded-full bg-esmeralda shrink-0"
+                            />
                             {item.title}
                           </div>
-                          <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                          <p className="m-0 text-xs text-texto-secundario leading-relaxed pl-4">
                             {item.desc}
                           </p>
                         </div>
@@ -378,7 +357,7 @@ export const Pricing = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-400 font-mono text-center">
+                  <div className="pt-4 border-t border-azul-tinta/15 text-xs text-texto-secundario-muted font-mono text-center">
                     Código limpio y de tu propiedad. Sin letra chica.
                   </div>
                 </div>
@@ -386,179 +365,169 @@ export const Pricing = () => {
             )}
 
             {/* ================================================================= */}
-            {/* PESTAÑA 2: FACTURACIÓN / POS (UN SOLO PLAN TODO INCLUIDO)          */}
+            {/* PESTAÑA 2: PUNTO DE VENTA (NEXOL POS)                             */}
             {/* ================================================================= */}
             {activeCategory === "pos" && (
               <motion.div
                 key="pos"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="relative z-10 p-0 sm:p-4"
+                role="tabpanel"
+                id="panel-pos"
+                aria-labelledby="tab-pos"
+                {...panelMotionProps}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  {/* Left Column: Plan Information (6 cols) */}
-                  <div className="lg:col-span-6 flex flex-col justify-between h-full">
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
-                          Un Solo Plan · Todo Incluido
+                {/* Tarjeta del plan (Azul Tinta) */}
+                <div className="lg:col-span-7 bg-azul-tinta text-rosa-niebla rounded-[24px] p-7 sm:p-9 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-4">
+                    <span className="font-mono text-[13px] text-esmeralda-clara">
+                      Un solo plan · todo incluido
+                    </span>
+
+                    <h3 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-rosa-niebla tracking-[-0.03em] leading-none">
+                      NEXOL POS
+                    </h3>
+                    <p className="m-0 text-texto-azul text-[16px] leading-[1.5]">
+                      Sin versiones recortadas ni escalones artificiales. Toda
+                      la funcionalidad completa del punto de venta en una única
+                      cuota mensual predecible.
+                    </p>
+
+                    {/* Precio */}
+                    <div className="py-4 border-y border-rosa-niebla/20 flex flex-col gap-1.5">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-bricolage text-5xl sm:text-[64px] font-extrabold text-rosa-niebla leading-none tracking-[-0.04em]">
+                          ${POS_MONTHLY_PRICE}
+                        </span>
+                        <span className="text-[15px] text-texto-azul">
+                          / mes por sucursal
                         </span>
                       </div>
-
-                      <h3 className="text-2xl sm:text-4xl font-black uppercase text-white mb-3 tracking-tight">
-                        Sistema de Facturación / POS
-                      </h3>
-                      <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                        Sin versiones recortadas ni escalones artificiales. Toda
-                        la funcionalidad completa del punto de venta en una
-                        única cuota mensual predecible.
+                      <p className="m-0 font-mono text-xs text-texto-azul-muted flex items-center gap-2">
+                        <span className="text-esmeralda-clara font-bold">✓</span>
+                        <span>
+                          Actualizaciones continuas, hosting y soporte técnico incluidos
+                        </span>
                       </p>
-
-                      {/* Flat Price Box (No gradients) */}
-                      <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-5xl sm:text-6xl font-black text-white tracking-tight">
-                            ${POS_MONTHLY_PRICE}
-                          </span>
-                          <span className="font-mono text-sm text-zinc-300 font-bold">
-                            /mes
-                          </span>
-                          <span className="font-mono text-xs text-zinc-400 ml-1">
-                            por sucursal
-                          </span>
-                        </div>
-                        <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
-                          <Check className="w-3.5 h-3.5 text-[#8FD14F]" />
-                          <span>
-                            Actualizaciones continuas, hosting y soporte técnico
-                            incluidos
-                          </span>
-                        </p>
-                      </div>
-
-                      {/* Features Checklist (Clean checks, no bubbles) */}
-                      <div className="space-y-3 mb-8">
-                        <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-bold">
-                          Capacidades incluidas:
-                        </p>
-                        {[
-                          "Cobro rápido con ticket térmico y comprobantes de venta",
-                          "Pagos en efectivo, tarjeta, transferencia, crédito (fiado) y pago mixto, en córdobas y dólares con vuelto en córdobas",
-                          "Control de caja: apertura y cierre de turno, cierre ciego, arqueo y entradas/salidas de efectivo",
-                          "Anulaciones y devoluciones con autorización del encargado y reversa de inventario",
-                          "Inventario en tiempo real: compras a proveedores, ajustes, conteo físico y alertas de stock bajo",
-                          "Backoffice web básico de consulta (ventas, inventario y cierres de caja)",
-                          "Usuarios con roles de cajero, mesero y encargado, y reglas del negocio que vos configurás",
-                          "Reportes de ventas y de productos de mayor rotación",
-                          "Sigue cobrando sin internet en negocios de una sola caja",
-                          "Hardware ESC/POS integrado: impresoras térmicas de tickets y cajón de dinero",
-                        ].map((feat, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-start gap-3 text-sm text-zinc-200"
-                          >
-                            <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
-                            <span>{feat}</span>
-                          </div>
-                        ))}
-                      </div>
                     </div>
 
-                    {/* Solid Primary Button */}
-                    <a
-                      href={getWhatsAppLink(
-                        `Hola Nexol, me interesa el Sistema de Facturación / POS Todo Incluido ($${POS_MONTHLY_PRICE}/mes).`,
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                      <span>Comenzar con POS</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </a>
+                    {/* Capacidades incluidas */}
+                    <ul className="m-0 p-0 list-none grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5 text-[15px] leading-[1.45] text-texto-azul">
+                      {[
+                        "Cobro rápido con ticket térmico y comprobantes de venta.",
+                        "Efectivo, tarjeta, transferencia, crédito y pago mixto (C$ y US$).",
+                        "Control de caja: apertura y cierre de turno, cierre ciego y arqueo.",
+                        "Anulaciones y devoluciones con autorización del encargado.",
+                        "Inventario en tiempo real, compras a proveedores y alertas de stock.",
+                        "Panel web de consulta (ventas, inventario y cierres de caja).",
+                        "Usuarios con roles de cajero, mesero y encargado configurables.",
+                        "Reportes de ventas y de productos de mayor rotación.",
+                        "Sigue cobrando sin internet en negocios de una sola caja.",
+                        "Impresoras térmicas ESC/POS y cajón de dinero integrados.",
+                      ].map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5">
+                          <span
+                            aria-hidden="true"
+                            className="text-esmeralda-clara font-bold shrink-0"
+                          >
+                            ✓
+                          </span>
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  {/* Right Column: Social Proof (6 cols) */}
-                  <div className="lg:col-span-6 relative z-10 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2px] p-6 flex flex-col justify-between">
+                  <a
+                    href={getWhatsAppLink(
+                      `Hola NEXOL, me interesa comenzar con NEXOL POS ($${POS_MONTHLY_PRICE}/mes).`,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="self-start inline-flex items-center justify-center gap-2 min-h-[52px] px-[26px] rounded-[12px] bg-rosa-niebla hover:bg-blanco text-azul-tinta font-semibold text-[16px] no-underline transition-colors mt-2"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Comenzar con NEXOL POS</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+
+                {/* Tarjeta lateral blanca: Probado en producción real */}
+                <div className="lg:col-span-5 bg-blanco text-azul-tinta rounded-[24px] p-5 sm:p-6 flex flex-col justify-between gap-4">
+                  <div className="flex flex-col gap-3.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-mono text-[13px] text-esmeralda-oscura">
+                        Probado en producción real
+                      </span>
+                      <a
+                        href="https://pos.nexolsoft.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 rounded-lg bg-rosa-niebla hover:bg-azul-tinta text-azul-tinta hover:text-rosa-niebla text-xs font-mono font-medium no-underline transition-colors"
+                      >
+                        NEXOL POS ↗
+                      </a>
+                    </div>
+
+                    {/* Captura principal */}
+                    <div className="relative rounded-[14px] overflow-hidden border border-azul-tinta/15 aspect-[16/10] bg-azul-profundo">
+                      <img
+                        src={POS_SHOWCASE_IMAGES[selectedPosImage].src}
+                        alt={POS_SHOWCASE_IMAGES[selectedPosImage].title}
+                        className="w-full h-full object-cover object-top"
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setLightboxImage(
+                            POS_SHOWCASE_IMAGES[selectedPosImage].src,
+                          )
+                        }
+                        className="absolute top-2.5 right-2.5 px-3 py-1.5 bg-azul-tinta/90 hover:bg-azul-tinta text-rosa-niebla font-mono text-xs flex items-center gap-1.5 transition-colors cursor-pointer rounded-lg border-0"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5 text-esmeralda-clara" />
+                        <span>Ampliar</span>
+                      </button>
+                    </div>
+
                     <div>
-                      <div className="flex items-center justify-between mb-4 border-b border-zinc-800 pb-3">
-                        <div>
-                          <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-wider block">
-                            Prueba Social
-                          </span>
-                          <h4 className="text-base font-bold uppercase text-white tracking-tight">
-                            Probado en producción real
-                          </h4>
-                        </div>
-                        <a href="https://pos.nexolsoft.com" target="_blank" rel="noopener noreferrer" className="px-2 py-0.5 rounded-[2px] bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[10px] text-[#8FD14F] font-mono transition-colors">
-                          TrackDeli POS ↗
-                        </a>
-                      </div>
-
-                      {/* Main Featured Screenshot */}
-                      <div className="relative rounded-[2px] overflow-hidden border border-zinc-800 aspect-[16/10] bg-zinc-950 mb-3">
-                        <img
-                          src={POS_SHOWCASE_IMAGES[selectedPosImage].src}
-                          alt={POS_SHOWCASE_IMAGES[selectedPosImage].title}
-                          className="w-full h-full object-cover object-top"
-                        />
-                        <button
-                          onClick={() =>
-                            setLightboxImage(
-                              POS_SHOWCASE_IMAGES[selectedPosImage].src,
-                            )
-                          }
-                          className="absolute top-2 right-2 px-2.5 py-1 bg-black/80 hover:bg-black text-zinc-300 hover:text-white border border-zinc-700 font-mono text-[10px] uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
-                        >
-                          <Maximize2 className="w-3 h-3 text-[#8FD14F]" />
-                          <span>Ampliar</span>
-                        </button>
-                      </div>
-
-                      <div className="text-xs font-bold uppercase text-white mb-0.5">
+                      <div className="text-sm font-semibold text-azul-tinta">
                         {POS_SHOWCASE_IMAGES[selectedPosImage].title}
                       </div>
-                      <div className="text-xs text-zinc-400 mb-4">
+                      <div className="text-xs text-texto-secundario mt-0.5">
                         {POS_SHOWCASE_IMAGES[selectedPosImage].desc}
                       </div>
-
-                      {/* Thumbnail Selector */}
-                      <div className="grid grid-cols-3 gap-2 pt-3 border-t border-zinc-800">
-                        {POS_SHOWCASE_IMAGES.map((item, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => setSelectedPosImage(idx)}
-                            aria-label={`Ver captura de ${item.title}`}
-                            className={`rounded-[2px] overflow-hidden border transition-all p-0.5 bg-zinc-950 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] ${
-                              selectedPosImage === idx
-                                ? "border-[#8FD14F] ring-1 ring-[#8FD14F]"
-                                : "border-zinc-800 hover:border-zinc-700 opacity-60 hover:opacity-100"
-                            }`}
-                          >
-                            <img
-                              src={item.src}
-                              alt={item.title}
-                              className="w-full aspect-[16/10] object-cover rounded-[1px]"
-                            />
-                            <div className="font-mono text-[9px] uppercase tracking-wider text-zinc-400 mt-1 truncate px-1 text-left">
-                              {item.title}
-                            </div>
-                          </button>
-                        ))}
-                      </div>
                     </div>
 
-                    {/* Hardware Notice */}
-                    <div className="mt-5 p-3 rounded-[2px] bg-zinc-900 border border-zinc-800 flex items-center gap-3 text-xs text-zinc-300">
-                      <Printer className="w-4 h-4 text-[#8FD14F] shrink-0" />
-                      <span>
-                        Compatible con impresoras térmicas USB/Red y gavetas de
-                        dinero RJ11.
-                      </span>
+                    {/* Miniaturas */}
+                    <div className="grid grid-cols-3 gap-2 pt-1">
+                      {POS_SHOWCASE_IMAGES.map((item, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setSelectedPosImage(idx)}
+                          aria-label={`Ver captura de ${item.title}`}
+                          className={`rounded-[10px] overflow-hidden transition-all p-0.5 bg-rosa-niebla cursor-pointer ${
+                            selectedPosImage === idx
+                              ? "border-2 border-azul-tinta opacity-100"
+                              : "border border-transparent opacity-65 hover:opacity-100"
+                          }`}
+                        >
+                          <img
+                            src={item.src}
+                            alt={item.title}
+                            className="w-full aspect-[16/10] object-cover rounded-[7px]"
+                          />
+                        </button>
+                      ))}
                     </div>
+                  </div>
+
+                  {/* Aviso de hardware */}
+                  <div className="p-3.5 rounded-[12px] bg-rosa-niebla/70 flex items-center gap-3 text-xs text-azul-tinta">
+                    <Printer className="w-4 h-4 text-esmeralda-oscura shrink-0" />
+                    <span>
+                      Compatible con impresoras térmicas USB/Red y gavetas de dinero RJ11.
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -570,128 +539,129 @@ export const Pricing = () => {
             {activeCategory === "citas" && (
               <motion.div
                 key="citas"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+                role="tabpanel"
+                id="panel-citas"
+                aria-labelledby="tab-citas"
+                {...panelMotionProps}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch"
               >
-                {/* Main Plan Card (7 cols) */}
-                <div className="lg:col-span-7 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
-                        Agenda Inteligente
+                {/* Tarjeta del plan (Azul Tinta) */}
+                <div className="lg:col-span-7 bg-azul-tinta text-rosa-niebla rounded-[24px] p-7 sm:p-9 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="font-mono text-[13px] text-esmeralda-clara">
+                        Agenda inteligente
                       </span>
-                      <span className="font-mono text-[11px] text-zinc-400">
+                      <span className="font-mono text-xs text-texto-azul-muted">
                         Disponibilidad 24/7
                       </span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-black uppercase text-white mb-3 tracking-tight">
-                      Citas / Booking
+                    <h3 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-rosa-niebla tracking-[-0.03em] leading-none">
+                      NEXOL Citas
                     </h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                      Reservas online 24/7 con cobro automático al finalizar la cita — sin agenda de papel ni cobros pendientes por recordar.
+                    <p className="m-0 text-texto-azul text-[16px] leading-[1.5]">
+                      Reservas en línea 24/7 con cobro automático al finalizar
+                      la cita — sin agenda de papel ni cobros pendientes por
+                      recordar.
                     </p>
 
-                    {/* Flat Price Block */}
-                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
+                    {/* Precio */}
+                    <div className="py-4 border-y border-rosa-niebla/20 flex flex-col gap-1.5">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-black text-white tracking-tight">
+                        <span className="font-bricolage text-5xl sm:text-[64px] font-extrabold text-rosa-niebla leading-none tracking-[-0.04em]">
                           ${CITAS_MONTHLY_PRICE}
                         </span>
-                        <span className="font-mono text-sm text-zinc-300 font-bold">
-                          /mes
-                        </span>
-                        <span className="font-mono text-xs text-zinc-400 ml-1">
-                          por negocio
+                        <span className="text-[15px] text-texto-azul">
+                          / mes por negocio
                         </span>
                       </div>
-                      <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-[#8FD14F]" />
+                      <p className="m-0 font-mono text-xs text-texto-azul-muted flex items-center gap-2">
+                        <span className="text-esmeralda-clara font-bold">✓</span>
                         <span>
                           Actualizaciones continuas, hosting y soporte técnico incluidos
                         </span>
                       </p>
                     </div>
 
-                    {/* Features List */}
-                    <div className="space-y-3 mb-8">
-                      <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-bold">
-                        Capacidades incluidas:
-                      </p>
+                    {/* Lista de capacidades */}
+                    <ul className="m-0 p-0 list-none flex flex-col gap-2.5 text-[15px] leading-[1.45] text-texto-azul">
                       {[
-                        "Portal público de reservas 24/7",
-                        "Selección de múltiples servicios en una sola cita",
-                        "Especialistas filtrados automáticamente según servicios elegidos",
-                        "Bloqueo temporal de horarios (sin dobles reservas)",
-                        "Cobro automático al completar la cita",
-                        "Confirmación automática por email y WhatsApp",
+                        "Portal público de reservas 24/7.",
+                        "Selección de múltiples servicios en una sola cita.",
+                        "Especialistas filtrados automáticamente según servicios elegidos.",
+                        "Bloqueo temporal de horarios (sin dobles reservas).",
+                        "Cobro automático al completar la cita.",
+                        "Confirmación automática por correo y WhatsApp.",
                       ].map((feat, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-3 text-sm text-zinc-300"
-                        >
-                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
+                        <li key={idx} className="flex items-start gap-2.5">
+                          <span
+                            aria-hidden="true"
+                            className="text-esmeralda-clara font-bold shrink-0"
+                          >
+                            ✓
+                          </span>
                           <span>{feat}</span>
-                        </div>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola Nexol, me interesa el módulo de Citas / Booking ($30/mes).",
+                      `Hola NEXOL, me interesa el sistema NEXOL Citas ($${CITAS_MONTHLY_PRICE}/mes).`,
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
+                    className="self-start inline-flex items-center justify-center gap-2 min-h-[52px] px-[26px] rounded-[12px] bg-rosa-niebla hover:bg-blanco text-azul-tinta font-semibold text-[16px] no-underline transition-colors mt-2"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Comenzar con Citas</span>
+                    <span>Comenzar con NEXOL Citas</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
 
-                {/* Side Card: Qué incluye tu membresía (5 cols) */}
-                <div className="lg:col-span-5 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
-                  <div>
-                    <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
-                      Servicio Continuo
-                    </h4>
-                    <h5 className="text-xl font-bold uppercase text-white mb-3 tracking-tight">
+                {/* Tarjeta lateral blanca */}
+                <div className="lg:col-span-5 bg-blanco text-azul-tinta rounded-[24px] p-6 sm:p-8 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-3.5">
+                    <span className="font-mono text-[13px] text-esmeralda-oscura">
+                      Servicio continuo
+                    </span>
+                    <h4 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-azul-tinta tracking-tight leading-tight">
                       Qué incluye tu membresía
-                    </h5>
-                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                    </h4>
+                    <p className="m-0 text-texto-secundario text-sm leading-relaxed">
                       Todo lo necesario para que tu sistema funcione de manera
                       ininterrumpida y sin costos imprevistos.
                     </p>
 
-                    <div className="space-y-4">
+                    <div className="flex flex-col gap-3 pt-1">
                       {[
                         {
-                          title: "Soporte Técnico Continuo",
+                          title: "Soporte técnico continuo",
                           desc: "Asistencia directa, resolución de dudas y acompañamiento continuo vía WhatsApp.",
                         },
                         {
-                          title: "Actualizaciones sin Costo Extra",
+                          title: "Actualizaciones sin costo extra",
                           desc: "Nuevas mejoras de software, optimizaciones y parches automáticos sin cargos adicionales.",
                         },
                         {
-                          title: "Hosting Incluido",
+                          title: "Hosting incluido",
                           desc: "Tu información en la nube, siempre disponible, sin pagar infraestructura aparte.",
                         },
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md"
+                          className="p-4 rounded-[14px] bg-rosa-niebla/65 flex flex-col gap-1"
                         >
-                          <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
+                          <div className="font-semibold text-sm text-azul-tinta flex items-center gap-2">
+                            <span
+                              aria-hidden="true"
+                              className="w-2 h-2 rounded-full bg-esmeralda shrink-0"
+                            />
                             {item.title}
                           </div>
-                          <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                          <p className="m-0 text-xs text-texto-secundario leading-relaxed pl-4">
                             {item.desc}
                           </p>
                         </div>
@@ -699,8 +669,8 @@ export const Pricing = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-400 font-mono text-center">
-                    Capturas de este módulo — próximamente.
+                  <div className="pt-4 border-t border-azul-tinta/15 text-xs text-texto-secundario-muted font-mono text-center">
+                    Instalación y capacitación inicial incluidas.
                   </div>
                 </div>
               </motion.div>
@@ -712,128 +682,130 @@ export const Pricing = () => {
             {activeCategory === "cartera" && (
               <motion.div
                 key="cartera"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+                role="tabpanel"
+                id="panel-cartera"
+                aria-labelledby="tab-cartera"
+                {...panelMotionProps}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch"
               >
-                {/* Main Plan Card (7 cols) */}
-                <div className="lg:col-span-7 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold">
-                        Control Financiero
+                {/* Tarjeta del plan (Azul Tinta) */}
+                <div className="lg:col-span-7 bg-azul-tinta text-rosa-niebla rounded-[24px] p-7 sm:p-9 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="font-mono text-[13px] text-esmeralda-clara">
+                        Control financiero
                       </span>
-                      <span className="font-mono text-[11px] text-zinc-400">
-                        Cuentas Claras
+                      <span className="font-mono text-xs text-texto-azul-muted">
+                        Cuentas claras
                       </span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-black uppercase text-white mb-3 tracking-tight">
-                      Cartera de Cobro
+                    <h3 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-rosa-niebla tracking-[-0.03em] leading-none">
+                      NEXOL Cobros
                     </h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                      Controlá el crédito de tus clientes y de las empresas con convenio: cada consumo queda en su cuenta, con límite de crédito y estado de cuenta listo para cobrar. Se acabó la libreta.
+                    <p className="m-0 text-texto-azul text-[16px] leading-[1.5]">
+                      Controlá el crédito de tus clientes y de las empresas con
+                      convenio: cada consumo queda en su cuenta, con límite de
+                      crédito y estado de cuenta listo para cobrar. Se acabó la
+                      libreta.
                     </p>
 
-                    {/* Flat Price Block */}
-                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
+                    {/* Precio */}
+                    <div className="py-4 border-y border-rosa-niebla/20 flex flex-col gap-1.5">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-black text-white tracking-tight">
+                        <span className="font-bricolage text-5xl sm:text-[64px] font-extrabold text-rosa-niebla leading-none tracking-[-0.04em]">
                           ${CARTERA_MONTHLY_PRICE}
                         </span>
-                        <span className="font-mono text-sm text-zinc-300 font-bold">
-                          /mes
-                        </span>
-                        <span className="font-mono text-xs text-zinc-400 ml-1">
-                          por negocio
+                        <span className="text-[15px] text-texto-azul">
+                          / mes por negocio
                         </span>
                       </div>
-                      <p className="font-mono text-xs text-zinc-400 mt-2 flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-[#8FD14F]" />
+                      <p className="m-0 font-mono text-xs text-texto-azul-muted flex items-center gap-2">
+                        <span className="text-esmeralda-clara font-bold">✓</span>
                         <span>
                           Actualizaciones continuas, hosting y soporte técnico incluidos
                         </span>
                       </p>
                     </div>
 
-                    {/* Features List */}
-                    <div className="space-y-3 mb-8">
-                      <p className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-bold">
-                        Capacidades incluidas:
-                      </p>
+                    {/* Lista de capacidades */}
+                    <ul className="m-0 p-0 list-none flex flex-col gap-2.5 text-[15px] leading-[1.45] text-texto-azul">
                       {[
-                        "Ventas a crédito (fiado) por cliente, con historial conectado a la venta que lo originó",
-                        "Registro de abonos y pagos parciales",
-                        "Límite de crédito por persona y por empresa, con autorización del encargado para las excepciones",
-                        "Empresas y convenios: agrupá a tus empleados, estudiantes o clientes por empresa e identificalos con su carnet y lector de código de barras",
-                        "Estado de cuenta por empresa y por persona, exportable a Excel, para deducción de planilla o cobro periódico",
-                        "Cortes por quincena, mes o semana, y registro del pago de la empresa aplicado a cada cuenta",
+                        "Ventas a crédito (fiado) por cliente, con historial conectado a la venta que lo originó.",
+                        "Registro de abonos y pagos parciales con saldo al día.",
+                        "Límite de crédito por persona y por empresa, con autorización del encargado.",
+                        "Empresas y convenios: agrupá a tus clientes por empresa e identificalos con su carnet.",
+                        "Estado de cuenta por empresa y por persona, exportable a Excel para planilla.",
+                        "Cortes por quincena, mes o semana, y aplicación de pagos masivos.",
                       ].map((feat, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-3 text-sm text-zinc-300"
-                        >
-                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
+                        <li key={idx} className="flex items-start gap-2.5">
+                          <span
+                            aria-hidden="true"
+                            className="text-esmeralda-clara font-bold shrink-0"
+                          >
+                            ✓
+                          </span>
                           <span>{feat}</span>
-                        </div>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   <a
                     href={getWhatsAppLink(
-                      "Hola Nexol, me interesa el módulo de Cartera de Cobro ($25/mes).",
+                      `Hola NEXOL, me interesa el sistema NEXOL Cobros ($${CARTERA_MONTHLY_PRICE}/mes).`,
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
+                    className="self-start inline-flex items-center justify-center gap-2 min-h-[52px] px-[26px] rounded-[12px] bg-rosa-niebla hover:bg-blanco text-azul-tinta font-semibold text-[16px] no-underline transition-colors mt-2"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Comenzar con Cartera</span>
+                    <span>Comenzar con NEXOL Cobros</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
 
-                {/* Side Card: Qué incluye tu membresía (5 cols) */}
-                <div className="lg:col-span-5 relative z-10 p-0 sm:p-4 flex flex-col justify-between">
-                  <div>
-                    <h4 className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">
-                      Servicio Continuo
-                    </h4>
-                    <h5 className="text-xl font-bold uppercase text-white mb-3 tracking-tight">
+                {/* Tarjeta lateral blanca */}
+                <div className="lg:col-span-5 bg-blanco text-azul-tinta rounded-[24px] p-6 sm:p-8 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-3.5">
+                    <span className="font-mono text-[13px] text-esmeralda-oscura">
+                      Servicio continuo
+                    </span>
+                    <h4 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-azul-tinta tracking-tight leading-tight">
                       Qué incluye tu membresía
-                    </h5>
-                    <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                    </h4>
+                    <p className="m-0 text-texto-secundario text-sm leading-relaxed">
                       Todo lo necesario para que tu sistema funcione de manera
                       ininterrumpida y sin costos imprevistos.
                     </p>
 
-                    <div className="space-y-4">
+                    <div className="flex flex-col gap-3 pt-1">
                       {[
                         {
-                          title: "Soporte Técnico Continuo",
+                          title: "Soporte técnico continuo",
                           desc: "Asistencia directa, resolución de dudas y acompañamiento continuo vía WhatsApp.",
                         },
                         {
-                          title: "Actualizaciones sin Costo Extra",
+                          title: "Actualizaciones sin costo extra",
                           desc: "Nuevas mejoras de software, optimizaciones y parches automáticos sin cargos adicionales.",
                         },
                         {
-                          title: "Hosting Incluido",
+                          title: "Hosting incluido",
                           desc: "Tu información en la nube, siempre disponible, sin pagar infraestructura aparte.",
                         },
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md"
+                          className="p-4 rounded-[14px] bg-rosa-niebla/65 flex flex-col gap-1"
                         >
-                          <div className="font-bold text-sm uppercase text-white flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-[#8FD14F]" />
+                          <div className="font-semibold text-sm text-azul-tinta flex items-center gap-2">
+                            <span
+                              aria-hidden="true"
+                              className="w-2 h-2 rounded-full bg-esmeralda shrink-0"
+                            />
                             {item.title}
                           </div>
-                          <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                          <p className="m-0 text-xs text-texto-secundario leading-relaxed pl-4">
                             {item.desc}
                           </p>
                         </div>
@@ -841,136 +813,179 @@ export const Pricing = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-zinc-800 text-xs text-zinc-400 font-mono text-center">
-                    Capturas de este módulo — próximamente.
+                  <div className="pt-4 border-t border-azul-tinta/15 text-xs text-texto-secundario-muted font-mono text-center">
+                    Se integra con NEXOL POS o funciona de forma independiente.
                   </div>
                 </div>
               </motion.div>
             )}
 
             {/* ================================================================= */}
-            {/* PESTAÑA 5: LOGÍSTICA Y DELIVERY (SIN PRECIOS NI NÚMEROS)          */}
+            {/* PESTAÑA 5: LOGÍSTICA Y DELIVERY                                   */}
             {/* ================================================================= */}
             {activeCategory === "logistics" && (
               <motion.div
                 key="logistics"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="relative z-10 p-0 sm:p-4"
+                role="tabpanel"
+                id="panel-logistics"
+                aria-labelledby="tab-logistics"
+                {...panelMotionProps}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                  {/* Left Column: Value Proposition (7 cols) */}
-                  <div className="lg:col-span-7">
-                    <span className="font-mono text-xs uppercase tracking-wider text-[#8FD14F] font-bold block mb-2">
-                      Modelo Flexible
+                {/* Tarjeta del plan (Azul Tinta) */}
+                <div className="lg:col-span-7 bg-azul-tinta text-rosa-niebla rounded-[24px] p-7 sm:p-9 flex flex-col justify-between gap-5">
+                  <div className="flex flex-col gap-4">
+                    <span className="font-mono text-[13px] text-esmeralda-clara">
+                      Modelo flexible
                     </span>
 
-                    <h3 className="text-2xl sm:text-4xl font-black uppercase text-white mb-4 tracking-tight">
-                      Logística y Delivery Inteligente
+                    <h3 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-rosa-niebla tracking-[-0.03em] leading-none">
+                      NEXOL Delivery
                     </h3>
 
-                    {/* Flat Highlight Box (Zero fixed cost) */}
-                    <div className="p-6 rounded-[2px] bg-white/5 border border-white/10 backdrop-blur-md mb-6">
-                      <p className="text-base sm:text-lg font-bold text-white leading-snug uppercase tracking-tight">
-                        "Modelo de comisión por entrega — sin costo fijo
-                        mensual, solo pagás cuando tu negocio despacha."
+                    {/* Destacado de modelo */}
+                    <div className="py-4 border-y border-rosa-niebla/20 flex flex-col gap-1.5">
+                      <p className="m-0 font-bricolage text-xl sm:text-2xl font-bold text-rosa-niebla leading-snug">
+                        “Modelo de comisión por entrega — sin costo fijo mensual,
+                        solo pagás cuando tu negocio despacha.”
                       </p>
-                      <p className="text-xs text-zinc-400 mt-2 font-mono leading-relaxed">
+                      <p className="m-0 text-xs text-texto-azul-muted font-mono leading-relaxed">
                         Tarifa acordada por pedido entregado según el volumen de
                         tu operación. Si no despachás, no pagás.
                       </p>
                     </div>
 
-                    {/* Key Technical Highlights (Clean checks) */}
-                    <div className="space-y-3 mb-4">
+                    {/* Lista de capacidades */}
+                    <ul className="m-0 p-0 list-none flex flex-col gap-2.5 text-[15px] leading-[1.45] text-texto-azul">
                       {[
-                        "Despacho automático algorítmico al repartidor más cercano o asignación manual",
-                        "Tracking GPS en tiempo real para el cliente final (sin necesidad de descargar apps)",
-                        "App móvil nativa para repartidores con telemetría en vivo y ruta optimizada",
-                        "Panel web administrativo multi-tenant para monitorear órdenes, tiempos y flota",
-                        "Liquidación automática y transparente de comisiones por cada entrega completada",
+                        "Despacho automático al repartidor más cercano o asignación manual.",
+                        "Seguimiento GPS en tiempo real para tu cliente final (sin descargar apps).",
+                        "App móvil para repartidores con telemetría en vivo y ruta optimizada.",
+                        "Panel web administrativo para monitorear órdenes, tiempos y flota.",
+                        "Liquidación automática y transparente de comisiones por entrega completada.",
                       ].map((feat, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-3 text-sm text-zinc-300"
-                        >
-                          <Check className="w-4 h-4 text-[#8FD14F] shrink-0 mt-0.5" />
+                        <li key={idx} className="flex items-start gap-2.5">
+                          <span
+                            aria-hidden="true"
+                            className="text-esmeralda-clara font-bold shrink-0"
+                          >
+                            ✓
+                          </span>
                           <span>{feat}</span>
-                        </div>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
-                  {/* Right Column: CTA (5 cols) */}
-                  <div className="lg:col-span-5 relative z-10 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2px] p-8 flex flex-col justify-between text-center">
-                    <div>
-                      <div className="w-12 h-12 rounded-[2px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#8FD14F] mx-auto mb-4">
-                        <Calendar className="w-6 h-6" />
+                  <a
+                    href={getWhatsAppLink(
+                      "Hola NEXOL, me interesa conversar sobre NEXOL Delivery (modelo por entrega).",
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="self-start inline-flex items-center justify-center gap-2 min-h-[52px] px-[26px] rounded-[12px] bg-rosa-niebla hover:bg-blanco text-azul-tinta font-semibold text-[16px] no-underline transition-colors mt-2"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Consultar por WhatsApp</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+
+                {/* Tarjeta lateral blanca */}
+                <div className="lg:col-span-5 bg-blanco text-azul-tinta rounded-[24px] p-6 sm:p-8 flex flex-col justify-between gap-6">
+                  <div className="flex flex-col gap-3.5">
+                    <span className="font-mono text-[13px] text-esmeralda-oscura">
+                      A tu medida
+                    </span>
+                    <h4 className="m-0 font-bricolage text-[clamp(22px,1.8vw,32px)] font-extrabold text-azul-tinta tracking-tight leading-tight">
+                      Agendar una llamada
+                    </h4>
+                    <p className="m-0 text-sm text-texto-secundario leading-relaxed">
+                      Revisamos tu volumen de pedidos y definimos la tarifa por
+                      viaje adecuada a tu negocio, con demostración en vivo de
+                      la plataforma y la aplicación de repartidores.
+                    </p>
+
+                    <div className="flex flex-col gap-3 pt-1">
+                      <div className="p-4 rounded-[14px] bg-rosa-niebla/65 flex flex-col gap-1">
+                        <div className="font-semibold text-sm text-azul-tinta flex items-center gap-2">
+                          <span
+                            aria-hidden="true"
+                            className="w-2 h-2 rounded-full bg-esmeralda shrink-0"
+                          />
+                          Sin mensualidad fija
+                        </div>
+                        <p className="m-0 text-xs text-texto-secundario leading-relaxed pl-4">
+                          Ideal para restaurantes, farmacias y comercios con
+                          flota propia o motorizados aliados.
+                        </p>
                       </div>
-
-                      <h4 className="text-xl font-bold uppercase text-white mb-2 tracking-tight">
-                        Agendar una llamada
-                      </h4>
-                      <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
-                        Revisamos tu volumen de pedidos y definimos la tarifa
-                        por viaje adecuada a tu negocio.
-                      </p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <a
-                        href={getWhatsAppLink(
-                          "Hola Nexol, me interesa agendar una llamada sobre el Sistema de Logística y Delivery (modelo de comisión).",
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-3.5 rounded-[2px] bg-[#8FD14F] hover:bg-[#5FA22B] text-black font-mono text-xs uppercase tracking-wider font-bold text-center flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]"
-                      >
-                        <MessageCircle className="w-4 h-4" />
-                        <span>Agendar una llamada</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
+                      <div className="p-4 rounded-[14px] bg-rosa-niebla/65 flex flex-col gap-1">
+                        <div className="font-semibold text-sm text-azul-tinta flex items-center gap-2">
+                          <span
+                            aria-hidden="true"
+                            className="w-2 h-2 rounded-full bg-esmeralda shrink-0"
+                          />
+                          Rastreo en vivo para tu cliente
+                        </div>
+                        <p className="m-0 text-xs text-texto-secundario leading-relaxed pl-4">
+                          Tu cliente recibe un enlace por WhatsApp para ver su
+                          pedido en el mapa en tiempo real.
+                        </p>
+                      </div>
                     </div>
                   </div>
+
+                  <a
+                    href={getWhatsAppLink(
+                      "Hola NEXOL, me gustaría agendar una demostración de NEXOL Delivery.",
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 min-h-[52px] px-6 rounded-[12px] bg-esmeralda-oscura hover:bg-esmeralda-hover text-blanco font-semibold text-[15px] no-underline transition-colors"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    <span>Agendar demostración</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Lightbox for POS Screenshots */}
+      {/* Lightbox para capturas de POS */}
       <AnimatePresence>
         {lightboxImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-azul-profundo/90 backdrop-blur-md"
             onClick={() => setLightboxImage(null)}
           >
             <motion.img
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.2 }}
               src={lightboxImage}
-              alt="TrackDeli POS Captura"
-              className="relative max-w-[95vw] max-h-[92vh] object-contain rounded-[2px] border border-zinc-800"
+              alt="Captura NEXOL POS"
+              className="relative max-w-[95vw] max-h-[90vh] object-contain rounded-xl border border-blanco/20"
               onClick={(e) => e.stopPropagation()}
             />
             <button
+              type="button"
               onClick={() => setLightboxImage(null)}
-              className="absolute top-6 right-6 z-20 px-4 py-2 bg-[#121212] hover:bg-zinc-800 font-mono text-xs uppercase tracking-wider text-white border border-zinc-700 rounded-[2px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8FD14F]"
+              className="absolute top-6 right-6 z-20 flex items-center gap-2 px-4 py-2 bg-rosa-niebla text-azul-tinta font-mono text-xs font-bold rounded-full cursor-pointer border-0"
             >
+              <Minimize2 className="w-4 h-4 text-azul-tinta" />
               Cerrar
             </button>
           </motion.div>
         )}
       </AnimatePresence>
-      </div>
     </Section>
   );
 };

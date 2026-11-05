@@ -14,8 +14,8 @@ export interface ServiceSceneData {
 export const BASE_SERVICES: ServiceSceneData[] = [
   {
     id: "01",
-    tag: "Punto de Venta",
-    title: "Punto de Venta (POS)",
+    tag: "Punto de venta",
+    title: "NEXOL POS",
     price: `$${POS_PRICE}/mes por sucursal`,
     desc: "Cobro rápido con pagos mixtos y dólares, control de caja por turno y cajero, inventario y reportes de ventas.",
     image: "/assets/project/pos/caja_POS.png",
@@ -24,8 +24,8 @@ export const BASE_SERVICES: ServiceSceneData[] = [
   },
   {
     id: "02",
-    tag: "Cartera de Cobro",
-    title: "Cartera de Cobro",
+    tag: "NEXOL Cobros",
+    title: "NEXOL Cobros",
     price: "$25/mes por negocio",
     desc: "Cargá consumos a cuenta de empleados con carnet de código de barras y generá el reporte de deducción para planilla.",
     image: "/assets/project/pos/historial_POS.png",
@@ -34,8 +34,8 @@ export const BASE_SERVICES: ServiceSceneData[] = [
   },
   {
     id: "03",
-    tag: "Citas en línea",
-    title: "Agenda de Citas",
+    tag: "NEXOL Citas",
+    title: "NEXOL Citas",
     price: "$30/mes",
     desc: "Reservas en línea para tus clientes, agenda por profesional y confirmación automática.",
     image: "/assets/project/bookingwebsite/project.png",
@@ -44,8 +44,8 @@ export const BASE_SERVICES: ServiceSceneData[] = [
   },
   {
     id: "04",
-    tag: "Delivery",
-    title: "Delivery",
+    tag: "NEXOL Delivery",
+    title: "NEXOL Delivery",
     price: "Comisión por entrega",
     desc: "Despacho en tiempo real con mapa, repartidores y seguimiento de pedidos.",
     image: "/assets/project/webtrack/dash_webtrack.png",
