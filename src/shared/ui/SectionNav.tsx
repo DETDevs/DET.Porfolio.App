@@ -55,6 +55,7 @@ export const SectionNav = () => {
 
   return (
     <aside
+      id="section-nav"
       aria-label="Navegación de secciones"
       className={`fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-end gap-3 transition-opacity duration-500 ${
         visible ? "opacity-100" : "opacity-0 pointer-events-none"

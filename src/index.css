@@ -68,6 +68,16 @@
   font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
+/* Ocultar navbar, navegación lateral y botón volver arriba cuando el modal de proyectos esté abierto */
+body.modal-open header,
+body.modal-open #section-nav,
+body.modal-open button[aria-label="Volver arriba"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* Legal markdown styling */
 .legal-prose {
   font-family: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

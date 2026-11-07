@@ -31,9 +31,21 @@ const Footer = lazy(() =>
 
 function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
   // Smooth scrolling (Lenis + GSAP ScrollTrigger)
   useLenisSmoothScroll();
+
+  // Escuchar si el modal de proyecto está abierto para ocultar navbar y scroll-to-top
+  useEffect(() => {
+    const handleModalToggle = (e: Event) => {
+      const custom = e as CustomEvent<{ open: boolean }>;
+      setIsProjectModalOpen(!!custom.detail?.open);
+    };
+    window.addEventListener("project-modal-toggle", handleModalToggle);
+    return () =>
+      window.removeEventListener("project-modal-toggle", handleModalToggle);
+  }, []);
 
   // Analytics Initialization (Deferred for Performance)
   useEffect(() => {
@@ -74,7 +86,7 @@ function App() {
   return (
     <div className="min-h-screen bg-rosa-niebla text-azul-tinta selection:bg-azul-tinta selection:text-rosa-niebla relative overflow-x-clip">
       <Navbar />
-      <SectionNav />
+      {!isProjectModalOpen && <SectionNav />}
 
       <main className="relative z-10">
         <Hero />
@@ -101,31 +113,33 @@ function App() {
         <Footer />
       </Suspense>
 
-      {/* Back to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 z-40 p-3 rounded-full bg-azul-tinta border border-rosa-niebla/20 text-rosa-niebla shadow-lg hover:bg-esmeralda-oscura hover:text-blanco transition-all duration-300 group cursor-pointer ${
-          showBackToTop
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-10 pointer-events-none"
-        }`}
-        aria-label="Volver arriba"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="group-hover:-translate-y-0.5 transition-transform"
+      {/* Back to Top Button (oculto si el modal está abierto) */}
+      {!isProjectModalOpen && (
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-6 right-6 z-40 p-3 rounded-full bg-azul-tinta border border-rosa-niebla/20 text-rosa-niebla shadow-lg hover:bg-esmeralda-oscura hover:text-blanco transition-all duration-300 group cursor-pointer ${
+            showBackToTop
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10 pointer-events-none"
+          }`}
+          aria-label="Volver arriba"
         >
-          <path d="m18 15-6-6-6 6" />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="group-hover:-translate-y-0.5 transition-transform"
+          >
+            <path d="m18 15-6-6-6 6" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

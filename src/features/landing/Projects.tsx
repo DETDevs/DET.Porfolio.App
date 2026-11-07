@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   X,
@@ -346,6 +347,27 @@ export const Projects = () => {
     handleNextImage,
   ]);
 
+  useEffect(() => {
+    const isOpen = !!selectedProject;
+    if (isOpen) {
+      document.body.classList.add("modal-open");
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.classList.remove("modal-open");
+      document.body.style.overflow = "";
+    }
+    window.dispatchEvent(
+      new CustomEvent("project-modal-toggle", { detail: { open: isOpen } }),
+    );
+    return () => {
+      document.body.classList.remove("modal-open");
+      document.body.style.overflow = "";
+      window.dispatchEvent(
+        new CustomEvent("project-modal-toggle", { detail: { open: false } }),
+      );
+    };
+  }, [selectedProject]);
+
   return (
     <>
       <section
@@ -527,14 +549,16 @@ export const Projects = () => {
       {/* ============================================================= */}
       {/* MODAL DE PROYECTO (245-referencia-portafolio-modal.html)      */}
       {/* ============================================================= */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-project-title"
-            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
-          >
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {selectedProject && (
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-project-title"
+                className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+              >
             {/* Backdrop: Azul profundo al 86% */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -810,35 +834,41 @@ export const Projects = () => {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body,
+    )}
 
       {/* Lightbox a pantalla completa */}
-      <AnimatePresence>
-        {isFullscreen && selectedProject?.gallery && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-azul-profundo/95 backdrop-blur-md select-none"
-            onClick={() => setIsFullscreen(false)}
-          >
-            <img
-              src={selectedProject.gallery[mainImageIndex]}
-              alt={`${selectedProject.title} pantalla completa`}
-              className="relative max-w-[95vw] max-h-[90vh] object-contain rounded-xl border border-blanco/20"
-              onClick={(e) => e.stopPropagation()}
-            />
-            <button
-              type="button"
-              onClick={() => setIsFullscreen(false)}
-              className="absolute top-6 right-6 z-20 flex items-center gap-2 px-4 py-2 bg-rosa-niebla text-azul-tinta font-mono text-xs font-bold rounded-full border-none cursor-pointer"
-            >
-              <Minimize2 className="w-4 h-4 text-azul-tinta" />
-              Cerrar
-            </button>
-          </motion.div>
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {isFullscreen && selectedProject?.gallery && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-azul-profundo/95 backdrop-blur-md select-none"
+                onClick={() => setIsFullscreen(false)}
+              >
+                <img
+                  src={selectedProject.gallery[mainImageIndex]}
+                  alt={`${selectedProject.title} pantalla completa`}
+                  className="relative max-w-[95vw] max-h-[90vh] object-contain rounded-xl border border-blanco/20"
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsFullscreen(false)}
+                  className="absolute top-6 right-6 z-20 flex items-center gap-2 px-4 py-2 bg-rosa-niebla text-azul-tinta font-mono text-xs font-bold rounded-full border-none cursor-pointer"
+                >
+                  <Minimize2 className="w-4 h-4 text-azul-tinta" />
+                  Cerrar
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </>
   );
 };
